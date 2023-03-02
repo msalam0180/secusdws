@@ -1,0 +1,8 @@
+uuid: 8a20a3da-539c-437e-a9f7-6b75b172316b
+langcode: en
+status: true
+dependencies: {  }
+name: 'SRO Organization'
+vid: sro_organization
+description: ''
+weight: 0

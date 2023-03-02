@@ -1,0 +1,25 @@
+uuid: 7e7ae240-bf12-4a52-b2dc-aed08df6bd01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_quick_links
+    - taxonomy.vocabulary.rule_type
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: taxonomy_term.rule_type.field_quick_links
+field_name: field_quick_links
+entity_type: taxonomy_term
+bundle: rule_type
+label: 'Quick Links'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

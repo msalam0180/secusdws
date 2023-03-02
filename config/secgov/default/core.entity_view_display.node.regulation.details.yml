@@ -1,0 +1,382 @@
+uuid: f103dadc-8bf5-4383-a78e-98bb245b7de0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.details
+    - field.field.node.regulation.body
+    - field.field.node.regulation.field_applicability_date
+    - field.field.node.regulation.field_comments_date_format
+    - field.field.node.regulation.field_comments_due_date
+    - field.field.node.regulation.field_comments_notice
+    - field.field.node.regulation.field_compliance_date
+    - field.field.node.regulation.field_conformed_to_federal_regis
+    - field.field.node.regulation.field_display_title
+    - field.field.node.regulation.field_document_citation
+    - field.field.node.regulation.field_effective_date
+    - field.field.node.regulation.field_federal_register_publish_d
+    - field.field.node.regulation.field_federal_register_version
+    - field.field.node.regulation.field_notes
+    - field.field.node.regulation.field_parent_rule
+    - field.field.node.regulation.field_primary_division_office
+    - field.field.node.regulation.field_publish_date
+    - field.field.node.regulation.field_release_file
+    - field.field.node.regulation.field_release_file_number
+    - field.field.node.regulation.field_release_number
+    - field.field.node.regulation.field_rin
+    - field.field.node.regulation.field_rule_type
+    - field.field.node.regulation.field_see_also
+    - field.field.node.regulation.field_submitted_by
+    - node.type.regulation
+  module:
+    - datetime
+    - empty_fields
+    - field_group
+    - file_download_link_media
+    - fixed_text_link_formatter
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_side_section:
+      children:
+        - group_resources
+        - group_details_label
+        - field_comments_due_date
+        - field_comments_notice
+      label: Details
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: details-section
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_resources:
+      children:
+        - field_release_file
+        - field_federal_register_version
+        - field_see_also
+      label: Resources
+      parent_name: group_side_section
+      region: content
+      weight: 1
+      format_type: html_element
+      format_settings:
+        classes: side-resources
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_main_section:
+      children:
+        - group_public_comments
+        - group_overview
+        - group_more_about_this_release
+      label: 'Main Section'
+      parent_name: ''
+      region: hidden
+      weight: 12
+      format_type: html_element
+      format_settings:
+        classes: section-main
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_public_comments:
+      children:
+        - group_button_group
+      label: 'Public Comments'
+      parent_name: group_main_section
+      region: hidden
+      weight: 2
+      format_type: html_element
+      format_settings:
+        classes: public-comments
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_grid_container:
+      children: {  }
+      label: 'Grid Container'
+      parent_name: ''
+      region: hidden
+      weight: 13
+      format_type: html_element
+      format_settings:
+        classes: grid-container_side-section
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_overview:
+      children:
+        - body
+      label: Overview
+      parent_name: group_main_section
+      region: hidden
+      weight: 3
+      format_type: html_element
+      format_settings:
+        classes: regulation-overview
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_more_about_this_release:
+      children: {  }
+      label: 'More About This Release'
+      parent_name: group_main_section
+      region: hidden
+      weight: 4
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_button_group:
+      children: {  }
+      label: 'Button Group'
+      parent_name: group_public_comments
+      region: hidden
+      weight: 7
+      format_type: html_element
+      format_settings:
+        classes: button-group
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_regulation_sidebar:
+      children: {  }
+      label: 'Regulation Sidebar'
+      parent_name: ''
+      region: hidden
+      weight: 11
+      format_type: html_element
+      format_settings:
+        classes: regulation-sidebar
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_details_label:
+      children:
+        - field_rule_type
+        - field_release_number
+        - field_publish_date
+        - field_effective_date
+        - field_compliance_date
+        - field_applicability_date
+        - field_federal_register_publish_d
+        - field_document_citation
+        - field_rin
+        - field_notes
+      label: Details
+      parent_name: group_side_section
+      region: content
+      weight: 2
+      format_type: html_element
+      format_settings:
+        classes: side-details
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.regulation.details
+targetEntityType: node
+bundle: regulation
+mode: details
+content:
+  field_applicability_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_compliance_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_document_citation:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_effective_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_federal_register_publish_d:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_federal_register_version:
+    type: fixed_text_link
+    label: hidden
+    settings:
+      trim_length: null
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: _blank
+      link_text: 'Federal Register Version'
+      link_class: ''
+      allow_override: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 8
+    region: content
+  field_notes:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_publish_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_release_file:
+    type: file_download_link_media
+    label: hidden
+    settings:
+      link_text: 'SEC Issued --rule_type-- --span--[file:extension]--span_end-- ([file:size])'
+      link_title: ''
+      new_tab: true
+      force_download: true
+      custom_classes: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 7
+    region: content
+  field_release_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_rin:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_rule_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 3
+    region: content
+  field_see_also:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+hidden:
+  body: true
+  field_comments_date_format: true
+  field_comments_due_date: true
+  field_comments_notice: true
+  field_conformed_to_federal_regis: true
+  field_display_title: true
+  field_parent_rule: true
+  field_primary_division_office: true
+  field_release_file_number: true
+  field_submitted_by: true
+  links: true
+  search_api_excerpt: true

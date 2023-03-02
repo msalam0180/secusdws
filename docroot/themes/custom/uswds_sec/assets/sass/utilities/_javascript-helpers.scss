@@ -1,0 +1,31 @@
+// Helper classes for showing/hiding based on whther JS is enabled
+// stylelint-disable:disable no-important, force-element-nesting
+
+// SHOW when JS is DISABLED
+// (i.e. like a <noscript> tag)
+//---------------------------------
+.no-js-show {
+  display: none !important;
+
+  .no-js & {
+    display: block !important;
+  }
+}
+
+// HIDE when JS is DISABLED
+// (i.e. for things that require JS to work)
+//---------------------------------
+.no-js .no-js-hide {
+  display: none !important;
+}
+
+// HIDE when JS is ENABLED
+// (i.e. same as .no-js-show)
+//---------------------------------
+.js-hide {
+  display: none !important;
+
+  .no-js & {
+    display: block !important;
+  }
+}

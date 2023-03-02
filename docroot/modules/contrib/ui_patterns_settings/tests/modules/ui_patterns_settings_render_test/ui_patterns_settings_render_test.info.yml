@@ -1,0 +1,8 @@
+name: 'UI Patterns Settings Render Test'
+type: module
+core_version_requirement: ^8 || ^9
+
+# Information added by Drupal.org packaging script on 2022-09-29
+version: '8.x-2.0-beta16'
+project: 'ui_patterns_settings'
+datestamp: 1664462566

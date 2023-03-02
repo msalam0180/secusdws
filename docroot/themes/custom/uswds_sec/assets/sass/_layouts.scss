@@ -1,0 +1,46 @@
+// TODO: clean up file and split out as needed
+.main-content.has-expanded-sidenav {
+  display: block;
+    @include min-width($layout-sidenav-bp) {
+    display: flex;
+  }
+}
+
+.main-content__main{
+  flex-grow: 1;
+}
+
+// node-details-layout
+.node-details-layout {
+  @include layout-sidebar-wrap;
+}
+
+.node-details-layout__main-region {
+  @include layout-sidebar-main;
+
+  .block-system-breadcrumb-block {
+    padding-bottom: rem(37px);
+    padding-left: rem(37px);
+  }
+}
+
+.node-details-layout__sidebar-region {
+  @include layout-sidebar-aside;
+
+  .field__label {
+    font-weight: bold;
+  }
+}
+
+// layout-simple
+.page-layout-type--layout-simple {
+  .layout-simple-content {
+    @include default-page-bottom;
+  }
+
+  .block-system-breadcrumb-block {
+    padding-top: rem(37px);
+    padding-bottom: rem(37px);
+    padding-left: rem(37px);
+  }
+}

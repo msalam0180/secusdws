@@ -1,0 +1,31 @@
+# TODO: Work with BE devs so we don’t have to check in the dist folder
+dist/
+
+# Env files, just in case
+.env
+*.env
+.env.*
+
+# Package managers
+node_modules/
+.npm
+.yarn
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+# Info on ignoring Icon? files
+# https://stackoverflow.com/questions/17556250/how-to-ignore-icon-in-git
+Icon[
+]
+Thumbs.db
+._*
+
+# Vim generated files
+*.un~
+
+# Visual Studio
+.vscode/

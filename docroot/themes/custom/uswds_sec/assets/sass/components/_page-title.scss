@@ -1,0 +1,49 @@
+//------------------------------------------------------------------------
+// Default page title block
+//
+// See /templates/patterns/page_header/ for landing page title block
+//------------------------------------------------------------------------
+// Note: We want the text to align with the main column in desktop layout
+.page-title {
+  @include min-width($layout-sidebar-bp) {
+    // border-bottom: 1px solid $border-gray;
+    padding-bottom: rem(50px);
+  }
+
+  // NOTE: We need to override this for templates with a sidenav or sidebar
+  // .block-system-breadcrumb-block {
+  //   @include layout-fullwidth;
+  //   padding-right: rem(15px);
+  // }
+
+
+  &__heading {
+    @include page-title;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &__above-title {
+    display: flex;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+
+  &__label {
+    flex-grow: 1;
+
+    a {
+      color: $c-default;
+      font-family: $gotham-font-family;
+      font-weight: $gotham-medium;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+}

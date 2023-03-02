@@ -1,0 +1,34 @@
+govdelivery_form:
+  label: Gov Delivery Form
+  description: Sign-up form for email alerts
+  fields:
+    list_id:
+      type: text
+      label: Email list ID (TBD)
+      description: GovDelivery list ID (TBD)
+      preview: 1234
+    form_id_prefix:
+      type: text
+      label: Form ID Prefix
+      description: Prefix for all the IDs on the form.
+      preview: GD-snippet-form
+    class_prefix:
+      type: text
+      label: Class Prefix
+      description: Prefix for form classes
+      preview: govdelivery
+    label_text:
+      type: text
+      label: Label Text
+      description: Label for the form field
+      preview: Your email address
+    button_text:
+      type: text
+      label: Button Text
+      description: Label for button
+      preview: Sign Up  
+    is_button_big:
+      type: boolean
+      label: Is Button Big
+      description: Is this a big button?
+      preview: false

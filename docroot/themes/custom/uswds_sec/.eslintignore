@@ -1,0 +1,15 @@
+# Drupal defaults
+# https://git.drupalcode.org/project/drupal/blob/8.4.x/.eslintignore
+core/**/*
+vendor/**/*
+sites/**/files/**/*
+libraries/**/*
+sites/**/libraries/**/*
+profiles/**/libraries/**/*
+**/js_test_files/**/*
+node_modules/**/*
+
+# Custom SEC theme ignore paths
+assets/js/lib/**/*
+assets/js/uswds.js
+assets/js/uswds-init.js

@@ -1,0 +1,272 @@
+//------------------------------------------------------------------------
+// Navigation overrides
+//------------------------------------------------------------------------
+.usa-nav {
+  $selector: &;
+  $bp-wide: $layout-nav-bp;
+  --mobile-nav-speed: 150ms;
+  --mobile-nav-easing: ease;//#{$easeOutCubic};
+  background-color: #fff;
+  display: flex;// override USWDS default
+  float: none !important;// override USWDS default
+  z-index: $z-nav;
+
+  // This class is applied to the body when the mobile nav is expanded
+  // @at-root .usa-js-mobile-nav--active {
+  // }
+
+  @include max-width($bp-wide - 1px) {
+    opacity: 0;
+    padding: 0;// override USWDS default
+    top: 0;// var(--header-height);// defined in _base.scss
+    transition: opacity var(--mobile-nav-speed) var(--mobile-nav-easing),
+                visibility 0s linear var(--mobile-nav-speed);
+    visibility: hidden;
+    width: 100%;
+
+    &.is-visible {
+      animation: none !important;// override USWDS default
+      opacity: 1;
+      transition: opacity var(--mobile-nav-speed) var(--mobile-nav-easing),
+                  visibility 0s linear 0s;
+      visibility: visible;
+    }
+  }
+
+  // Note: Primary nav also has “.usa-accordion” class
+  &__primary {
+    $horz-padding-mobile: 16px;
+    margin-top: 0;// override USWDS default
+
+    @include min-width($bp-wide) {
+      justify-content: space-between;
+    }
+
+    .grid-row {
+      @include max-width($bp-wide - 1px) {
+        display: block;// undo grid styles in mobile
+      }
+    }
+
+    #{$selector}__submenu {
+      @include max-width($bp-wide - 1px) {
+        padding-bottom: rem(16px);
+        padding-top: rem(7px);
+      }
+
+      &-item {
+        border-top: 0;// override USWDS default
+
+        a {
+          color: $c-black !important;// override USWDS default
+          font-size: rem(16px);
+
+          @include max-width($bp-wide - 1px) {
+            padding: rem(10px $horz-padding-mobile);
+          }
+
+          &:hover,
+          &:focus,
+          &:active {
+            background-color: transparent;// override USWDS default
+            color: currentColor;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    &-item {
+      @include max-width($bp-wide - 1px) {
+        border-top: 0;// override USWDS default
+      }
+
+      @include min-width($bp-wide) {
+        flex-grow: 1;
+
+        // Instead of using JS to detect when the menu is cutoff on the right,
+        // USWDS just uses CSS to make the lest submenu right aligned, so we’re
+        // using that same approach.
+        &:last-of-type {
+          #{$selector}__submenu {
+            right: 0;
+          }
+        }
+      }
+    }// end item
+
+    // Menu toggle buttons
+    .usa-accordion__button {
+      $icon-size: 34px;// Note: USWDS icons are all placed on 24px art board
+      font-family: $gotham-font-family;
+      font-weight: bold;
+      transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+
+      // Use chevron instead of default plus/minus icon in mobile.
+      // Don’t switch chevron in desktop so we can use transform to animate it.
+      span {
+        &:after {
+          mask-image: url('/themes/custom/uswds_sec/assets/img/usa-icons/expand_more.svg') !important;
+          transition: background-color 180ms ease, transform 180ms ease;
+        }
+      }
+
+      // Mobile styles
+      @include max-width($bp-wide - 1px) {
+        background-color: $border-gray-light;
+        border-bottom: 1px solid $border-gray-dark;
+        color: $c-black;
+        font-size: rem(15px);
+        letter-spacing: 0.2px;
+        line-height: 1.2;
+        padding: rem(14px $horz-padding-mobile 16px);
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: currentColor;
+        }
+
+        // Use chevron instead of default plus/minus icon
+        span {
+          &:after {
+            height: rem($icon-size) !important;
+            top: 50%;
+            transform: translateY(-50%);
+            width: rem($icon-size) !important;
+          }
+        }
+
+        &[aria-expanded="true"] {
+          span {
+            &:after {
+              transform: translateY(-50%) rotateX(180deg);
+            }
+          }
+        }
+      }
+
+      // Desktop styles
+      @include min-width($bp-wide) {
+        border-bottom: 6px solid transparent;
+        color: $c-gray !important;
+        font-size: rem(15px);
+        height: 100%;// stretch to match height of tallest toggle
+        line-height: 1;
+        padding-bottom: rem(21px);
+        padding-left: rem(14px);
+        padding-right: rem(14px);
+        position: relative;
+        text-align: center;
+
+        @include min-width(1280px) {
+          font-size: rem(16px);
+        }
+
+        .is-stuck & {
+          font-size: rem(14px);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: $border-gray-light;
+          border-bottom-color: $bg-yellow;
+          color: $c-black !important;
+
+          span {
+            &:after {
+              background-color: $c-blue !important;
+            }
+          }
+        }
+
+        &[aria-expanded="true"] {
+          background-color: rgba($bg-yellow, 0.17);
+          border-bottom-color: $bg-yellow;
+          color: $c-black !important;
+
+          span {
+            &:after {
+              background-color: currentColor !important;
+              transform: translateX(-50%) rotateX(180deg);
+            }
+          }
+        }
+
+        // Change styling when current page belongs to this menu
+        &.usa-current {
+          background-color: rgba($bg-teal, 0.08);
+          border-bottom-color: $bg-teal;
+        }
+
+        span {
+          padding-right: 0 !important;// override USWDS default
+          position: relative;
+
+          &:after {
+            $size: 17px;
+            background-color: $c-gray-lighter !important;
+            height: rem($size) !important;
+            margin-left: 0 !important;// override USWDS default
+            position: absolute;
+            right: auto !important;// override USWDS default
+            left: 50%;
+            margin-top: 2px;
+            top: 100%;
+            transform: translateX(-50%);
+            width: rem($size) !important;
+          }
+        }
+      }
+    }
+  }
+
+  &__secondary {
+    $col-gap: 20px;
+    $row-gap: 10px;
+    margin-bottom: rem(-$row-gap);
+
+    &-item {
+      margin-bottom: rem($row-gap);
+      margin-left: rem($col-gap * 0.5);
+      margin-right: rem($col-gap * 0.5);
+    }// end item
+
+    #{$selector}-link {
+      color: $c-gray;
+      font-size: rem(15px);
+      line-height: 1.2;
+      text-decoration: none;
+
+      .is-stuck & {
+        font-size: rem(14px);
+      }
+
+      @include min-width($bp-wide) {
+        color: $c-gray-dark;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $c-black;
+        text-decoration: underline;
+      }
+
+    }
+  }
+
+  &__submenu {
+    @include min-width($bp-wide) {
+      background-color: #fff;
+      box-shadow: $card-box-shadow-desktop;
+      padding: rem(36px);
+
+      // FIXME: Remove/refactor once subnav markup is final
+      .grid-row {
+        display: block !important;
+      }
+    }
+  }
+}

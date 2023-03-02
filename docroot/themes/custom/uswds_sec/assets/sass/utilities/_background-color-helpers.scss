@@ -1,0 +1,61 @@
+//------------------------------------------------------------------------
+// Background color utility classes
+//------------------------------------------------------------------------
+.bg {
+  // Diagonal gradient overlay (used by landing page headers)
+  &-gradient-overlay {
+    background-image: linear-gradient(to right top, rgba(#000, 0.2) 0%, rgba(#fff, 0.2) 100%);
+    background-blend-mode: overlay;
+  }
+
+  // Default background color
+  &-default {
+    --theme-color: #{$bg-default};
+    background-color: var(--theme-color) !important;
+
+    // Reset default colors when nested in elements with other background colors
+    // Note: This won’t reset button colors but we don’t currently need that since the
+    //       homepage hero is the only place with a light component inside a dark one
+    //       and it uses our custom “usa-button--icon” styles which aren’t affected.
+    [class*="bg-"] & {
+      --theme-text-color: #{$c-default};
+      color: var(--theme-text-color) !important;
+    }
+  }
+
+  // Solid colors
+  // Note: $bg-util-colors must be defined defined in _color-vars.scss
+  @each $name, $color in $bg-util-colors {
+    &-#{$name} {
+      --theme-color: #{$color};
+      background-color: var(--theme-color) !important;
+
+      // Custom text styles for light backgrounds (other than white)
+      @if index(('yellow'), $name) {
+        --theme-text-color: #{$c-default};
+        --theme-link-color: var(--theme-text-color);
+        --theme-link-active-color: var(--theme-text-color);
+        --theme-link-hover-color: var(--theme-text-color);
+        --theme-link-visited-color: var(--theme-text-color);
+      }
+      // Custom text styles for dark backgrounds
+      @else if index(('blue', 'gray', 'navy', 'red', 'teal'), $name) {
+        --theme-text-color: #fff;
+        --theme-link-color: var(--theme-text-color);
+        --theme-link-active-color: var(--theme-text-color);
+        --theme-link-hover-color: var(--theme-text-color);
+        --theme-link-visited-color: var(--theme-text-color);
+        @include font-smoothing;
+        color: var(--theme-text-color);
+      }
+
+      // Custom button styles for dark backgrounds
+      @if index(('blue', 'navy', 'teal'), $name) {
+        --theme-button-bg-color: #{$button-gray-med};
+        --theme-button-color: #{$c-default};
+        --theme-button-hover-bg-color: #{$button-gray-light};
+        --theme-outline-button-color: #fff;
+      }
+    }
+  }
+}

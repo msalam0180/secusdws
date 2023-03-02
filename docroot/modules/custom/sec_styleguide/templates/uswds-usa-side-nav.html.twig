@@ -1,0 +1,12 @@
+{{ attach_library('sec_styleguide/side_nav') }}
+
+<nav aria-label="Side navigation,">
+  <ul class="usa-sidenav">
+    {% for item in nav_yml %}
+      {% set active = (active_path == item.title ) ? "usa-current" : "" %}
+      <li class="usa-sidenav__item">
+        <a href="{{ item.href }}" class="{{active}}">{{ item.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

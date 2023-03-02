@@ -1,0 +1,37 @@
+{% if variant != '' and variant|lower != 'default' %}
+  {% set variants = variant|split('__') %}
+  {% for variant in variants %}
+    {% set attributes = attributes.addClass('usa-card--' ~ variant|lower|replace({'_': '-'})) %}
+  {% endfor %}
+{% endif %}
+
+<div{{ attributes.addClass('usa-card') }}>
+  <div class="usa-card__container">
+    <div class="usa-card__header">
+      <h{{ heading_level }} class="usa-card__heading">
+        {{- heading -}}
+      </h{{ heading_level }}>
+    </div>
+    {%  if (image | length > 1) or ((image is iterable) and (image | first | length > 3)) %}
+      {% if variant != 'default' %}
+        <div class="usa-card__media">
+          <div class="usa-card__img">
+            {{ image }}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+    {% if body | render | length > 0 %}
+      {# Note: Assume body copy can include markup #}
+      <div class="usa-card__body">
+        {{- body -}}
+      </div>
+    {% endif %}
+    {# Note: Footer is used to align buttons to the bottom in grid layout #}
+    {% if footer | render | length > 0 %}
+      <div class="usa-card__footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+</div>

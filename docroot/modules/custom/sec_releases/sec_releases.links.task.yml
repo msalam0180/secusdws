@@ -1,0 +1,20 @@
+sec_releases.release_content:
+  title: 'Enforcement Release'
+  route_name: view.release_content.page_1
+  parent_id: system.admin_content
+  weight: 10
+sec_releases.file_number:
+  title: 'File Number'
+  route_name: view.file_number.file_number_admin_page
+  parent_id: system.admin_content
+  weight: 11
+sec_releases.rule_admin_content:
+  title: 'Regulatory Files'
+  route_name: view.rule_admin_content.page_1
+  parent_id: system.admin_content
+  weight: 12
+sec_releases.rule_releases:
+  title: 'Regulatory Releases'
+  route_name: view.regulation_content.page_1
+  parent_id: system.admin_content
+  weight: 13

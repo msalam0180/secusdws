@@ -1,0 +1,9 @@
+global-styling:
+  version: VERSION
+  css:
+    theme:
+      css/layout_builder_customizer.css: {}
+  js:
+    js/layout_builder_customizer.js: {}
+  dependencies:
+    - core/jquery

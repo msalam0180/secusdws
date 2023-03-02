@@ -1,0 +1,8 @@
+uuid: 81fdd84c-3fe7-4c76-aae5-a208eeb2898b
+langcode: en
+status: true
+dependencies: {  }
+id: card_with_sidebar
+label: 'Card with Sidebar'
+revision: 1
+description: 'Block used to create the Investor.gov block'

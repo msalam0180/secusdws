@@ -1,0 +1,18 @@
+uuid: 484df91c-ea4c-46d0-a72d-998937bae941
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.regulation
+id: node.regulation.title
+field_name: title
+entity_type: node
+bundle: regulation
+label: Title/Subject
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,18 @@
+uuid: 7e38fe7d-1c8c-4b61-b535-747ce5b4468c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_show_submit_comments
+field_name: field_show_submit_comments
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

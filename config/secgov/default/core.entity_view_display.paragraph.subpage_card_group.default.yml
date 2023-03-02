@@ -1,0 +1,39 @@
+uuid: 5f3c9600-d8cb-4787-9133-093320263b02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.subpage_card_group.field_subpage_card
+    - paragraphs.paragraphs_type.subpage_card_group
+  module:
+    - ds
+    - entity_reference_revisions
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_group
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      cards:
+        - field_subpage_card
+id: paragraph.subpage_card_group.default
+targetEntityType: paragraph
+bundle: subpage_card_group
+mode: default
+content:
+  field_subpage_card:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: cards
+hidden:
+  search_api_excerpt: true

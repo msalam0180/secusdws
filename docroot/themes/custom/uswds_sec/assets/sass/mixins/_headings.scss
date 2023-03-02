@@ -1,0 +1,48 @@
+//------------------------------------------------------------------------
+// Default h2–h6 wysiwyg heading styles
+//
+// For all other type styles, see /mixins/_typography.scss
+//------------------------------------------------------------------------
+@use "../vars/color-vars" as *;
+@use "../vars/font-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../functions/rem" as *;
+@use "scale" as *;
+
+@mixin h2($color: $c-black) {
+  @include scale(font-size, (360px: 22px, $layout-text-scale-end-bp: 24px));
+  color: var(--theme-text-color, $color);
+  font-family: $gotham-font-family;
+  font-weight: bold;
+  line-height: 1.175;
+}
+
+@mixin h3($color: $c-black) {
+  @include scale(font-size, (360px: 20px, $layout-text-scale-end-bp: 22px));
+  color: var(--theme-text-color, $color);
+  font-weight: bold;
+  line-height: 1.175;
+}
+
+@mixin h4($color: $c-black) {
+  color: var(--theme-text-color, $color);
+  font-size: rem(16px);
+  font-weight: bold;
+  line-height: 1.175;
+}
+
+@mixin h5($color: $c-black) {
+  color: var(--theme-text-color, $color);
+  font-size: rem(15px);
+  font-weight: bold;
+  line-height: 1.175;
+}
+
+@mixin h6($color: $c-black) {
+  color: var(--theme-text-color, $color);
+  font-size: rem(13px);
+  font-weight: normal;
+  letter-spacing: rem(0.5px);
+  line-height: 1.175;
+  text-transform: uppercase;
+}

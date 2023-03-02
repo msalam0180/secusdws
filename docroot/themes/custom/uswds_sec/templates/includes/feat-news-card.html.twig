@@ -1,0 +1,68 @@
+{# Featured new card (only used on homepage) #}
+{# Note: Markup is based on “card-horz” and “usa-collection” #}
+<div class="card-horz card-horz--feature">
+  <div class="card-horz__media">
+    {#
+      NOTE: Mobile and desktop images have different aspect ratios. Instead of using <picture>, which
+            doesn’t allow the browser choose the best size (i.e. no “srcset” support), we’re using two
+            separate images but setting the “src” to a transparent 1px gif to avoid downloading both.
+            Explanation of <picture> drawbacks https://cloudfour.com/thinks/dont-use-picture-most-of-the-time/
+            GIF code https://stackoverflow.com/a/13139830/
+    #}
+    {# Note: Mobile image should be 16:9 aspect ratio #}
+    {# Note: Leave alt blank if image will be repeated on the page it links to #}
+    {# FIXME: Update “srcset” and “sizes” attributes #}
+    <img class="card-horz__img is-mobile"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w,
+              https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg 1476w"
+      sizes="(max-width: 639px) 100vw, 1px"
+      loading="lazy"
+      alt="">
+    {# Note: Desktop image should be 1:1 aspect ratio #}
+    {# Note: Leave alt blank if image will be repeated on the page it links to #}
+    {# FIXME: Update “srcset” and “sizes” attributes #}
+    <img class="card-horz__img is-desktop"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w,
+              https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg 1476w"
+      sizes="(max-width: 639px) 1px, 100vw"
+      loading="lazy"
+      alt="">
+  </div>
+  <div class="card-horz__container bg-default">
+    <p class="usa-collection__taxonomy">
+      <a class="usa-collection__taxonomy__link" href="/">Enforcement News</a>
+    </p>
+    <h3 class="card-horz__heading">
+      SEC Charges Firm and Five Brokers for Violating Investor Protection Regulations
+    </h3>
+
+    {# Note: Assume body copy can include markup #}
+    <div class="card-horz__body">
+      <p>Western International Securities, Inc. was charged with violating Regulation Best Interest rules, which clarify the standards of conduct for broker-dealers and investment advisers.</p>
+    </div>
+
+    {# Note: Footer is used to align buttons to the bottom in grid layout #}
+    <div class="card-horz__footer">
+
+      {# Metadata markup from Collection component #}
+      {# https://designsystem.digital.gov/components/collection/ #}
+      <ul class="usa-collection__meta" aria-label="More information">
+        <li class="usa-collection__meta-item">By Eric L. Miller</li>
+        <li class="usa-collection__meta-item">
+          <time datetime="2020-09-17T12:00:00+01:00">September 17, 2020</time>
+        </li>
+      </ul>
+      <ul class="usa-collection__meta" aria-label="Topics">
+        <li class="usa-collection__meta-item usa-tag">Quarterly update</li>
+        <li class="usa-collection__meta-item usa-tag">CAP goal</li>
+        <li class="usa-collection__meta-item usa-tag">APG</li>
+        <li class="usa-collection__meta-item usa-tag">PMA</li>
+        <li class="usa-collection__meta-item usa-tag">Success story</li>
+      </ul>
+
+      <a class="usa-button" href="/" tabindex="-1">Continue Reading</a>
+    </div>
+  </div>
+</div>

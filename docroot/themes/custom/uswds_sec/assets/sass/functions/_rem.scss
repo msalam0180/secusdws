@@ -1,0 +1,23 @@
+/// Convert px to rem
+/// @group Main
+/// @param {Number | Map} $values - Value values to convert
+/// @return {*} - Converted value or list of values
+@use "sass:math";
+
+@function rem($values) {
+  $base-font-size: 16px;
+
+  // Placeholder list for converted values
+  $output: ();
+
+  @each $val in $values {
+    // Only convert pixel values, leave others unchanged
+    @if type-of($val) == 'number' and unit($val) == 'px' {
+      $val: math.div($val, $base-font-size) * 1rem;
+    }
+
+    $output: append($output, $val);
+  }
+
+  @return $output;
+}

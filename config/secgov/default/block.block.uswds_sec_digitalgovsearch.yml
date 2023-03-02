@@ -1,0 +1,25 @@
+uuid: b61d6b26-4279-4469-95d2-7c735c620ed4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:84a1e71b-c9f3-4cbf-99f3-b2c61126ec19'
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+id: uswds_sec_digitalgovsearch
+theme: uswds_sec
+region: header
+weight: -37
+provider: null
+plugin: 'block_content:84a1e71b-c9f3-4cbf-99f3-b2c61126ec19'
+settings:
+  id: 'block_content:84a1e71b-c9f3-4cbf-99f3-b2c61126ec19'
+  label: 'Global Header: DigitalGov Search'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

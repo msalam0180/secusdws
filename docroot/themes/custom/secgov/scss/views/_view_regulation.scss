@@ -1,0 +1,63 @@
+// These views does not have left nav menus, make use of that space!
+.view-display-id-sro-national-security-exchanges-page #content-wrapper,
+.view-display-id-sro-universal-page #content-wrapper,
+.view-display-id-individual-sro-page #content-wrapper  {
+  width: 100%;
+  float: none;
+}
+
+// This regulation-list-page style is in used in regulation views CSS.
+.regulation-list-page {
+  border-top: none;
+
+  thead {
+    div {
+      a {
+        height: 12px;
+        display: flex;
+        white-space: nowrap;
+      }
+      @include breakpoint('small') {
+        padding: 10px 20px 8px 10px;
+        margin-right: 1px;
+        width: fit-content;
+      }
+    }
+  }
+
+  .views-exposed-form input.form-submit {
+      display: block;
+      height: auto;
+  }
+  table.list tbody {
+    tr:hover {
+      background: none;
+    }
+    tr.current td {
+      background: none;
+    }
+    td {
+      border: none;
+      border-bottom: thin solid #BFBFBF;
+      padding: 12px 10px;
+      a span {
+      float: none;
+      }
+    }
+  }
+
+  .views-field-field-date, .views-field-field-publish-date {
+    @include breakpoint('small'){
+      width: unset;
+    }
+  }
+}
+
+.view-regulations-via-taxonomy {
+  header > div {
+      display: flex;
+  }
+  .field_description {
+    flex-grow: 1;
+  }
+}

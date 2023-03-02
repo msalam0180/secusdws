@@ -1,0 +1,10 @@
+uuid: 10708d90-dc49-47d8-a258-d0048ae79090
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.position
+label: Position
+targetEntityType: paragraph
+cache: true

@@ -1,0 +1,147 @@
+// Layout helper classes
+// Note: Intended to make it easier to create page template
+//       layouts without requiring custom CSS for each one.
+.l {
+  // Default horizontal padding (indents content from viewport edge)
+  &-padding {
+    @include default-padding;
+  }
+
+  // Default vertical margin above and below the main content well
+  &-margin {
+    @include default-page-bottom;
+    @include default-page-top;
+
+    &-top {
+      @include default-page-top;
+    }
+
+    &-bottom {
+      @include default-page-bottom;
+    }
+  }
+
+  &-wrap {
+    // Default content-well wrapper used by landing pages
+    max-width: rem($layout-max-width);
+
+    // Default page template content well
+    &--narrow {
+      max-width: rem($layout-max-width-narrow);
+    }
+
+    // Wide content well, used by homepage hero and card strata
+    &--wide {
+      max-width: rem($layout-max-width-wide);
+    }
+
+    // Center wrappers
+    // Note: We’re using :where() to reduce specificity so we can easily override.
+    //       It’s supported in Safari 14+ https://caniuse.com/mdn-css_selectors_where
+    // Note: Just checking for [class*="l-wrap"] can result in false positives
+    //       (e.g. “Modal-wrap” would match) so we need two attribute selectors.
+    @at-root [class^="l-wrap"], [class*=" l-wrap"] {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  // Make element 100vw width regardless of parent width
+  // NOTE: These styles only work when the parent wrapper is centered.
+  &-fullwidth {
+    @include layout-fullwidth;
+
+    // Disable max-width on media elements (from CSS reset)
+    &:is(canvas, img, picture, video) {
+      max-width: none;
+    }
+  }
+
+  // Classes to show/hide content at side nav breakpoint
+  &-show-sidenav {
+    &-mobile {
+      @include min-width($layout-sidenav-bp) {
+        display: none;
+      }
+    }
+
+    // 1. Make full width
+    &-desktop {
+      left: 0;
+      margin-left: -50vw;// [1]
+      margin-right: -50vw;// [1]
+      padding-top: rem($layout-sidenav-top-offset);
+      // position: sticky;
+      width: 100vw;// [1]
+
+      @include max-width($layout-sidenav-bp - 1px) {
+        display: none;
+      }
+    }
+  }
+
+  // Sidenav layout (used on landing pages)
+  // Note: The markup order doesn’t matter since we’re using flexbox
+  &-sidenav {
+    @include layout-sidenav-wrap;
+
+    &-main {
+      @include layout-sidenav-main;
+    }
+
+    &-aside {
+      @include layout-sidenav-aside;
+    }
+  }
+
+  // Right sidebar layout (used on default template)
+  // TODO: We’re currently using the exisitng column classes from the old site
+  //       but ideally these will be refactored to be consistent on the new site.
+  &-sidebar {
+    @include layout-sidebar-wrap;
+
+    // Main content
+    &-main {
+      @include layout-sidebar-main;
+    }
+
+    &-aside {
+      @include layout-sidebar-aside;
+    }
+  }
+
+  // Custom 2-column equal-height grid (40%, 60%)
+  // (used for homepage cards at bottom of page)
+  &-grid-40-60 {
+    $bp-row: 1024px;
+
+    // 1. Note: “gap” isn’t supported in Safari 14 or below
+    //    with flexbox (only grid) https://caniuse.com/flexbox-gap
+    @include min-width($bp-row) {
+      column-gap: rem($layout-card-group-col-gap);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & > * {
+      @include max-width($bp-row - 1px) {
+        &:first-child {
+          margin-bottom: rem($layout-card-group-col-gap);
+        }
+      }
+
+      @include min-width($bp-row) {
+        height: 100%;
+
+        &:first-child {
+          flex-shrink: 0;
+          width: 40%;
+        }
+
+        &:last-child {
+          flex-grow: 1;
+        }
+      }
+    }
+  }// end grid-60-40
+}

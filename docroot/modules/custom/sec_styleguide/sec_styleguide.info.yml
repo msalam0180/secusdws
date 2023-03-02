@@ -1,0 +1,9 @@
+name: 'SEC Styleguide'
+type: module
+description: 'Custom module for SEC Style Guide'
+core_version_requirement: ^9.3 || ^10
+package: 'SEC'
+dependencies:
+  - drupal:twig_tweak
+  - drupal:ui_patterns
+  - a11y_tabs

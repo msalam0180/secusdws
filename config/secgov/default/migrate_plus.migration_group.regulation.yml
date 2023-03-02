@@ -1,0 +1,10 @@
+uuid: d901c63c-da5f-4b6c-9a15-aa96f0961760
+langcode: en
+status: true
+dependencies: {  }
+id: regulation
+label: regulation
+description: ''
+source_type: null
+module: null
+shared_configuration: null

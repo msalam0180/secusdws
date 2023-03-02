@@ -1,0 +1,25 @@
+uuid: 1adb4db8-d753-476e-abd6-df76b2a64e13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.lead_paragraph.field_text
+    - paragraphs.paragraphs_type.lead_paragraph
+  module:
+    - text
+id: paragraph.lead_paragraph.default
+targetEntityType: paragraph
+bundle: lead_paragraph
+mode: default
+content:
+  field_text:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

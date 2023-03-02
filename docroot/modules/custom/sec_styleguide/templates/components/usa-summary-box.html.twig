@@ -1,0 +1,46 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{% set example_1 = '<div class="usa-summary-box" role="region" aria-labelledby="summary-box-key-information">
+  <div class="usa-summary-box__body">
+    <h2 class="usa-summary-box__heading" id="summary-box-key-information">
+      Key information
+    </h2>
+    <div class="usa-summary-box__text">
+      <ul class="usa-list">
+        <li>
+          If you are under a winter storm warning,
+          <a class="usa-summary-box__link" href="#lorum">find shelter</a> right away.
+        </li>
+        <li>
+          Sign up for
+          <a class="usa-summary-box__link" href="#ipsum">your community’s warning system</a>.
+        </li>
+        <li>
+          Learn the signs of, and basic treatments for,
+          <a class="usa-summary-box__link" href="#foo">frostbite</a> and
+          <a class="usa-summary-box__link" href="#bar">hypothermia</a>.
+        </li>
+        <li>
+          Gather emergency supplies for your
+          <a class="usa-summary-box__link" href="#fooz">residence</a> and your
+          <a class="usa-summary-box__link" href="#baz">car</a>.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>' %}
+
+{{ example_1|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_1',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_1|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}

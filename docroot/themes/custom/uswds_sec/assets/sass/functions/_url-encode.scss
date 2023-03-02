@@ -1,0 +1,16 @@
+/// URL-encode string
+/// @group Sass Utils
+/// @param {String} $string - String to encode
+/// @return {String} - URL-encoded string
+/// @require {variable} $url-escape-chars
+/// @require {function} string-replace
+///
+@use "../vars/url-escape-chars" as *;
+@use "../functions/string-replace" as *;
+
+@function url-encode($string) {
+  @each $char, $code in $url-escape-chars {
+    $string: string-replace($string, $char, $code);
+  }
+  @return $string;
+}

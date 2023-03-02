@@ -1,0 +1,112 @@
+{#
+/**
+ * @file
+ * SEC.gov's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.highlighted: Items for the highlighted region.
+ * - page.global_navigation: Items for the primary menu region.
+ * - page.page_title: The Page title region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.footer: Items for the first footer column.umn.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+{# Header #}
+{% include '@uswds_sec/includes/header.html.twig' %}
+
+<main id="main-content" class="main-content">
+  {% if page.tabs %}
+    {{ page.tabs }}
+  {% endif %}
+
+  {% if page.highlighted %}
+    <div class="highlighted">
+      <aside role="complementary" class="message section clearfix">
+        {{ page.highlighted }}
+      </aside>
+    </div>
+  {% endif %}
+
+  {# Home hero #}
+  {% include '@uswds_sec/includes/home-hero.html.twig' %}
+
+  <div id="home" class="l-padding">
+    <div class="l-wrap--wide">
+      {# Featured news card (fixed, only used on homepage) #}
+      {% include '@uswds_sec/includes/feat-news-card.html.twig' %}
+
+      <div class="usa-card-group margin-top-9" data-col="2">
+        {# Latest News #}
+        {{ pattern_preview('collection') }}
+
+        {# Upcoming Events #}
+        {{ pattern('collection', {
+          heading: 'Recently Adopted Rules',
+          content_type: 'Rules',
+          max_items: 3,
+          collection_test_yml: [
+            {
+              title: 'Protecting Older Investors & Investor Clinic Funding',
+              content_type: 'event',
+              taxonomy: 'Meeting',
+              body_text: 'A meeting to discuss accounting of non-traditional financial information, climate disclosure, a recommendation on protecting older investors, and a recommendation on funding investor advocacy clinics.',
+              link: '/',
+              date: 1685451600,
+              comments_deadline: 1700542740,
+              byline: ['Investor Advisory Committee'],
+              tags: ['Quarterly update', 'Cap Goal', 'APG']
+            },
+            {
+              title: '2022 RFK Compass Summer Investors Conference',
+              content_type: 'event',
+              taxonomy: 'Public Appearance',
+              link: '/',
+              date: 1686852000,
+              byline: ['Chair Gary Gensler']
+            }
+          ]
+        }) }}
+      </div>
+
+      {# Homepage cards (only intended to be used on the homepage) #}
+      <div class="l-grid-40-60 margin-bottom-9 margin-top-9">
+        {{ pattern_preview('card_icon') }}
+        {{ pattern_preview('card_sidebar') }}
+      </div>
+    </div>
+  </div>
+</main>
+
+{# Footer #}
+{% include '@uswds_sec/includes/footer.html.twig' %}

@@ -1,0 +1,40 @@
+card_sidebar:
+  label: Card with Sidebar
+  description: Custom card with logo and sidebar
+  fields:
+    logo:
+      type: text
+      label: Logo
+      description: "Pass in an <img>"
+      preview: '<img class="card-sidebar__image" src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-investor-1x.png" srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-investor-1x.png 1x, /themes/custom/uswds_sec/dist/img/logos/sec-logo-investor-2x.png 2x" alt="Investor.gov: U.S. Securities and Exchange Commission">'
+    description:
+      type: text
+      label: Description
+      description: Short description
+      preview: At Investor.gov, the SEC provides investors with tools and information to make smart decisions and invest with trust and confidence.
+    footer:
+      type: text
+      label: Footer
+      description: Content for bottom of card, e.g. button
+      preview:
+        - type: pattern
+          id: button
+          variant: default
+          fields:
+            label: Visit investor.gov
+            url: https://www.investor.gov
+    sidebar_heading:
+      type: text
+      label: Sidebar heading
+      description: Optional heading
+      preview: "You’ll Find:"
+    sidebar_list_items:
+      type: text
+      label: Sidebar list items
+      description: Max 4 items
+      preview: "Financial tools and calculators,Investing FAQs,Tips to avoid investment fraud,Timely market alerts"
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3

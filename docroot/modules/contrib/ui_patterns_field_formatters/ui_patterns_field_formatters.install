@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * UI Patterns Field Formatters updates.
+ */
+
+use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
+use Drupal\ui_patterns\Form\PatternDisplayFormTrait;
+
+/**
+ * Clean up existing formatters settings.
+ */
+function ui_patterns_field_formatters_update_9001(&$sandbox) {
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+
+  if (!isset($sandbox['total'])) {
+    $sandbox['ids'] = $displayStorage->getQuery()->execute();
+    $sandbox['total'] = count($sandbox['ids']);
+    $sandbox['progress'] = 0;
+  }
+
+  $id = array_pop($sandbox['ids']);
+  $display = $displayStorage->load($id);
+
+  $changed = FALSE;
+  foreach ($display->getComponents() as $name => $definition) {
+    if (isset($definition['type']) &&
+      (
+        $definition['type'] === 'pattern_formatter' ||
+        $definition['type'] === 'pattern_wrapper_entity_reference_formatter'
+      )
+    ) {
+      PatternDisplayFormTrait::processFormStateValues($definition['settings']);
+      $display->setComponent($name, $definition);
+      $changed = TRUE;
+    }
+  }
+
+  if (!empty($changed)) {
+    $display->save();
+  }
+  $sandbox['progress']++;
+
+  $sandbox['#finished'] = $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Clean up existing formatters settings placed by layout builder.
+ */
+function ui_patterns_field_formatters_update_9002(&$sandbox) {
+  if (!\Drupal::moduleHandler()->moduleExists('layout_builder')) {
+    return;
+  }
+
+  $displayStorage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+
+  if (!isset($sandbox['total'])) {
+    $sandbox['ids'] = $displayStorage->getQuery()->execute();
+    $sandbox['total'] = count($sandbox['ids']);
+    $sandbox['progress'] = 0;
+  }
+
+  $id = array_pop($sandbox['ids']);
+  $display = $displayStorage->load($id);
+  if ($display instanceof LayoutBuilderEntityViewDisplay) {
+    $sections = $display->getSections();
+    foreach ($sections as $section) {
+      foreach ($section->getComponents() as $component) {
+        $component_array = $component->toArray();
+        if (isset($component_array['configuration']['formatter']['type'])) {
+          $definition = &$component_array['configuration']['formatter'];
+          if (
+            $definition['type'] === 'pattern_formatter' ||
+            $definition['type'] === 'pattern_wrapper_entity_reference_formatter'
+          ) {
+            PatternDisplayFormTrait::processFormStateValues($definition['settings']);
+            $component->setConfiguration($component_array['configuration']);
+            $changed = TRUE;
+          }
+        }
+      }
+    }
+  }
+  if (!empty($changed)) {
+    $display->save();
+  }
+
+  $sandbox['progress']++;
+  $sandbox['#finished'] = $sandbox['progress'] / $sandbox['total'];
+}

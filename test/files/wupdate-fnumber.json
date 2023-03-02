@@ -1,0 +1,175 @@
+{
+    "aaer": null,
+    "aljo": [
+        {
+            "field_case_id": [
+
+            ],
+            "field_case_respondent": [
+
+            ],
+            "field_comments_available": [
+
+            ],
+            "field_comments_due": [
+
+            ],
+            "field_creator": [
+
+            ],
+            "field_file_no": [
+                "9-99999"
+            ],
+            "field_ic_category": [
+
+            ],
+            "field_matter_of": [
+                "This is File Number Respondent"
+            ],
+            "field_name": [
+
+            ],
+            "field_other_rel_no": [
+
+            ],
+            "field_primary_doc_link": [
+                {
+                    "options": [
+                        {
+                            "target": "_blank"
+                        }
+                    ],
+                    "title": "AP-6736",
+                    "uri": "\/alj\/aljorders\/2020\/ap-6736.pdf"
+                }
+            ],
+            "field_rebuttals_due": [
+
+            ],
+            "field_rel_attributes": null,
+            "field_rel_date": [
+                "2020-02-26"
+            ],
+            "field_respondent": [
+
+            ],
+            "field_sec_official": [
+
+            ],
+            "field_secondary_doc_link": [
+
+            ],
+            "field_sro_ref": [
+
+            ],
+            "field_submit_comments": [
+
+            ],
+            "field_title": [
+                "Order"
+            ],
+            "fnid": [
+                "9-99999"
+            ],
+            "rnid": [
+                "AP-6736"
+            ],
+            "upload_files": [
+                {
+                    "file": "ap-6736.pdf",
+                    "title": "AP-6736",
+                    "year": "2020"
+                }
+            ]
+        },
+        {
+            "field_case_id": [
+
+            ],
+            "field_case_respondent": [
+
+            ],
+            "field_comments_available": [
+
+            ],
+            "field_comments_due": [
+
+            ],
+            "field_creator": [
+
+            ],
+            "field_file_no": [
+                "9-99999"
+            ],
+            "field_ic_category": [
+
+            ],
+            "field_matter_of": [
+                "This is Release Respondent"
+            ],
+            "field_name": [
+
+            ],
+            "field_other_rel_no": [
+
+            ],
+            "field_primary_doc_link": [
+                {
+                    "options": [
+                        {
+                            "target": "_blank"
+                        }
+                    ],
+                    "title": "AP-6740",
+                    "uri": "\/alj\/aljorders\/2020\/ap-6740.pdf"
+                }
+            ],
+            "field_rebuttals_due": [
+
+            ],
+            "field_rel_attributes": null,
+            "field_rel_date": [
+                "2020-03-06"
+            ],
+            "field_respondent": [
+
+            ],
+            "field_sec_official": [
+
+            ],
+            "field_secondary_doc_link": [
+
+            ],
+            "field_sro_ref": [
+
+            ],
+            "field_submit_comments": [
+
+            ],
+            "field_title": [
+                "Stay Order"
+            ],
+            "fnid": [
+
+            ],
+            "rnid": [
+                "AP-6740"
+            ],
+            "upload_files": [
+                {
+                    "file": "ap-6740.pdf",
+                    "title": "AP-6740",
+                    "year": "2020"
+                }
+            ]
+        }
+    ],
+    "ap": null,
+    "ap_case": null,
+    "ic": null,
+    "id": null,
+    "lr": null,
+    "op": null,
+    "sro": null,
+    "ts": null
+}

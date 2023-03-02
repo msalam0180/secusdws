@@ -1,0 +1,126 @@
+// -------------------------------------------------------------------------
+// Custom colors not from USWDS
+//
+// Note: We’re using the “postcss-custom-properties” plugin to add
+//       fallbacks for browsers that don’t support CSS vars.
+//       https://caniuse.com/css-variables
+// -------------------------------------------------------------------------
+// Include custom USDWS settings so we can access variables, functions, and mixins
+// https://designsystem.digital.gov/design-tokens/color/system-tokens/
+@use "uswds-settings" as usa;
+
+// Background colors
+//---------------------------------
+$bg-blue: #2f64b2;
+$bg-blue-light: #e5eef5;// Quick Links in homepage hero
+$bg-blue-lighter: rgba($bg-blue, 0.04);// page cards, #f7f9fc
+$bg-gray: #6b7882;
+$bg-gray-light: #f4f5f4;
+$bg-gray-lighter: #f6f6f6;// Used by right sidebar in mobile
+$bg-gray-med-light: #dfe3e5;// Used by left nav
+$bg-green-light: #eaf3f2;// Used by sidebar card (#98c2c0 in Figma at 20% opacity)
+$bg-navy: #003864;
+$bg-red: #c31632;
+$bg-teal: #419892;// blockquote border, copy link button icon
+$bg-teal-dark: #37827d;// Used by page header
+$bg-yellow: #ffc425;// Used by main nav and page header (also replaces #fdc600 in Figma)
+
+// Layout Builder colors
+$bg-gray-light-layout-builder: #474747;
+$bg-gray-layout-builder: #333;
+$bg-gray-dark-layout-builder: #222;
+$border-gray-modal: #a6a6a6;
+$element-focus: #2491ff;
+
+// Include any colors below that should have utility classes (e.g. bg-blue)
+// Note: Only include the ones we need (e.g. page header colors)
+$bg-util-colors: (
+  'blue': $bg-blue,
+  'gray': $bg-gray,
+  'navy': $bg-navy,
+  'red': $bg-red,
+  'teal': $bg-teal-dark,
+  'yellow': $bg-yellow,
+);
+
+// Text colors
+//---------------------------------
+$c-black: usa.color(usa.$theme-text-color);// #1b1b1b, set in _uswds-settings.scss
+$c-blue: usa.color('blue-60v');// #005ea2
+$c-blue-dark: usa.color('blue-warm-70v');// link hover, #1a4480
+$c-gray: usa.color('gray-cool-60');// #565c65
+$c-gray-dark: usa.color('gray-cool-70');// #3d4551
+$c-gray-light: usa.color('gray-cool-50');// #71767a
+$c-gray-lighter: usa.color('gray-cool-30');// desktop nav icons, #a9aeb1
+$c-navy: #003864;// same as $bg-navy but doesn’t necessarily _have_ to be so we’re using a separate variable
+$c-red: usa.color('red-60v');// #b50909, error text
+
+// Include any colors below that should have utility classes (e.g. c-gray)
+// Note: Only include the ones we need (e.g. page header colors)
+$text-util-colors: (
+  'blue': $c-blue,
+  'gray': $c-gray,
+  'navy': $c-navy,
+);
+
+// Link colors
+//---------------------------------
+$link-color: usa.color('blue-60v');// #005ea2
+$link-color-hover: usa.color('blue-warm-70v');// #1a4480
+$link-color-visited: usa.color('violet-70v');// #54278f
+$link-color-active: usa.color('blue-warm-80v');// #162e51
+
+// Button colors
+//---------------------------------
+$button-blue-dark: usa.color('blue-60v');// Default button, #005ea2
+$button-blue-darker: usa.color('blue-warm-70v');// Default button hover, #1a4480
+$button-gray: usa.color('gray-20');// Disabled button, #c9c9c9
+$button-gray-light: usa.color('gray-5');// Inverse button hover, #f0f0f0
+$button-gray-lighter: usa.color('gray-4');// Icon button, #f3f3f3
+$button-gray-med: usa.color('gray-cool-10');// Inverse button, #dfe1e2
+$button-gray-med-light: usa.color('gray-10');// Icon button hover, #e6e6e6
+$button-green-light: #cbe0df;// copy link button
+$button-teal-dark: #37827d;// Secondary button
+$button-teal-darker: #28605c;// Secondary button hover state
+
+// Border colors
+//---------------------------------
+$border-gray: #d9d9d9;// collection horz rule, sidebar borders
+$border-gray-dark: #a7aaac;// mobile nav, sidenav
+$border-gray-medium: usa.color('gray-cool-20');// desktop nav
+$border-gray-light: #dcdee0;// nav, tables, page card
+$border-navy: usa.color('blue-warm-80v');// #162E51, outline button
+
+// Table colors
+//---------------------------------
+$table-header: usa.color('gray-cool-10');// using default USWDS
+
+// Accordion colors
+//---------------------------------
+$accordion-gray: usa.color('gray-10');// collapsed, #e8e8e8;
+$accordion-gray-light: usa.color('gray-5');// expanded, #f0f0f0
+$accordion-yellow: #ffe594;// collapsed
+$accordion-yellow-light: #fff2c4;// expanded
+
+// Callout Colors
+//---------------------------------
+$callout-gray: $bg-blue-lighter;// collapsed, #e8e8e8;
+$callout-gray-light: $border-gray-light;// expanded, #f0f0f0
+$callout-yellow: #ffe594;// collapsed
+$callout-yellow-light: #fff2c4;// expanded
+
+// Default colors
+//----------------------------
+$bg-default: usa.color(usa.$theme-body-background-color);// #fff
+$c-default: $c-black;
+
+// Shadows
+//----------------------------
+// Note: drop-shadow() spread in Figma needs to be divided
+//       by 2 to look the same on the web (i.e. was 104px in Figma)
+// $card-drop-shadow-desktop: drop-shadow(0 4px 52px rgba(#000, 0.16));
+
+// Note: box-shadow is typically more performant than drop-shadow(),
+//       particularly on elements that are animated.
+$card-box-shadow-mobile: 0 4px 42px rgba(#000, 0.25);
+$card-box-shadow-desktop: 0 4px 52px rgba(#000, 0.16);// also used for sticky header

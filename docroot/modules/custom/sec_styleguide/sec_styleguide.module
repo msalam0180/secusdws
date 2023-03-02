@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains sec_styleguide.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+// Includes.
+require_once dirname(__FILE__) . '/php-includes/uswds_theme.inc';
+
+/**
+ * Implements hook_help().
+ */
+function sec_styleguide_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the sec_styleguide module.
+    case 'help.page.sec_styleguide':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Generates a page with SEC components based on USWDS') . '</p>';
+      return $output;
+
+    default:
+  }
+}

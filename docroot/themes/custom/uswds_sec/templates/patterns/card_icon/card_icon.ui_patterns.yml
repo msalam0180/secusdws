@@ -1,0 +1,35 @@
+card_icon:
+  label: Card with Icon
+  description: Custom card with icon and CTA
+  fields:
+    heading:
+      type: text
+      label: Heading
+      description: Heading text
+      preview: The SEC needs your input.
+    icon:
+      type: text
+      label: Icon
+      description: Icon name from USWDS
+      preview: chat
+    description:
+      type: text
+      label: Description
+      description: Short description
+      preview: Comment on proposed rules and other Commission initiatives
+    footer:
+      type: text
+      label: Footer
+      description: Content for bottom of card, e.g. button
+      preview:
+        - type: pattern
+          id: button
+          variant: default
+          fields:
+            label: Submit a comment
+            url: /
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3

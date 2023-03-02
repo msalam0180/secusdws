@@ -1,0 +1,91 @@
+// Copied from @uswds/uswds/packages/uswds/_index.scss
+
+// Global
+// Expanded contents of “uswds-global” shown below:
+@forward "packages/uswds-elements/lib/normalize";// from https://github.com/necolas/normalize.css/
+@forward "packages/uswds-core";
+@forward "packages/uswds-fonts";
+@forward "packages/uswds-elements";
+@forward "packages/uswds-helpers";
+
+// Components
+
+// Expanded contents of “uswds-typography” shown below:
+@forward "packages/usa-content";
+@forward "packages/usa-dark-background";
+@forward "packages/usa-display";
+@forward "packages/usa-intro";
+@forward "packages/usa-link";
+@forward "packages/usa-list";
+@forward "packages/usa-paragraph";
+@forward "packages/usa-prose";
+
+@forward "packages/usa-accordion/src/styles";
+@forward "packages/usa-alert/src/styles";
+@forward "packages/usa-banner/src/styles";
+@forward "packages/usa-breadcrumb/src/styles";
+@forward "packages/usa-button-group/src/styles";
+@forward "packages/usa-button/src/styles";
+@forward "packages/usa-card/src/styles";
+@forward "packages/usa-checklist/src/styles";
+@forward "packages/usa-collection/src/styles";
+@forward "packages/usa-embed-container/src/styles";
+@forward "packages/usa-footer/src/styles";
+@forward "packages/usa-form/src/styles";
+// @forward "packages/usa-graphic-list/src/styles";// not documented yet on USWDS (see note below) - Example on USWDS landing page template https://designsystem.digital.gov/templates/landing-page/
+// @forward "packages/usa-header/src/styles";// we’re coding a custom header
+// @forward "packages/usa-hero/src/styles";// not documented yet on USWDS (see note below) - Example on USWDS landing page template https://designsystem.digital.gov/templates/landing-page/
+@forward "packages/usa-icon-list/src/styles";
+@forward "packages/usa-icon/src/styles";
+// @forward "packages/usa-identifier/src/styles"; // not used
+@forward "packages/usa-in-page-navigation/src/styles";
+// @forward "packages/usa-input-mask/src/styles"; // not used - if this becomes a requirement, consider module https://www.drupal.org/project/field_formatter_pattern
+// @forward "packages/usa-language-selector/src/styles"; // not used
+@forward "packages/usa-layout-docs/src/styles";
+@forward "packages/usa-layout-grid/src/styles";
+@forward "packages/usa-media-block/src/styles";
+// @forward "packages/usa-megamenu/src/styles";
+@forward "packages/usa-modal/src/styles";
+// @forward "packages/usa-nav-container/src/styles";
+@forward "packages/usa-nav/src/styles";
+// @forward "packages/usa-navbar/src/styles";
+@forward "packages/usa-pagination/src/styles";
+// @forward "packages/usa-process-list/src/styles";// not used - this may be helpful
+@forward "packages/usa-search/src/styles";
+@forward "packages/usa-section/src/styles";
+@forward "packages/usa-sidenav/src/styles";
+@forward "packages/usa-site-alert/src/styles";
+@forward "packages/usa-skipnav/src/styles";
+@forward "packages/usa-step-indicator/src/styles";
+@forward "packages/usa-summary-box/src/styles";
+@forward "packages/usa-table/src/styles";
+@forward "packages/usa-tag/src/styles";
+@forward "packages/usa-tooltip/src/styles";
+
+// Form controls
+// Expanded contents of “uswds-form-controls” shown below:
+// @forward "usa-character-count";// not used
+@forward "usa-checkbox";
+@forward "usa-combo-box";
+@forward "usa-date-picker"; // used on webforms
+@forward "usa-error-message";
+@forward "usa-fieldset";
+@forward "usa-file-input"; // used on webforms
+@forward "usa-form-group";
+@forward "usa-form";
+@forward "usa-hint";
+@forward "usa-input-prefix-suffix";
+@forward "usa-input";
+@forward "usa-label";
+@forward "usa-legend";
+// @forward "usa-memorable-date";// not used
+@forward "usa-radio";
+// @forward "usa-range";// not used
+@forward "usa-select";
+@forward "usa-textarea";
+// @forward "usa-time-picker"; // not used
+
+// Utilities
+@forward "packages/uswds-utilities/src/styles";
+
+// Note on undocumented components: The USWDS Developer said "The UX research and guidance was out-of-date so that's why it didn't make it in the original 2x website launch. We have an issue to document components like [usa-graphic-list] and hero, but we just got a UX researcher again and she's working on stuff that backed up. For undocumented components; we not only want to add them but we want to improve their features."

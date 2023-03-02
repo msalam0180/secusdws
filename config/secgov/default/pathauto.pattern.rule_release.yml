@@ -1,0 +1,22 @@
+uuid: 8b5636d1-4d03-42ac-85d9-2e1d0b9c4eaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: rule_release
+label: Rules
+type: 'canonical_entities:node'
+pattern: '/rule-release/[node:title]'
+selection_criteria:
+  b27a91f6-60e9-4441-96cd-1074adba12b1:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: b27a91f6-60e9-4441-96cd-1074adba12b1
+    context_mapping:
+      node: node
+    bundles:
+      regulation: regulation
+selection_logic: and
+weight: -5
+relationships: {  }

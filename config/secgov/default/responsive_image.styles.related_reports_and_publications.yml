@@ -1,0 +1,23 @@
+uuid: 82681dfc-a499-42fc-bdd0-39e456b536b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.related_reports_and_publications_large
+    - image.style.related_reports_and_publications_medium
+    - image.style.related_reports_and_publications_small
+id: related_reports_and_publications
+label: 'Related Reports and Publications'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width: 639px) 87vw, (max-width: 914px) 43.5vw, (max-width: 965px) 29vw, 280px'
+      sizes_image_styles:
+        - related_reports_and_publications_large
+        - related_reports_and_publications_medium
+        - related_reports_and_publications_small
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+breakpoint_group: responsive_image
+fallback_image_style: related_reports_and_publications_small

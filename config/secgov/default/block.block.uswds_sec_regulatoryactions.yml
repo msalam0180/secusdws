@@ -1,0 +1,25 @@
+uuid: 27b7a5d1-7be2-4126-9920-716c16391907
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.regulatory-actions
+  module:
+    - system
+  theme:
+    - uswds_sec
+id: uswds_sec_regulatoryactions
+theme: uswds_sec
+region: header
+weight: -22
+provider: null
+plugin: 'system_menu_block:regulatory-actions'
+settings:
+  id: 'system_menu_block:regulatory-actions'
+  label: 'Regulatory Actions'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

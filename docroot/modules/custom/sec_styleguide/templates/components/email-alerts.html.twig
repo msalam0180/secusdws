@@ -1,0 +1,8 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{{ pattern('email_alerts', {
+  headline: 'Get filing search announcements sent straight to your inbox.',
+  list_id: 123,
+  heading_level: 3,
+}) }}

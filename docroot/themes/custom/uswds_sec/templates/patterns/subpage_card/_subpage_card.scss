@@ -1,0 +1,75 @@
+//------------------------------------------------------------------------
+// Subpage card
+//------------------------------------------------------------------------
+.subpage-card {
+  $bp-end-scale: 480px;
+  @include scale(padding-bottom, (375px: 10px, $bp-end-scale: 32px));
+  @include scale(padding-left padding-right, (375px: 15px, $bp-end-scale: $layout-card-horz-padding-max));
+  @include scale(padding-top, (375px: 12px, $bp-end-scale: 35px));
+  background-color: $bg-blue-lighter;
+  border: 1px solid $border-gray-light;
+  color: var(--card-text-color, $c-blue);
+  display: flex;
+  flex-direction: column;
+  position: relative;// for link overlay
+  transition: background-color 180ms ease, color 180ms ease;
+
+  &:hover,
+  &:focus-within {
+    --card-text-color: #fff;
+    @include font-smoothing;
+    background-color: $c-blue;
+
+    .usa-icon {
+      transform: translateX(4px);
+
+      @include min-width($bp-end-scale) {
+        transform: translateX(9px);
+      }
+    }
+  }
+
+  &__headline {
+    font-size: rem(16px);
+    font-weight: bold;
+    line-height: 1.2;
+
+    &__link {
+      color: currentColor;
+      text-decoration: none;
+
+      // Link overlay to make entire card clickable
+      &:after {
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
+    }
+  }
+
+  &__body {
+    color: var(--card-text-color, $c-gray-dark);
+    font-size: rem(15px);
+    line-height: 1.5;
+    margin-top: rem(10px);
+    transition: color 180ms ease;
+  }
+
+  // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
+  // Note: Since we can’t get each individual icon’s viewBox dimensions
+  //       in the template, the size of the SVG element won’t match the
+  //       use element, so the styles may not match Figma _exactly_.
+  .usa-icon {
+    fill: currentColor;
+    height: 100%;
+    margin-left: auto;// right align
+    max-height: rem(27px);
+    max-width: rem(27px);
+    transition: transform 300ms $easeOutCubic;
+    width: 100%;
+  }
+}

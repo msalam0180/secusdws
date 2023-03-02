@@ -1,0 +1,170 @@
+{# Official government website banner #}
+{# Note: This banner needs to live outside of <header> for sticky positioning to work #}
+{% if government_banner %}
+  <section class="gov-banner" aria-label="Official Government Site Banner">
+    {{ government_banner }}
+  </div>
+{% endif %}
+
+{# Header #}
+{#
+  Note: The “is-mobile” and “is-desktop” classes can be used anywhere inside the header
+        to only show content in mobile/desktop. They use the $layout-nav-bp breakpoint.
+
+        We aren’t including the default classes from “header_classes” since this header
+        is customized and doesn‘t rely on any of the USWDS header styles. We only need
+        to add the “usa-header” class for the mobile nav JS.
+#}
+<header class="header is-sticky header usa-header" role="banner">
+  <div class="header__wrap">
+
+    {# Note: This wrapper is only used in mobile #}
+    <div class="header__wrap__top">
+      {# Note: Logo should be wrapped in an <h1> on the homepage #}
+      <{{ is_front ? 'h1' : 'div'}} class="header__logo">
+        {# FIXME: Integrate link href and image src/srcset #}
+        <a class="header__logo__link" href="/">
+          <img class="header__logo__img"
+            src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png"
+            srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png 1x,
+                    /themes/custom/uswds_sec/dist/img/logos/sec-logo-2x.png 2x"
+            alt="U.S. Securities and Exchange Commission"/>
+          <img class="header__logo__img is-sticky"
+            src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-1x.png"
+            srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-1x.png 1x,
+                    /themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-2x.png 2x"
+            alt="U.S. Securities and Exchange Commission"/>
+        </a>
+      </{{ is_front ? 'h1' : 'div'}}>
+
+      {# Mobile nav toggle #}
+      {# Note: Requires the “usa-menu-btn” class for the USWDS script #}
+      <button class="header__menu-toggle is-mobile usa-menu-btn usa-button">
+        {{ 'Menu'|t }}
+        <span class="menu-icon"></span>
+      </button>
+    </div>
+
+    {# Primary navigation #}
+    <nav class="header__nav-primary usa-nav" role="navigation" aria-label="Primary navigation">
+      <div class="header__nav-primary__top is-mobile">
+        {# FIXME: Integrate link href and image src/srcset #}
+        <div class="header__logo">
+          <a class="header__logo__link" href="/">
+            <img class="header__logo__img is-mobile"
+              src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png"
+              srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png 1x,
+                      /themes/custom/uswds_sec/dist/img/logos/sec-logo-2x.png 2x"
+              alt="U.S. Securities and Exchange Commission"/>
+          </a>
+        </div>
+
+        {# Mobile nav close button #}
+        <button class="header__menu-toggle header__menu-toggle--close is-mobile usa-nav__close usa-button">
+          {{ 'Close'|t }}
+          <span class="close-icon"></span>
+        </button>
+      </div>
+
+      {# Mobile search box #}
+      {{ pattern('search_form', {
+        'modifier_classes': 'header__search is-mobile usa-search--small',
+        'label': 'Search SEC.gov',
+        'hide_button_text': true,
+        'button_text': 'Search',
+        'action': '//secsearch.sec.gov/search',
+        'hiddenFields': hiddenFields,
+        'form_id': 'global-search-form',
+        'form_name': 'form_iQueryForm',
+        'input_name': 'query',
+        'input_id': 'global-search-box',
+        'autocomplete': 'off',
+        'placeholder': 'Search Sec.gov'
+      }) }}
+
+      {# see https://www.drupal.org/project/drupal/issues/953034#comment-14192130 #}
+      {% if page.primary_menu|render|striptags('<img><video><audio><drupal-render-placeholder>')|trim %}
+        {{ page.primary_menu }}
+      {% endif %}
+
+      {# CTA button #}
+      <a class="header__cta usa-button usa-button--secondary" href="#FIXME">
+        Report a Concern
+      </a>
+
+      {# Mobile secondary nav #}
+      <ul class="header__nav-secondary is-mobile usa-nav__secondary" role="list">
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Newsroom
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Investors
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Small Businesses
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Fraud Victims
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    {# Wrapper for secondary content in desktop only (i.e. search, secondary nav menu) #}
+    <div class="header__secondary is-desktop">
+      {# Desktop secondary nav #}
+      <ul class="header__nav-secondary is-desktop usa-nav__secondary" role="list">
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Newsroom
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Investors
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Small Businesses
+          </a>
+        </li>
+        <li class="usa-nav__secondary-item">
+          <a class="usa-nav-link" href="#">
+            Fraud Victims
+          </a>
+        </li>
+      </ul>
+
+      {# Desktop search box #}
+      {{ pattern('search_form', {
+        'modifier_classes': 'header__search is-desktop usa-search--small',
+        'label': 'Search SEC.gov',
+        'hide_button_text': true,
+        'button_text': 'Search',
+        'action': '//secsearch.sec.gov/search',
+        'hiddenFields': hiddenFields,
+        'form_id': 'global-search-form',
+        'form_name': 'form_iQueryForm',
+        'input_name': 'query',
+        'input_id': 'global-search-box',
+        'autocomplete': 'off',
+        'placeholder': 'Search Sec.gov'
+      }) }}
+    </div>
+
+  </div>
+</header>
+{#
+  We need this empty div to achieve the sticky desktop functionality, since once the
+  header becomes sticky it will no longer trigger IntersectionObserver. Instead, we
+  will wait until this element enters the viewport to remove the sticky class.
+#}
+<div class="sticky-header-watcher"></div>

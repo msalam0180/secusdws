@@ -1,0 +1,64 @@
+search_form:
+  label: Search Form
+  description: Search form
+  fields:
+    action:
+      type: text
+      label: Form Action
+      description: URL where the form submit
+      preview: 'https://www.sec.gov'
+    form_id:
+      type: text
+      label: Form ID
+      description: Id of the form
+      preview: "search-form"
+    input_id:
+      type: text
+      label: Input ID
+      description: Id of the Input
+      preview: "search-form"
+    label_text:
+      type: text
+      label: Label Text
+      description: '<label> value'
+      preview: 'Search'
+    form_name:
+      type: text
+      label: Form Name
+      description: Name attribute of the form
+      preview: 'name'
+    input_name:
+      type: text
+      label: Input Name
+      description: Input attribute of the input
+      preview: 'name'
+    autocomplete:
+      type: text
+      label: Autocomplete
+      description: Autocomplete attribute of the search input
+      preview: 'Search'
+    placeholder:
+      type: text
+      label: Placeholder Text
+      description: Text that appears in the search until a user starts typing
+      preview:
+    hiddenFields:
+      type: text
+      label: Hidden Fields
+      description: hidden fields that need to be in the form
+      preview:
+    hide_button_text:
+      type: text
+      label: hide_button_text
+      description: TODO Update
+      preview:
+    button_text:
+      type: text
+      label: Button Text
+      description: Text that appears in the button
+      preview: Search
+    modifier_classes:
+      type: text
+      label: Modifier Classes
+      description: Classes that need to be added to the form
+      preview: "class-name"

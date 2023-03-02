@@ -1,0 +1,149 @@
+
+// make into a fill width page
+.view-display-id-exemptive-orders-page #content-wrapper {
+    width: 100%;
+    float: none;
+}
+
+
+.view-display-id-exemptive_orders_page {
+
+    // fix table styles
+    tbody td a span {
+        float: none;
+    }
+
+    .views-exposed-form input.form-submit {
+        display: block;
+        height: auto;
+    }
+
+    table.list tbody tr:hover {
+        background: none;
+    }
+
+    table.list tbody tr, table.list tbody td {
+        border: none;
+        border-bottom: thin solid #BFBFBF;
+    }
+
+    tbody td {
+        padding: 12px 10px;
+    }
+
+    tbody tr.current td {
+        background: none;
+    }
+
+    table thead th {
+        min-width: 125px;
+    }
+}
+
+.exemptive-orders-page {
+    border-top: none;
+
+    @include breakpoint('small'){
+        clear: both;
+        margin-top: 70px;
+        position: relative;
+    }
+
+    thead {
+
+        @include breakpoint('small'){
+        position: relative;
+        }
+
+        tr {
+        &.header { background-color: #E3E3E3; }
+        &:hover { background-color: $porcelain; }
+
+        @include breakpoint('small'){
+            background-color: none;
+            display: block;
+            left: 0px;
+            height: 50px;
+            position: absolute;
+            width: 100%;
+            top: -31px;
+
+            &.header {
+            background: none;
+            border: 0;
+            padding: 0;
+            }
+        }
+        }
+
+        th {
+            padding: 5px 2px 5px 5px;
+            background-color: #E3E3E3;
+            border-bottom: none;
+            min-width: 100px;
+
+        @include breakpoint('small'){
+            background-color: $porcelain;
+            border: 1px solid $border-color;
+            display: table-cell !important;
+            padding: 0;
+            margin-right: 1px;
+            min-width: 70px;
+        }
+
+        div {
+            width: 100%;
+            @include breakpoint('small'){
+            padding: 10px 20px 8px 10px;
+            }
+        }
+
+        }
+
+        .sorting {
+        background: $mist;
+
+        div {
+            background: url('/themes/custom/secgov/images/tablesorter/sort-neutral.gif') no-repeat right center;
+            display: block;
+            width: 100%;
+            @include breakpoint('small') {
+            background: none;
+            }
+        }
+        }
+
+        .sorting_asc {
+        background: $white;
+
+        @include breakpoint('small') {
+            background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 70%);
+            border-bottom: 1px solid $white;
+        }
+
+        div {
+            background: url('/themes/custom/secgov/images/tablesorter/sort-asc.gif') no-repeat;
+            background-position: right center;
+            display: block;
+            width: 100%;
+        }
+        }
+
+        .sorting_desc {
+        background: $white;
+
+        @include breakpoint('small') {
+            background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 70%);
+            border-bottom: 1px solid $white;
+        }
+
+        div {
+            background: url('/themes/custom/secgov/images/tablesorter/sort-desc.gif') no-repeat;
+            background-position: right center;
+            display: block;
+            width: 100%;
+        }
+        }
+    }
+}
+

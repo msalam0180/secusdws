@@ -1,0 +1,26 @@
+{% set heading_level = heading_level|default(3) %}
+<div class="card-horz">
+  <div class="card-horz__media">
+    {{ image }}
+  </div>
+
+  <div class="card-horz__container bg-default">
+    <h{{ heading_level }} class="card-horz__heading">
+      {{- heading -}}
+    </h{{ heading_level }}>
+
+    {# Note: Assume body copy can include markup #}
+    {% if body | render | length > 0 %}
+      <div class="card-horz__body">
+        {{- body -}}
+      </div>
+    {% endif %}
+    
+    {# Note: Footer is used to align buttons to the bottom in grid layout #}
+    {% if footer | render | length > 0 %}
+      <div class="card-horz__footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+</div>

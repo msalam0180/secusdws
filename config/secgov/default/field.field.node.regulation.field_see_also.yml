@@ -1,0 +1,31 @@
+uuid: 55c91b72-da98-4ad4-b9d5-64046153fb92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_see_also
+    - media.type.link
+    - media.type.static_file
+    - node.type.regulation
+id: node.regulation.field_see_also
+field_name: field_see_also
+entity_type: node
+bundle: regulation
+label: 'See Also'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      link: link
+      static_file: static_file
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: link
+field_type: entity_reference

@@ -1,0 +1,11 @@
+//------------------------------------------------------------------------
+// Grid overrides
+// https://designsystem.digital.gov/utilities/layout-grid/
+//------------------------------------------------------------------------
+.grid {
+  // We want the grid to fill the parent width
+  &-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

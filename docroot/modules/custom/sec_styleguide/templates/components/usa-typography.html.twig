@@ -1,0 +1,186 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<h2>Heading Level 2</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adip* isicing elit, sed do eiusmod *tempor incididunt ut labore et dolore magna aliqua.</p>
+
+<h3>Header Level 3</h3>
+<p>Vivamus magna justo, lacinia eget consectetur sed, att tellus. Donec sollicitudin molestie malesuada.</p>
+
+<h4>Header Level 4</h4>
+<p>Nulla porttitor accumsan tincidunt. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta.</p>
+
+<h5>Header Level 5</h5>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+<h6>Header Level 6</h6>
+
+<p><a href="#footer">Skip to footer</a> senectus et <strong>netus et malesuada</strong> fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies <strong>mi vitae est.</strong></em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, <code>condimentum sed, commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis<sup>123</sup> pulvinar<sub>456</sub> facilisis. Ut felis. <a href="https://www.google.com">External link</a></p>
+
+<h2>Block quote</h2>
+
+<blockquote>
+  <p>“Est tation latine aliquip id, mea ad tale illud definitiones. Periculis omittantur necessitatibus eum ad, pro eripuit minimum comprehensam ne, usu cu stet prompta reformidans.”</p>
+  <footer><cite>Connie Robertson at Google</cite></footer>
+</blockquote>
+
+<h2>Lists</h2>
+
+<ul>
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+  <li>Donec eu libero sit amet quam egestas semper.</li>
+  <li>Aliquam tincidunt mauris eu risus.</li>
+</ul>
+
+<ol>
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+  <li>Donec eu libero sit amet quam egestas semper.</li>
+  <li>Aliquam tincidunt mauris eu risus.</li>
+</ol>
+
+<p>Ordered list starting at 10:</p>
+
+<ol start="10">
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+  <li>Donec eu libero sit amet quam egestas semper.</li>
+  <li>Aliquam tincidunt mauris eu risus.</li>
+</ol>
+
+<h3>Nested lists</h3>
+
+<ul>
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    <ul>
+      <li>Donec eu libero sit amet quam egestas semper.</li>
+      <li>Aliquam tincidunt mauris eu risus.
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+          <li>Aliquam tincidunt mauris eu risus.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Donec eu libero sit amet quam egestas semper.
+    <ol>
+      <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+      <li>Aliquam tincidunt mauris eu risus.
+        <ol>
+          <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+          <li>Aliquam tincidunt mauris eu risus.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<ol>
+  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    <ol>
+      <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+      <li>Aliquam tincidunt mauris eu risus.
+        <ol>
+          <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+          <li>Aliquam tincidunt mauris eu risus.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>Donec eu libero sit amet quam egestas semper.
+    <ul>
+      <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+      <li>Aliquam tincidunt mauris eu risus.
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+          <li>Aliquam tincidunt mauris eu risus.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2>Tables</h2>
+
+<p>See <a href="/sec-styleguide/usa-table">Tables</a> for a full list of table examples.</p>
+
+<table>
+  <caption>Table 1: Basic Example</caption>
+  <thead>
+    <tr>
+      <th scope="col">Company</th>
+      <th scope="col">Employees</th>
+      <th scope="col">Founded</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ACME Inc</td>
+      <td>1000</td>
+      <td>1947</td>
+    </tr>
+    <tr>
+      <td>XYZ Corp</td>
+      <td>2000</td>
+      <td>1973</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Table 2: Footer Example</caption>
+  <thead>
+    <tr>
+      <th>Items</th>
+      <th scope="col">Expenditure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Donuts</th>
+      <td>3,000</td>
+    </tr>
+    <tr>
+      <th scope="row">Stationery</th>
+      <td>18,000</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="row">Total</th>
+      <td>21,000</td>
+    </tr>
+  </tfoot>
+</table>
+
+<h2>Code</h2>
+{% set code_example = '<div class="grid-row">
+  <div class="tablet:grid-col-4">Column 1</div>
+  <div class="tablet:grid-col-8">Column 2</div>
+</div>' %}
+<pre><code>{{ code_example|e }}</code></pre>
+
+<h2>Definition List</h2>
+
+<dl>
+  <dt>403(B) Plan</dt>
+  <dd>A type of tax-deferred retirement savings program available to employees of public schools, certain non-profits, and some members of the clergy.</dd>
+  <dt>529 Account Beneficiary</dt>
+  <dd>A current or future student for whom the 529 account is established.</dd>
+  <dt>Asset Allocation</dt>
+  <dd>Asset allocation involves dividing your investments among different categories, such as stocks, bonds, and cash.</dd>
+</dl>
+
+<h2>Horizontal Rule</h2>
+
+<hr>
+
+{# <p>J.R.R. Tolkien 3000 uttered veins <q>roaring winds moaning flaming</q>. Meddle <ins>measure pure</ins> Samwise Gamgee business! <sub>Lied</sub> mistake Proudfoots pon. Instance 80 <dfn>morbid ceremonial plunge</dfn> Anor mad. Questions shells hangs noble Proudfoots <var>throws</var>. <mark>Rampart damage</mark> questions Chubbs 3000 conjurer? Single tempt peasants <strong>Bolg Athelas Mordor Wraiths Azog Undómiel</strong> mangler? <samp>Nori Giants Undómiel Rivendell</samp> spike posts took. Fool's Underhill boarded vanishing twilight unheard-of. <abbr>Presence</abbr> Dunland lamb lair. Barricade <sup>didn't</sup> feelings purring vine Morgoth. Distract Giants nearing champion <kbd>T</kbd>. Clothing titles quick bother <em>Arod Gloin Beren</em> troop? Balls crashing  <small>arrives precisely rascal</small> stubbornness Snowbourn. Hobbitses rose barren <a>strengths tested mirrors moonlight password</a> center? Remade <code>free filthy</code> breaking respect amuse Arod? Vengeance <del>Elessar Wolves</del> posts remain doorway said! <time>Suspects</time> fight Merry hungers locked yelp.</p> #}
+
+<h2>Lead Paragraph for Landing Page</h2>
+
+<div class="node--type-landing-page">
+  {{ pattern_preview('lead_paragraph') }}
+</div>
+
+<h2>Lead Paragraph for Content Page</h2>
+
+{{ pattern_preview('lead_paragraph') }}

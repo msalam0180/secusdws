@@ -1,0 +1,30 @@
+uuid: 5268fe84-2cf7-46f2-9ad0-774561ca41d3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:release_topper:e543831d-e33b-4aef-84a1-ee076184e32f'
+  module:
+    - block_content
+    - system
+  theme:
+    - secgov
+id: publicpetitionsquicklinks
+theme: secgov
+region: sidebar_second
+weight: -37
+provider: null
+plugin: 'block_content:e543831d-e33b-4aef-84a1-ee076184e32f'
+settings:
+  id: 'block_content:e543831d-e33b-4aef-84a1-ee076184e32f'
+  label: 'Public Petitions Quicklinks'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /rules/petitions

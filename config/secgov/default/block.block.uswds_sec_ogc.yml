@@ -1,0 +1,32 @@
+uuid: 48c90d99-6764-47f0-807e-5712d069262b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.ogc
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: LeVvPjOWD449iOjB9KyA8Y9shro2qfprtwgLmORAFOk
+id: uswds_sec_ogc
+theme: uswds_sec
+region: sidebar_first
+weight: -23
+provider: null
+plugin: 'system_menu_block:ogc'
+settings:
+  id: 'system_menu_block:ogc'
+  label: OGC
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/ogc\r\n/ogc/*"

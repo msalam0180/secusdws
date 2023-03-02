@@ -1,0 +1,32 @@
+uuid: fa39d5eb-3da4-478d-be67-d66dace64491
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.os
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: qzmq2x0ggPxO5h1Y5Dot8epkqcHweEW948bWVUsDHi4
+id: uswds_os
+theme: uswds
+region: sidebar_first
+weight: -15
+provider: null
+plugin: 'system_menu_block:os'
+settings:
+  id: 'system_menu_block:os'
+  label: OS
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/os\r\n/os/*"

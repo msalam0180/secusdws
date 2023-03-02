@@ -1,0 +1,15 @@
+{% set heading_level = heading_level|default(3) %}
+
+{% set  unique_id = (manually_created_id) ? manually_created_id : entity_id | render | striptags | trim | clean_class %}
+
+<h{{ heading_level }} class="usa-accordion__heading">
+  <button class="usa-accordion__button"
+    type="button"
+    aria-expanded="{{ expanded|default('false') }}"
+    aria-controls="accordion{{ unique_id }}">
+    {{- heading -}}
+  </button>
+</h{{ heading_level }}>
+<div class="usa-accordion__content usa-prose" id="accordion{{ unique_id }}">
+  {{ body|raw }}
+</div>

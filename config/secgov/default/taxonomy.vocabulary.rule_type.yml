@@ -1,0 +1,8 @@
+uuid: c1c918be-7c0d-4835-b6ac-fd22e4a41cb5
+langcode: en
+status: true
+dependencies: {  }
+name: 'Rule Type'
+vid: rule_type
+description: ''
+weight: 0

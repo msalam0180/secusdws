@@ -1,0 +1,15 @@
+uuid: 5ff258cf-9a2c-44c3-927d-d908db1c8cf7
+langcode: en
+status: true
+dependencies: {  }
+name: card_with_sidebar_2x
+label: 'Card with Sidebar 2x'
+effects:
+  37ddac29-2c38-4253-8369-74a691e0d9f7:
+    uuid: 37ddac29-2c38-4253-8369-74a691e0d9f7
+    id: image_scale
+    weight: 1
+    data:
+      width: 652
+      height: null
+      upscale: false

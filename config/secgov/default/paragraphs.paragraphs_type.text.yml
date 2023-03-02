@@ -1,0 +1,10 @@
+uuid: caf40eed-c303-4513-8261-2e1c9e7e6f23
+langcode: en
+status: true
+dependencies: {  }
+id: text
+label: Text
+icon_uuid: null
+icon_default: null
+description: 'Text field for Component Block'
+behavior_plugins: {  }

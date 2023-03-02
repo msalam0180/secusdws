@@ -1,0 +1,32 @@
+uuid: 136e90ae-990e-43f3-82a7-7a10b8d1a5db
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.alj
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: IQRyr3gImA36CI68__cjJoj9rE9aPthC6zWkXQTK9bo
+id: uswds_sec_alj
+theme: uswds_sec
+region: sidebar_first
+weight: -34
+provider: null
+plugin: 'system_menu_block:alj'
+settings:
+  id: 'system_menu_block:alj'
+  label: ALJ
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/alj\r\n/alj/*"

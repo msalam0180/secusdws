@@ -1,0 +1,10 @@
+uuid: 542e1556-f4ba-4d73-bcb8-ca10a422d193
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.related_reports_and_publications
+label: 'Related Reports and Publications'
+targetEntityType: media
+cache: true

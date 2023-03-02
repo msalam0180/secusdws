@@ -1,0 +1,50 @@
+//------------------------------------------------------------------------
+// Breadcrumb overrides
+// https://designsystem.digital.gov/components/breadcrumb/
+//
+// TODO: Move to breadcrumb pattern folder once its created
+//------------------------------------------------------------------------
+.usa-breadcrumb {
+  $bp-desktop: 480px;// USWDS desktop breakpoint, shows single link below this
+  background-color: transparent;// override USWDS default
+  color: var(--theme-text-color, $c-default);
+  font-size: rem(14px);
+  padding-bottom: 0;// override USWDS default
+  padding-top: 0;// override USWDS default
+
+  // Note: SEC requested we hide the breadcrumb in mobile layout
+  // TODO: We may need to adjust the breakpoint to match the mobile nav
+  @include max-width($layout-sidenav-bp - 1px) {
+    display: none !important;
+  }
+
+  &__list {
+    margin: 0;// override USWDS default
+    padding: 0;// override USWDS default
+
+    // Note: Items are set to “display: inline” to support truncation
+    &-item {
+      // Custom separator
+      &:not(:last-child):after {
+        @supports (mask: url("")) {
+          background-color: currentColor;
+          margin-left: rem(3px);
+          margin-right: rem(2px);
+          mask-image: svg-url('slash', (fill: #000));
+        }
+      }
+    }
+  }
+
+  &__link {
+    @include link-underline;
+
+    // Use thinner underline when supported
+    @supports (text-decoration-thickness: 1px) {
+      text-decoration-color: currentColor;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+  }
+}

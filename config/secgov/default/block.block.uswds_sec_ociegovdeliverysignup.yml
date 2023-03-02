@@ -1,0 +1,25 @@
+uuid: aa77571c-bc5b-4e29-ba8b-8ce4095380a4
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:8aa5b6f1-8751-49b0-9392-1d609498c2ba'
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+id: uswds_sec_ociegovdeliverysignup
+theme: uswds_sec
+region: header
+weight: -23
+provider: null
+plugin: 'block_content:8aa5b6f1-8751-49b0-9392-1d609498c2ba'
+settings:
+  id: 'block_content:8aa5b6f1-8751-49b0-9392-1d609498c2ba'
+  label: 'OCIE GovDelivery Signup'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,42 @@
+/// Scale a value relative to the viewport width using `calc()` and viewport units
+/// @param {Number} $start - Starting value
+/// @param {Number} $end - Ending value
+/// @param {Number} $min-width - Starting viewport width
+/// @param {Number} $max-width - Ending viewport width
+/// @return {String} - Custom `calc()` formula
+/// @ignore Demo https://www.sassmeister.com/gist/9f87f8c19e91c811831d84fc8484ed24
+/// @link http://www.sassmeister.com/gist/7f22e44ace49b5124eec
+/// @link http://madebymike.com.au/writing/precise-control-responsive-typography/
+/// @link https://zellwk.com/blog/viewport-based-typography/
+/// @link http://codepen.io/indrekpaas/pen/VarLaJ?editors=1100
+/// @link http://codepen.io/maranomynet/pen/ozNpXV?editors=1100
+/// @link https://www.smashingmagazine.com/2016/05/fluid-typography/
+/* stylelint-disable */
+@use "sass:math";
+@use "em" as *;
+@use "rem" as *;
+
+// NOTE: We can’t name it “scale” since that will conflict with the
+//       native CSS “scale” transform.
+@function scale-val($start, $end, $min-width, $max-width, $units: 'rem') {
+  @if $start > 0 and $end > 0 and unit($start) != unit($end) {
+    @error '🔴  scale() units don’t match';
+  }
+
+  $slope: math.div($end - $start, $max-width - $min-width);
+
+  $intercept: $end - ($slope * $max-width);
+
+  @if (strip-unit($intercept) == 0) {
+    @return $slope * 100vw;
+  }
+  @else {
+    @if $units == 'em' {
+      @return calc(#{$slope * 100vw} + #{em($intercept)});
+    }
+    @else {
+      @return calc(#{$slope * 100vw} + #{rem($intercept)});
+    }
+  }
+}
+/* stylelint-enable */

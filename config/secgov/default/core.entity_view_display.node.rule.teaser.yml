@@ -1,0 +1,59 @@
+uuid: c57fcaf4-852b-463a-addd-dc5f046971f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.rule.body
+    - field.field.node.rule.field_comments_date_format
+    - field.field.node.rule.field_comments_due_date
+    - field.field.node.rule.field_comments_notice
+    - field.field.node.rule.field_comments_received
+    - field.field.node.rule.field_display_title
+    - field.field.node.rule.field_file_number
+    - field.field.node.rule.field_investment_company_act_cat
+    - field.field.node.rule.field_primary_division_office
+    - field.field.node.rule.field_related_rule
+    - field.field.node.rule.field_related_topics
+    - field.field.node.rule.field_show_comments_received
+    - field.field.node.rule.field_show_submit_comments
+    - field.field.node.rule.field_sro_organization
+    - field.field.node.rule.field_submit_comments
+    - node.type.rule
+  module:
+    - text
+    - user
+id: node.rule.teaser
+targetEntityType: node
+bundle: rule
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_comments_date_format: true
+  field_comments_due_date: true
+  field_comments_notice: true
+  field_comments_received: true
+  field_display_title: true
+  field_file_number: true
+  field_investment_company_act_cat: true
+  field_primary_division_office: true
+  field_related_rule: true
+  field_related_topics: true
+  field_show_comments_received: true
+  field_show_submit_comments: true
+  field_sro_organization: true
+  field_submit_comments: true
+  search_api_excerpt: true

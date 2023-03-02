@@ -1,0 +1,15 @@
+uuid: 3ba05900-be02-47e1-b967-5aba73fe014b
+langcode: en
+status: true
+dependencies: {  }
+name: related_reports_and_publications_medium
+label: 'Related Reports and Publications: medium'
+effects:
+  d5d9bd3d-57dc-4ac9-afcc-71b0e8314b67:
+    uuid: d5d9bd3d-57dc-4ac9-afcc-71b0e8314b67
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 672
+      height: 448
+      anchor: center-center

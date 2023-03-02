@@ -1,0 +1,170 @@
+//------------------------------------------------------------------------
+// Landing page header
+// Note: If the breakpoint changes we also need to update the “sizes” attr
+//       in /templates/patterns/page_header/pattern-page_header.html.twig
+//------------------------------------------------------------------------
+.page-header {
+  $bp-row: 740px;// see note above
+  $desktop-padding-right: 38px;
+  overflow: hidden;// for seal
+  position: relative;// for seal
+  margin-bottom: 40px; //TEMP spacing below
+  
+  @include min-width($bp-row) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;  //TEMP spacing below
+  }
+
+  &.has-image {
+    @include min-width($bp-row) {
+      min-height: rem(276px);
+    }
+
+    @include min-width(1440px) {
+      min-height: 19.2vw;
+    }
+  }
+
+  // Note: This element has the “l-padding” class
+  &__content {
+    @include scale(padding-bottom, (375px: 40px, $bp-row: 50px));
+    @include scale(padding-top, (375px: 30px, $bp-row: 40px));
+    position: relative;
+    z-index: 2;// above seal
+
+    @include min-width($bp-row) {
+      display: flex;
+      flex-direction: column;
+      padding: rem(37px 42px 62px);// reset hoz padding from “l-padding”
+      width: 100%;
+    }
+  }
+
+  // SEC requested we hide the breadcrumbs in mobile layout
+  .usa-breadcrumb {
+    margin-bottom: rem(38px);
+
+    @include max-width($bp-row - 1px) {
+      display: none;
+    }
+
+    @include min-width($bp-row) {
+      // Since we’re using the default “.usa-breadcrumbs” class,
+      // we have to use selector-append() to add “.has-image”
+      @at-root #{selector-append('.has-image', &)} {
+        padding-right: rem($desktop-padding-right);
+        width: 50%;
+      }
+    }
+  }
+
+  &__text {
+    @include max-width($bp-row - 1px) {
+      text-align: center;
+    }
+
+    @include min-width($bp-row) {
+      width: 100%;
+    }
+
+    &__inner {
+      @include min-width($bp-row) {
+        width: 67.8%;
+
+        .has-image & {
+          padding-right: rem($desktop-padding-right);
+          width: 50%;
+        }
+      }
+    }
+  }
+
+  &__heading {
+    @include scale(font-size, (375px: 28px, $bp-row: 36px));
+    font-family: $gotham-font-family;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0;// override USWDS default
+    margin-top: 0;// override USWDS default
+  }
+
+  &__description {
+    @include scale(font-size, (375px: 16px, $bp-row: 21px));
+    line-height: 1.5;
+    margin-top: rem(25px);
+
+    @include min-width($bp-row) {
+      font-weight: usa.font-weight('light');
+      line-height: 1.18;
+      margin-top: rem(37px);
+      max-width: rem(560px);
+    }
+
+    // Should be hidden for top-level landing pages,
+    // which are the only ones that should have images.
+    .has-image & {
+      display: none;
+    }
+  }
+
+  &__media {
+    @include min-width($bp-row) {
+      flex-shrink: 0;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+    }
+  }
+
+  // Note: Images should be converted to the correct aspect ratio by Drupal.
+  //       We’re only using “aspect-ratio” to prevent layout shift during
+  //       page load so it’s not imperative we polyfill for old browsers.
+  //       https://caniuse.com/mdn-css_properties_aspect-ratio
+  //
+  // 1. Use object-fit just in case the image isn’t the correct aspect ratio,
+  //    e.g. may be too small for Drupal to resize.
+  &__img {
+    object-fit: cover;// [1]
+
+    @include max-width($bp-row - 1px) {
+      aspect-ratio: 2 / 1;// Note: Source image is 5:3 aspect ratio
+      display: block;
+    }
+
+    @include min-width($bp-row) {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  // Exapand wrapper to fill parent so we can set SVG width
+  // using percentages instead of viewport units.
+  &__seal {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    @include max-width($bp-row - 1px) {
+      display: none;
+    }
+
+    svg {
+      height: auto;
+      max-width: rem(478px);
+      opacity: 0.08;
+      position: absolute;
+      right: rem(-57px);
+      top: rem(35px);
+      width: 40.5%;
+    }
+  }
+}

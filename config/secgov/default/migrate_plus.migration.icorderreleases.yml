@@ -1,0 +1,152 @@
+uuid: 36f30623-24fc-4ee1-b600-b0293cb2fea7
+langcode: en
+status: true
+dependencies: {  }
+id: icorderreleases
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - ic
+migration_group: regulations
+label: 'Import of Investment Company Order Release Files AWS content'
+source:
+  plugin: csv
+  path: 'public://migration/icreleases_category.csv'
+  header_offset: 0
+  ids:
+    - order_url
+  fields:
+    -
+      name: category
+      label: Category
+    -
+      name: investment_company
+      label: 'Investment Company'
+    -
+      name: file_num
+      label: 'File Number'
+    -
+      name: file_num_url
+      label: 'File Number Url'
+    -
+      name: notice_id
+      label: 'Notice ID'
+    -
+      name: notice_url
+      label: 'Notice Url'
+    -
+      name: notice_date
+      label: 'Notice Date'
+    -
+      name: order_id
+      label: 'Order ID'
+    -
+      name: order_url
+      label: 'Order Url'
+    -
+      name: order_date
+      label: 'Order Date'
+  constants:
+    delimiter: ','
+    staticFileType: 'Investment Company Act Release'
+process:
+  _skip:
+    -
+      plugin: migration_lookup
+      migration:
+        - conceptreleases
+        - conceptseealso
+        - finalreleases
+        - finalseealso
+        - interim_finalreleases
+        - interim_finalseealso
+        - interpretivereleases
+        - interpretiveseealso
+        - otherreleases
+        - otherseealso
+        - proposedreleases
+        - proposedseealso
+        - sroreleases
+        - sroseealso
+        - aljinitialreleases
+        - aljinitialseealsofiles
+        - aljorderapreleases
+        - aljorderreleases
+        - aljorderseealsofiles
+        - apreleases
+        - apseealsofiles
+        - litigationreleasesreleases
+        - litigationreleasesseealsofiles
+        - opinionsordersreleases
+        - opinionsordersseealsofils
+        - stopordersreleases
+        - stopordersseealsofiles
+        - tradingsuspensionfiles
+        - tradingsuspensionseealso
+        - petitionreleases
+        - petitionseealso
+        - icnoticereleases
+        - icorderreleases
+        - icseealso
+      no_stub: true
+      source: related_rules
+    -
+      plugin: skip_on_value
+      method: row
+      not_equals: true
+      value: null
+  status:
+    plugin: default_value
+    default_value: 1
+  fileurl: order_url
+  name: id
+  field_display_title:
+    plugin: end
+    source: order_url
+    delimiter: /
+  field_description_abstract:
+    plugin: get_release_title
+    source: order_url
+  field_primary_division_office:
+    plugin: default_value
+    default_value: 39
+  field_static_file_type:
+    plugin: entity_generate
+    source: constants/staticFileType
+    value_key: name
+    bundle_key: vid
+    bundle: static_file_type
+    entity_type: taxonomy_term
+    ignore_case: true
+  created:
+    plugin: format_date
+    source: date
+    from_format: m/d/Y
+    from_timezone: America/New_York
+    to_format: U
+  changed: '@created'
+  publish_year:
+    plugin: format_date
+    source: date
+    from_format: m/d/Y
+    from_timezone: America/New_York
+    to_format: 'Y'
+  field_file_path:
+    plugin: get_file_path
+    source: order_url
+    vocabulary: file_path
+  field_media_file:
+    -
+      plugin: skip_on_contains
+      source: '@fileurl'
+      contains: .htm
+      method: row
+    -
+      plugin: file_import
+      source: '@fileurl'
+      file_exists: 'use existing'
+destination:
+  plugin: 'entity:media'
+  default_bundle: static_file
+migration_dependencies: null

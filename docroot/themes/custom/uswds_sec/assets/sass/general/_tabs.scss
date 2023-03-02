@@ -1,0 +1,62 @@
+// a11y tabs styling
+// TODO: need to update Drupal regular tabs
+.tabs {
+  display: flex;
+  flex-direction: column;
+
+  // Tabs list styles
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border: 2px solid usa.color("primary");
+    border-bottom: 0;
+    margin-bottom: 20px;
+
+    @include usa.at-media("desktop") {
+      flex-direction: row;
+      border: 0;
+      border-bottom: 2px solid usa.color("primary");
+    }
+  }
+
+  &__button.usa-button {
+    background-color: usa.color("primary");
+    border-bottom: usa.units(2px) solid usa.color("primary");
+    border-radius: 0;
+    color: usa.color("white");
+    cursor: pointer;
+    font-size: 0.75em;
+    margin: 0;
+    position: relative;
+
+    @include usa.at-media("desktop") {
+      border: usa.units(2px) solid usa.color("primary");
+      border-bottom: 0;
+      margin: 0 usa.units(1) 0 0;
+      top: usa.units(2px);
+    }
+
+    &:hover,
+    &.active {
+      background-color: usa.color("white");
+      border-bottom: 0;
+      color:  usa.color("primary");
+    }
+
+    &:focus {
+      isolation: isolate;
+    }
+  }
+
+  &__item {
+    &:focus {
+      isolation: isolate;
+      cursor: pointer;
+    }
+  }
+
+  &__panel {
+    padding-top: usa.units(4);
+  }
+}

@@ -1,0 +1,15 @@
+//------------------------------------------------------------------------
+// Banner overrides
+// https://designsystem.digital.gov/components/banner/
+// https://github.com/uswds/uswds/blob/develop/packages/usa-banner/src/styles/_usa-banner.scss
+//------------------------------------------------------------------------
+.usa-banner {
+  // position: relative;
+  // z-index: $z-header + 1;// over mobile nav
+
+  // It’s unclear why but USWDS removed the right padding
+  // which can cause the text to touch the viewport edge.
+  &__inner {
+    padding-right: 1rem;
+  }
+}

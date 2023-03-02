@@ -1,0 +1,65 @@
+// Override default USWDS settings
+// https://designsystem.digital.gov/documentation/settings/
+// https://designsystem.digital.gov/utilities/
+@use "packages/uswds-core" with (
+  $color-settings: (
+    "output": false,
+    "responsive": false,
+    "active": false,
+    "focus": false,
+    "hover": false,
+    "visited": false,
+  ),
+  $color-palettes: (),
+  // List of utility classes
+  // https://designsystem.digital.gov/documentation/settings/#utilities-settings
+  $output-these-utilities: (
+    "add-aspect",
+    "align-items",
+    "align-self",
+    "clearfix",
+    "display",
+    "flex",
+    "flex-direction",
+    "flex-wrap",
+    "margin-vertical",
+    "overflow",
+    "text-align",
+  ),
+  $theme-body-line-height: 4,// 1.5
+  // Note: We’re redefining these USWDS font stacks to append “color-emoji” (see _fonts.scss)
+  $theme-font-mono-custom-stack: "Roboto Mono Web, Roboto Mono Web, Bitstream Vera Sans Mono, Consolas, Courier, monospace, color-emoji",
+  $theme-font-sans-custom-stack: "Public Sans Web, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, color-emoji",
+  $theme-font-path: "../fonts",
+  $theme-font-type-mono: "roboto-mono",
+  $theme-font-type-sans: "public-sans",
+  $theme-font-type-serif: false,// not using serif text on SEC
+  $theme-font-role-alt: "sans",
+  $theme-font-role-body: "sans",
+  $theme-font-role-code: "sans",
+  $theme-font-role-heading: "sans",
+  $theme-font-role-ui: "sans",
+  $theme-font-weight-light: 300,
+  $theme-font-weight-normal: 400,
+  $theme-font-weight-bold: 700,
+  $theme-font-weight-heavy: 800,
+  $theme-image-path: "../img",
+  $theme-show-compile-warnings: true,
+  $theme-show-notifications: false,
+  $theme-text-color: 'ink',
+  $theme-utility-breakpoints: (
+    'card':              false,   // 160px
+    'card-lg':           false,   // 240px
+    'mobile':            false,   // 320px
+    'mobile-lg':         true,    // 480px
+    'tablet':            true,    // 640px
+    'tablet-lg':         false,   // 880px
+    'desktop':           true,    // 1024px
+    'desktop-lg':        false,   // 1200px
+    'widescreen':        false,   // 1400px
+  ),
+  $utilities-use-important: true,
+);
+
+// Forward the configured version of USWDS core
+@forward "packages/uswds-core";

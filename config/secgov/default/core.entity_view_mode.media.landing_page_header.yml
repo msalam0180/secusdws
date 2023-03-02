@@ -1,0 +1,10 @@
+uuid: 8e4cd225-cd1b-4956-808f-39a713a02efd
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.landing_page_header
+label: 'Landing Page Header'
+targetEntityType: media
+cache: true

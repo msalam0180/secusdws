@@ -1,0 +1,34 @@
+//------------------------------------------------------------------------
+// Link mixins
+//------------------------------------------------------------------------
+@use "uswds-settings" as usa;
+@use "../vars/color-vars" as *;
+
+// Note: These CSS vars are used to theme text inside “bg-[color]” classes
+@mixin link-underline() {
+  color: var(--theme-text-color, $link-color);
+  text-decoration: underline;
+  transition: color 180ms ease;
+
+  // Note: The focus outline comes from default USWDS styles
+  &:hover,
+  &:focus {
+    color: var(--theme-link-hover-color, $link-color-hover);
+  }
+
+  &:active {
+    color: var(--theme-link-active-color, $link-color-active);
+  }
+
+  &:visited {
+    color: var(--theme-link-visited-color, $link-color-visited);
+  }
+
+  // Automatically append external link icon
+  // Note: Use :where() to keep specificity low
+  &:where([href^="http"]):where(:not([href*="lndo.site"], [href*="//localhost"], [href*="sec.gov"])) {
+    @include usa.external-link();
+    padding-right: 1.9ex;// Override USWDS default of 1.75ex
+  }
+
+}

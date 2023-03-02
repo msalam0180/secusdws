@@ -1,0 +1,27 @@
+callout:
+  label: Callout
+  description: "A callout box to add different styles to a block on content"
+  variants:
+    default:
+      label: Default
+      description: Default Callout Box
+    # default-outline:
+    #   label: Default
+    #   description: Default Outline Callout Box
+    # alternate:
+    #   label: Alternate
+    #   description: Alternate Callout Box
+    # alternate-outline:
+    #   label: Alternate
+    #   description: Alternate Outline Callout Box
+  fields:
+    content:
+      type: render
+      label: Content
+      description: The content within the callout
+      preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in urna mauris. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam tincidunt id massa id tempus. Pellentesque luctus justo nec urna venenatis, ut molestie risus dictum. Curabitur accumsan pretium blandit. Phasellus pulvinar mi a efficitur placerat."
+    modifier_classes:
+      type: text
+      label: Modifier Classes
+      description: Classes that need to be added to the form
+      preview: "class-name"

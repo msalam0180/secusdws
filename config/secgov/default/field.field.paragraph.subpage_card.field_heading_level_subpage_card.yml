@@ -1,0 +1,27 @@
+uuid: b78f35db-0429-48bd-8f9a-c6408f162fa0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_heading_level_subpage_card
+    - paragraphs.paragraphs_type.subpage_card
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.subpage_card.field_heading_level_subpage_card
+field_name: field_heading_level_subpage_card
+entity_type: paragraph
+bundle: subpage_card
+label: 'Heading Level'
+description: 'Heading levels are used to determine the hierarchy of pages for assistive technologies.'
+required: true
+translatable: false
+default_value:
+  -
+    value: '2'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

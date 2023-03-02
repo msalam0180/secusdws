@@ -1,0 +1,29 @@
+uuid: 754b7b76-1000-4e5d-8f7c-3c48d37637e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_release_file
+    - media.type.static_file
+    - node.type.regulation
+id: node.regulation.field_release_file
+field_name: field_release_file
+entity_type: node
+bundle: regulation
+label: 'Release File'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      static_file: static_file
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

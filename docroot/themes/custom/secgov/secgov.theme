@@ -1,0 +1,1172 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Link;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Template\Attribute;
+use Drupal\views\ViewExecutable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+/**
+ * @file
+ * Functions to support theming in the theme.
+ */
+/**
+ * Returns hook-independent variables to template_preprocess().
+ */
+function secgov_preprocess_default_variables() {
+  // Variables that don't depend on a database connection.
+  $variables = array(
+    'attributes' => array(),
+    'title_attributes' => array(),
+    'content_attributes' => array(),
+    'title_prefix' => array(),
+    'title_suffix' => array(),
+    'db_is_active' => !defined('MAINTENANCE_MODE'),
+    'is_admin' => FALSE,
+    'logged_in' => FALSE,
+    'ua_based_css' => FALSE
+  );
+  // Give modules a chance to alter the default template variables.
+  \Drupal::moduleHandler()->alter('secgov_preprocess_default_variables', $variables);
+
+  // Tell all templates where they are located.
+  $variables['directory'] = \Drupal::theme()->getActiveTheme()->getPath();
+
+  return $variables;
+}
+
+/**
+ * Prepares variables for HTML document templates.
+ *
+ * Default template: html.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - page: A render element representing the page.
+ */
+function secgov_preprocess_html(&$variables) {
+
+  // Checks to see if the browser is IE then add class specific to IE to body
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+  if (strpos($ua, 'MSIE') !== FALSE || strpos($ua, 'WOW64') !== FALSE || strpos($ua, 'Trident') !== FALSE) {
+    $variables['ua_based_css'] = TRUE;
+    $variables['view'] = 'ie-view';
+  } elseif (strpos($ua, 'iPad') !== FALSE || strpos($ua, 'Mac OS') !== FALSE) {
+    $variables['ua_based_css'] = TRUE;
+    $variables['view'] = 'mac-view';
+  } else {
+    $variables['ua_based_css'] = TRUE;
+    $variables['view'] = 'default-view';
+  }
+
+  if (isset($variables['node_type']) && $variables['node_type'] === "event") {
+    if ($variables['head_title']['title'] === "SEC.gov |") {
+      $node = \Drupal::routeMatch()->getParameter('node');
+      if ($node && $node instanceof \Drupal\node\NodeInterface) {
+        $variables['head_title']['title'] = "SEC.gov | " . $node->title->value;
+      }
+    }
+  }
+
+  // When attaching webform to a node content type, attach also the class "path-webform" that is use by webform.
+  if (isset($variables['node_type']) && $variables['node_type'] === "customized_comment_form") {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node instanceof \Drupal\node\NodeInterface) {
+      if ($node->hasField('field_custom_webform_attachment') && !$node->get('field_custom_webform_attachment')->isEmpty()) {
+        // Apply Webform classes in Event field.
+        $variables['attributes']['class'][] = 'path-webform';
+      }
+    }
+  }
+
+  if (isset($_ENV['AH_PRODUCTION']) && $_ENV['AH_PRODUCTION'] == 1) {
+    $variables['env'] = "production";
+  } else {
+    $variables['env'] = "staging";
+  }
+
+  //View id and display id as a body class
+  $variables['view_id'] = '';
+  $variables['view_display_id'] = '';
+
+  // Get current route object.
+  $route = \Drupal::routeMatch()->getRouteObject();
+  if ($route) {
+    // Get view id and display id from route.
+    $view_id = $route->getDefault('view_id');
+    $display_id = $route->getDefault('display_id');
+
+    if (!empty($view_id)) {
+      $variables['view_id'] = $view_id;
+    }
+
+    if (!empty($display_id)) {
+      $variables['view_display_id'] = $display_id;
+    }
+  }
+  // add status code as a body class for 404 and 403 pages
+  $statusCode = Drupal::request()->query->get('_exception_statuscode');
+  if (isset($statusCode) and (($statusCode == 404) or ($statusCode == 403))) {
+    $variables['attributes']['class'][] = 'page-statuscode-' . $statusCode;
+  }
+}
+
+function secgov_preprocess_page(&$vars) {
+  $page_parameters = \Drupal::routeMatch()->getParameters();
+  if ($page_parameters) {
+    $page_parameters = $page_parameters->all();
+  }
+  $vars['path'] = \Drupal::service('path.current')->getPath();
+  if (isset($vars['node'])) {
+    $vars['title'] = $vars['node']->title->value;
+    if ($vars['node']->bundle() == 'rule') {
+      $sro_organizations = $vars['node']->get('field_sro_organization')->getValue();
+      $rule_type = $vars['node']->field_related_rule->entity->field_rule_type->entity->getName();
+      if (empty($sro_organizations) && !empty($rule_type)) {
+        $vars['rule_type_title'] = $rule_type;
+      }
+    }
+  } else {
+    $vars['title'] = $vars['page']['#title'];
+  }
+
+  $current_route = \Drupal::routeMatch();
+  $mediaEntity = $current_route->getParameters()->get('media');
+  if ($mediaEntity && is_object($mediaEntity)) {
+    $displayTitle = $mediaEntity->field_display_title->value;
+    $vars['media_type'] = $mediaEntity->bundle();
+    if ($displayTitle) {
+      $vars['page']['#title'] = $displayTitle;
+    }
+  }
+
+  $vars['env'] = isset($_ENV['AH_PRODUCTION']) && $_ENV['AH_PRODUCTION'] == 1 ? 'prod' : 'non_prod';
+
+  //env conditionals
+  if ($vars['env'] === 'prod') {
+    $vars['sitehandle'] = "secsearch";
+  }
+
+  if ($vars['env'] === 'non_prod') {
+    $vars['sitehandle'] = "sectest_i14y";
+  }
+  // Get taxonomy term if this is the what's new page
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  if ($path_alias == '/whats-new' && !empty($_GET['tid'])) {
+    $tid = intval($_GET['tid']);
+    $term = Term::load($tid);
+    $vars['whats_new_display_title'] = $term->field_display_title[0]->value;
+    $vars['whats_new_description'] = $term->description[0]->value;
+  }
+
+  // If Taxonomy Term Page
+  $term = \Drupal::request()->attributes->get('taxonomy_term');
+
+  if ($term) {
+    $vid = $term->bundle();
+    $vocab = Vocabulary::load($vid);
+    $vocab_name = $vocab->label();
+    if ($vid == "release_type" || $vid == "rule_type") {
+      $fieldPageTitle = $term->get('field_page_title')->value;
+      $vars['title_override'] = $fieldPageTitle;
+    }
+  }
+
+  // pass menu id of menu to be rendered for division pages
+  $route = \Drupal::routeMatch()->getRouteObject();
+  if ($route->getPath() == '/division/{division}') {
+    // default to the about menu
+    $config = \Drupal::config('secgov.menu_map');
+    // get the division for path alias
+    $division = explode('/', $path_alias)[2];
+    $menu_id = $config->get($division);
+    if (is_null($menu_id)) {
+      $menu_id = 'about';
+    }
+    $vars['menu_id'] = $menu_id;
+  }
+
+  if (isset($page_parameters['view_id']) && isset($page_parameters['display_id'])) {
+    if ($page_parameters['view_id'] == 'sro_rules' && $page_parameters['display_id'] == 'individual_sro_page') {
+      if (isset($page_parameters['arg_0'])) {
+        $term_manager = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
+        $tids = $term_manager->getQuery()
+          ->condition('field_abbreviated', $page_parameters['arg_0'])
+          ->execute();
+
+        if (!empty($tids)) {
+          $tid = array_pop($tids);
+          $term = $term_manager->load($tid);
+          if ($term) {
+            $vars['page']['#title'] = $term->getName() . ' Rulemaking';
+            // Get category name.
+            if ($category_tid = $term->get('field_category')->target_id) {
+              $category_term = $term_manager->load($category_tid)->getName();
+              // Bug fix OSSS-22237: If SRO category value is
+              // "National Securities Exchanges" return a 404 page.
+              if (!empty($category_term) &&
+                $category_term == 'National Securities Exchanges') {
+                throw new NotFoundHttpException();
+              }
+            }
+          }
+        }
+      }
+    }
+    elseif ($page_parameters['view_id'] == 'investment_company_act_notices_and_orders' && $page_parameters['display_id'] == 'investment_company_act_notice_order_page') {
+      $vars['left_nav_override'] = 'regulatory-actions';
+    }
+  }
+}
+
+/**
+ * [secgov_preprocess_datatable_view_table description]
+ * @param  &$variables [$variables by reference]
+ * @return null
+ */
+
+function secgov_preprocess_datatable_view_table(&$variables) {
+  if (empty($variables['#attached']['drupalSettings']['datatables'])) {
+    return;
+  }
+  $datatable = &$variables['#attached']['drupalSettings']['datatables'];
+  foreach ($datatable as $key => &$table) {
+    foreach ($table['aoColumns'] as $key => &$settings) {
+      if ($table['aoColumns'][$key]['bVisible'] !== FALSE && $settings['bSortable'] === FALSE) {
+        $settings = ['sType' => 'html', 'bSortable' => TRUE];
+      }
+    }
+  }
+}
+
+// THEME HOOK: 'views_view'
+function secgov_preprocess_views_view(&$variables) {
+  if (!empty($variables['exposed']['items_per_page'])) {
+    $itemsPerPage = $variables['exposed']['items_per_page'];
+    if (isset($itemsPerPage['#title'])) {
+      unset($itemsPerPage['#title']);
+    }
+    unset($variables['exposed']['items_per_page']);
+    $variables['itemsPerPage'] = $itemsPerPage;
+  }
+
+  if (!empty($variables['footer']['result'])) {
+    $result = $variables['footer']['result'];
+    unset($variables['footer']['result']);
+    $variables['result'] = $result;
+  }
+
+  // OSSS-21859: Removing a duplicated no result text as it displays in
+  // views-views-table.html.twig already.
+  if ($variables["id"] == 'sro_rules') {
+    unset($variables["empty"]["area"]);
+  }
+}
+
+/***
+ * Implements hook_page_attachments_alter()
+ * to add meta tags with dynamic values
+ * @param array $page
+ */
+function secgov_page_attachments_alter(array &$page) {
+  // Load the node entity from current route
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node) {
+    $id = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'id',
+        'content' => is_object($node) !== false ? $node->id() : null,
+      ),
+    );
+    $page['#attached']['html_head'][] = [$id, 'id'];
+
+    if ($node->field_publish_date) {
+      $date = array(
+        '#type' => 'html_tag',
+        '#tag' => 'meta',
+        '#attributes' => array(
+          'name' => 'date',
+          'content' => $node->field_publish_date->value,
+        ),
+      );
+      $page['#attached']['html_head'][] = [$date, 'date'];
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function secgov_views_pre_render(ViewExecutable $view) {
+  $view_display = $view->current_display;
+  // Add view display name here to remove any duplicate node.
+  $view_displays = [
+    'sro_national_security_exchanges_page',
+    'sro_universal_page',
+    'individual_sro_page'
+  ];
+  if (in_array($view_display, $view_displays)) {
+      $nids = []; // array of nodes to prevent duplicates
+      $resultNoDoubleNodes = []; // manipulated results
+      // check each node of the result array on it's nid
+      foreach($view->result as $key => $result) {
+        $nid = $result->nid;
+        if (!in_array($nid, $nids)) { // if this node isn't a duplicate
+          // add it to the manipulated results
+          $resultNoDoubleNodes[] = $view->result[$key];
+          // Add this nid as in results to prevent duplicates from now on
+          $nids[$key] = $nid;
+        };
+      }
+      unset($view->result);
+      // replace the old results with the results without duplicates
+      $view->result = $resultNoDoubleNodes;
+  }
+}
+
+/**
+ * template_preprocess_views_view_field()
+ */
+
+function secgov_preprocess_views_view_field(&$variables) {
+  $view = isset($variables['view']) ? $variables['view']->storage->id() : null;
+  if (!empty($view)) {
+    $variables['view_id'] = $view;
+  }
+  //get display and field information to determine if view should have markup
+  $display_id =  isset($variables['view']->current_display) ? $variables['view']->current_display : null;
+  $field_id = isset($variables['field']->field) ? $variables['field']->field : null;
+  $entity = $variables['row']->_entity;
+
+  //list of fields with markup to render
+  $markup_fields = [
+    'field_alternate_title_secarticle',
+    'field_display_title',
+    'field_external_resource'
+  ];
+
+  //remove markup from rss feeds, replace white space characters when needed and encode special characters for xml
+  if ((strpos($view, 'rss') !== false || strpos($display_id, 'feed') !== false) && ($field_id == 'field_display_title' || $field_id == 'field_url')) {
+    $display_title = $entity->hasfield('field_display_title') ? $entity->get('field_display_title')->value : $entity->get('field_url')->uri;
+    $markup =  preg_replace('/\s+/', ' ', strip_tags($display_title));
+
+    //remove markup from link fields in foia rss
+    if ($view == 'rss_foia_frequently_requested_documents' && $entity->hasField('field_url')) {
+      $display_title = empty($entity->get('field_url')->title) ? $entity->get('field_url')->uri : $entity->get('field_url')->title;
+      $markup = strip_tags($display_title);
+    }
+    $decode = Html::decodeEntities($markup);
+    $variables['markup_title'] = [
+      '#markup' => trim($decode),
+    ];
+  }
+
+  //execute when field and markup object exist, automatically ignores any blocks or views with out select fields
+  elseif (in_array($field_id, $markup_fields) && (!empty($variables['output']))) {
+
+    //get display and alternative titles, if alternative exist, use that
+    //additonal error check for entity fields
+    $display_title = $entity->hasfield('field_display_title') ? $entity->get('field_display_title')->value : null;
+    $alternate_title = $entity->hasField('field_alternate_title_secarticle') ? $entity->get('field_alternate_title_secarticle')->value : null;
+    $resource_title = $entity->hasField('field_external_resource') ? $entity->get('field_external_resource')->title : null;
+    $markup =  !empty($alternate_title) ? $alternate_title : $display_title;
+
+    if ($view == 'speeches_list_page')
+      $markup =  empty($resource_title) ? $display_title : $resource_title;
+
+    //allow only break tags
+    $replacement = strip_tags($markup, '<br><a>');
+    $find = strip_tags($variables['output'], '<br>');
+    $markup_title = str_replace($find, $replacement, $variables['output']);
+
+    //generate markup
+    $variables['markup_title'] = [
+      '#markup' => \Drupal\Core\Render\Markup::create($markup_title),
+      '#allowed_tags' => ['<br>', '<a>']
+    ];
+  }
+
+  if ($view == 'ap_cases' && $field_id == "nothing") {
+    $tid = $variables['row']->_entity->tid->value;
+    $query = \Drupal::entityQuery('node');
+    $query->condition('type', 'release');
+    $query->condition('field_release_file_number.entity.tid', $tid);
+    $query->sort('created', 'ASC');
+    $query->condition('status', 1);
+    $query->range(0, 1);
+    $latestNid = $query->execute();
+    $latestNode = Node::load(reset($latestNid));
+
+    $variables['respondents'] = $latestNode->field_respondents->value;
+  }
+
+  if ($view == 'sro_rules' && $field_id == "nothing") {
+    $sro_nid = $variables['row']->field_related_rule_node_field_data_nid;
+    $sro_node = \Drupal::service('entity_type.manager')->getStorage('node')->load($sro_nid);
+    $variables['sro_title'] = $sro_node->get('field_display_title')->isEmpty() ? $sro_node->getTitle() : $sro_node->field_display_title->value;
+    $variables['sro_node'] = $sro_node;
+    $other_release_no = explode(",", $variables['output']);
+    array_shift($other_release_no);
+    $variables['other_release_no'] = implode(', ' , $other_release_no);
+    $variables['node'] = \Drupal::service('entity_type.manager')->getStorage('node')->load($variables['row']->nid);
+  }
+
+  if ($view == 'investment_company_act_notices_and_orders' && $field_id == 'nothing') {
+    $regulations = $variables['row']->_entity->get('field_related_rule')->referencedEntities();
+    switch ($variables['field']->options['label']) {
+      case 'Notice':
+        foreach ($regulations as $regulation) {
+          $rule_types = $regulation->get('field_rule_type')->referencedEntities();
+          foreach ($rule_types as $rule_type) {
+            if ($rule_type->getName() == 'Investment Company Act Notice') {
+              $media = $regulation->field_release_file->entity;
+              $file_uri = FALSE;
+              if (!empty($media->field_media_file->target_id)) {
+                $file_uri = $media->field_media_file->entity->createFileUrl();
+              }
+              $release_number = $regulation->get('field_release_number')->getString();
+              if (empty($release_number)) {
+                $release_number = $media->getName();
+              }
+              $date = date('m/d/Y', $regulation->field_publish_date->date->getTimestamp());
+              if (!empty($file_uri)) {
+                $variables['link'] = Link::fromTextAndUrl($release_number, Url::fromUserInput($file_uri));
+              }
+              else {
+                $variables['link'] = $release_number;
+              }
+              $variables['date'] = $date;
+              break 2;
+            }
+          }
+        }
+        break;
+      case 'Order':
+        foreach ($regulations as $regulation) {
+          $rule_types = $regulation->get('field_rule_type')->referencedEntities();
+          foreach ($rule_types as $rule_type) {
+            if ($rule_type->getName() == 'Investment Company Act Order') {
+              $media = $regulation->field_release_file->entity;
+              $file_uri = FALSE;
+              if (!empty($media->field_media_file->target_id)) {
+                $file = $media->field_media_file->entity;
+                $file_uri = $media->field_media_file->entity->createFileUrl();
+              }
+              $release_number = $regulation->get('field_release_number')->getString();
+              if (empty($release_number)) {
+                $release_number = $media->getName();
+              }
+              $date = date('m/d/Y', $regulation->field_publish_date->date->getTimestamp());
+              if (!empty($file_uri)) {
+                $variables['link'] = Link::fromTextAndUrl($release_number, Url::fromUserInput($file_uri));
+              }
+              else {
+                $variables['link'] = $release_number;
+              }
+              $variables['date'] = $date;
+              break 2;
+            }
+          }
+        }
+        break;
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_views_view_row_rss()
+ */
+function secgov_preprocess_views_view_row_rss(&$variables) {
+  //get markup titles for rss feeds
+  $item = $variables['row'];
+  //strip all tags and create markup
+
+  $display_title = trim(strip_tags($item->title));
+  $decode = Html::decodeEntities($display_title);
+  $variables['rss_markup_title'] = [
+    '#markup' => $decode,
+  ];
+}
+
+function sort_related_rules($a, $b) {
+  return strnatcmp($a->created->value, $b->created->value);
+}
+
+
+/**
+ * Implements hook_preprocess_node()
+ */
+function secgov_preprocess_node(&$variables) {
+  //render markup for title fields in secarticles and news
+  if (($variables['node']->bundle() === "secarticle") || ($variables['node']->bundle() === "news")) {
+    $field_value = $variables['node']->field_display_title->value;
+    if (isset($field_value)) {
+      $variables['field_display_title']['#markup'] = $field_value;
+    }
+  }
+
+
+  if (($variables['node']->bundle()) === "secarticle") {
+    $variables['data_distribution_is_set'] = !views_get_view_result('associated_data_distribution');
+    $variables['associated_data_distribution'] = views_embed_view('associated_data_distribution');
+
+    // Render blocks for Market Statistics content
+    $node = $variables['node'];
+    if (sizeof($node->get('field_article_sub_type_secart')->getValue()) > 0) {
+      $subtype = $node->get('field_article_sub_type_secart')->getValue()[0]['value'];
+      if ($node->bundle() === 'secarticle' && $subtype === 'Data-MarketStatistics') {
+        $view = \Drupal\views\Views::getView('market_statistics');
+        $view->setDisplay('right_sidebar');
+        $variables['market_statistics_block'] = $view->render();
+
+        // Get Market Statistics Search Block
+        $sec_block_srvc = \Drupal::service('sec_blocks');
+        $block_id = $sec_block_srvc->getIdFromName('Market Statistics Search');
+        if ($block_id['status'] == 1) {
+          $block_entity = Drupal\block_content\Entity\BlockContent::load($block_id['block_id']);
+          $variables['market_statistics_search_block'] = \Drupal::service('entity_type.manager')
+            ->getViewBuilder('block_content')
+            ->view($block_entity);
+        } else {
+          error_log($block_id['message']);
+        }
+
+        // Get Market Statistics Disclaimer Block
+        $sec_block_srvc = \Drupal::service('sec_blocks');
+        $block_id = $sec_block_srvc->getIdFromName('Market Statistics Disclaimer');
+        if ($block_id['status'] == 1) {
+          $block_entity = Drupal\block_content\Entity\BlockContent::load($block_id['block_id']);
+          $variables['market_statistics_disclaimer_block'] = \Drupal::service('entity_type.manager')
+            ->getViewBuilder('block_content')
+            ->view($block_entity);
+        } else {
+          error_log($block_id['message']);
+        }
+
+        $data_highlights_view = \Drupal\views\Views::getView('market_statistics_data_highlights');
+        $data_highlights_view->setDisplay('data_set');
+        $data_highlights_view->setArguments(array($node->title->value));
+        $data_highlights_view_r = $data_highlights_view->render();
+        if ($data_highlights_view->total_rows > 0) {
+          $variables['data_highlights_block'] = $data_highlights_view_r;
+        }
+
+        $stats_guide_view = \Drupal\views\Views::getView('statistics_guide');
+        $stats_guide_view->setDisplay('data_set');
+        $stats_guide_view->setArguments(array($node->title->value));
+        $stats_guide_view_r = $stats_guide_view->render();
+        if ($stats_guide_view->total_rows > 0) {
+          $variables['view_title'] = $stats_guide_view->getTitle();
+          $variables['statistics_guide_block'] = $stats_guide_view_r;
+        }
+      } elseif ($node->get('field_article_type_secarticle')->getValue()[0]['target_id'] === '114371') {
+        $nid = $variables['elements']['#node']->get('field_associated_dataset')->getValue()[0]['target_id'];
+        $ds_node = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->load(intval($nid));
+        if ($ds_node->field_article_sub_type_secart->value === 'Data-MarketStatistics') {
+          $view = \Drupal\views\Views::getView('market_statistics');
+          $view->setDisplay('right_sidebar');
+          $variables['market_statistics_block'] = $view->render();
+
+          // Get Market Statistics Search Block
+          $sec_block_srvc = \Drupal::service('sec_blocks');
+          $block_id = $sec_block_srvc->getIdFromName('Market Statistics Search');
+          if ($block_id['status'] == 1) {
+            $block_entity = Drupal\block_content\Entity\BlockContent::load($block_id['block_id']);
+            $variables['market_statistics_search_block'] = \Drupal::service('entity_type.manager')
+              ->getViewBuilder('block_content')
+              ->view($block_entity);
+          } else {
+            error_log($block_id['message']);
+          }
+
+          $data_highlights_view = \Drupal\views\Views::getView('market_statistics_data_highlights');
+          $data_highlights_view->setDisplay('data_set');
+          $data_highlights_view->setArguments(array($node->title->value));
+          $data_highlights_view_r = $data_highlights_view->render();
+          if ($data_highlights_view->total_rows > 0) {
+            $variables['data_highlights_block'] = $data_highlights_view_r;
+          }
+
+          $stats_guide_view = \Drupal\views\Views::getView('statistics_guide');
+          $stats_guide_view->setDisplay('data_set');
+          $stats_guide_view->setArguments(array($node->title->value));
+          $stats_guide_view_r = $stats_guide_view->render();
+          if ($stats_guide_view->total_rows > 0) {
+            $variables['view_title'] = $stats_guide_view->getTitle();
+            $variables['statistics_guide_block'] = $stats_guide_view_r;
+          }
+        } elseif ($node->get('field_article_type_secarticle')->getValue()[0]['target_id'] === '114371') {
+          $nid = $variables['elements']['#node']->get('field_associated_dataset')->getValue()[0]['target_id'];
+          $ds_node = \Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->load(intval($nid));
+          if ($ds_node->field_article_sub_type_secart->value === 'Data-MarketStatistics') {
+            $view = \Drupal\views\Views::getView('market_statistics');
+            $view->setDisplay('right_sidebar');
+            $variables['market_statistics_block'] = $view->render();
+
+            // Get Market Statistics Search Block
+            $sec_block_srvc = \Drupal::service('sec_blocks');
+            $block_id = $sec_block_srvc->getIdFromName('Market Statistics Search');
+            if ($block_id['status'] == 1) {
+              $block_entity = Drupal\block_content\Entity\BlockContent::load($block_id['block_id']);
+              $variables['market_statistics_search_block'] = \Drupal::service('entity_type.manager')
+                ->getViewBuilder('block_content')
+                ->view($block_entity);
+            } else {
+              error_log($block_id['message']);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (($variables['node']->bundle()) === "event") {
+    if ($variables['node']->hasField('field_webcast')) {
+      $webcast = null;
+      if ($_GET != null && $_GET['webcast']) {
+        $webcast = \Drupal\Component\Utility\XSS::filter($_GET['webcast']);
+      } elseif ($variables['node']->get('field_webcast')->getValue()) {
+        $webcast = $variables['node']->get('field_webcast')->getValue()[0]['target_id'];
+      }
+
+      if ($webcast != null) {
+        $variables['request']['webcast'] = $webcast;
+        $variables['#cache']['contexts'][] = 'url.query_args';
+        $variables['#cache']['keys'][] = $webcast;
+      }
+
+      /* Remove help block per OSSS-8670
+      $helpBlocks = [];
+      $helpBlocks['live'] = \Drupal\block\Entity\Block::load('flashsoftware');
+      $helpBlocks['archived'] = \Drupal\block\Entity\Block::load('webcast_trouble');
+      $webcastState = $variables['node']->get('field_webcast')->entity->field_webcast_state->value === 'live' ? 'live' : 'archived' ;
+      //Return live block is user is logged in for preview;
+      if (\Drupal::currentUser()->isAnonymous() === false) {
+        $variables['help_block_live'] = \Drupal::entityTypeManager()->getViewBuilder('block')->view($helpBlocks['live']);
+      }
+      if ($helpBlocks) {
+        if ($webcastState === 'live') {
+          $variables['help_block_live'] = \Drupal::entityTypeManager()->getViewBuilder('block')->view($helpBlocks['live']);
+        }elseif($webcastState === 'archived') {
+          $variables['help_block_archived'] = \Drupal::entityTypeManager()->getViewBuilder('block')->view($helpBlocks['archived']);
+        }
+      }
+      */
+    }
+  }
+
+  if (($variables['node']->bundle()) === "regulation" && $variables["view_mode"] == "full") {
+    if (!empty($variables['node']->get('field_parent_rule')->getValue())) {
+      $parentRule = $variables['node']->get('field_parent_rule')->referencedEntities();
+      foreach ($parentRule as $rule){
+        $url = $rule->toUrl()->toString();
+        $response = new TrustedRedirectResponse($url, 301);
+        $response->send();
+        break;
+      }
+    }
+
+  }
+}
+
+function secgov_preprocess_page_title(&$variables) {
+  // If Node Page
+  $node = \Drupal::request()->attributes->get('node');
+
+  if (is_string($node)) {
+    $node = Node::load($node);
+  }
+  if ($node && !is_string($node)) {
+    $content_type = \Drupal::entityTypeManager()
+      ->getStorage('node_type')
+      ->load($node->bundle())
+      ->label();
+
+    if ($content_type == "Release") {
+      $variables['pageTitleAbove'] =  "breadcrumbs"; // What appears int he pageTitleAbove section
+      $override_file_number_respondent = $node->field_override_file_number_respo->value ?? FALSE;
+      if ($node->hasField("field_release_file_number") && $node->hasField("field_respondents")){
+        if (!$override_file_number_respondent) {
+          $file_numbers = $node->get('field_release_file_number');
+          $file_numbers_respondents = [];
+          if (!$file_numbers->isEmpty()) {
+            foreach ($file_numbers->referencedEntities() as $file_number) {
+              $file_number_respondents_value = trim($file_number->get('field_respondents')->getValue()[0]['value']);
+              if ($file_number_respondents_value !== NULL || $file_number_respondents_value !== "") {
+                // turn line breaks into comma separated lists
+                $output = str_replace("\r\n", ', ', $file_number_respondents_value);
+                $file_numbers_respondents[] = $output;
+              }
+            }
+          }
+          $file_numbers_respondents = array_filter($file_numbers_respondents);
+          if (empty($file_numbers_respondents)) {
+            $release_respondents = $node->get('field_respondents');
+            if (!$release_respondents->isEmpty()) {
+              $respondents_final = $release_respondents->value;
+            }
+          } else {
+            // $file_numbers_respondents
+            $file_numbers_respondents_unique = array_unique($file_numbers_respondents);
+            $file_numbers_respondents_list = implode(', ', $file_numbers_respondents_unique);
+            $respondents_final = $file_numbers_respondents_list;
+          }
+        }
+        else {
+          $release_respondents = $node->get('field_respondents');
+          if (!$release_respondents->isEmpty()) {
+            $respondents_final = $release_respondents->value;
+          }
+        }
+        if ($respondents_final) {
+          $variables['title'] = $respondents_final;
+        }
+      }
+    }
+    if ($content_type == "Rule"){
+      // if has field_related_rule
+      if ($node->hasField("field_related_rule") ){
+        $related_rules = $node->get('field_related_rule');
+        if (!$related_rules->isEmpty()) {
+
+          $referenceItem = $node->get('field_related_rule')->first();
+          $entityReference = $referenceItem->get('entity');
+          $entityAdapter = $entityReference->getTarget();
+          $referencedEntity = $entityAdapter->getValue();
+
+          if ($referencedEntity->hasField("field_rule_type") ){
+            $rule_types = $referencedEntity->get('field_rule_type');
+            $rule_types_array = [];
+
+            foreach ($rule_types->referencedEntities() as $key=>$rule_type) {
+              $rule_type_value = trim($rule_type->get('name')->getValue()[0]['value']);
+
+              if ($rule_type_value !== NULL || $rule_type_value !== "") {
+                // turn line breaks into comma separated lists
+                $rule_types_array[] = $rule_type_value;
+              }
+            }
+
+          }
+        }
+      }
+
+      if (isset($rule_types_array) && is_array($rule_types_array) && !empty($rule_types_array)) {
+        $rule_types_output = implode(', ', $rule_types_array);;
+        $variables['pageTitleAbove'] =  $rule_types_output;
+      }
+      $pageTitle = $node->label();
+      $displayTitle = $node->field_display_title->value;
+
+      if (!empty($displayTitle)) {
+        $pageTitle = $displayTitle;
+      }
+
+
+      $sro_organizations = $node->get('field_sro_organization')->getValue();
+      if (!empty($sro_organizations)) {
+        $file_numbers = $node->get('field_file_number')->referencedEntities();
+        if (!empty($file_numbers)) {
+          $file_number = array_shift($file_numbers);
+          $variables['title'] = $file_number->getName();
+        }
+      }
+      else {
+        $variables['title'] = $pageTitle;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_image_style()
+ */
+function secgov_preprocess_image_style(&$variables) {
+  $style = $variables['style_name'];
+  switch ($style) {
+    case 'featured_video_image':
+      $variables['image']['#attributes']['class'][] = 'image-style-featured-video';
+      break;
+    case 'featured_graphic':
+      $variables['image']['#attributes']['class'][] = 'image-style-featured-graphic';
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_hook_alter() for node
+ */
+function secgov_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  if (
+    $variables['elements']['#node']->hasField('field_article_type_secarticle') &&
+    $variables['elements']['#node']->hasField('field_article_sub_type_secart')
+  ) {
+    $type_item_list = $variables['elements']['#node']->get('field_article_type_secarticle')->getValue();
+    $subtype_item_list = $variables['elements']['#node']->get('field_article_sub_type_secart')->getValue();
+    $article_type = $type_item_list[0]['target_id'];
+    if ($subtype_item_list != null) {
+      $article_sub_type = $subtype_item_list[0]['value'];
+      // Article type is Data and subtype is Market Statistics
+      if ($article_type === '621' && $article_sub_type === 'Data-MarketStatistics') {
+        $suggestions[] = 'node__secarticle__marketstatistics';
+      }
+      // Looking for data highlights with association to data set of subtype 'Data-MarketStatistics'
+      elseif ($article_type === '114371') {
+        $nid = $variables['elements']['#node']->get('field_associated_dataset')->getValue()[0]['target_id'];
+        $node = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->load(intval($nid));
+        if ($node->field_article_sub_type_secart->value === 'Data-MarketStatistics') {
+          $suggestions[] = 'node__secarticle__marketstatistics';
+          $suggestions[] = 'field__node__field_article_type_secarticle__marketstatistics';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_hook_alter() for page
+ */
+function secgov_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  if ($path_alias == '/whats-new') {
+    $suggestions[] = 'page__whats_new';
+  }
+}
+
+/**
+ * Implements hook_preprocess_field()
+ */
+
+function secgov_preprocess_field(&$variables) {
+  if (isset($variables['element'])) {
+    $bundle = $variables['element']['#bundle'];
+
+    switch ($variables['element']['#field_name']) {
+      case "field_description_abstract":
+        if ($bundle == "data_visualization") {
+          $variables['items'][0]['content']['#prefix'] = '<p tabindex="0" class="hidden508">';
+          $variables['items'][0]['content']['#suffix'] = '</p>';
+        }
+        break;
+      case "field_add_to_calendar":
+        if ($bundle == "event") {
+          $startTime = new \DateTime($variables['element']['#object']->field_sec_event_date->value, new DateTimeZone("UTC"));
+          $startTime = $startTime->setTimezone(new DateTimeZone("UTC"));
+
+          $endTime = new \DateTime($variables['element']['#object']->field_sec_event_end_date->value, new DateTimeZone("UTC"));
+          $endTime = $endTime->setTimezone(new DateTimeZone("UTC"));
+
+          $variables['#attached']['drupalSettings']['cal_item'] = ['start' => $startTime->format("Ymd\THis"), 'end' => $endTime->format("Ymd\THis")];
+        }
+        break;
+      case "field_related_rule":
+        $node = \Drupal::routeMatch()->getParameter('node');
+        if ($node instanceof \Drupal\node\NodeInterface) {
+          if ($node->bundle() == 'rule') {
+            $sro_organizations = $node->get('field_sro_organization')->getValue();
+            if (!empty($sro_organizations)) {
+              $variables['sro_node'] = TRUE;
+              if (count($variables['items']) == 1) {
+                $variables['items'][0]['content']['#view_mode'] = 'details';
+              }
+            }
+          }
+        }
+        break;
+      case "field_related_topics":
+        $node = \Drupal::routeMatch()->getParameter('node');
+        if ($node instanceof \Drupal\node\NodeInterface) {
+          if ($node->bundle() == 'rule') {
+            $sro_organizations = $node->get('field_sro_organization')->getValue();
+            if (!empty($sro_organizations)) {
+              $variables['sro_node'] = TRUE;
+              $variables['items'] = [];
+            }
+          }
+        }
+        break;
+      case "field_comments_received":
+        $node = isset($variables['element']['#object']) ? $variables['element']['#object'] : FALSE;
+        if ($node instanceof \Drupal\node\NodeInterface) {
+          if ($node->bundle() == 'rule' || $node->bundle() == 'release') {
+            $received_comments = \Drupal::database()->select('node__field_comments_received', 'fcr')
+              ->condition('entity_id', $node->id())
+              ->fields('fcr', ['delta', 'field_comments_received_title'])
+              ->orderBy('fcr.delta', 'ASC')
+              ->execute()->fetchAllAssoc('delta');
+
+            if (!empty($received_comments) && !empty($variables['items'])) {
+              $items = $variables['items'];
+
+              foreach ($items as $item_key => $item) {
+                if (isset($received_comments[$item_key]) && !empty($received_comments[$item_key]->field_comments_received_title)) {
+                  $variables['items'][$item_key]['content']['#title'] = $received_comments[$item_key]->field_comments_received_title;
+                }
+              }
+            }
+
+          }
+        }
+        break;
+    }
+  }
+}
+
+/*
+ * Implements hook_preprocess_file_upload_help()
+ * OSSS-7151 Insert commas between file extensions
+ */
+
+function secgov_preprocess_file_upload_help(&$variables) {
+  if (isset($variables['descriptions'][2])) {
+    $extensions = $variables['descriptions'][2]->getArguments()['@extensions'];
+    if (strpos($extensions, ',') === false) {
+      $message = 'Allowed types: ' . implode(", ", preg_split("/[\s]+/", $extensions));
+    } else {
+      $message = 'Allowed types: ' . $extensions;
+    }
+    $variables['descriptions'][2] = $message;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function secgov_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add required validation to the last name field for IDD Search "SEC Defendant Lookup"
+  if ($form_id == 'views_exposed_form') {
+    if ($form['#id'] == 'views-exposed-form-bad-actors-page-1') {
+      $form['last_name']['#required'] = true;
+    }
+  }
+}
+
+function secgov_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  $viewMode = $variables['view_mode'];
+
+  /*
+   * Changes the media url to point to file for view mode.
+   */
+  if ($viewMode == 'comma_seperated') {
+    $media = $paragraph->get('field_static_file_media')->getValue();
+    if ($media) {
+      $media = array_pop($media);
+      $mediaID = $media['target_id'];
+      $media = \Drupal::service('entity_type.manager')->getStorage('media')->load($mediaID);
+
+      $file = FALSE;
+      $mediaName = FALSE;
+
+      /*
+       * Gets the file entity based on media bundle.
+       */
+      if (!empty($media) && $media->bundle() == 'image_media') {
+        $mediaName = 'field_image_media_media';
+        $files = $media->get('field_media_image')->getValue();
+        $fileItem = array_pop($files);
+        $file = \Drupal::service('entity_type.manager')->getStorage('file')->load($fileItem['target_id']);
+      } else if (!empty($media) && $media->bundle() == 'static_file') {
+        $mediaName = 'field_static_file_media';
+        $files = $media->get('field_media_file')->getValue();
+        $fileItem = array_pop($files);
+        $file = \Drupal::service('entity_type.manager')->getStorage('file')->load($fileItem['target_id']);
+      }
+
+      /*
+       * Changes the field link value if there is file in media.
+       */
+      if ($file) {
+        $uri = $file->getFileUri();
+        $url = Url::fromUri(file_create_url($uri));
+
+        $mediaTitle = $media->getName();
+        if (!empty($media) && $media->bundle() == 'static_file') {
+          $displayTitle = @array_pop($media->get('field_display_title')->getValue());
+          if (isset($displayTitle['value'])) {
+            $mediaTitle = $displayTitle['value'];
+          }
+        }
+
+        $link = Link::fromTextAndUrl($mediaTitle, $url)->toString();
+        if ($mediaName) {
+          $variables['content'][$mediaName][0] = $link;
+        }
+      }
+    }
+  }
+}
+
+function secgov_preprocess_region(&$vars) {
+  $region = $vars['elements']['#region'];
+
+  // webform_submission_corp_fin_noaction_add_form
+  if ($region == 'highlighted') {
+    $msg = \Drupal::request()->query->get('msg');
+    $vars['msg'] = $msg;
+    $vars['#cache']['max-age'] = 0;
+  }
+}
+
+function secgov_theme_suggestions_field_alter(&$suggestions, $variables) {
+  if ($variables['element']['#field_type'] == 'entity_reference') {
+    if ($variables['element']['#field_name'] == 'field_related_rule') {
+      foreach ($variables['element'] as $key => $value) {
+        if (is_numeric($key) && isset($value['#node'])) {
+          $node = $value;
+          $suggest = 'field__node__' . $variables['element']['#field_name'] . '__' . $variables['element']['#bundle'] . '__' . $node['#view_mode'];
+
+          if (!in_array($suggest, $suggestions)) {
+
+            $suggestions[] = 'field__node__' . $variables['element']['#field_name'] . '__' . $variables['element']['#bundle'] . '__' . $node['#view_mode'];
+          }
+        }
+      };
+    }
+  }
+
+}
+
+function secgov_preprocess_field_group_html_element(array &$variables) {
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    $variables['nid']= $node->id();
+
+    // Set values for SRO Node displays
+    if ($node->bundle() == 'rule') {
+      $variables['rule_node'] = TRUE;
+      $sro_organizations = $node->get('field_sro_organization')->getValue();
+      if (!empty($sro_organizations)) {
+        $variables['sro_node'] = TRUE;
+        if (isset($variables['attributes']) && $variables['attributes']->hasClass('grid-container-two-col')) {
+          $variables['attributes'] =  new Attribute(['class' => ['grid-container-one-col']]);
+        }
+        elseif (isset($variables['attributes']) && $variables['attributes']->hasClass('grid-container-two-col__section-main')) {
+          $items = [];
+              $term_manager = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
+
+              foreach ($sro_organizations as $sro_organization) {
+                $sro_entity = $term_manager->load($sro_organization['target_id']);
+                $text = $sro_entity->getName();
+
+                $category = $sro_entity->get('field_category')->entity;
+                $text = $category->getName() . ", " . $text;
+                $parent_category_tid = $category->get('parent')->target_id;
+                if ($parent_category_tid > 0) {
+                  $parent_category = $category->get('parent')->entity;
+                  $text = $parent_category->getName() . ", " . $text;
+                }
+                $items[]['content']['#plain_text'] = $text;
+              }
+
+              $variables['sro_organization_breadcrumb_items'] = $items;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_field_group_accordion().
+ */
+function secgov_preprocess_field_group_accordion(array &$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface) {
+
+    // Set values for SRO Node displays
+    if ($node->bundle() == 'rule') {
+      $sro_organizations = $node->get('field_sro_organization')->getValue();
+      $related_rules = $node->get('field_related_rule')->getValue();
+      if (!empty($sro_organizations) && count($related_rules) == 1) {
+        $variables['sro_node'] = TRUE;
+      }
+      if (count($related_rules) > 1) {
+        $first_rule_types = $node
+          ->field_related_rule
+          ->entity
+          ->get('field_rule_type')
+          ->referencedEntities();
+        foreach ($first_rule_types as $rule_type) {
+          if ($rule_type->getName() == 'Final') {
+            $variables['prior_actions'] = TRUE;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function secgov_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $sro_rule_forms = [
+    "views-exposed-form-sro-rules-sro-national-security-exchanges-page",
+    "views-exposed-form-sro-rules-sro-universal-page",
+  ];
+  if (in_array($form['#id'], $sro_rule_forms)) {
+    $term_manager = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
+    if ($form['#id'] = "views-exposed-form-sro-rules-sro-national-security-exchanges-page") {
+      foreach ($form['sro_organization']['#options'] as $option_key => $option) {
+        if (!empty($option->option)) {
+          foreach ($option->option as $tid => $term_name) {
+            $nat_sec = FALSE;
+            $sro_org_term = $term_manager->load($tid);
+            if ($sro_org_term) {
+              $categories = $sro_org_term->get('field_category')->referencedEntities();
+              foreach ($categories as $category) {
+                if ($category->get('name')->value == 'National Securities Exchanges') {
+                  $nat_sec = TRUE;
+                  break;
+                }
+              }
+            }
+            if (!$nat_sec) {
+              unset($form['sro_organization']['#options'][$option_key]);
+            }
+          }
+        }
+      }
+    }
+    elseif ($form['#id'] == "views-exposed-form-sro-rules-sro-universal-page") {
+      foreach ($form['sro_organization']['#options'] as $option_key => $option) {
+        if (!empty($option->option)) {
+          foreach ($option->option as $tid => $term_name) {
+            $nat_sec = FALSE;
+            $sro_org_term = $term_manager->load($tid);
+            if ($sro_org_term) {
+              $categories = $sro_org_term->get('field_category')->referencedEntities();
+              foreach ($categories as $category) {
+                if ($category->get('name')->value == 'National Securities Exchanges') {
+                  $nat_sec = TRUE;
+                  break;
+                }
+              }
+            }
+            if ($nat_sec) {
+              unset($form['sro_organization']['#options'][$option_key]);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+uuid: 60e6cfac-0105-4e8b-8f58-4a38abeaf91f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.about-the-sec
+  module:
+    - system
+  theme:
+    - uswds
+id: uswds_aboutthesec
+theme: uswds
+region: footer
+weight: -36
+provider: null
+plugin: 'system_menu_block:about-the-sec'
+settings:
+  id: 'system_menu_block:about-the-sec'
+  label: 'About The SEC'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

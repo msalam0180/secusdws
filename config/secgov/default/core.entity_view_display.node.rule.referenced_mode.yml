@@ -1,0 +1,231 @@
+uuid: 29505472-e973-43c0-af22-13bebb1aace9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.referenced_mode
+    - field.field.node.rule.body
+    - field.field.node.rule.field_comments_date_format
+    - field.field.node.rule.field_comments_due_date
+    - field.field.node.rule.field_comments_notice
+    - field.field.node.rule.field_comments_received
+    - field.field.node.rule.field_display_title
+    - field.field.node.rule.field_file_number
+    - field.field.node.rule.field_investment_company_act_cat
+    - field.field.node.rule.field_primary_division_office
+    - field.field.node.rule.field_related_rule
+    - field.field.node.rule.field_related_topics
+    - field.field.node.rule.field_show_comments_received
+    - field.field.node.rule.field_show_submit_comments
+    - field.field.node.rule.field_sro_organization
+    - field.field.node.rule.field_submit_comments
+    - node.type.rule
+  module:
+    - datetime
+    - empty_fields
+    - field_group
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_grid_container:
+      children: {  }
+      label: 'Grid Container'
+      parent_name: ''
+      region: hidden
+      weight: 1
+      format_type: html_element
+      format_settings:
+        classes: grid-container-two-col
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_main_section:
+      children:
+        - field_related_topics
+      label: 'Main Section'
+      parent_name: ''
+      region: hidden
+      weight: 9
+      format_type: html_element
+      format_settings:
+        classes: grid-container-two-col__section-main
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_side_section:
+      children:
+        - group_details
+      label: 'Side Section'
+      parent_name: ''
+      region: hidden
+      weight: 12
+      format_type: html_element
+      format_settings:
+        classes: grid-container-two-col__side-section
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_details:
+      children:
+        - field_file_number
+      label: Details
+      parent_name: group_side_section
+      region: hidden
+      weight: 20
+      format_type: html_element
+      format_settings:
+        classes: details-wrapper
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_overview:
+      children:
+        - body
+      label: Overview
+      parent_name: ''
+      region: hidden
+      weight: 11
+      format_type: html_element
+      format_settings:
+        classes: rule-overview
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_public_comments:
+      children:
+        - group_button_group
+      label: 'Public Comments'
+      parent_name: ''
+      region: hidden
+      weight: 10
+      format_type: html_element
+      format_settings:
+        classes: public-comments
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_button_group:
+      children:
+        - field_comments_received
+        - field_submit_comments
+      label: 'Button Group'
+      parent_name: group_public_comments
+      region: hidden
+      weight: 20
+      format_type: html_element
+      format_settings:
+        classes: button-group
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_rule_releases:
+      children:
+        - field_comments_notice
+        - field_comments_due_date
+        - field_related_rule
+      label: 'Rule Releases'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: accordion
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        effect: none
+        formatter: closed
+        description: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.rule.referenced_mode
+targetEntityType: node
+bundle: rule
+mode: referenced_mode
+content:
+  field_comments_due_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_comments_notice:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_related_rule:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: details
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 2
+    region: content
+hidden:
+  body: true
+  field_comments_date_format: true
+  field_comments_received: true
+  field_display_title: true
+  field_file_number: true
+  field_investment_company_act_cat: true
+  field_primary_division_office: true
+  field_related_topics: true
+  field_show_comments_received: true
+  field_show_submit_comments: true
+  field_sro_organization: true
+  field_submit_comments: true
+  links: true
+  search_api_excerpt: true

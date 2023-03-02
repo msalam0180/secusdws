@@ -1,0 +1,24 @@
+uuid: 72938b9c-6d7f-4a22-a4d4-a66dd415f732
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_release_path
+    - taxonomy.vocabulary.rule_type
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: taxonomy_term.rule_type.field_release_path
+field_name: field_release_path
+entity_type: taxonomy_term
+bundle: rule_type
+label: Path
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

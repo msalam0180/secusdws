@@ -1,0 +1,85 @@
+//------------------------------------------------------------------------
+// Horizontal card (also used on homepage for featured news card)
+//------------------------------------------------------------------------
+.card-horz {
+  $selector: &;
+  $bp-end-scale: 460px;
+  $bp-row: 640px;
+  $image-vert-overlap: 28px;
+
+  @include min-width($bp-row) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__media {
+    @include max-width($bp-row - 1px) {
+      @include layout-fullwidth;
+      z-index: 1;// below content
+    }
+
+    @include min-width($bp-row) {
+      align-self: flex-start;
+      flex-shrink: 0;
+      margin-right: rem(65px);
+      width: 38.6%;
+
+      #{$selector}--feature & {
+        margin-right: rem(32px);
+      }
+    }
+  }
+
+  // 1. Use object-fit just in case the image isn’t the correct aspect ratio,
+  //    e.g. may be too small for Drupal to resize.
+  img {
+    aspect-ratio: 1;
+    object-fit: cover;// [1]
+    width: 100%;
+  }
+
+  &__container {
+    @include max-width($bp-row - 1px) {
+      @include card-box-shadow;
+      margin-top: rem(-$image-vert-overlap);
+      padding: rem(25px 20px 38px);
+      position: relative;
+      z-index: 2;// above image
+    }
+  }
+
+  &__header {
+  }
+
+  &__heading {
+    @include scale(font-size, (375px: 22px, $bp-end-scale: 24px));
+    font-family: $gotham-font-family;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  &__body {
+    color: $c-gray-dark;
+    font-size: rem(16px);
+    line-height: 1.5;
+    margin-top: rem(24px);
+
+    #{$selector}--feature & {
+      @include scale(font-size, (375px: 16px, $bp-end-scale: 19px));
+    }
+  }
+
+  &__footer {
+    margin-top: rem(24px);
+
+    .usa-button {
+      width: auto;// override USWDS default
+
+      // This is for the featured news card variation used on the homepage
+      &:not(:first-child) {
+        margin-top: rem(30px);
+      }
+    }
+  }
+}

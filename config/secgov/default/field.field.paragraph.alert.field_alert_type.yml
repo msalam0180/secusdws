@@ -1,0 +1,27 @@
+uuid: fca6d5a3-34dd-4fe8-a312-206a136819b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alert_type
+    - paragraphs.paragraphs_type.alert
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.alert.field_alert_type
+field_name: field_alert_type
+entity_type: paragraph
+bundle: alert
+label: 'Alert Type'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: Informative
+default_value_callback: ''
+settings: {  }
+field_type: list_string

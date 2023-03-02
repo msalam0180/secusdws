@@ -1,0 +1,69 @@
+//------------------------------------------------------------------------
+// Custom card styles and overrides
+// https://designsystem.digital.gov/components/card/
+//------------------------------------------------------------------------
+.usa-card {
+  $bp-end-scale: 460px;
+
+  // Override USWDS default
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__container {
+    @include card-box-shadow;
+    @include scale(padding-bottom, (375px: 28px, $bp-end-scale: 35px));
+    border-radius: 0;
+    border: 0;
+    margin-left: 0;// override USWDS default
+    margin-right: 0;// override USWDS default
+  }
+
+  &__header {
+    @include card-horz-padding;
+    @include scale(margin-bottom, (375px: 28px, $bp-end-scale: 32px));
+    @include scale(padding-top, (375px: 15px, $bp-end-scale: 30px));
+    padding-bottom: 0;
+  }
+
+  // Note: This could be refactored since other components use this heading style
+  &__heading {
+    @include scale(font-size, (375px: 22px, $bp-end-scale: 24px));
+    font-family: $gotham-font-family;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  // &__media {}
+
+
+  // Note: Images should be converted to the correct aspect ratio by Drupal.
+  //       We’re only using “aspect-ratio” to prevent layout shift during
+  //       page load so it’s not imperative we polyfill for old browsers.
+  //       https://caniuse.com/mdn-css_properties_aspect-ratio
+  &__img {
+    aspect-ratio: 16 / 9;// USWDS doesn’t enforce any aspect ratio
+    border-radius: 0 !important;// add !important to override card variations
+  }
+
+  &__body {
+    @include card-horz-padding;
+    @include scale(font-size, (375px: 16px, $bp-end-scale: 21px));
+    color: $c-gray-dark;
+    line-height: 1.5;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    @include min-width($bp-end-scale) {
+      font-weight: usa.font-weight('light');
+      line-height: 1.25;
+    }
+  }
+
+  &__footer {
+    @include card-horz-padding;
+    margin-top: rem(23px);
+    padding-bottom: 0;
+  }
+
+}

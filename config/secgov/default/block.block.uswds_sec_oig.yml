@@ -1,0 +1,32 @@
+uuid: bcd4e2cc-59b1-4428-b1cb-3dbf61ba679a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.oig
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: Z0d3Q-va6P1rvIJEllZgJQGhME3M-biVdmssb6_JDas
+id: uswds_sec_oig
+theme: uswds_sec
+region: sidebar_first
+weight: -20
+provider: null
+plugin: 'system_menu_block:oig'
+settings:
+  id: 'system_menu_block:oig'
+  label: OIG
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/oig\r\n/oig*\r\n/inspector-general/*"

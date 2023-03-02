@@ -1,0 +1,62 @@
+card_person:
+  label: Person Card
+  description: Custom card style for people
+  fields:
+    image:
+      type: render
+      label: Image
+      description: "Pass in an <img>"
+      preview: '<img src="https://www.sec.gov/files/styles/person_photo/public/chair-gary-gensler-01-2022.jpg" sizes="147px" alt=""/>'
+    link:
+      type: text
+      label: Link
+      description: Link to person profile page
+      preview: "/about/commissioners/gary-gensler/"
+    first_name:
+      type: text
+      label: First Name
+      description: Person’s First name
+      preview: Vanessa A.
+    last_name:
+      type: text
+      label: Last Name
+      description: Person’s Last name
+      preview: Countryman
+    title:
+      type: text
+      label: Title
+      description: Job Title
+      preview: Secretary
+    department:
+      type: text
+      label: Department
+      description: Department
+      preview: Office of the Secretary
+    email:
+      type: text
+      label: Email
+      description: Email address
+      preview: example@sec.gov
+    phone:
+      type: text
+      label: Phone
+      description: Phone Number
+      preview: 202-555-1234
+    heading_level:
+      type: text
+      label: Heading Level
+      description: 2–6
+      preview: 3
+    show_photo:
+      type: boolean
+      label: Show Photo
+      description: To be able to show or not to show photo.
+    show_email:
+      type: boolean
+      label: Show Email
+      description: To be able to show or not to show email.
+    show_phone:
+      type: boolean
+      label: Show Phone
+      description: To be able to show or not to show phone.
+

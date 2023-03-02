@@ -1,0 +1,219 @@
+id: rule_interim_final
+label: Import of SEC Interim Final Rules
+migration_group: regulations
+migration_tags:
+  - rule_interim_final
+  - rule
+source:
+  plugin: federal_register
+  path: public://migration/interim_final_rules.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    0:
+      name: id
+      label: id
+    1:
+      name: releaseurl
+      label: "Release URL"
+    2:
+      name: date
+      label: "Date"
+    3:
+      name: details
+      label: "Details"
+  constants:
+    site: "https://www.sec.gov/"
+    delimiter: "/"
+process:
+
+  _duplicate:
+    plugin: migration_lookup
+    migration:
+      - rule_proposed
+      - rule_interim_final
+      - rule_final
+    no_stub: true
+    source: related_rules
+
+  _skip_duplicate:
+    plugin: skip_on_value
+    method: row
+    source: '@_duplicate'
+    not_equals: true
+    value: NULL
+
+  status:
+    plugin: default_value
+    default_value: 1
+
+  type:
+    plugin: default_value
+    default_value: rule
+
+  title: title
+
+  field_display_title: title
+
+  body_text:
+    -
+      plugin: skip_on_contains
+      method: process
+      contains:
+        - '.pdf'
+        - '.txt'
+      source: releaseurl
+    -
+      plugin: str_replace
+      search: ')'
+      replace: ''
+    -
+      plugin: html_to_string
+    -
+      plugin: body_html_import
+      get_value: TRUE
+
+  body/value:
+    plugin: if_else
+    source: '@body_text'
+    equals: NULL
+    then: '@abstract'
+
+  body/format:
+    plugin: default_value
+    default_value: 'simple_text'
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+  field_related_rule:
+    plugin: migration_lookup
+    migration:
+      - final
+      - interim_final
+      - proposed
+      - interpretive
+      - concept
+    no_stub: true
+    source: related_rules
+
+  field_primary_division_office:
+    - plugin: get_rulemaking_division
+      source: file_number
+    -
+      plugin: entity_lookup
+      value_key: name
+      bundle_key: vid
+      bundle: division_office
+      entity_type: taxonomy_term
+      ignore_case: true
+
+  file_number: file_number
+
+  field_file_number:
+    plugin: entity_generate
+    access_check: false
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    source: '@file_number'
+    bundle: rulemaking_index
+    values:
+      field_respondents: title
+
+  field_submit_comments:
+    plugin: migration_lookup
+    migration: interim_finalcomments
+    no_stub: true
+    source: id
+
+  comments_notice:
+    plugin: get_comments_notice
+    source: details
+
+  comments_text_format:
+    plugin: skip_on_missing
+    missing:
+      - 'days'
+      - 'on or before'
+      - 'extended'
+      - 'Initial'
+      - 'for'
+      - 'on the'
+      - 'Must be received'
+    method: process
+    source: '@comments_notice'
+
+  field_comments_date_format:
+    plugin: if_else
+    source: '@comments_text_format'
+    equals: NULL
+    then: 'date'
+    else: 'text'
+
+  field_comments_due_date:
+    - plugin: skip_on_contains
+      contains:
+        - 'days'
+        - 'on or before'
+        - 'extended'
+        - 'Initial'
+        - 'for'
+        - 'on the'
+        - 'Must be received'
+      method: process
+      source: '@comments_notice'
+    - plugin: format_date
+      from_format: 'F j, Y'
+      from_timezone: 'America/New_York'
+      to_format: 'Y-m-d'
+
+  field_comments_notice/format:
+    plugin: default_value
+    default_value: 'simple_text'
+
+  field_comments_notice/value:
+    plugin: skip_on_missing
+    missing:
+      - 'days'
+      - 'on or before'
+      - 'extended'
+      - 'Initial'
+      - 'for'
+      - 'on the'
+      - 'Must be received'
+    method: process
+    source: '@comments_notice'
+
+  field_comments_received:
+    plugin: get_comments_received
+    multiple: false
+    source: details
+
+  field_show_submit_comments:
+    plugin: if_else
+    source: '@field_submit_comments'
+    equals: NULL
+    then: FALSE
+    else: TRUE
+
+  field_show_comments_received:
+    plugin: if_else
+    source: '@field_comments_received'
+    equals: NULL
+    then: FALSE
+    else: TRUE
+destination:
+  plugin: entity:node
+
+migration_dependencies:
+  required:
+    - interim_final
+    - interim_finalcomments

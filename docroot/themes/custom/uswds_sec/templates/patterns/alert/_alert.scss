@@ -1,0 +1,13 @@
+//------------------------------------------------------------------------
+// Custom alert styles and overrides
+// https://designsystem.digital.gov/components/alert/
+//------------------------------------------------------------------------
+
+.usa-alert {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  &__heading:only-child {
+    margin-bottom: 0;
+  }
+}

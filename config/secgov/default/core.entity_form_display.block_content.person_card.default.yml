@@ -1,0 +1,57 @@
+uuid: 8bb5aee0-ea53-4ce4-ba8a-ff0e2f7675f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.person_card
+    - field.field.block_content.person_card.field_heading_level
+    - field.field.block_content.person_card.field_person_card
+    - field.field.block_content.person_card.field_show_email
+    - field.field.block_content.person_card.field_show_phone
+    - field.field.block_content.person_card.field_show_photo
+  module:
+    - workbench_moderation
+id: block_content.person_card.default
+targetEntityType: block_content
+bundle: person_card
+mode: default
+content:
+  field_heading_level:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_person_card:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_show_email:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_show_phone:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_show_photo:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  info: true

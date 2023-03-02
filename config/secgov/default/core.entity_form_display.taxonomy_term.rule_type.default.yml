@@ -1,0 +1,87 @@
+uuid: eb80cf15-4bca-4f79-b2ed-8bd31ebb601f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.rule_type.field_customized_quick_links
+    - field.field.taxonomy_term.rule_type.field_description
+    - field.field.taxonomy_term.rule_type.field_page_title
+    - field.field.taxonomy_term.rule_type.field_quick_links
+    - field.field.taxonomy_term.rule_type.field_release_path
+    - taxonomy.vocabulary.rule_type
+  module:
+    - link
+    - path
+    - text
+    - workbench_moderation
+id: taxonomy_term.rule_type.default
+targetEntityType: taxonomy_term
+bundle: rule_type
+mode: default
+content:
+  field_customized_quick_links:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_page_title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_quick_links:
+    type: options_select
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_release_path:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  tvi:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  description: true

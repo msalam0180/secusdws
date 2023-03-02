@@ -1,0 +1,24 @@
+uuid: 5f35d253-9449-4d21-9f5f-358d68a83953
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publish_date
+    - node.type.regulation
+  module:
+    - datetime
+id: node.regulation.field_publish_date
+field_name: field_publish_date
+entity_type: node
+bundle: regulation
+label: 'SEC Issue Date'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

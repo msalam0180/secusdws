@@ -1,0 +1,19 @@
+button_icon:
+  label: Button with Icon
+  description: "Custom SEC button with icon"
+  fields:
+    label:
+      type: text
+      label: Label
+      description: The button label
+      preview: Check Rulemaking Activity
+    url:
+      type: text
+      label: URL
+      description: The button URL
+      preview: "/#FIXME"
+    icon:
+      type: text
+      label: Icon
+      description: "Icon name https://designsystem.digital.gov/components/icon/"
+      preview: account_balance

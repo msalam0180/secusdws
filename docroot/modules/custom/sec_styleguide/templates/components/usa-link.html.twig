@@ -1,0 +1,19 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{# Note: The “usa-color-text-visited” class isn’t supported so we’re adding demo styles below #}
+<style>
+  .is-visited:not(:hover, :focus, :active) {
+    color: #54278f;
+  }
+</style>
+
+<p class="margin-bottom-4">This is <a href="#example">a text link</a> on a light background. This is a <a class="is-visited" href="/">visited link</a> and this is an <a href="https://google.com">external link</a>.</p>
+
+{% set colors = ['navy', 'yellow', 'red', 'teal', 'blue', 'gray'] %}
+
+{% for color in colors %}
+  <div class="bg-{{ color }} usa-prose" style="padding: 30px;">
+    <p>This is a <a href="#example-{{ loop.index }}">text link</a> on a dark background and this is an <a href="https://google.com">external link</a>.</p>
+  </div>
+{% endfor %}

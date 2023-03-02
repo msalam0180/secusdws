@@ -1,0 +1,84 @@
+uuid: a59a6552-dedb-41fa-bd12-4ef59a9ce88f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.secarticle
+    - paragraphs.paragraphs_type.accordion
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.lead_paragraph
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.video
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: node.secarticle.field_content
+field_name: field_content
+entity_type: node
+bundle: secarticle
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      accordion: accordion
+      alert: alert
+      image: image
+      lead_paragraph: lead_paragraph
+      text: text
+      video: video
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 13
+        enabled: true
+      accordion_section:
+        weight: 14
+        enabled: false
+      alert:
+        weight: 15
+        enabled: true
+      card:
+        weight: 16
+        enabled: false
+      card_group:
+        weight: 17
+        enabled: false
+      horizontal_card:
+        weight: 18
+        enabled: false
+      image:
+        weight: 19
+        enabled: true
+      lead_paragraph:
+        weight: 22
+        enabled: true
+      position_history:
+        weight: 20
+        enabled: false
+      related_document_s_:
+        weight: 21
+        enabled: false
+      subpage_card:
+        weight: 22
+        enabled: false
+      subpage_card_group:
+        weight: 23
+        enabled: false
+      text:
+        weight: 24
+        enabled: true
+      video:
+        weight: 28
+        enabled: true
+field_type: entity_reference_revisions

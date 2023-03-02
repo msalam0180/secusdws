@@ -1,0 +1,98 @@
+.usa-pagination {
+  &__button {
+    border-color: $button-gray-med;
+  }
+
+  &__overflow {
+    color: $c-gray-light;
+  }
+
+  .usa-icon {
+    color: $c-black;
+  }
+
+  @include usa.at-media("tablet") {
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+
+  padding-top: 1rem;
+  padding-bottom: 2.75rem;
+}
+
+// CSS for data tables pagination
+.dataTables_paginate {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 2.75rem;
+
+  .paginate_button {
+    align-items: center;
+    border-color: $button-gray-med;
+    border-radius: .25rem;
+    border-style: solid;
+    border-width: 1px;
+    color: $c-blue;
+    padding: .5rem;
+    text-decoration: none;
+    display: inline-flex;
+    height: 2.5rem;
+    justify-content: center;
+    line-height: 1;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    min-width: 2.5rem;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: $c-black;
+    }
+
+    &.previous{
+      @include pager-buttons;
+      background-image: url('/themes/custom/uswds_sec/assets/img/usa-icons/navigate_before.svg');
+      background-position-x: left;
+      padding-right: 1.2rem;
+      padding-left:1.1rem;
+    }
+
+    &.next {
+      @include pager-buttons;
+      background-image: url('/themes/custom/uswds_sec/assets/img/usa-icons/navigate_next.svg');
+      background-position-x: right;
+      padding-right: 1.1rem;
+      padding-left:1.2rem;
+    }
+
+    &.current {
+      background-color: $c-black;
+      border-color: transparent;
+      color: $bg-default;
+    }
+
+    &.disabled {
+      display: none;
+    }
+  }
+  
+  .ellipsis {
+    color: $c-gray-light;
+    user-select: none;
+    padding: 0.5rem 1rem;
+    opacity: .5;
+  }
+  
+  @include usa.at-media("tablet") {
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+
+// @Todo: Temporary - This is used to hide the block that displays 'Display x - y of z results'  
+// Once the theme is switched over to usds_sec permanently, then we can remove this block from the views and the css below.
+.view-footer, .dataTables_info {
+  display: none;
+}  

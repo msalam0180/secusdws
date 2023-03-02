@@ -1,0 +1,19 @@
+uuid: c9efa7a6-5f35-4e27-be76-e9ca9de2de12
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_respondents
+    - taxonomy.vocabulary.rulemaking_index
+id: taxonomy_term.rulemaking_index.field_respondents
+field_name: field_respondents
+entity_type: taxonomy_term
+bundle: rulemaking_index
+label: Respondents/Subject
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

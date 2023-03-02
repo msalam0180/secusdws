@@ -1,0 +1,50 @@
+uuid: 2ea163ef-70c3-44ed-b140-1e2fc8a10d71
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.subpage_card.field_body_subpage_card
+    - field.field.paragraph.subpage_card.field_heading_level_subpage_card
+    - field.field.paragraph.subpage_card.field_link_subpage_card
+    - field.field.paragraph.subpage_card.field_title_subpage_card
+    - paragraphs.paragraphs_type.subpage_card
+  module:
+    - link
+id: paragraph.subpage_card.default
+targetEntityType: paragraph
+bundle: subpage_card
+mode: default
+content:
+  field_body_subpage_card:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_heading_level_subpage_card:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_link_subpage_card:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_title_subpage_card:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

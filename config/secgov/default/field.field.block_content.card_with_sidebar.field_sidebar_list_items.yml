@@ -1,0 +1,24 @@
+uuid: 6253a985-21e7-4638-b2f5-aa3661dd1276
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.card_with_sidebar
+    - field.storage.block_content.field_sidebar_list_items
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '4'
+id: block_content.card_with_sidebar.field_sidebar_list_items
+field_name: field_sidebar_list_items
+entity_type: block_content
+bundle: card_with_sidebar
+label: 'Sidebar list items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

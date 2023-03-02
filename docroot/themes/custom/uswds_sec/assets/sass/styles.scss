@@ -1,0 +1,47 @@
+// Include custom USDWS settings so we can access variables, functions, and mixins
+// Note: We are applying the “usa” namespace, e.g. `usa.color(usa.$theme-text-color)`
+@use "uswds-settings" as usa;
+
+// SEC variables, functions, and mixins
+// TODO: Decide if we want to add a namespace (e.g. sec.$gotham-font-family)
+@use "sec" as *;
+
+// Fonts not included with USWDS (e.g. Gotham)
+@import "fonts";
+
+// Custom utility classes not included in USWDS (e.g. .no-js-hide, .u-screenreader)
+// Note: We need to add “index” to the path for gulp-dependents
+// https://github.com/thomas-darling/gulp-dependents/issues/9
+@import "utilities/index";
+
+// Custom CSS reset
+@import "reset";
+
+// Global base styles (e.g. html and body tags)
+@import "base";
+@import "layouts";
+
+// General styles
+@import "general/index";
+
+// Drupal Overrides
+@import "drupal_overrides/index";
+
+// USWDS overrides
+@import 'uswds-overrides/index';
+
+// Components
+@import "components/index";
+
+// Templates
+@import "templates/index";
+
+// Patterns
+@import "../../templates/patterns/index";
+
+// ckeditor Overrides
+@import "ckeditor";
+
+// UI Patterns Library styles
+// TODO: Move to separate stylesheet that’s only loaded on patterns page
+@import "../../templates/ui_patterns_library/ui_pattern_library";

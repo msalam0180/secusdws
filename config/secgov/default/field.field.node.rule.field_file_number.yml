@@ -1,0 +1,29 @@
+uuid: 643cc4b8-fe7d-4324-9654-097f0b423990
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_file_number
+    - node.type.rule
+    - taxonomy.vocabulary.rulemaking_index
+id: node.rule.field_file_number
+field_name: field_file_number
+entity_type: node
+bundle: rule
+label: 'File Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      rulemaking_index: rulemaking_index
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

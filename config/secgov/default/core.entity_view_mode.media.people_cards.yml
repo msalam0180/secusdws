@@ -1,0 +1,10 @@
+uuid: 1befb8c0-9f64-43b4-b831-895754a4bf8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.people_cards
+label: 'People Cards'
+targetEntityType: media
+cache: true

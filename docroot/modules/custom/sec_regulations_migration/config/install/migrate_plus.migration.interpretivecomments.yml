@@ -1,0 +1,111 @@
+id: interpretivecomments
+label: Import of Interpretive Rules Comment Forms
+migration_group: regulations
+migration_tags:
+  - comments
+  - interpretive
+source:
+  plugin: comments_source
+  source_field: details
+  path: public://migration/interpretive_releases.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    0:
+      name: id
+      label: id
+    1:
+      name: releaseurl
+      label: 'Release URL'
+    2:
+      name: date
+      label: 'Date'
+    3:
+      name: details
+      label: 'Details'
+  constants:
+    delimiter: '/'
+    division_office: 'Enforcement'
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+
+  moderation_state:
+    plugin: default_value
+    default_value: published
+
+  type:
+    plugin: default_value
+    default_value: customized_comment_form
+
+
+  title:
+    plugin: get_respondent
+    source: details
+
+  field_display_title: id
+
+  field_primary_division_office:
+    plugin: entity_lookup
+    source: constants/division_office
+    value_key: name
+    bundle_key: vid
+    bundle: division_office
+    entity_type: taxonomy_term
+    ignore_case: true
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+  publish_year:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'Y'
+
+  filename:
+    plugin: end
+    source: releaseurl
+    delimiter: "/"
+
+  file_number:
+    -
+      plugin: skip_on_missing
+      source: details
+      missing: 'Submit Comments on '
+      method: row
+    -
+      plugin: skip_on_contains
+      method: process
+      contains:
+        - '.htm'
+      source: releaseurl
+    -
+      plugin: get_file_number
+      source: releaseurl
+
+  field_file_number:
+    -
+      plugin: submit_comments
+      source_field: details
+      source: '@file_number'
+    -
+      plugin: entity_generate
+      access_check: false
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: rulemaking_index
+
+
+destination:
+  plugin: 'entity:node'

@@ -1,0 +1,10 @@
+uuid: 429d2048-c308-42f7-909b-27a9a0d6496f
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.component_block_image
+label: 'Component Block Image'
+targetEntityType: media
+cache: true

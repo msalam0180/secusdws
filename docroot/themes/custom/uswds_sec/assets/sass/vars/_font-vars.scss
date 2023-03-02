@@ -1,0 +1,20 @@
+// -------------------------------------------------------------------------
+// Font variables
+// -------------------------------------------------------------------------
+// Include custom USDWS settings so we can access variables, functions, and mixins
+@use "uswds-settings" as usa;
+
+// Custom web fonts
+// Note: Quotes aren’t necessary for most font names
+//       See https://mothereff.in/font-family
+//---------------------------------
+$gotham-font-family: Gotham, usa.$font-stack-system, color-emoji;
+$gotham-medium: 500;
+
+// Monospace font family
+$mono-font-family: usa.family('mono');
+
+// Body copy vars
+//---------------------------------
+$body-copy-font: usa.family('body');
+$body-copy-line-height: 1.5;

@@ -1,0 +1,31 @@
+//------------------------------------------------------------------------
+// Button with SVG icon (not included in USWDS)
+// See /templates/patterns/button/_button.scss for default button styles
+//------------------------------------------------------------------------
+// Note: Button also has “usa-button usa-button--base” classes
+.usa-button--icon {
+  align-items: center;
+  display: flex;
+  padding-left: rem(10px);
+  text-align: left;// override USWDS default
+  width: fit-content;// otherwise “flex” will cause it to be 100% wide
+
+  // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
+  // Note: Since we can’t get each individual icon’s viewBox dimensions
+  //       in the template, the size of the SVG element won’t match the
+  //       use element, so the styles may not match Figma _exactly_.
+  .usa-icon {
+    fill: $c-blue;
+    flex-shrink: 0;
+    height: 100%;
+    margin-right: rem(12px);
+    max-height: rem(27px);
+    max-width: rem(27px);
+    width: 100%;
+  }
+
+  // Adjust external icon position
+  &:after {
+    top: 0;
+  }
+}

@@ -1,0 +1,133 @@
+id: conceptreleases
+label: Import of Administrative Proceeding Release Files AWS content
+migration_group: regulations
+migration_tags:
+  - concept
+source:
+  plugin: csv
+  path: public://migration/concept_releases.csv
+  header_offset: 0
+  ids:
+    - releaseurl
+  fields:
+    0:
+      name: id
+      label: id
+    1:
+      name: releaseurl
+      label: 'Release URL'
+    2:
+      name: date
+      label: 'Date'
+    3:
+      name: details
+      label: 'Details'
+  constants:
+    delimiter: ','
+    staticFileType: 'Concept Rule'
+process:
+
+  _skip:
+    - plugin: migration_lookup
+      migration:
+        - conceptreleases
+        - conceptseealso
+        - finalreleases
+        - finalseealso
+        - interim_finalreleases
+        - interim_finalseealso
+        - interpretivereleases
+        - interpretiveseealso
+        - otherreleases
+        - otherseealso
+        - proposedreleases
+        - proposedseealso
+        - sroreleases
+        - sroseealso
+        - aljinitialreleases
+        - aljinitialseealsofiles
+        - aljorderapreleases
+        - aljorderreleases
+        - aljorderseealsofiles
+        - apreleases
+        - apseealsofiles
+        - litigationreleasesreleases
+        - litigationreleasesseealsofiles
+        - opinionsordersreleases
+        - opinionsordersseealsofils
+        - stopordersreleases
+        - stopordersseealsofiles
+        - tradingsuspensionfiles
+        - tradingsuspensionseealso
+      no_stub: true
+      source: related_rules
+    - plugin: skip_on_value
+      method: row
+      not_equals: true
+      value: NULL
+
+  status:
+    plugin: default_value
+    default_value: 1
+
+  fileurl: releaseurl
+
+  name: id
+
+  field_display_title:
+    plugin: end
+    source: releaseurl
+    delimiter: "/"
+
+  field_description_abstract:
+    plugin: get_release_title
+    source: releaseurl
+
+  field_primary_division_office:
+    plugin: default_value
+    default_value: 39
+
+  field_static_file_type:
+    plugin: entity_generate
+    source: constants/staticFileType
+    value_key: name
+    bundle_key: vid
+    bundle: static_file_type
+    entity_type: taxonomy_term
+    ignore_case: true
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+  publish_year:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'Y'
+
+  field_file_path:
+    plugin: get_file_path
+    source: releaseurl
+    vocabulary: file_path
+
+  field_media_file:
+    -
+      plugin: skip_on_contains
+      source: '@fileurl'
+      contains: '.htm'
+      method: row
+    -
+      plugin: file_import
+      source: '@fileurl'
+      file_exists: 'use existing'
+
+destination:
+  plugin: 'entity:media'
+  default_bundle: static_file

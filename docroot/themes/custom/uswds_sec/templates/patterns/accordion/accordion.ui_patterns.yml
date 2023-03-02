@@ -1,0 +1,33 @@
+accordion:
+  label: Accordion
+  description: Default USWDS accordion with custom styling https://designsystem.digital.gov/components/accordion/
+  fields:
+    is_multiselectable:
+      type: boolean
+      label: Multiselectable
+      description: Allow multiple groups to be expanded at once
+      preview: "true"
+    style:
+      type: text
+      label: Style
+      description: Accordion style, e.g. “menu” style for mobile side nav
+      preview: default
+    color:
+      type: text
+      label: Color
+      description: Yellow (default) or gray
+      preview: yellow
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3
+    unique_id:
+      type: text
+      label: ID
+      description: Each accordion needs a unique ID to function.
+      preview: FIXME
+    accordion_sections:
+      type: "render"
+      label: Accourdion Sections
+      description: Accourdion Sections

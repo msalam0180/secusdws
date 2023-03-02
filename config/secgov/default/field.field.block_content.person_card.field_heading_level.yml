@@ -1,0 +1,27 @@
+uuid: bf1722d0-816f-4cef-8682-884d056b9a6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.person_card
+    - field.storage.block_content.field_heading_level
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.person_card.field_heading_level
+field_name: field_heading_level
+entity_type: block_content
+bundle: person_card
+label: 'Person Heading Level'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: '2'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

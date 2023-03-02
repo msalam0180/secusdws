@@ -1,0 +1,103 @@
+collection:
+  label: Collection
+  description: Content listing component https://designsystem.digital.gov/components/collection/
+  fields:
+    heading:
+      type: text
+      label: Heading
+      description: Heading text
+      preview: Latest News
+    content_type:
+      type: text
+      label: Content type
+      description: Type of content to diplay in listing
+      preview: news
+    taxonomy_filter:
+      type: text
+      label: Taxonomy filter
+      description: Optional taxonomy term to filter content by
+      preview: enforcement-news
+    max_items:
+      type: integer
+      label: Maximum items
+      description: Maximum number of items to show
+      preview: 3
+    heading_level:
+      type: integer
+      label: Heading level
+      description: 2–6
+      preview: 2
+    # Note: This data comes from /modules/custom/sec_styleguide/data/usa_collection.yml
+    #       and is only for dev purposes. This will need to be replaced with a dymamic query.
+    collection_test_yml:
+      type: yml
+      label: Collection data
+      description: Test data
+      preview:
+        - title: President Biden Announces New Initiatives at COP27 to Strengthen U.S. Leadership in Tackling Climate Change
+          content_type: news
+          taxonomy: Enforcement News
+          body_text:
+            Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Sed porttitor lectus nibh.
+            Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget consectetur
+            massa id nisl venenatis lacinia.
+          link: /
+          tags:
+            - PMA
+            - OMB
+            - SBA
+          date: 1668641823
+          comments_deadline: 1700542740
+          byline:
+            - Sondra Ainsworth
+            - Constance Lu
+            - John Doe
+        - title: President Biden’s Leadership to Tackle the Climate Crisis at Home and Abroad Galvanizes Unprecedented Momentum at Start of U.N. Climate Conference (COP27)
+          content_type: news
+          taxonomy: Press Release
+          id: 2
+          body_text: Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus.
+          link: /
+          tags:
+            - Quarterly update
+            - Cap Goal
+            - APG
+            - PMA
+            - Success Story
+          date: 1672624091
+          byline:
+            - Constance Lu
+        - title: Statement by White House Press Secretary Karine Jean-Pierre on the Meeting Between President Joe Biden and President Xi Jinping of the People’s Republic of China
+          content_type: news
+          taxonomy: Enforcement News
+          body_text: Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+          link: /
+          tags:
+            - SBA
+            - APG
+            - Success Story
+          date: 1682070975
+          byline:
+            - Eric L. Miller
+            - Constance Lu
+        - title: Biden-Harris Administration Announces Roadmap for Nature-Based Solutions to Fight Climate Change, Strengthen Communities, and Support Local Economies
+          content_type: news
+          taxonomy: Press Release
+          body_text: Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.
+          link: /
+          tags:
+            - {}
+          date: 1677846710
+          byline:
+            - {}
+        - title: Lorem ipsum congue elementum in hac habitasse platea dictumst morbi vestibulum
+          content_type: rule
+          taxonomy: Final Rule
+          body_text: Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.
+          link: http://webs.com/felis/fusce/posuere.json
+          tags:
+            - {}
+          date: 1675940635000
+          byline:
+            - {}
+

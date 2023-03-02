@@ -1,0 +1,74 @@
+---
+content_config:
+  content:
+    - title: Lorum Ipsum Donec
+      id: a1
+      expanded: true
+      content: "<p>Nulla quis lorem ut libero malesuada feugiat. <a href='#'>imperdiet etporttitor at sem</a> Proin eget tortor risus.
+      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+      <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+      url: "#"
+      url_title: "This is a Link"
+      image: ""
+
+    - title: Vestibulum Ante Curae
+      id: a2
+      content: "<p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.
+      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+      <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+      url: "#"
+      url_title: "Read All About it"
+      image: ""
+
+    - title: Ipsum Primis Posuere Faucibus
+      id: a3
+      content: "<p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.
+      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+      <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+      url: "#"
+      url_title: "Give Now"
+      image: ""
+
+    - title: This is a Long Title Lorum Ullamcorper Sit Amet Ligula
+      id: a4
+      content: "<p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.
+      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+      <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+      url: "#"
+      url_title: "Learn more"
+      image: ""
+
+    - title: Posuere Cubilia Dolar
+      id: a5
+      content: "<p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.
+      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+      <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+      url: "#"
+      url_title: "A Must Read"
+      image: ""
+
+  params:
+    accordion:
+      - title: Default
+        style: default
+        id: acc_p1
+        modifier: ""
+      - title: Gray
+        style: default
+        color: gray
+        id: acc_p2
+        modifier: ""
+      # - title: Bordered
+      #   style: bordered
+      #   id: acc_p2
+      #   modifier: usa-accordion--bordered
+      - title: Multiselectable
+        style: multi
+        id: acc_p3
+        modifier: usa-accordion--multiselectable
+        acc_attr: data-allow-multiple

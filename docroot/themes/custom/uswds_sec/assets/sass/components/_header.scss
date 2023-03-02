@@ -1,0 +1,452 @@
+//------------------------------------------------------------------------
+// Global site header
+//------------------------------------------------------------------------
+.header {
+  $selector: &;
+  $bp-medium: 740px;
+  $bp-wide: $layout-nav-bp;
+  $header-wrap-padding: 9px 15px 9px 12px;// needs to be applied in two places
+  $header-wrap-padding-medium: 16px 36px 16px 22px;// needs to be applied in two places
+
+  // Mobile sticky styling
+  @include max-width($bp-wide - 1px) {
+    @media (prefers-reduced-motion: no-preference) {
+      left: 0;
+      position: sticky;
+      top: 0;
+      transition: transform 300ms ease-in-out;
+      width: 100%;
+      z-index: $z-header;
+    }
+
+    // Applied by JS after user has scrolled a bit (see js/lib/protocol-navigation.js)
+    &.is-hidden {
+      @media (prefers-reduced-motion: no-preference) {
+        transform: translate(0, -110%);
+      }
+    }
+  }
+
+  // Desktop sticky header
+  @include min-width($bp-wide) {
+
+    &.slide-down {
+      @include slideDown;
+    }
+
+    // This is janky when scrolling up quickly
+    // &.slide-up {
+    //   @include slideUp;
+    // }
+
+    &.is-stuck {
+      box-shadow: $card-box-shadow-desktop;
+
+      @media (prefers-reduced-motion: no-preference) {
+        left: 0;
+        position: sticky;
+        top: 0;
+        transition: transform 300ms ease-in-out;
+        width: 100%;
+        z-index: $z-header;
+      }
+    }
+  }
+
+  // Utility classes to show/hide elements
+  .is-mobile {
+    @include min-width($bp-wide) {
+      display: none;
+    }
+  }
+
+  .is-desktop {
+    @include max-width($bp-wide - 1px) {
+      display: none;
+    }
+  }
+
+  &__wrap {
+    background-color: #fff;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: rem($layout-max-width-global);
+    //z-index: $z-nav + 1;// over mobile nav
+
+    // @include max-width($bp-wide - 1px) {
+    //   height: var(--header-height);
+    // }
+
+    @include max-width($bp-medium - 1px) {
+      padding: $header-wrap-padding;
+    }
+
+    @include mq((min-width: $bp-medium, max-width: $bp-wide - 1px)) {
+      padding: $header-wrap-padding-medium;
+    }
+
+    @include min-width($bp-wide) {
+      // display: flex;
+      // flex-direction: column;
+      display: grid;
+      grid-template-columns: 367px auto;
+      grid-template-rows: 2;
+      grid-template-areas:
+        "logo secondary"
+        "nav nav";
+      padding-top: 28px;
+
+      .is-stuck & {
+        grid-template-columns: 214px auto;
+        padding-top: 7px;
+      }
+    }
+
+    &__top {
+      @include max-width($bp-wide - 1px) {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      @include min-width($bp-wide) {
+        grid-area: logo;
+        padding-left: 28px;
+      }
+    }
+  }
+
+  &__logo {
+    flex: 0 1 54%;
+    margin-bottom: 0;// override USWDS default
+    margin-top: 0;// override USWDS default
+    max-width: rem(203px);
+
+    @include min-width($bp-medium) {
+      max-width: rem(314px);
+    }
+
+    @include min-width($bp-wide) {
+      max-width: rem(366px);
+
+      .is-stuck & {
+        max-width: rem(186px);
+      }
+    }
+
+
+    &__link {
+      display: block;
+    }
+
+    &__img {
+      display: block;
+
+      // Alternate logo only shown when header is sticky in desktop layout
+      &.is-sticky {
+        display: none;
+      }
+
+      @include min-width($bp-wide) {
+        .is-stuck & {
+          display: none;
+
+          &.is-sticky {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  // Mobile nav menu toggle
+  // 1. Use !important to override “usa-nav__close” styles
+  &__menu-toggle {
+    $icon-thickness: 3px;
+    $icon-vert-gap: 4px;
+    $icon-width: 15px;
+    --theme-button-bg-color: #{$button-gray-lighter};
+    --theme-button-color: #{$c-navy};
+    --theme-button-hover-bg-color: #{$button-gray-med-light};
+    align-items: center;
+    display: flex;
+    font-size: rem(12px) !important;// override default USWDS
+    font-weight: $gotham-medium;
+    height: auto !important;// [1]
+    justify-content: space-between;
+    line-height: 1;
+    padding: rem(17px 12px 15px 14px) !important;// [1]
+    width: auto;// override default USWDS
+
+    // Hambuger icon built using CSS
+    //
+    // (---) top    -> &:before
+    // [---] middle -> &
+    // (---) bottom -> &:after
+    //
+    .menu-icon {
+      margin-left: rem(18px);
+      position: relative;
+
+      &,
+      &::before,
+      &::after {
+        background-color: currentColor;
+        height: rem($icon-thickness);
+        width: rem($icon-width);
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        left: 0;
+        position: absolute;
+      }
+
+      &::before {
+        top: -(rem($icon-thickness + $icon-vert-gap));
+      }
+
+      &::after {
+        top: rem($icon-thickness + $icon-vert-gap);
+      }
+    }
+
+    // Close button
+    // 2. Undo “usa-nav__close” styles
+    &--close {
+      --theme-button-bg-color: #{$bg-navy};
+      --theme-button-color: #fff;
+      --theme-button-hover-bg-color: #{$button-blue-darker};
+      float: none;// [2]
+      margin: 0;// [2]
+      text-decoration: none;// [2]
+
+      &:hover,
+      &:focus,
+      &:active {
+        @include font-smoothing;// [2]
+
+        .close-icon {
+          opacity: 1;
+        }
+      }
+
+      // Create close icon using CSS
+      .close-icon {
+        height: rem($icon-thickness);
+        margin-left: rem(18px);
+        opacity: 0.5;
+        position: relative;
+        transition: opacity 150ms ease-in-out;
+        width: rem($icon-width);
+
+        &:before,
+        &:after {
+          background-color: currentColor;
+          content: '';
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+
+        &:before {
+          transform: rotate(-45deg);
+        }
+
+        &:after {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+
+  &__search {
+    $horz-padding: 15px;
+
+    @include max-width($bp-wide - 1px) {
+      margin: 15px auto 35px;
+      max-width: rem(346px + ($horz-padding * 2));
+      padding-left: $horz-padding;
+      padding-right: $horz-padding;
+      width: 100%;
+    }
+
+    @include min-width($bp-wide) {
+      margin-left: auto;// right align
+      margin-top: 16px;
+
+      .is-stuck & {
+        margin-left: 22px;
+        margin-top: 0;
+      }
+    }
+
+    .search--group {
+      @include max-width($bp-wide - 1px) {
+        width: 100%;
+      }
+    }
+
+    // 3. Override “.usa-search__input” styles
+    input {
+      border-radius: 4px 0 0 4px;
+      border-right-width: 0 !important;// [3]
+      border: 1px solid #c6cace;
+      color: $c-gray;
+      flex-grow: 1;
+      float: none !important;// [3]
+      font-size: rem(15px);
+      font-weight: bold;
+      height: auto;// [3]
+      padding: rem(15px 12px);
+
+      @include min-width($bp-wide) {
+        padding-bottom: rem(10px);
+        padding-top: rem(10px);
+      }
+    }
+
+    button {
+      aspect-ratio: 1;
+      background-image: svg-url('search', (fill: #fff));// USWDS icon
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 24px auto;
+      float: none !important;// [3]
+      height: 100% !important;// [3]
+      min-width: rem(50px);
+      width: auto !important;// [3]
+
+      @include min-width($bp-wide) {
+        min-width: rem(45px) !important;
+      }
+    }
+  }
+
+  &__nav-primary {
+    @include max-width($bp-wide - 1px) {
+      align-items: center;
+    }
+
+    @include min-width($bp-wide) {
+      align-items: center;
+      border-top: 1px solid $border-gray-medium;
+      grid-area: nav;
+      margin-top: 28px;
+      order: 3;// move to bottom
+      padding-left: 16px;
+      padding-right: 28px;
+
+      .is-stuck & {
+        margin-top: rem(7px);
+      }
+    }
+
+    // Wrapper around primary nav list
+    .region-primary-menu {
+      @include max-width($bp-wide - 1px) {
+        width: 100%;
+      }
+
+      @include min-width($bp-wide) {
+        flex-grow: 1;
+      }
+    }
+
+    &__top {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      @include max-width($bp-wide - 1px) {
+        padding: $header-wrap-padding;
+        width: 100%;
+      }
+
+      @include min-width($bp-medium) {
+        padding: $header-wrap-padding-medium;
+      }
+    }
+  }
+
+  &__cta {
+    $cta-wide-bp: 420px;// when it is no longer full width
+    text-transform: none !important;// override “usa-button” styles
+    width: auto;// override “usa-button” styles
+
+    @include max-width($cta-wide-bp - 1px) {
+      align-self: stretch;
+      margin-left: 15px;
+      margin-right: 15px !important;// override .usa-button
+    }
+
+    @include max-width($bp-wide - 1px) {
+      margin-top: rem(24px);
+    }
+
+    @include min-width($bp-wide) {
+      flex-shrink: 0;
+    }
+  }
+
+  // 4. Undo “usa-nav__secondary” styles
+  &__nav-secondary {
+    display: flex;
+    flex-direction: row !important;// [4]
+    flex-wrap: wrap;
+    justify-content: center;
+    position: static !important;// [4]
+
+    @include max-width($bp-wide - 1px) {
+      margin-left: 15px;
+      margin-right: 15px;
+      margin-top: 25px;
+    }
+
+    @include mq((min-width: $bp-medium, max-width: $bp-wide - 1px)) {
+      margin-top: rem(38px);
+    }
+
+    @include min-width($bp-wide) {
+      justify-content: flex-end;
+      margin-left: auto;// right align
+      margin-top: 2px;
+
+      .is-stuck & {
+        margin-left: 0;
+      }
+    }
+
+    a {
+      color: $c-gray;
+      font-size: rem(15px);
+      line-height: 1.25;
+    }
+  }
+
+  // Secondary nav and search wrapper in desktop
+  &__secondary {
+    @include min-width($bp-wide) {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      grid-area: secondary;
+      padding-left: 28px;
+      padding-right: 28px;
+
+      .is-stuck & {
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+
+      .is-scrolling & {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+}

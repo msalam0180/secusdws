@@ -1,0 +1,23 @@
+uuid: 3b696a92-06a2-470e-8375-bf9c73916d4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_override_file_number_respo
+    - node.type.release
+id: node.release.field_override_file_number_respo
+field_name: field_override_file_number_respo
+entity_type: node
+bundle: release
+label: 'Override File Number Respondent with the Release Respondent'
+description: '<em>If there is a file number on the release, then the respondent will be derived from the file number. If there is no file number, then the respondent on this release will be used. You can override this behavior by checking this box.</em>'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

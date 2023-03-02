@@ -1,0 +1,135 @@
+uuid: 693fbe70-f207-4f7c-b6c4-41525a4e9c0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.card.field_body
+    - field.field.paragraph.card.field_button
+    - field.field.paragraph.card.field_heading_level
+    - field.field.paragraph.card.field_image
+    - field.field.paragraph.card.field_title
+    - paragraphs.paragraphs_type.card
+  module:
+    - addtocalendar
+    - ds
+    - empty_fields
+    - options
+    - ui_patterns_field_formatters
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+          variant: with-media
+    regions:
+      heading:
+        - field_title
+      image:
+        - field_image
+      body:
+        - field_body
+      footer:
+        - field_button
+      heading_level:
+        - field_heading_level
+id: paragraph.card.default
+targetEntityType: paragraph
+bundle: card
+mode: default
+content:
+  field_body:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: body
+  field_button:
+    type: pattern_formatter
+    label: above
+    settings:
+      pattern: button
+      pattern_mapping:
+        'field_properties:uri':
+          destination: url
+          weight: 0
+          plugin: field_properties
+          source: uri
+        'field_properties:title':
+          destination: label
+          weight: 1
+          plugin: field_properties
+          source: title
+      pattern_variant: default
+      pattern_settings: {  }
+      variants_token: {  }
+    third_party_settings:
+      addtocalendar:
+        addtocalendar_settings:
+          style: '0'
+          display_text: 'Add to Calendar'
+          atc_title:
+            field: token
+            tokenized: Title
+          atc_description:
+            field: token
+            tokenized: Description
+          atc_location:
+            field: token
+            tokenized: Location
+          atc_organizer:
+            field: token
+            tokenized: 'U.S. Securities and Exchange Commission'
+          atc_organizer_email:
+            field: token
+            tokenized: no-reply@sec.gov
+          atc_date_end:
+            field: token
+            tokenized: ''
+          atc_privacy: public
+          data_secure: auto
+          data_calendars:
+            iCalendar: 0
+            'Google Calendar': 0
+            Outlook: 0
+            'Outlook Online': 0
+            'Yahoo! Calendar': 0
+        addtocalendar_show: 0
+      empty_fields:
+        handler: ''
+    weight: 3
+    region: footer
+  field_heading_level:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: heading_level
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: card_with_image
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 1
+    region: image
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: heading
+hidden:
+  search_api_excerpt: true

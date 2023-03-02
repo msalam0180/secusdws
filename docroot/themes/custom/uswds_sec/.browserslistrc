@@ -1,0 +1,13 @@
+# Prod browser list is from USWDS
+[production]
+> 2%
+last 2 versions
+IE 11
+not dead
+
+# Faster build time in development
+[development]
+last 1 Chrome major versions
+last 1 Firefox major versions
+last 2 Safari major versions
+last 2 iOS major versions

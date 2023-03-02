@@ -1,0 +1,31 @@
+uuid: 29980324-1f81-4028-9a90-bfb1c260b1f0
+langcode: en
+status: false
+dependencies:
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: U6XzTx6xD4agHCLIMy6N3a0Ts_X9s0g04l3gZlVUZ5s
+id: uswds_sec_news_media_kit
+theme: uswds_sec
+region: header
+weight: -35
+provider: null
+plugin: 'block_content:65b04548-00eb-4395-9978-6c720a94383a'
+settings:
+  id: 'block_content:65b04548-00eb-4395-9978-6c720a94383a'
+  label: 'Media Kit'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

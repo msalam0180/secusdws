@@ -1,0 +1,35 @@
+diff --git a/core/modules/layout_builder/js/layout-builder.es6.js b/core/modules/layout_builder/js/layout-builder.es6.js
+index 149d2bd5..b6ba16ee 100644
+--- a/core/modules/layout_builder/js/layout-builder.es6.js
++++ b/core/modules/layout_builder/js/layout-builder.es6.js
+@@ -267,7 +267,7 @@
+     mainCanvas.addEventListener('transitionend', () => {
+       const $target = $('.is-layout-builder-highlighted');
+ 
+-      if ($target.length > 0) {
++      if (this === mainCanvas && $target.length > 0) {
+         // These four variables are used to determine if the element is in the
+         // viewport.
+         const targetTop = $target.offset().top;
+diff --git a/core/modules/layout_builder/js/layout-builder.js b/core/modules/layout_builder/js/layout-builder.js
+index a3fc41e9..bd9d1285 100644
+--- a/core/modules/layout_builder/js/layout-builder.js
++++ b/core/modules/layout_builder/js/layout-builder.js
+@@ -5,6 +5,8 @@
+ * @preserve
+ **/
+ 
++var _this = this;
++
+ (function ($, Drupal, Sortable) {
+   var ajax = Drupal.ajax,
+       behaviors = Drupal.behaviors,
+@@ -115,7 +117,7 @@
+     mainCanvas.addEventListener('transitionend', function () {
+       var $target = $('.is-layout-builder-highlighted');
+ 
+-      if ($target.length > 0) {
++      if (_this === mainCanvas && $target.length > 0) {
+         var targetTop = $target.offset().top;
+         var targetBottom = targetTop + $target.outerHeight();
+         var viewportTop = $(window).scrollTop();

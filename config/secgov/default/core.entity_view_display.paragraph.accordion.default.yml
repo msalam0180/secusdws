@@ -1,0 +1,66 @@
+uuid: 59e47600-bd0d-48cf-a4fb-92b95281854b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.accordion.field_accoridion_section
+    - field.field.paragraph.accordion.field_heading_level
+    - field.field.paragraph.accordion.field_multiselectable
+    - paragraphs.paragraphs_type.accordion
+  module:
+    - ds
+    - empty_fields
+    - entity_reference_revisions
+    - options
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_accordion
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      is_multiselectable:
+        - field_multiselectable
+      heading_level:
+        - field_heading_level
+      accordion_sections:
+        - field_accoridion_section
+id: paragraph.accordion.default
+targetEntityType: paragraph
+bundle: accordion
+mode: default
+content:
+  field_accoridion_section:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: accordion_sections
+  field_heading_level:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: heading_level
+  field_multiselectable:
+    type: boolean
+    label: hidden
+    settings:
+      format: true-false
+      format_custom_false: 'false'
+      format_custom_true: 'true'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: is_multiselectable
+hidden:
+  search_api_excerpt: true

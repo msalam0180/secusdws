@@ -1,0 +1,27 @@
+uuid: 32478d95-8f20-43c7-9d23-398117b669e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_heading_level_horz_card
+    - paragraphs.paragraphs_type.horizontal_card
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.horizontal_card.field_heading_level_horz_card
+field_name: field_heading_level_horz_card
+entity_type: paragraph
+bundle: horizontal_card
+label: 'Heading Level'
+description: 'Heading levels are used to determine the hierarchy of pages for assistive technologies.'
+required: true
+translatable: false
+default_value:
+  -
+    value: '2'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

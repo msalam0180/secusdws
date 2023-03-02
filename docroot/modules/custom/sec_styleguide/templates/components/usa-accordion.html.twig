@@ -1,0 +1,61 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{% for accordion_config in content_yml.params.accordion %}
+  {% set color_class = accordion_config.color ? ' is-' ~ accordion_config.color : '' %}
+  <h2>{{ accordion_config.title }}</h2>
+  <div class="usa-accordion {{ accordion_config.modifier }}{{ color_class }}" {{ accordion_config.acc_attr }}>
+    {% for item in content_yml.content | slice(0, 3) %}
+      <!-- Use the accurate heading level to maintain the document outline -->
+      <h2 class="usa-accordion__heading">
+        <button type="button" class="usa-accordion__button" aria-expanded="{{ item.expanded|default('false') }}"
+                aria-controls="acc-{{ accordion_config.id }}{{ item.id }}">
+          {{ item.title }}
+        </button>
+      </h2>
+      <div id="acc-{{ accordion_config.id }}{{ item.id }}" class="usa-accordion__content usa-prose">
+        {{ item.content | raw }}
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+<h2>Example with section expanded by default</h2>
+
+{{ pattern('accordion', {
+  'unique_id': 'example_3',
+  'is_multiselectable': true,
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '1',
+      heading_level: '3',
+      expanded: 'true',
+      heading: 'Lorum Ipsum Donec',
+      body: "<p>Nulla quis lorem ut libero malesuada feugiat. <a href='#'>imperdiet etporttitor at sem</a> Proin eget tortor risus.
+        Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+        <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+    }),
+    pattern('accordion_section', {
+      manually_created_id: '2',
+      heading_level: '3',
+      expanded: 'false',
+      heading: 'Vestibulum Ante Curae',
+      body: "<p>Nulla quis lorem ut libero malesuada feugiat. <a href='#'>imperdiet etporttitor at sem</a> Proin eget tortor risus.
+        Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+        <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+    }),
+    pattern('accordion_section', {
+      manually_created_id: '3',
+      heading_level: '3',
+      expanded: 'false',
+      heading: 'Ipsum Primis Posuere Faucibus',
+      body: "<p>Nulla quis lorem ut libero malesuada feugiat. <a href='#'>imperdiet etporttitor at sem</a> Proin eget tortor risus.
+        Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>
+        <p>Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus.</p>
+        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat.</p>"
+    }),
+  ]}
+)}}
+

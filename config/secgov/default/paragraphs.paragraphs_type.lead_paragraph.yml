@@ -1,0 +1,10 @@
+uuid: 4520af1f-e46c-4443-926f-34fc37125374
+langcode: en
+status: true
+dependencies: {  }
+id: lead_paragraph
+label: 'Lead Paragraph'
+icon_uuid: null
+icon_default: null
+description: 'Lead paragraph component is text that has a different style than the rest of the paragraphs on the page.'
+behavior_plugins: {  }

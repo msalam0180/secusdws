@@ -1,0 +1,10 @@
+uuid: 8773cf45-ed33-4b8a-903e-4663d08a3126
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.component_block_video
+label: 'Component Block Video'
+targetEntityType: media
+cache: true

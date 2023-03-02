@@ -1,0 +1,94 @@
+## modified from https://github.com/uswds/uswds-site/blob/main/_data/nav.yml
+---
+components:
+  - href: /sec-styleguide/usa-accordion
+    title: "Accordion"
+    desc: "An accordion is a list of headers that hide or reveal additional content when selected."
+    external_documentation: "https://designsystem.digital.gov/components/accordion/"
+  - href: /sec-styleguide/usa-alert
+    title: "Alert"
+    desc: "An alert keeps users informed of important and sometimes time-sensitive changes."
+    external_documentation: "https://designsystem.digital.gov/components/alert/"
+  - href: /sec-styleguide/usa-breadcrumb
+    title: "Breadcrumb"
+    desc: "Breadcrumbs provide secondary navigation to help users understand where they are in a website."
+    external_documentation: "https://designsystem.digital.gov/components/breadcrumb/"
+  - href: /sec-styleguide/usa-button
+    title: "Button"
+    desc: "A button draws attention to important actions with a large selectable surface."
+    external_documentation: "https://designsystem.digital.gov/components/button/"
+  - href: /sec-styleguide/usa-button-group
+    title: "Button Group"
+    desc: "A button group collects similar or related actions."
+    external_documentation: "https://designsystem.digital.gov/components/button-group/"
+  - href: /sec-styleguide/usa-card
+    title: "Card"
+    desc: "Cards contain content and actions about a single subject."
+    external_documentation: "https://designsystem.digital.gov/components/card/"
+  - href: /sec-styleguide/usa-card-group
+    title: "Card Group"
+    desc: "Multi-column card grid layout"
+    external_documentation: "https://designsystem.digital.gov/components/card/"
+  - href: /sec-styleguide/usa-collection
+    title: "Collection"
+    desc: "A collection displays a compact list of multiple related items like articles or events. The list links each item to its original source."
+    external_documentation: "https://designsystem.digital.gov/components/collection/"
+  - href: /sec-styleguide/usa-form-element-examples
+    title: "Form"
+    desc: "A form allows users to enter information into a page."
+    external_documentation: "https://designsystem.digital.gov/templates/form-templates/"
+  - href: /sec-styleguide/usa-grid
+    title: "Grid"
+    desc: "USWDS 12-column grid system"
+    external_documentation: "https://designsystem.digital.gov/utilities/layout-grid/"
+  - href: /sec-styleguide/usa-icon
+    title: "Icon"
+    desc: "Icons help communicate meaning, actions, status, or feedback."
+    external_documentation: "https://designsystem.digital.gov/components/icon/"
+  - href: /sec-styleguide/usa-link
+    title: "Link"
+    desc: "A link connects users to a different page or further information."
+    external_documentation: "https://designsystem.digital.gov/components/link/"
+  - href: /sec-styleguide/usa-pagination
+    title: "Pagination"
+    desc: "Pagination is navigation for paginated content."
+    external_documentation: "https://designsystem.digital.gov/components/pagination/"
+  # - href: /sec-styleguide/usa-process-list
+  #   title: "Process List"
+  #   desc: "A process list displays the steps or stages of important instructions or processes."
+  #   external_documentation: "https://designsystem.digital.gov/components/process-list/"
+  # - href: /sec-styleguide/usa-search
+  #   title: "Search"
+  #   desc: "Search allows users to search for specific content if they know what search terms to use or can’t find desired content in the main navigation"
+  #   external_documentation: "https://designsystem.digital.gov/components/search/"
+  - href: /sec-styleguide/usa-side-navigation
+    title: "Side Navigation"
+    desc: "Hierarchical, vertical navigation to place at the side of a page."
+    external_documentation: "https://designsystem.digital.gov/components/side-navigation/"
+  # - href: /sec-styleguide/usa-step-indicator
+  #   title: "Step Indicator"
+  #   desc: "A step indicator updates users on their progress through a multi-step process."
+  #   external_documentation: "https://designsystem.digital.gov/components/step-indicator/"
+  # - href: /sec-styleguide/usa-summary-box
+  #   title: "Summary Box"
+  #   desc: "A summary box highlights key information from a longer page or displays next steps."
+  #   external_documentation: "https://designsystem.digital.gov/components/summary-box/"
+  - href: /sec-styleguide/usa-table
+    title: "Table"
+    desc: "A table shows information in columns and rows."
+    external_documentation: "https://designsystem.digital.gov/components/table/"
+  - href: /sec-styleguide/usa-typography
+    title: "Typography"
+    desc: "Government websites need clear and consistent headings, highly legible body paragraphs, clear labels, and easy-to-use input fields."
+    external_documentation: "https://designsystem.digital.gov/components/typography/"
+  - href: /sec-styleguide/email-alerts
+    title: "Email Alerts Promo"
+    desc: "Redirects users to public.govdelivery.com to complete sign-up process."
+  - href: /sec-styleguide/landing-page-title
+    title: "Landing Page Title"
+  # - href: /sec-styleguide/test-component
+  #   title: "Test Component"
+  #   desc: "This is an example test component for creating a new component. "
+  #   usage: "TODO"
+  #   dev_note: "This component is only here until documentation is written on creating new components."
+  #   external_documentation: "https://designsystem.digital.gov/components"

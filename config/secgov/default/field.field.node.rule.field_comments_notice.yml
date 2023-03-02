@@ -1,0 +1,25 @@
+uuid: 728bed9f-b949-4fa9-bb9b-d735b9932e3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments_notice
+    - node.type.rule
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats: {  }
+id: node.rule.field_comments_notice
+field_name: field_comments_notice
+entity_type: node
+bundle: rule
+label: 'Comments Due Text'
+description: 'This field will ONLY display if the "Comments Due Date" field is blank'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

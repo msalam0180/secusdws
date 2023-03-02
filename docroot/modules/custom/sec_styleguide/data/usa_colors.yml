@@ -1,0 +1,86 @@
+---
+colors_content:
+  project_colors:
+    theme:
+      - title: Base
+        colors:
+          - theme-color-base-lightest
+          - theme-color-base-lighter
+          - theme-color-base-light
+          - theme-color-base
+          - theme-color-base-dark
+          - theme-color-base-darker
+          - theme-color-base-darkest
+      - title: Primary
+        colors:
+          - theme-color-primary-lightest
+          - theme-color-primary-lighter
+          - theme-color-primary-light
+          - theme-color-primary
+          - theme-color-primary-dark
+          - theme-color-primary-darker
+          - theme-color-primary-darkest
+      - title: Secondary
+        colors:
+          - theme-color-secondary-lightest
+          - theme-color-secondary-lighter
+          - theme-color-secondary-light
+          - theme-color-secondary
+          - theme-color-secondary-dark
+          - theme-color-secondary-darker
+          - theme-color-secondary-darkest
+      - title: Accent Cool
+        colors:
+          - theme-color-accent-cool-lightest
+          - theme-color-accent-cool-lighter
+          - theme-color-accent-cool-light
+          - theme-color-accent-cool
+          - theme-color-accent-cool-dark
+          - theme-color-accent-cool-darker
+          - theme-color-accent-cool-darkest
+      - title: Accent Warm
+        colors:
+          - theme-color-accent-warm-lightest
+          - theme-color-accent-warm-lighter
+          - theme-color-accent-warm-light
+          - theme-color-accent-warm
+          - theme-color-accent-warm-dark
+          - theme-color-accent-warm-darker
+          - theme-color-accent-warm-darkest
+      - title: Error
+        colors:
+          - theme-color-error-lighter
+          - theme-color-error-light
+          - theme-color-error
+          - theme-color-error-dark
+          - theme-color-error-darker
+      - title: Warning
+        colors:
+          - theme-color-warning-lighter
+          - theme-color-warning-light
+          - theme-color-warning
+          - theme-color-warning-dark
+          - theme-color-warning-darker
+      - title: Success
+        colors:
+          - theme-color-success-lighter
+          - theme-color-success-light
+          - theme-color-success
+          - theme-color-success-dark
+          - theme-color-success-darker
+      - title: Info
+        colors:
+          - theme-color-info-lighter
+          - theme-color-info-light
+          - theme-color-info
+          - theme-color-info-dark
+          - theme-color-info-darker
+      - title: Disabled
+        colors:
+          - theme-color-disabled-light
+          - theme-color-disabled
+          - theme-color-disabled-dark
+      - title: Emergency
+        colors:
+          - theme-color-emergency
+          - theme-color-emergency-dark

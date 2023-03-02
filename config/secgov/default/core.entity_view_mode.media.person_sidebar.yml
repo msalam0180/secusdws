@@ -1,0 +1,10 @@
+uuid: 3f789e62-3942-4012-bdcf-6d037f1c0ed1
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.person_sidebar
+label: 'Person Sidebar'
+targetEntityType: media
+cache: true

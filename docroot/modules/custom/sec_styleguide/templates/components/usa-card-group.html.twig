@@ -1,0 +1,178 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<h2>{{ 'Card Group'|t }}</h2>
+
+<h3>3 Columns (default)</h3>
+
+{% set example_markup_1 = '<div class="usa-card-group">
+  <!-- cards -->
+</div>' %}
+{{ pattern('accordion', {
+  unique_id: 'example_1',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_markup_1|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h4>1 card</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('card') }}
+</div>
+
+<h4>2 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('card') }}
+  {{ pattern_preview('card') }}
+</div>
+
+<h4>3 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>4 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>5 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>6 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+{# <h4>7 cards</h4>
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div> #}
+
+
+<h3>2 Columns</h3>
+
+{% set example_markup_2 = '<div class="usa-card-group" data-cols="2">
+  <!-- cards -->
+</div>' %}
+{{ pattern('accordion', {
+  unique_id: 'example_2',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_markup_2|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h4>1 card</h4>
+<div class="usa-card-group" data-cols="2">
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>2 cards</h4>
+<div class="usa-card-group" data-cols="2">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>3 cards</h4>
+<div class="usa-card-group" data-cols="2">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>4 cards</h4>
+<div class="usa-card-group" data-cols="2">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+{# <h3>3 Columns</h3>
+<h4>1 card</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>2 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>3 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>4 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>5 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>6 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h4>7 cards</h4>
+<div class="usa-card-group" data-cols="3">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div> #}

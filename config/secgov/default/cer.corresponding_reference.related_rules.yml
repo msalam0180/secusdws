@@ -1,0 +1,12 @@
+uuid: e2c14c09-ab20-44f6-bbc6-389045f5ecd1
+langcode: en
+status: true
+dependencies: {  }
+id: related_rules
+label: 'Related Rules'
+enabled: true
+first_field: field_related_rule
+second_field: field_related_rule
+bundles:
+  node:
+    - regulation

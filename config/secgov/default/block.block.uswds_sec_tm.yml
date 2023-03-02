@@ -1,0 +1,30 @@
+uuid: 90e4e744-0f08-40c6-a1a7-fbf19dfecd30
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.trading-markets
+  module:
+    - system
+  theme:
+    - uswds_sec
+id: uswds_sec_tm
+theme: uswds_sec
+region: sidebar_first
+weight: -1
+provider: null
+plugin: 'system_menu_block:trading-markets'
+settings:
+  id: 'system_menu_block:trading-markets'
+  label: TM
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/divisions/trading-markets\r\n/tm\r\n/divisions/marketreg"

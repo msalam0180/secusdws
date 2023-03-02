@@ -1,0 +1,40 @@
+uuid: a8eebec7-bebe-4d40-8ce5-9253d97432b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.sro_organization.field_abbreviated
+    - field.field.taxonomy_term.sro_organization.field_category
+    - taxonomy.vocabulary.sro_organization
+  module:
+    - text
+id: taxonomy_term.sro_organization.default
+targetEntityType: taxonomy_term
+bundle: sro_organization
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_abbreviated:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

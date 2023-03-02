@@ -1,0 +1,19 @@
+email_alerts:
+  label: Email Alerts Promo
+  description: Sign-up form for email alerts
+  fields:
+    headline:
+      type: text
+      label: Headline
+      description: Headline text
+      preview: Get filing search announcements sent straight to your inbox.
+    list_id:
+      type: text
+      label: Email list ID (TBD)
+      description: GovDelivery list ID (TBD)
+      preview: 1234
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3

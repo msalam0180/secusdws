@@ -1,0 +1,23 @@
+uuid: 5ae01f24-d64c-47a4-8a65-676ac219bf46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_submit_comments
+    - node.type.rule
+id: node.rule.field_show_submit_comments
+field_name: field_show_submit_comments
+entity_type: node
+bundle: rule
+label: 'Show Submit Comments Button'
+description: 'If the top rule release for this rule is Final then the Submit Comments button will not show even if this field is checked.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

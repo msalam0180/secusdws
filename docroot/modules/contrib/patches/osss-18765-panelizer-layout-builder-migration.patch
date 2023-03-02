@@ -1,0 +1,15 @@
+diff --git a/core/lib/Drupal/Component/Plugin/Discovery/DiscoveryTrait.php b/core/lib/Drupal/Component/Plugin/Discovery/DiscoveryTrait.php
+index fdaeda2dec..ec66ef6d3c 100644
+--- a/core/lib/Drupal/Component/Plugin/Discovery/DiscoveryTrait.php
++++ b/core/lib/Drupal/Component/Plugin/Discovery/DiscoveryTrait.php
+@@ -41,6 +41,10 @@ public function getDefinition($plugin_id, $exception_on_invalid = TRUE) {
+    *   Thrown if $plugin_id is invalid and $exception_on_invalid is TRUE.
+    */
+   protected function doGetDefinition(array $definitions, $plugin_id, $exception_on_invalid) {
++    //OSSS-18765 - panelizer to layout builder migration workaround
++    if ($plugin_id == "field_block:node:landing_page:field_topic") {
++      $plugin_id = "field_block:node:landing_page:field_tags";
++    }
+     // Avoid using a ternary that would create a copy of the array.
+     if (isset($definitions[$plugin_id])) {
+       return $definitions[$plugin_id];

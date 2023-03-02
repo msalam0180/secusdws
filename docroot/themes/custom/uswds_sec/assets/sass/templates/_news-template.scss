@@ -1,0 +1,25 @@
+//------------------------------------------------------------------------
+// News page tempalte (e.g. press releases)
+//------------------------------------------------------------------------
+.node--type-news {
+  .main-content {
+    @include default-padding;
+
+    > .region {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: rem($layout-max-width-narrow);
+    }
+  }
+
+  .block-system-main-block {
+    @include default-page-bottom;
+    @include default-page-top;
+  }
+
+  // NOTE: It would be better to add the .usa-prose class in the markup
+  .text-formatted {
+    @include usa-prose;
+    @include sec-prose;
+  }
+}

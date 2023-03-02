@@ -1,0 +1,32 @@
+uuid: 9fc91965-f008-4451-97e4-4f4219f7b369
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.ocie-left-nav
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: BHezw8UFqZel-6xcEtrQmJgjes4Q84eO1EUgh7CUNbE
+id: uswds_sec_ocie
+theme: uswds_sec
+region: sidebar_first
+weight: -25
+provider: null
+plugin: 'system_menu_block:ocie-left-nav'
+settings:
+  id: 'system_menu_block:ocie-left-nav'
+  label: OCIE
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/ocie\r\n/ocie/*\r\n/divisions/ocie/*\r\n/about/offices/ocie/*\r\n/compliance-inspections-and-examinations/*\r\n/exams/announcements"

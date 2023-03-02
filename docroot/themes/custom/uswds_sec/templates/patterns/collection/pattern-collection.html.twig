@@ -1,0 +1,136 @@
+{% set heading_level = heading_level|default(3) %}
+{# Note: Use striptags filter to convert string to integer #}
+{% set max_items = max_items|striptags|default(3) %}
+{% set content = collection_test_yml|slice(0, max_items) %}
+{#
+  Note: We’re adding this wrapper so collections can be used within “usa-card-group”
+        and to give us more control over margins in page-builder content.
+#}
+<div class="collection">
+  {#
+    Note: “heading-block” is a custom component not included in USWDS.
+          Don’t output this markup if no heading is provided so we can reuse the
+          collection markup on search and other dynamic content listing pages.
+  #}
+  {% if heading %}
+    <div class="heading-block">
+      <h{{ heading_level }} class="heading-block__heading">
+        {{ heading }}
+      </h{{ heading_level }}>
+      {#
+        Note: The “View All” link is dynamically generated and should link to the respective
+              content-type listing page (e.g. news). If a taxonomy filter was applied, the
+              listing page should also be pre-filtered by that term (e.g. “enforcement news”).
+      #}
+      {# TODO: Dynamically generate the href #}
+      <a class="heading-block__link" href="/">View All {{ content_type|title }}</a>
+    </div>
+  {% endif %}
+
+  {# Note: We’ve added a taxonomy link above the title, which wasn’t included in USWDS #}
+  <ul class="usa-collection">
+    {# TODO: Integrate collection content with Drupal #}
+    {% for item in content %}
+      {% set date_time = item.date | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+      {% set display_date = item.date | date('U') | format_date('custom', 'F j, Y') %}
+      {% set month = item.date | date('U') | format_date('custom', 'M') %}
+      {% set day = item.date | date('U') | format_date('custom', 'd') %}
+
+      <li class="usa-collection__item">
+        {#
+          Note: In search results, events can be mixed in with other content so we’ll need to
+                conditionally display the calendar on a per-item basis.
+        #}
+        {% if item.content_type == 'event' %}
+          {# Note: Keep the calendar wrapper if no date so titles will align #}
+          <div class="usa-collection__calendar-date">
+            {% if item.date %}
+              <time datetime="{{ date_time }}">
+                <span class="usa-collection__calendar-date-month">{{ month }}</span>
+                <span class="usa-collection__calendar-date-day">{{ day }}</span>
+              </time>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Note: SEC doesn’t support image thumbnails #}
+        {# {% if has_image == true %}
+          <img class="usa-collection__img" src="/{{ module_path }}/assets/images/{{ item.image }}" alt="">
+        {% endif %} #}
+
+        <div class="usa-collection__body">
+          {# Note: This link wasn’t part of the default USWDS collection component #}
+          <p class="usa-collection__taxonomy">
+            <a class="usa-collection__taxonomy__link" href="/">
+              {{ item.taxonomy }}
+            </a>
+          </p>
+
+          <h2 class="usa-collection__heading">
+            <a class="usa-link" href="{{ item.link }}">
+              {{ item.title }}
+            </a>
+          </h2>
+
+          {% if item.body_text %}
+            <p class="usa-collection__description">
+              {{ item.body_text }}
+            </p>
+          {% endif %}
+
+          {% if item.byline %}
+            <ul class="usa-collection__meta" aria-label="More information">
+              <li class="usa-collection__meta-item">
+                {{ 'By'|t }}
+                {% for person in item.byline %}
+                  {% if loop.first %}
+                    {{ person }}
+                  {% else %}
+                    {{ 'and'|t }} {{ person }}
+                  {% endif %}
+                {% endfor %}
+              </li>
+
+              {% if item.date %}
+                <li class="usa-collection__meta-item">
+                  <time datetime="{{ date_time }}">{{ display_date }}</time>
+                  {% if item.comments_deadline %}
+                    {% set comments_deadline = item.comments_deadline | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+                    {% set display_comments_deadline = item.comments_deadline | date('U') | format_date('custom', 'F j, Y') %}
+                    <span aria-hidden="true">|</span>
+                    Comments due <time datetime="{{ comments_deadline }}">{{ display_comments_deadline }}</time>
+                  {% endif %}
+                </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+
+          {#
+            This was in the sec_styleguide module’s version of the collection component.
+            Not sure what it’s for but we don‘t need it on SEC.
+          #}
+          {# {% if meta_name_icon == true %}
+            <ul class="usa-collection__meta" aria-label="More information">
+              <li class="usa-collection__meta-item position-relative">
+                {% include '@uswds_sec/includes/icon.html.twig' with {'name': public} %}
+                {{ item.meta_name_icon }}
+              </li>
+            </ul>
+          {% endif %} #}
+
+          {% if item.tags %}
+            <ul class="usa-collection__meta" aria-label="Topics">
+              {% for tag in item.tags %}
+                {# Note: SEC uses small tag style and doesn’t highlight new ones #}
+                <li class="usa-collection__meta-item usa-tag">
+                  {{ tag }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

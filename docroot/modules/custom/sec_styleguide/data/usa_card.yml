@@ -1,0 +1,92 @@
+---
+card_content:
+  card:
+    - title: Card With Media
+      classes_override: ""
+      header_first: false
+      media:
+        media_classes: ""
+        image_classes: ""
+        image_src: andy-he-PuJc2Sodi94-unsplash.jpg
+        image_alt_text: A placeholder image
+      content: |-
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.
+      cta_text: Read more
+    - title: Media With Header First
+      modifier: usa-card--header-first
+      classes_override: ""
+      header_first: true
+      media:
+        media_classes: usa-card__media--exdent
+        image_classes: ""
+        image_src: elijah-mears-j2nSS4ZR2UQ-unsplash.jpg
+        image_alt_text: A placeholder image
+      content:
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore possimus
+        similique nemo odit doloremque laudantium?
+      cta_text: Get more information
+    - title: Inset Media
+      classes_override: ""
+      header_first: false
+      media:
+        media_classes: usa-card__media--inset
+        image_classes: ""
+        image_src: library-of-congress-xPes12KkVUg-unsplash.jpg
+        image_alt_text: A placeholder image
+      content:
+        Etiam vitae sodales metus. Fusce id orci dignissim, efficitur risus eget,
+        tempus odio. Donec lectus ante, auctor eget cursus sed, convallis quis magna.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus. Mauris mattis tellus bibendum aliquet malesuada.
+      cta_text: Donate now!
+    - title: Exdent Media
+      classes_override: ""
+      header_first: false
+      media:
+        media_classes: usa-card__media--exdent
+        image_classes: ""
+        image_src: yifu-wu-4OvO6utphEY-unsplash.jpg
+        image_alt_text: A placeholder image
+      content:
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore possimus
+        similique nemo odit doloremque laudantium?
+      cta_text: Learn more about this
+    - title: Card
+      classes_override: ""
+      header_first: false
+      media: false
+      content: |-
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.
+      cta_text: More about this
+    - title: Another Card
+      classes_override: ""
+      header_first: false
+      media: false
+      content: |-
+        Amet consectetur adipisicing elit. Nemo odit doloremque laudantium
+        Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.
+      cta_text: Donate now!
+
+  card_flag:
+    - title: Default Flag
+      modifier: usa-card--flag
+      flag_direction: ""
+      media:
+        media_classes: ""
+        image_classes: ""
+        image_src: andy-feliciotti-DDcTVx6tJH4-unsplash.jpg
+        image_alt_text: A placeholder image
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      cta_text: Visit soon
+    - title: Flag Media Right Inset
+      modifier: usa-card--flag usa-card--media-right
+      flag_direction: right
+      media:
+        media_classes: usa-card__media--inset
+        image_classes: ""
+        image_src: elevenphotographs-ueyhzkL1_0k-unsplash.jpg
+        image_alt_text: A placeholder image
+      content: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      cta_text: Plan your visit

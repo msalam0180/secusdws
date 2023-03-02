@@ -1,0 +1,9 @@
+lead_paragraph:
+  label: Lead Paragraph
+  description: The Lead paragraph component is text that has a different style than the rest of the paragraphs on the page.
+  fields:
+    body:
+      type: text
+      label: body
+      description: Text for lead paragraph
+      preview: The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.

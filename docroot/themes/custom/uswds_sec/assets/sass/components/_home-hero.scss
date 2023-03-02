@@ -1,0 +1,210 @@
+//------------------------------------------------------------------------
+// Homepage hero
+//------------------------------------------------------------------------
+.home-hero {
+  $bp-link-cols: 600px;// quick links 2-col layout
+  $bp-row: 1024px;
+  $bp-end-scale: $layout-max-width-wide-bp;
+  $banner-vert-padding-desktop: 65px;
+  $links-bottom-overlap: 66px;
+  $links-bar-thickness: 17px;
+  overflow: hidden;// for SEC seal background
+
+  &__inner {
+    position: relative;
+
+    // 1. Disable “bg-navy bg-gradient-overlay” styles in mobile layout
+    // 2. Cancel out “l-padding” styles
+    @include max-width($bp-row - 1px) {
+      background-color: transparent !important;// [1]
+      background-image: none !important;// [1]
+      padding-left: 0;// [2]
+      padding-right: 0;// [2]
+    }
+
+    @include min-width($bp-row) {
+      margin-bottom: rem($links-bottom-overlap + 52px);
+      padding-top: rem($banner-vert-padding-desktop);
+    }
+  }
+
+  &__wrap {
+    @include min-width($bp-row) {
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  // Blue banner
+  &__banner {
+    @include scale(padding-bottom, (375px: 25px, $bp-row: 54px));
+    @include scale(padding-top, (375px: 35px, $bp-row: 56px));
+
+    @include min-width($bp-row) {
+      background-color: transparent !important;// [1]
+      background-image: none !important;// [1]
+      margin-top: rem(-12px);// adjust vertial alignment to match design
+      padding: 0 0 rem($banner-vert-padding-desktop) 0;// reset mobile padding and “l-padding”
+    }
+
+    &__heading {
+      @include scale(font-size, (
+        375px: 28px,
+        $bp-row: (43px 36px),
+        $layout-max-width-wide-bp: 43px
+      ));
+      font-family: $gotham-font-family;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    &__description {
+      @include scale(font-size, (
+        375px: 16px,
+        $bp-row: (19px 16px),
+        $layout-max-width-wide-bp: 19px
+      ));
+      line-height: 1.3;
+      margin-top: rem(18px);
+
+      @include max-width($bp-row) {
+        max-width: rem(640px);// maintain ideal character count per line
+      }
+
+      @include min-width($bp-row) {
+        line-height: 1.5;
+      }
+    }
+
+    &__button {
+      margin-top: rem(33px);
+      width: auto;// override USWDS default
+    }
+  }
+
+  // Quick links
+  &__links {
+    @include max-width($bp-row - 1px) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: rem(810px);
+      padding-bottom: rem(36px);
+      padding-top: rem(28px);
+    }
+
+    // 1. Cancel out “l-padding” styles
+    @include min-width($bp-row) {
+      align-self: flex-end;
+      flex-shrink: 0;
+      margin-bottom: rem(-$links-bottom-overlap);
+      margin-left: rem(34px);
+      max-width: rem(650px);
+      padding-left: 0;// [1]
+      padding-right: 0;// [1]
+      position: relative;// for SEC seal
+      width: 58%;
+    }
+
+    &__wrap {
+      @include card-box-shadow;
+      @include scale(padding-bottom, (375px: 20px, $bp-row: 48px));
+      @include scale(padding-left, (
+        $bp-link-cols: 20px,
+        $bp-row: (44px 24px),
+        $bp-end-scale: 44px
+      ));
+      @include scale(padding-right, (
+        $bp-link-cols: 20px,
+        $bp-row: (36px 24px),
+        $bp-end-scale: 36px
+      ));
+      @include scale(padding-top, (375px: 20px + $links-bar-thickness, $bp-row: 38px));
+      position: relative;// for decorative bars
+
+      // Decorative bar
+      // TODO: Check if there’s a helper for the dist folder we can use in Sass
+      &:before {
+        background-color: $bg-blue-light;
+        background-image: url('/themes/custom/uswds_sec/dist/img/texture-rounded-lines.svg');
+        background-size: 463px auto;
+        content: '';
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+
+      @include max-width($bp-row) {
+        // Top bar
+        &:before {
+          background-position: 68px -11px;
+          height: rem($links-bar-thickness);
+          width: 100%;
+        }
+      }
+
+      @include min-width($bp-row) {
+        position: relative;
+        z-index: 2;// above seal
+
+        // Left bar
+        &:before {
+          background-position: 34px 0px;
+          height: 100%;
+          width: rem($links-bar-thickness);
+        }
+      }
+    }
+
+    &__heading {
+      @include scale(font-size, (375px: 16px, $bp-link-cols: 24px));
+      font-family: $gotham-font-family;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    &__description {
+      @include scale(font-size, (375px: 13px, $bp-link-cols: 19px));
+      @include scale(margin-top, (375px: 17px, $bp-link-cols: 27px));
+      line-height: 1.5;
+    }
+
+    &__list {
+      @include scale(margin-top, (375px: 15px, $bp-link-cols: 38px));
+
+      @include min-width($bp-link-cols) {
+        display: grid;
+        gap: rem(18px 32px);
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    &__item {
+      @include max-width($bp-link-cols) {
+        &:not(:last-child) {
+          margin-bottom: rem(11px);
+        }
+      }
+
+      .usa-button {
+        width: 100%;
+      }
+    }
+
+    &__seal {
+      @include max-width($bp-row - 1px) {
+        display: none;
+      }
+
+      svg {
+        height: 650px;
+        left: 0;
+        opacity: 0.08;
+        position: absolute;
+        top: rem(-$banner-vert-padding-desktop - 68px);
+        width: 650px;
+        z-index: 1;
+      }
+    }
+  }
+}

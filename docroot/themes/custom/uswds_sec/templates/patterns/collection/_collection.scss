@@ -1,0 +1,109 @@
+//------------------------------------------------------------------------
+// Collection overrides
+// https://designsystem.digital.gov/components/collection/
+//------------------------------------------------------------------------
+.usa-collection {
+  margin-top: 0;// override USWDS default
+
+  // Calendar for events
+  &__calendar {
+    $calendar-width: 78px;
+
+    &-date {
+      font-size: rem(18px);
+      font-weight: bold;
+      line-height: 1;
+      margin-right: rem(14px);
+      max-width: rem($calendar-width);
+      width: 22%;
+
+      &-month,
+      &-day {
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: rem($calendar-width * 0.5);
+        padding: 0;
+
+        @supports (aspect-ratio: 1) {
+          aspect-ratio: 2/1;
+          min-height: 0;
+        }
+      }
+
+      &-month {
+        @include font-smoothing;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  // USWDS doesn’t include a taxonomy superheading so we have to add our own.
+  &__taxonomy {
+    font-size: rem(13px);
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: rem(14px);
+    text-transform: uppercase;
+
+    // TODO: The design used black text but this will be clickable so need to
+    //       determine if this will pass accessiblity requiements or if we need
+    //       to add an underline or icon, or change the color to blue.
+    &__link {
+      color: $c-black;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__item {
+    border-top-color: $border-gray;
+    margin-bottom: rem(36px);
+    max-width: none;// override USWDS default
+    padding-top: rem(24px);
+
+    &:first-child {
+      margin-top: 0;// override USWDS default
+    }
+  }
+
+  &__heading {
+    font-size: rem(18px);
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: rem(16px);
+    line-height: 1.5;
+  }
+
+  // 1. For some reason USWDS add margin-top twice, once on “.usa-collection__meta”
+  //    and again on “.usa-collection ul” so we need to use !important.
+  &__meta {
+    margin-top: rem(12px) !important;// [1]
+
+    // We don’t have a separate class on “meta” lists for tags use use :has()
+    // This isn’t supported in all browsers but it’s a minor adjustment so nbd.
+    &:has(.usa-tag) {
+      margin-top: rem(9px) !important;// [1]
+    }
+
+    &-item {
+      font-size: rem(14px);
+      line-height: 1.5;
+
+      &:not(.usa-tag) {
+        margin-top: 0;// override USWDS default
+
+        &:not(:first-child) {
+          margin-top: rem(14px);
+        }
+      }
+    }
+  }
+}

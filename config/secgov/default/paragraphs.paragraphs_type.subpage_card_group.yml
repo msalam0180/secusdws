@@ -1,0 +1,10 @@
+uuid: 9e3e367e-1d12-43ad-b473-2fe8b9ff824e
+langcode: en
+status: true
+dependencies: {  }
+id: subpage_card_group
+label: 'Subpage Cards'
+icon_uuid: null
+icon_default: null
+description: 'Custom subpage card group'
+behavior_plugins: {  }

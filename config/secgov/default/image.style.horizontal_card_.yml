@@ -1,0 +1,15 @@
+uuid: a36d76cb-36b4-4a80-b10e-303e6c4cabbb
+langcode: en
+status: true
+dependencies: {  }
+name: horizontal_card_
+label: 'Horizontal Card: large'
+effects:
+  26ac2a95-ecaa-47b9-bf71-314ce3429aea:
+    uuid: 26ac2a95-ecaa-47b9-bf71-314ce3429aea
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 856
+      height: 856
+      anchor: center-center

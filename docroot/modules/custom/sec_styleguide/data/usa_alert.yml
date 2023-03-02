@@ -1,0 +1,33 @@
+---
+alert_content:
+  alert:
+    - title: Informative
+      styleguide_heading: "Standard Alerts"
+      heading: Informative status
+      content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+      message_class: informative
+
+    - title: Warning
+      heading: Warning status
+      content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+      message_class: warning
+
+    - title: Error
+      heading: Error status
+      content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+      message_class: error
+
+    - title: Success
+      heading: Success status
+      content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+      message_class: success
+
+    # - title: "Slim"
+    #   styleguide_heading: "Slim"
+    #   content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+    #   message_class: "info usa-alert--slim"
+
+    - title: "None"
+      styleguide_heading: "No icon"
+      content: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."
+      message_class: "info usa-alert--no-icon"

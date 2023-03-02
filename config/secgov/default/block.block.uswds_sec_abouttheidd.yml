@@ -1,0 +1,33 @@
+uuid: 2272c1b7-8802-4015-8d0f-c978e362cef0
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b990e653-c29a-48d8-b90b-70e2676f6c6e'
+  module:
+    - block_content
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: ZQqtfsVwJhp1TowvnQldyBjfvajEFkqs_4GwwRWLdqk
+id: uswds_sec_abouttheidd
+theme: uswds_sec
+region: content
+weight: -26
+provider: null
+plugin: 'block_content:b990e653-c29a-48d8-b90b-70e2676f6c6e'
+settings:
+  id: 'block_content:b990e653-c29a-48d8-b90b-70e2676f6c6e'
+  label: 'About this Feature'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "*/sec-action-look-up\r\n/litigation/no-search"

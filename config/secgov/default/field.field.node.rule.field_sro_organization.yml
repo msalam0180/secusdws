@@ -1,0 +1,34 @@
+uuid: 67680992-f1a1-4a85-990e-38d8a0579d82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sro_organization
+    - node.type.rule
+    - taxonomy.vocabulary.sro_organization
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: node.rule.field_sro_organization
+field_name: field_sro_organization
+entity_type: node
+bundle: rule
+label: 'SRO Organization'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      sro_organization: sro_organization
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

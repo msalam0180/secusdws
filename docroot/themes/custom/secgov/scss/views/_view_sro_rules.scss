@@ -1,0 +1,69 @@
+
+// make into a fill width page
+.view-display-id-sro-national-security-exchanges-page #content-wrapper,
+.view-display-id-sro-universal-page #content-wrapper,
+.view-display-id-individual-sro-page #content-wrapper  {
+    width: 100%;
+    float: none;
+}
+
+
+.view-display-id-sro_national_security_exchanges_page,
+.view-display-id-sro_universal_page,
+.view-display-id-individual_sro_page {
+
+    // fix table styles
+    tbody td a span {
+        float: none;
+    }
+
+    .views-exposed-form input.form-submit {
+        display: block;
+        height: auto;
+    }
+
+    table.list tbody tr:hover {
+        background: none;
+    }
+
+    table.list tbody tr, table.list tbody td {
+        border: none;
+        border-bottom: thin solid #BFBFBF;
+    }
+
+    tbody td {
+        padding: 12px 10px;
+    }
+
+    tbody tr.current td {
+        background: none;
+    }
+}
+
+.sro-national-security-exchanges-list-page,
+.sro-universal-list-page,
+.sro-list-page {
+    border-top: none;
+    thead {
+        div {
+            a {
+              height: 12px;
+              display: flex;
+              white-space: nowrap;
+            }
+
+            @include breakpoint('small') {
+              padding: 10px 20px 8px 10px;
+              margin-right: 1px;
+              width: fit-content;
+            }
+        }
+    }
+
+    .views-field-field-date, .views-field-field-publish-date {
+        @include breakpoint('small'){
+          width: unset;
+        }
+    }
+}
+

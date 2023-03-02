@@ -1,0 +1,29 @@
+uuid: 58fb7878-1ee2-496c-b26c-46a614469f95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_rule
+    - node.type.regulation
+    - node.type.rule
+id: node.rule.field_related_rule
+field_name: field_related_rule
+entity_type: node
+bundle: rule
+label: 'Regulatory Releases'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      regulation: regulation
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

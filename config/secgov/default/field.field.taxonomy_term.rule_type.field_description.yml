@@ -1,0 +1,30 @@
+uuid: 3290e339-ec12-467e-a065-86b18f71a8ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_description
+    - taxonomy.vocabulary.rule_type
+  module:
+    - allowed_formats
+    - field_config_cardinality
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - full_html
+      - basic_html
+  field_config_cardinality:
+    cardinality_config: '1'
+id: taxonomy_term.rule_type.field_description
+field_name: field_description
+entity_type: taxonomy_term
+bundle: rule_type
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

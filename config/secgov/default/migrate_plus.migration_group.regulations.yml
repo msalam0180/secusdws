@@ -1,0 +1,10 @@
+uuid: f6873fb7-937c-4f8f-a2ec-e7a68432e981
+langcode: en
+status: true
+dependencies: {  }
+id: regulations
+label: 'SEC Regulations'
+description: 'Import of legacy Regulations Content for SEC'
+source_type: csv
+module: null
+shared_configuration: null

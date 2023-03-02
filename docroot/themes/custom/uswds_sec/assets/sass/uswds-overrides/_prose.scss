@@ -1,0 +1,7 @@
+//------------------------------------------------------------------------
+// Include custom SEC prose syles in .usa-prose class
+// https://designsystem.digital.gov/components/prose/
+//------------------------------------------------------------------------
+.usa-prose {
+  @include sec-prose;
+}

@@ -1,0 +1,25 @@
+uuid: 1d949e70-4024-4fd9-bb56-421dbf3926da
+langcode: en
+status: true
+dependencies:
+  module:
+    - sec_styleguide
+    - system
+  theme:
+    - uswds_sec
+id: secstyleguidesidenavigationblock
+theme: uswds_sec
+region: sidebar_first
+weight: 0
+provider: null
+plugin: uswds_usa_side_nav
+settings:
+  id: uswds_usa_side_nav
+  label: 'SEC Style Guide Side Navigation Block'
+  label_display: '0'
+  provider: sec_styleguide
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/sec-styleguide\r\n/sec-styleguide/*"

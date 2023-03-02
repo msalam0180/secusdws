@@ -1,0 +1,78 @@
+<ul class="usa-collection">
+  {% for item in collection_yml | slice(0, 3) %}
+
+    {% set date_time = item.date | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+    {% set display_date = item.date | date('U') | format_date('custom', 'F j, Y') %}
+    {% set month = item.date | date('U') | format_date('custom', 'M') %}
+    {% set day = item.date | date('U') | format_date('custom', 'd') %}
+
+    <li class="usa-collection__item">
+
+      {% if has_calendar_display == true %}
+        <div class="usa-collection__calendar-date">
+          <time datetime="{{ date_time }}">
+            <span class="usa-collection__calendar-date-month">{{ month }}</span>
+            <span class="usa-collection__calendar-date-day">{{ day }}</span>
+          </time>
+        </div>
+      {% endif %}
+
+      {% if has_image == true %}
+        <img class="usa-collection__img" src="/{{ module_path }}/assets/images/{{ item.image }}" alt="">
+      {% endif %}
+
+      <div class="usa-collection__body">
+        <h2 class="usa-collection__heading">
+          <a
+            class="usa-link"
+            href="{{ item.link }}">
+            {{ item.title }}
+          </a>
+        </h2>
+
+        {% if has_body_text == true %}
+          <p class="usa-collection__description">
+            {{ item.body_text }}
+          </p>
+        {% endif %}
+
+        {% if has_meta == true %}
+          <ul class="usa-collection__meta" aria-label="More information">
+            <li class="usa-collection__meta-item">
+              {{ 'By'|t }}
+              {% for person in item.byline %}
+                {% if loop.first %}
+                  {{ person }}
+                {% else %}
+                  {{ 'and'|t }} {{ person }}
+                {% endif %}
+              {% endfor %}
+            </li>
+
+            <li class="usa-collection__meta-item">
+              <time datetime="{{ date_time }}">{{ display_date }}</time>
+            </li>
+          </ul>
+        {% endif %}
+
+        {% if meta_name_icon == true %}
+          <ul class="usa-collection__meta" aria-label="More information">
+            <li class="usa-collection__meta-item position-relative">
+              {% include '@uswds_sec/includes/icon.html.twig' with {'name': public} %}
+              {{ item.meta_name_icon }}
+            </li>
+          </ul>
+        {% endif %}
+
+        {% if has_tags == true %}
+          <ul class="usa-collection__meta" aria-label="Topics">
+            {% for tag in item.tags %}
+              <li class="usa-collection__meta-item usa-tag usa-tag--big {% if loop.first %} usa-tag--new {% endif %}">{{ tag }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </div>
+    </li>
+  {% endfor %}
+</ul>

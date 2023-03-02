@@ -1,0 +1,40 @@
+//------------------------------------------------------------------------
+// Rules page template
+//------------------------------------------------------------------------
+.node--type-rule {
+  .grid-container-two-col {
+    @include layout-sidebar-wrap;
+
+    &__section-main {
+      @include layout-sidebar-main;
+
+      // Breadcrumbs
+      .block-system-breadcrumb-block {
+        @include min-width($layout-sidebar-bp) {
+          @include layout-fullwidth-sidebar;
+          padding-left: rem(74px);
+          padding-right: rem(15px);
+        }
+      }
+
+      .public-comments {
+        @include section-margin-top;
+
+        ~ * {
+          margin-top: rem(40px);
+        }
+      }
+
+      // NOTE: It would be better to add the .usa-prose class in the markup
+      .public-comments,
+      .rule-overview {
+        @include usa-prose;
+        @include sec-prose;
+      }
+    }
+
+    &__side-section {
+      @include layout-sidebar-aside;
+    }
+  }
+}

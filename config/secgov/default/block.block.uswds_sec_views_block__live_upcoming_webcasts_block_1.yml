@@ -1,0 +1,30 @@
+uuid: db515b1f-68ed-4b67-8b9e-4b8d9bf49da8
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.live_upcoming_webcasts
+  module:
+    - system
+    - views
+  theme:
+    - uswds_sec
+id: uswds_sec_views_block__live_upcoming_webcasts_block_1
+theme: uswds_sec
+region: content
+weight: -30
+provider: null
+plugin: 'views_block:live_upcoming_webcasts-block_1'
+settings:
+  id: 'views_block:live_upcoming_webcasts-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /news/webcasts

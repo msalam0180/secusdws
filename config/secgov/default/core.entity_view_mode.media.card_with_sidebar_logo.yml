@@ -1,0 +1,10 @@
+uuid: 4550d122-811d-4144-940c-6d5a64d45466
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.card_with_sidebar_logo
+label: 'Card with Sidebar Logo'
+targetEntityType: media
+cache: true

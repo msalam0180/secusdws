@@ -1,0 +1,8 @@
+uuid: 1df5ec69-bb7d-4a88-9fed-d8fc1dc53858
+langcode: en
+status: true
+dependencies: {  }
+name: 'Investment Company Act Category'
+vid: investment_company_act_category
+description: ''
+weight: 0

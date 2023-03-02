@@ -1,0 +1,29 @@
+uuid: dacab115-2c2c-4f15-a9ea-7264d176b446
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.regulatory-actions
+  module:
+    - system
+  theme:
+    - secgov
+id: regulatoryactions_2
+theme: secgov
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:regulatory-actions'
+settings:
+  id: 'system_menu_block:regulatory-actions'
+  label: 'Regulatory Actions'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/rules/other\r\n/rules/petitions"

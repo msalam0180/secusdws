@@ -1,0 +1,22 @@
+uuid: 447f65aa-4dbb-443b-bf36-340239f993ac
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: q_QpWC-EzywcuNk-jCYxTxQJ4mL-65Ixrebbedy2o2A
+id: uswds_sec_breadcrumbs
+theme: uswds_sec
+region: breadcrumb
+weight: -27
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

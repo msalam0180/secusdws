@@ -1,0 +1,135 @@
+
+// make into a fill width page
+.view-display-id-rulemaking-activity-page #content-wrapper {
+    width: 100%;
+    float: none;
+}
+
+.node--type-regulation.node--view-mode-teaser {
+    display: block;
+    color: #101f36;
+    float: none;
+
+    &:hover,
+    &:focus{
+        background: #ededed;
+        color: #101f36;
+        text-decoration: none;
+        box-shadow: -6px 0px 0px 6px #ededed;
+    }
+
+    & + & {
+        margin-top: 10px;
+    }
+}
+
+
+.view-display-id-rulemaking_activity_page{
+    // set column widths
+
+    // date column
+    .views-field-nothing {
+        width: 110px;
+    }
+
+    // File number column
+    .views-field-name {
+        width: 122px;
+    }
+
+    // rulemaking column
+    .views-field-field-rulemaking {
+        width: 210px;
+    }
+
+    // fix table styles
+    tbody td a span {
+        float: none;
+    }
+
+    .views-exposed-form input.form-submit {
+        display: block;
+        height: auto;
+    }
+
+    table.list tbody tr:hover {
+        background: none;
+    }
+
+    table.list tbody tr, table.list tbody td {
+        border: none;
+        border-bottom: thin solid #BFBFBF;
+    }
+
+    tbody td {
+        padding: 12px 10px;
+    }
+
+    table.list {
+        border-left: none;
+        border-right: none;
+    }
+
+    tbody tr.current td {
+        background: none;
+    }
+
+    // File number column
+    .views-field-name a {
+        text-decoration: underline;
+    }
+
+    .division {
+        font-size: 0.9em;
+        font-style: italic;
+        color: #9E9E9E;
+    }
+}
+
+
+.regulation-node-rule_type {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 2px;
+    .regulation-node_file-icon {
+        color: #3b619b;
+    }
+    .icon-final .regulation-node_file-icon {
+        color: #00695C;
+    }
+    .regulation-node_check-icon {
+        position: relative;
+        top: -3px;
+        left: -1px;
+        color: #5bd3a7;
+        text-shadow: 0px 0px 2px black;
+    }
+}
+
+.regulation-node-rule_type-text {
+    color: #3b619b;
+}
+
+.regulation-node-rule_type-text--final {
+    color: #00695C;
+}
+
+.regulation-division-offices {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #686868;
+}
+
+.regulation-node-metadata {
+    font-style: italic;
+    font-size: .9em;
+    color: #686868;
+}
+
+.regulation-node-issue-date {
+    margin-right: 10px;
+}
+
+.regulation-node-wrapper {
+    padding-right: 10px;
+}

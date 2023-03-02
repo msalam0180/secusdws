@@ -1,0 +1,8 @@
+card_group:
+  label: Card Group
+  description: Pattern card group
+  fields:
+    cards:
+      type: "render"
+      label: Cards
+      description: Cards

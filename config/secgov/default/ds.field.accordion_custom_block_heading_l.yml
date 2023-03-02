@@ -1,0 +1,9 @@
+id: accordion_custom_block_heading_l
+label: 'Accordion Custom Block Heading Level'
+ui_limit: ''
+type: twig
+type_label: 'Twig field'
+entities:
+  paragraph: paragraph
+properties:
+  content: "{% set paragraph_parent = paragraph.getParentEntity() %}\r\n{% set heading_level = paragraph_parent.field_heading_level.value %}\r\n{% if heading_level %}\r\n{{ heading_level }}\r\n{% endif %}"

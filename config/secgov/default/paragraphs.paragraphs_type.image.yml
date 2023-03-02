@@ -1,0 +1,10 @@
+uuid: bcac7caa-9221-48d2-8a0b-f2447956de8e
+langcode: en
+status: true
+dependencies: {  }
+id: image
+label: Image
+icon_uuid: null
+icon_default: null
+description: 'Used to place images into Layout Builder.'
+behavior_plugins: {  }

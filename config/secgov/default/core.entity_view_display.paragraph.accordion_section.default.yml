@@ -1,0 +1,79 @@
+uuid: 5de277a3-61e7-4bf1-be07-319ac3e3a80c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.accordion_section.field_expanded
+    - field.field.paragraph.accordion_section.field_text
+    - field.field.paragraph.accordion_section.field_title
+    - paragraphs.paragraphs_type.accordion_section
+  module:
+    - ds
+    - empty_fields
+    - text
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_accordion_section
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      expanded:
+        - field_expanded
+      heading:
+        - field_title
+      heading_level:
+        - 'dynamic_twig_field:paragraph-accordion_custom_block_heading_l'
+      entity_id:
+        - 'dynamic_token_field:paragraph-entity_id'
+      body:
+        - field_text
+    fields:
+      'dynamic_token_field:paragraph-entity_id':
+        plugin_id: 'dynamic_token_field:paragraph-entity_id'
+        weight: 3
+        label: hidden
+        formatter: default
+      'dynamic_twig_field:paragraph-accordion_custom_block_heading_l':
+        plugin_id: 'dynamic_twig_field:paragraph-accordion_custom_block_heading_l'
+        weight: 2
+        label: hidden
+        formatter: default
+id: paragraph.accordion_section.default
+targetEntityType: paragraph
+bundle: accordion_section
+mode: default
+content:
+  field_expanded:
+    type: boolean
+    label: hidden
+    settings:
+      format: custom
+      format_custom_false: 'false'
+      format_custom_true: 'true'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: expanded
+  field_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: body
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: heading
+hidden:
+  search_api_excerpt: true

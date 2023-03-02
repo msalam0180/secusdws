@@ -1,0 +1,25 @@
+uuid: 085c6b76-1a14-45f4-8820-2cb5e65d212b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.video.field_static_file_media
+    - paragraphs.paragraphs_type.video
+id: paragraph.video.default
+targetEntityType: paragraph
+bundle: video
+mode: default
+content:
+  field_static_file_media:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

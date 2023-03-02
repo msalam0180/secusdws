@@ -1,0 +1,21 @@
+uuid: 5620d66c-18ef-438a-bad6-de56bf4d355c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments_due_date
+    - node.type.rule
+  module:
+    - datetime
+id: node.rule.field_comments_due_date
+field_name: field_comments_due_date
+entity_type: node
+bundle: rule
+label: 'Comments Due Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

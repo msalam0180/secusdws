@@ -1,0 +1,10 @@
+node_details_layout:
+  label: 'Node Details Layout'
+  category: 'USWDS_SEC Node Layouts'
+  template: templates/layouts/node_details_layout 
+  default_region: main
+  regions:
+    main:
+      label: Main region
+    sidebar:
+      label: Sidebar region

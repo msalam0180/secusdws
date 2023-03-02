@@ -1,0 +1,54 @@
+{# Homepage Hero #}
+<div class="home-hero">
+  <div class="home-hero__inner bg-navy bg-gradient-overlay l-padding">
+    <div class="home-hero__wrap l-wrap--wide">
+      {# Blue banner content #}
+      <div class="home-hero__banner bg-navy bg-gradient-overlay l-padding">
+        <p class="home-hero__banner__heading">We make markets work better.</p>
+        <div class="home-hero__banner__description">
+          <p>Founded to help our country respond to the Great Depression, we’re the agency that <strong><em>protects investors</em></strong> from misconduct, <strong><em>promotes fairness &amp; efficiency</em></strong> in the securities markets, and <strong><em>facilitates capital formation</em></strong> for those looking to hire, innovate, and grow.</p>
+        </div>
+        <a class="home-hero__banner__button usa-button" href="/about">
+          About the SEC
+        </a>
+      </div>
+
+      {# Quick links #}
+      <div class="home-hero__links l-padding">
+        <div class="home-hero__links__wrap bg-default">
+          <h2 class="home-hero__links__heading">Quick Links</h2>
+          <p class="home-hero__links__description">
+            We work together to make a positive impact on America’s economy, our capital markets, and people’s lives.
+          </p>
+          <ul class="home-hero__links__list" role="list">
+            {% set links = [
+              {label: "Check Rulemaking Activity", icon: "list", url: "/"},
+              {label: "Search EDGAR", icon: "search", url: "/"},
+              {label: "Learn About Investing", icon: "school", url: "/"},
+              {label: "Submit a Comment", icon: "chat", url: "/"},
+              {label: "See Enforcement Actions", icon: "shield", url: "/"},
+              {label: "Manage your Filings", icon: "settings", url: "/"},
+              {label: "Check Investment Professionals", icon: "trending_up", url: "/"},
+              {label: "View Statutes and Regulations", icon: "account_balance", url: "/"},
+            ] %}
+            {% for link in links %}
+              <li class="home-hero__links__item">
+                {{ pattern('button_icon', {
+                  label: link.label,
+                  icon: link.icon,
+                  url: link.url
+                }) }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {# SEC seal (hidden in mobile) #}
+        {# TODO: Consider adding seal to SVG sprite if used on most pages #}
+        <div class="home-hero__links__seal">
+          {{ source(active_theme_path() ~ '/dist/img/logos/sec-logo-seal-fill.svg') }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+//------------------------------------------------------------------------
+// OPTIONAL: SVG icon data for use with sec-svg-url() function
+//------------------------------------------------------------------------
+$sec-svgs: (
+  'arrowRight': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19" preserveAspectRatio="xMidYMid meet"><path d="M9.7.5 8.13 2.09l6.28 6.29H.7v2.24h13.7l-6.28 6.3 1.59 1.58 9-9-9-9Z"/></svg>',
+  'chevDown': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 10" preserveAspectRatio="xMidYMid meet"><path d="M15.5 0 9 6.18 2.5 0l-2 1.9L9 10l8.5-8.1-2-1.9Z"/></svg>',
+  'chevLeft': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 10" preserveAspectRatio="xMidYMid meet"><path d="M5.05 10L.1 5.05 5.05.1l1.41 1.41-3.53 3.54 3.53 3.54z"/></svg>',
+  'chevUp': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 10" preserveAspectRatio="xMidYMid meet"><path d="M2.5 10 9 3.82 15.5 10l2-1.9L9 0 .5 8.1l2 1.9Z"/></svg>',
+  'chevRight': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 10" preserveAspectRatio="xMidYMid meet"><path d="M1.95 0L6.9 4.95 1.95 9.9.54 8.49l3.53-3.54L.54 1.41z"/></svg>',
+  'close': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 14" preserveAspectRatio="xMidYMid meet"><path d="m12.78.28 1.41 1.41L8.88 7l5.31 5.31-1.41 1.41-5.32-5.3-5.3 5.3-1.42-1.4L6.05 7 .74 1.69 2.15.28l5.31 5.3 5.32-5.3Z"/></svg>',
+  'download': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 21" preserveAspectRatio="xMidYMid meet"><path d="M14.54 17.77V21H1.62v-3.23h12.92zM9.69 0v9.72l4.02-4L15.99 8l-8 8L0 8 2.28 5.7 6.46 9.9V0H9.7z"/></svg>',
+  'external': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" preserveAspectRatio="xMidYMid meet"><path d="M3 1.5c-.83 0-1.5.67-1.5 1.5v8c0 .83.67 1.5 1.5 1.5h8c.83 0 1.5-.67 1.5-1.5V9h1v2a2.5 2.5 0 0 1-2.5 2.5H3A2.5 2.5 0 0 1 .5 11V3A2.5 2.5 0 0 1 3 .5h1.26v1H3Zm8.8 0H8.5v-1h5v5h-1V2.2L7.35 7.36l-.7-.7 5.14-5.15Z"/></svg>',
+  'minus': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 2" preserveAspectRatio="xMidYMid meet"><path d="M14 2H0V0h14v2Z"/></svg>',
+  'plusCircle': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><path d="M9.99 0C4.47 0 0 4.48 0 10s4.47 10 9.99 10C15.52 20 20 15.52 20 10S15.52 0 9.99 0ZM10 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8Z"/><path d="M15 11h-4v4H9v-4H5V9h4V5h2v4h4v2Z"/></svg>',
+  'search': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>',
+  'slash': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 11" preserveAspectRatio="xMidYMid meet"><path d="M0 10.664h1.012L4.519 0H3.507L0 10.664Z"/></svg>',
+);

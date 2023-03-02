@@ -1,0 +1,8 @@
+uuid: 35ab8696-ca28-4ba4-88e3-268b5b33e906
+langcode: en
+status: true
+dependencies: {  }
+id: person_card
+label: 'Person Card'
+revision: 1
+description: ''

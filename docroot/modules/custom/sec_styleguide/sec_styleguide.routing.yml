@@ -1,0 +1,24 @@
+
+sec_styleguide.component_library_controller_view:
+  path: '/sec-styleguide'
+  defaults:
+    _controller: '\Drupal\sec_styleguide\Controller\ComponentLibraryController::view'
+    _title: 'USWDS 3 Component Library'
+  requirements:
+    _permission: 'sec style guide access'
+
+sec_styleguide.component_library_controller_subpage:
+  path: '/sec-styleguide/{path}'
+  defaults:
+    _controller: '\Drupal\sec_styleguide\Controller\ComponentLibraryController::subpage'
+    _title_callback: '\Drupal\sec_styleguide\Controller\ComponentLibraryController::getTitle'
+  requirements:
+    _permission: 'sec style guide access'
+
+sec_styleguide.input_demo:
+  path: '/sec-styleguide/usa-form-element-examples'
+  defaults:
+    _form:  '\Drupal\sec_styleguide\Form\USWDSFormExamples'
+    _title: 'USWDS Form Element'
+  requirements:
+    _permission: 'sec style guide access'

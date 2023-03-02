@@ -1,0 +1,24 @@
+uuid: ed178092-8d6f-489a-9064-0a8fe5819827
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.card_with_sidebar_1x
+    - image.style.card_with_sidebar_2x
+  theme:
+    - uswds_sec
+id: card_with_sidebar
+label: 'Card with Sidebar'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: card_with_sidebar_1x
+    breakpoint_id: uswds_sec.card_with_sidebar_breakpoint
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: card_with_sidebar_2x
+    breakpoint_id: uswds_sec.card_with_sidebar_breakpoint
+    multiplier: 2x
+breakpoint_group: uswds_sec
+fallback_image_style: card_with_sidebar_1x

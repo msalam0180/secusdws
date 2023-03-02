@@ -1,0 +1,128 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+{# TODO: Need to move most vars into preprocess function #}
+{% set nodeType = node.type.entity.label %}
+{% set isNode = (node) ? true %}
+{% set isNotNode = (not node) ? true %}
+{% set isLandingPage = (nodeType == "Landing Page") %}
+{# when a node types switches over to the new layout, add it here #}
+{% set nodesTypesThatUseNodeDetailsLayout = ['Basic page'] %}
+
+{% if nodeType in nodesTypesThatUseNodeDetailsLayout %}
+  {# Nodes that use the node details layout in display suite #}
+  {% set layoutType = "layout-details" %}
+  {% set navType = "collapsible" %}
+{% elseif isLandingPage %}
+  {# Nodes that use the heading banner layout (currently only landing pages) #}
+  {% set layoutType = "layout-heading-banner" %}
+  {% set navType = "static" %}
+{% else %}
+  {# All other pages on the site #}
+  {% set layoutType = "layout-simple" %}
+  {% set navType = "collapsible" %}
+{% endif %}
+
+{# Header #}
+{% include '@uswds_sec/includes/header.html.twig' %}
+
+{% if page.tabs %}
+  {{ page.tabs }}
+{% endif %}
+
+{# Highlighted #}
+{% if page.highlighted %}
+  <div class="highlighted">
+    <aside role="complementary" class="message section clearfix">
+      {{ page.highlighted }}
+    </aside>
+  </div>
+{% endif %}
+
+{# TODO: change has-expanded-sidenav to has-static-sidenav #}
+{# TODO: change has-collapsed-sidenav to has-collapsible-sidenav #}
+<main id="main-content" class="main-content {{ (navType == "static") and page.sidebar_first ? 'has-expanded-sidenav' }} {{ (navType == "collapsible") and page.sidebar_first ? 'has-collapsed-sidenav' }}">
+
+  {# Sidebar First - Side navigation #}
+  {% if page.sidebar_first %}
+    <div class="main-content__sidenav">
+      {# Mobile side nav - same for all pages #}
+      {% include '@uswds_sec/includes/left_menu_mobile.html.twig' %}
+      {# Desktop side nav collapsible #}
+      {% if (navType == "collapsible") and page.sidebar_first %}
+        {% include '@uswds_sec/includes/left_menu_collapsible.html.twig' %}
+      {% elseif (navType == "static") %}
+        {# Desktop side nav Static #}
+        {% include '@uswds_sec/includes/left_menu_static.html.twig' %}
+        {# <nav class="l-sidenav-aside" aria-label="Section navigation">
+          {{ page.sidebar_first }}
+        </nav> #}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="main-content__main page-layout-type--{{layoutType}}">
+
+    {% if layoutType == "layout-heading-banner" %}
+      {% if page.page_title_region %}
+        {{ page.page_title_region }}
+      {% endif %}
+
+      <div class="l-wrap">
+        {{ page.content }}
+      </div>
+
+    {% elseif layoutType == "layout-simple" %}
+      {{ drupal_block('system_breadcrumb_block') }}
+      <div class="content-wrapper l-wrap">
+        {% if page.page_title_region %}
+          {{ page.page_title_region }}
+        {% endif %}
+        <div class="layout-simple-content">
+          {{ page.content }}
+        </div>
+      </div>
+
+    {% else %}
+      {# everything else #}
+      {{ page.content }}
+    {% endif %}
+
+  </div>
+</main>
+
+{# Footer #}
+{% include '@uswds_sec/includes/footer.html.twig' %}
+

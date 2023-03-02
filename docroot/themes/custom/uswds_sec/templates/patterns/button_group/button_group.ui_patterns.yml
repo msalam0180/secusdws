@@ -1,0 +1,38 @@
+button_group:
+  label: Button Group
+  description: "A button group collects similar or related actions. https://designsystem.digital.gov/components/button-group"
+  variants:
+    default:
+      label: Default
+    segmented:
+      label: Segmented
+      description: "Segmented button groups display a set of discrete buttons in a row as a single element. https://designsystem.digital.gov/components/button-group"
+  fields:
+    label:
+      type: text
+      label: Role
+      description: The group label. Visually hidden. Used with assistive technologies.
+      preview: Basic example
+    buttons:
+      type: render
+      label: Buttons
+      description: An array of 'button' patterns. Or an array of arrays of 'button' patterns, if 'toolbar'variant.
+      preview:
+        - type: "pattern"
+          id: "button"
+          variant: "default"
+          fields:
+            label: "First"
+            url: http://example.com
+        - type: "pattern"
+          id: "button"
+          variant: "outline"
+          fields:
+            label: "Second"
+            url: http://example.com
+        - type: "pattern"
+          id: "button"
+          variant: "outline"
+          fields:
+            label: "Third"
+            url: http://example.com

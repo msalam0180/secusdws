@@ -1,0 +1,8 @@
+{% set external_link =  'target="_blank" rel="noopener noreferrer"' %}
+
+<a class="usa-button usa-button--secondary margin-top-3"
+   href="{{ button_link }}"
+   title="{{ title }}"
+  {% if external_link == true %}{{ external_link }}{% endif %}>
+  {{button_link_text | t }}
+</a>

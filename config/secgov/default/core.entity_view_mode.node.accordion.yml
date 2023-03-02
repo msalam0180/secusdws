@@ -1,0 +1,10 @@
+uuid: e4d7ae1e-3da8-410c-b2ec-79b91340e586
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.accordion
+label: Accordion
+targetEntityType: node
+cache: true

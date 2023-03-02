@@ -1,0 +1,38 @@
+uuid: 26beaef8-67f6-4a9b-a57e-b4f422c9b98e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:release_topper:4200ae9d-99eb-40ae-8040-029b17607dd0'
+  module:
+    - block_content
+    - system
+    - user
+  theme:
+    - uswds_sec
+id: uswds_sec_delinquentfilingstopper
+theme: uswds_sec
+region: content
+weight: -36
+provider: null
+plugin: 'block_content:4200ae9d-99eb-40ae-8040-029b17607dd0'
+settings:
+  id: 'block_content:4200ae9d-99eb-40ae-8040-029b17607dd0'
+  label: 'Delinquent Filings Topper'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /divisions/enforce/delinquent/delinqindex
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

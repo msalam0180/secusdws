@@ -1,0 +1,13 @@
+name: 'Layout Builder Customizer'
+description: 'Allows user to customize Layout Builder.'
+type: module
+package: Layout Builder
+core_version_requirement: ^8.8 || ^9 || ^10
+configure: layout_builder_customizer.settings_form
+dependencies:
+  - drupal:layout_builder
+
+# Information added by Drupal.org packaging script on 2022-06-06
+version: '1.0.3'
+project: 'layout_builder_customizer'
+datestamp: 1654514292

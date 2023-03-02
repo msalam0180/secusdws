@@ -1,0 +1,27 @@
+uuid: 32615a29-7ea7-45f4-9599-ca9d4ce944f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments_received
+    - node.type.rule
+  module:
+    - field_config_cardinality
+    - link
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: node.rule.field_comments_received
+field_name: field_comments_received
+entity_type: node
+bundle: rule
+label: 'Comments Received'
+description: 'The link text will be defaulted to "View Received Comments".'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

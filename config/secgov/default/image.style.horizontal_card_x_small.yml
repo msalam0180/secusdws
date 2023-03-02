@@ -1,0 +1,15 @@
+uuid: 113e44c3-1d22-4257-ae4b-dd5809282fa2
+langcode: en
+status: true
+dependencies: {  }
+name: horizontal_card_x_small
+label: 'Horizontal Card: x-small'
+effects:
+  1e4254b5-007b-411e-ad79-5ece977d4753:
+    uuid: 1e4254b5-007b-411e-ad79-5ece977d4753
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 580
+      height: 580
+      anchor: center-center

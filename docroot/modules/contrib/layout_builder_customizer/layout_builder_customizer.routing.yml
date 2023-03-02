@@ -1,0 +1,7 @@
+layout_builder_customizer.settings_form:
+  path: '/admin/config/layout-builder-customizer'
+  defaults:
+    _form: '\Drupal\layout_builder_customizer\Form\LayoutBuilderCustomizerForm'
+    _title: 'Layout Builder Customizer'
+  requirements:
+    _permission: 'administer layout builder customizer'

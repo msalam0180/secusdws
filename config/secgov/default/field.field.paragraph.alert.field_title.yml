@@ -1,0 +1,24 @@
+uuid: 9d6174c9-0f56-42ce-84e3-9c04f9cda1ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.alert
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.alert.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: alert
+label: Heading
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

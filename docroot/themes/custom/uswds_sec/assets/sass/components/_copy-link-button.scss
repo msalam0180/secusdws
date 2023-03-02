@@ -1,0 +1,45 @@
+//------------------------------------------------------------------------
+// Copy link button (used on non-landing pages, not a block)
+//------------------------------------------------------------------------
+// Note: Uses same classes as button_icon pattern
+// (i.e. usa-button usa-button--base usa-button--icon)
+.copy-link {
+  // Note: Duplicate the selector to increase specificity in order to
+  //       override the USWDS styles wihtout resorting to !important.
+  &#{&} {
+    font-family: $body-copy-font;
+    font-size: rem(16px);
+    font-weight: normal;
+    padding: rem(7px 14px 7px 12px);
+    text-transform: none;
+
+    .usa-icon {
+      margin-right: rem(8px);
+    }
+  }
+
+  &.copied {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $button-green-light;
+    }
+
+    .usa-icon {
+      fill: $bg-teal;
+    }
+
+    .initial {
+      display: none;
+    }
+
+    .success {
+      display: block;
+    }
+  }
+
+  .success {
+    display: none;
+  }
+}

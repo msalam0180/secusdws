@@ -1,0 +1,32 @@
+uuid: f4cd17cd-9d78-4f77-8c51-46b8942a18f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.filings-menu
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: IngTzdI4_0gFJPYbY8NU-1bxNqpswntCQYTf84NncWk
+id: uswds_sec_filingsmenu
+theme: uswds_sec
+region: sidebar_first
+weight: -8
+provider: null
+plugin: 'system_menu_block:filings-menu'
+settings:
+  id: 'system_menu_block:filings-menu'
+  label: 'Filings Menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/edgar\r\n/edgar/*\r\n/forms"

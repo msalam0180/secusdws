@@ -1,0 +1,30 @@
+.pattern-preview {
+  $selector: &;
+
+  &__label {
+    margin-bottom: 1em;
+  }
+
+  // Table with field specs
+  &__fields {
+    font-size: rem(14px);
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend {
+    font-weight: bold;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    text-transform: uppercase;
+  }
+
+  hr {
+    margin-top: 80px;
+    margin-bottom: 50px;
+  }
+}

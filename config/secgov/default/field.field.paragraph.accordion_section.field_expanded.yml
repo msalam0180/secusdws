@@ -1,0 +1,28 @@
+uuid: 1735c9ce-b39d-4b3d-91f6-957a4e819fe8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_expanded
+    - paragraphs.paragraphs_type.accordion_section
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.accordion_section.field_expanded
+field_name: field_expanded
+entity_type: paragraph
+bundle: accordion_section
+label: Expanded
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

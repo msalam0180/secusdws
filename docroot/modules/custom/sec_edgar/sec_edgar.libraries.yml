@@ -1,0 +1,8 @@
+edgar-company-person:
+  css:
+    theme:
+      css/sec-edgar-company-person-lookup.css: {}
+  js:
+    js/sec-edgar-company-person-lookup.js: {}
+  dependencies:
+    - core/jquery

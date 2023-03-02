@@ -1,0 +1,13 @@
+uuid: 329dc61a-bc71-478d-b367-732c96fb18fe
+langcode: en
+status: true
+dependencies: {  }
+id: parent_rules
+label: 'Parent Rules'
+enabled: true
+first_field: field_related_rule
+second_field: field_parent_rule
+bundles:
+  node:
+    - regulation
+    - rule

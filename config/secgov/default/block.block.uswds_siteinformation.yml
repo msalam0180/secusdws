@@ -1,0 +1,25 @@
+uuid: 78582237-2d82-4460-a62d-cae34e66ece4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.site-information
+  module:
+    - system
+  theme:
+    - uswds
+id: uswds_siteinformation
+theme: uswds
+region: footer
+weight: -33
+provider: null
+plugin: 'system_menu_block:site-information'
+settings:
+  id: 'system_menu_block:site-information'
+  label: 'Site Information'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

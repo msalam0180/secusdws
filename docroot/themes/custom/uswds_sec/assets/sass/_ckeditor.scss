@@ -1,0 +1,9 @@
+//------------------------------------------------------------------------
+// Additional styles that need to be added inside the ckeditor on forms
+//------------------------------------------------------------------------
+
+.cke_editable {
+  @include usa-prose;
+  @include sec-prose;
+  padding: rem(10px);
+}

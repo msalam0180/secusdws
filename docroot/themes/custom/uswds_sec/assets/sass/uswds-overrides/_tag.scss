@@ -1,0 +1,11 @@
+//------------------------------------------------------------------------
+// Tag overrides
+// https://designsystem.digital.gov/components/tag/
+//------------------------------------------------------------------------
+.usa-tag {
+  $row-gap: 8px;
+  border-radius: 0;
+  min-width: rem(50px);
+  text-align: center;
+  text-transform: none;
+}

@@ -1,0 +1,27 @@
+uuid: e1839efa-43c3-407e-8310-8d8ad89e15ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.landing_page_header_large
+    - image.style.landing_page_header_medium
+    - image.style.landing_page_header_small
+    - image.style.landing_page_header_x_large
+    - image.style.landing_page_header_x_small
+id: landing_page_header
+label: 'Landing Page Header'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width: 739px) 100vw, (max-width: 1023px) 50vw, (max-width: 1083px) 37.5vw, (max-width: 1199px) 39vw, 40vw'
+      sizes_image_styles:
+        - landing_page_header_large
+        - landing_page_header_medium
+        - landing_page_header_small
+        - landing_page_header_x_large
+        - landing_page_header_x_small
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+breakpoint_group: responsive_image
+fallback_image_style: landing_page_header_x_small

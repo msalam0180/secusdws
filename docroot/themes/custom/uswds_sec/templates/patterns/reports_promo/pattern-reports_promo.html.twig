@@ -1,0 +1,82 @@
+<div class="reports-promo">
+  {# Note: The “heading-block” markup is also used in the collection pattern #}
+  <div class="reports-promo__top heading-block">
+    <h{{ heading_level }} class="heading-block__heading">
+      Related Reports &amp; Publications
+    </h{{ heading_level }}>
+    {#
+      Note: The “View All” link is dynamically generated and should link to a listing
+            page of reports and publications filtered by the selected topic.
+    #}
+    {# TODO: Dynamically generate the href #}
+    <a class="heading-block__link" href="/">View All Reports &amp; Publications</a>
+  </div>
+
+  <ul class="reports-promo__group" role="list">
+    <li class="reports-promo__card">
+      {# FIXME: Update “srcset” and “sizes” attributes #}
+      {# Note: Leave alt text blank since image will be on the report page and it would be redundant #}
+      <img class="reports-promo__card__img"
+         src="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg"
+         srcset="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg 1476w"
+         sizes="100vw"
+         alt=""/>
+      <div class="reports-promo__card__container">
+        <a class="reports-promo__card__link" href="/">
+          Report on Administrative Proceedings for the Period October 1, 2021 through March 31, 2022 (PDF)
+        </a>
+        <div class="reports-promo__card__footer">
+          {% set timestamp = 1700542740 %}
+          {% set date_time = timestamp | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+          {% set display_date = timestamp | date('U') | format_date('custom', 'F j, Y') %}
+          <p class="reports-promo__card__date usa-collection__meta-item">
+            <time datetime="{{ date_time }}">{{ display_date }}</time>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li class="reports-promo__card">
+      {# Note: If there’s no associated image don’t generate the markup #}
+      {# <img class="reports-promo__card__img"
+         src="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg"
+         srcset="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg 1476w"
+         sizes="100vw"
+         alt=""/> #}
+      <div class="reports-promo__card__container">
+        <a class="reports-promo__card__link" href="/">
+          Report on Administrative Proceedings for the Period October 1, 2021 through March 31, 2022 (PDF)
+        </a>
+        <div class="reports-promo__card__footer">
+          {% set timestamp = 1700542740 %}
+          {% set date_time = timestamp | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+          {% set display_date = timestamp | date('U') | format_date('custom', 'F j, Y') %}
+          <p class="reports-promo__card__date usa-collection__meta-item">
+            <time datetime="{{ date_time }}">{{ display_date }}</time>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li class="reports-promo__card">
+      {# FIXME: Update “srcset” and “sizes” attributes #}
+      {# Note: Leave alt text blank since image will be on the report page and it would be redundant #}
+      <img class="reports-promo__card__img"
+         src="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg"
+         srcset="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg 1476w"
+         sizes="100vw"
+         alt=""/>
+      <div class="reports-promo__card__container">
+        <a class="reports-promo__card__link" href="/">
+          Publication Title Lorem Ipsum
+        </a>
+        <div class="reports-promo__card__footer">
+          {% set timestamp = 1700542740 %}
+          {% set date_time = timestamp | date('U') | format_date('custom', 'Y-m-d\\TH:i:sP') %}
+          {% set display_date = timestamp | date('U') | format_date('custom', 'F j, Y') %}
+          <p class="reports-promo__card__date usa-collection__meta-item">
+            <time datetime="{{ date_time }}">{{ display_date }}</time>
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+uuid: bed15fee-4576-4688-808c-247321878693
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: uswds_sec_content
+theme: uswds_sec
+region: content
+weight: -27
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

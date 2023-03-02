@@ -1,0 +1,25 @@
+uuid: c3b60f72-3a2e-4a28-9d44-65173949c110
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-main
+  module:
+    - system
+  theme:
+    - uswds_sec
+id: footermain
+theme: uswds_sec
+region: footer_menu
+weight: -38
+provider: null
+plugin: 'system_menu_block:footer-main'
+settings:
+  id: 'system_menu_block:footer-main'
+  label: 'Footer Main'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: true
+visibility: {  }

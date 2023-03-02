@@ -1,0 +1,15 @@
+uuid: 4ee1a686-a98a-4ebf-aee4-1d67b9cbd771
+langcode: en
+status: true
+dependencies: {  }
+name: landing_page_header_x_small
+label: 'Landing Page Header: x-small'
+effects:
+  bcab11eb-b5c6-4a1d-b096-85bea9b75374:
+    uuid: bcab11eb-b5c6-4a1d-b096-85bea9b75374
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 640
+      height: 384
+      anchor: center-center

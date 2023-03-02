@@ -1,0 +1,32 @@
+uuid: d59f8f19-c4bb-4d0c-ac6b-8270854f963a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.oia
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: GlJT0qa4whzElN6n__09KEocolEDubMa8kRSEFXvI_Q
+id: uswds_sec_oia
+theme: uswds_sec
+region: sidebar_first
+weight: -22
+provider: null
+plugin: 'system_menu_block:oia'
+settings:
+  id: 'system_menu_block:oia'
+  label: OIA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/oia\r\n/oia/*"

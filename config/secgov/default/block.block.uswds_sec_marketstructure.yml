@@ -1,0 +1,32 @@
+uuid: d19d2995-f474-48ad-b538-424af6539f28
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.market-structure-left-nav
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: EtZ2HYDtQMNXKXVGA9sU65U5GK74kF2Eh-7GxtjYzho
+id: uswds_sec_marketstructure
+theme: uswds_sec
+region: sidebar_first
+weight: -5
+provider: null
+plugin: 'system_menu_block:market-structure-left-nav'
+settings:
+  id: 'system_menu_block:market-structure-left-nav'
+  label: 'Market Structure'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/marketstructure/data\r\n*/data/market-structure/*"

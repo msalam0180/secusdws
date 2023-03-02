@@ -1,0 +1,90 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<h2 style="margin-top: 30px">Default</h2>
+
+{% set example_1 = '<ol class="usa-process-list">
+  <li class="usa-process-list__item">
+    <h3 class="usa-process-list__heading">Start a process</h3>
+    <div class="usa-prose">
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo,
+        ipsum sed pharetra gravida, orci magna rhoncus neque.
+      </p>
+      <ul>
+        <li>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo,
+          ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio
+          lorem non turpis.
+        </li>
+        <li>
+          Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat
+          condimentum.
+        </li>
+        <li>Aliquam erat volutpat. Sed quis velit.</li>
+      </ul>
+    </div>
+  </li>
+  <li class="usa-process-list__item">
+    <h3 class="usa-process-list__heading">Proceed to the second step</h3>
+    <div class="usa-prose">
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo,
+        ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio
+        lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula
+        volutpat condimentum.
+      </p>
+    </div>
+  </li>
+  <li class="usa-process-list__item">
+    <h3 class="usa-process-list__heading">Complete the step-by-step process</h3>
+    <div class="usa-prose">
+      <p>
+        Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat
+        condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi.
+      </p>
+    </div>
+  </li>
+</ol>' %}
+
+{{ example_1|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_1',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_1|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h2>Just Headings</h2>
+
+{% set example_2 = '<ol class="usa-process-list">
+  <li class="usa-process-list__item padding-bottom-4">
+    <p class="usa-process-list__heading">Start a process.</p>
+  </li>
+  <li class="usa-process-list__item padding-bottom-4">
+    <p class="usa-process-list__heading">Proceed to the second step.</p>
+  </li>
+  <li class="usa-process-list__item">
+    <p class="usa-process-list__heading">Complete the step-by-step process.</p>
+  </li>
+</ol>' %}
+
+{{ example_2|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_2',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_2|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}

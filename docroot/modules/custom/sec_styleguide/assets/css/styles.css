@@ -1,0 +1,66 @@
+/* Color grid */
+.colors__list {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.colors__item {}
+
+.colors__swatch {
+  aspect-ratio: 16 / 9;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.colors__name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.colors__text {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.colors__text code,
+.colors__text var {
+  background-color: #f3f3f3;
+  border-radius: 3px;
+  font-weight: normal;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+/* Icon columns */
+@media (min-width: 630px) {
+  .icons {
+    columns: 2;
+  }
+}
+
+@media (min-width: 960px) {
+  .icons {
+    columns: 3;
+  }
+}
+
+.icons__item {
+  break-inside: avoid;
+  padding-top: 30px;
+  position: relative;
+}
+
+.icons__button__name {
+  font-size: 0.75rem;
+}
+
+.icons__message {
+  color: #003864;
+  font-size: 13px;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  transform: translateY(6px);
+}

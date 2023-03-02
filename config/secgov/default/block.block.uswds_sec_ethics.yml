@@ -1,0 +1,32 @@
+uuid: f75bd324-3751-4796-861b-d2a391110d5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.ethics
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: IkgbRotvsBTZR21M0oPvHFI3P0M1v4kjQL8sZj64qow
+id: uswds_sec_ethics
+theme: uswds_sec
+region: sidebar_first
+weight: -13
+provider: null
+plugin: 'system_menu_block:ethics'
+settings:
+  id: 'system_menu_block:ethics'
+  label: Ethics
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/ethics\r\n/ethics/*"

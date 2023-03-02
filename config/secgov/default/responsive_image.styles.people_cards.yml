@@ -1,0 +1,25 @@
+uuid: 966a81db-8526-46a5-b12c-cc58917a3338
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.people_cards_
+    - image.style.people_cards_1x
+    - image.style.person_sidebar_1x
+  theme:
+    - uswds_sec
+id: people_cards
+label: 'People Cards'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: person_sidebar_1x
+    breakpoint_id: uswds_sec.people_cards
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: people_cards_
+    breakpoint_id: uswds_sec.people_cards
+    multiplier: 2x
+breakpoint_group: uswds_sec
+fallback_image_style: people_cards_1x

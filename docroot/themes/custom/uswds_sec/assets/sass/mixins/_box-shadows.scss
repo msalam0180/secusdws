@@ -1,0 +1,12 @@
+// Card box shadow
+@use "../vars/color-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../mixins/media-queries" as *;
+
+@mixin card-box-shadow() {
+  box-shadow: $card-box-shadow-mobile;
+
+  @include min-width($layout-card-bp) {
+    box-shadow: $card-box-shadow-desktop;
+  }
+}

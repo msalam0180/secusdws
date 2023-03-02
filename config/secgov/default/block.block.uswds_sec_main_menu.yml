@@ -1,0 +1,27 @@
+uuid: f822d8c6-185c-4201-8628-f8c5c91b22d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: xQrKv9XtNwz9Ms4ZXAW_b5IIR7i92u5h0tEqmMZNAfM
+id: uswds_sec_main_menu
+theme: uswds_sec
+region: primary_menu
+weight: -38
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }

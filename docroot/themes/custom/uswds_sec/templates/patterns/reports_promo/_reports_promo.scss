@@ -1,0 +1,86 @@
+//------------------------------------------------------------------------
+// Three-up related reports and publications
+//
+// Note: Cards are similar to usa-card but do not reuse their classes
+//------------------------------------------------------------------------
+.reports-promo {
+  $bp-2-cols: 640px;
+  $bp-3-cols: 915px;
+  $col-gap: $layout-card-group-col-gap;
+
+  &__top {
+    margin-bottom: rem(50px);
+
+    @include min-width($bp-2-cols) {
+      margin-bottom: rem(62px);
+    }
+  }
+
+  &__group {
+    @include min-width($bp-2-cols) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem($col-gap);
+      justify-content: space-between;
+    }
+  }
+
+  &__card {
+    @include card-box-shadow;
+
+    @include max-width($bp-2-cols - 1px) {
+      &:not(:last-child) {
+        margin-bottom: rem($col-gap);
+      }
+    }
+
+    @include min-width($bp-2-cols) {
+      display: flex;
+      flex-basis: calc(50% - #{$col-gap * 0.5});// multiply by (columns - 1) / columns
+      flex-direction: column;
+    }
+
+    @include min-width($bp-3-cols) {
+      flex-basis: calc(33.3% - #{$col-gap * 0.666});// multiply by (columns - 1) / columns
+    }
+
+    // Note: Images should be converted to the correct aspect ratio by Drupal.
+    //       We’re only using “aspect-ratio” to prevent layout shift during
+    //       page load so it’s not imperative we polyfill for old browsers.
+    //       https://caniuse.com/mdn-css_properties_aspect-ratio
+    //
+    // 1. Use object-fit just in case the image isn’t the correct aspect ratio,
+    //    e.g. may be too small for Drupal to resize.
+    &__img {
+      aspect-ratio: 3 / 2;
+      object-fit: cover;// [1]
+    }
+
+    &__container {
+      @include card-horz-padding;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: rem(25px);
+      padding-top: rem(25px);
+
+      @include min-width($bp-2-cols) {
+        flex-grow: 1;
+      }
+
+      &:first-child {
+        padding-top: rem(32px);
+      }
+    }
+
+    &__link {
+      font-size: rem(15px);
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    &__footer {
+      margin-top: auto;// bottom align in grid layout
+      padding-top: rem(20px);
+    }
+  }
+}

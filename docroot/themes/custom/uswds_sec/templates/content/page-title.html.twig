@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Theme override for page titles.
+ *
+ * Available variables:
+ * - title_attributes: HTML attributes for the page title element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ */
+#}
+{% if title %}
+  {# Landing page full-bleed title with optional image #}
+  {% if content_type == "landing_page" %}
+    {# TODO: Integrate color options (blue, gray, navy, red, teal, yellow, white) #}
+    {{ pattern('page_header', {
+      color: 'navy',
+      heading: title,
+      description: page_description,
+      img_src: field_featured_graphic,
+    }) }}
+  {% else %}
+  {# Default page title #}
+    <div class="page-title">
+
+      {# TODO: Find out what “title_prefix” is used for #}
+      {% if title_prefix -%}
+        <div class="page-title__prefix">
+          {{ title_prefix }}
+        </div>
+      {%- endif %}
+
+      <div class="page-title__above-title">
+        {# FIXME: Integrate using taxonomy term/content type label #}
+        <p class="page-title__label">
+          {# TODO: Determine which labels should be linked, if any #}
+          <a href="#FIXME">Placeholder Category</a>
+          {# TODO: what if there is no label? #}
+        </p>
+
+        <div class="page-title__buttons">
+          {# Copy link button #}
+          {% include '@uswds_sec/includes/copy-link-button.html.twig' %}
+
+          {# TODO: Add to calendar button #}
+        </div>
+      </div>
+
+      <h1{{ title_attributes.addClass('page-title__heading').removeClass('uswds-page-title') }}>
+        {{ title }}
+      </h1>
+
+      {# TODO: Find out what “title_suffix” is used for #}
+      {% if title_suffix -%}
+        <div class="page-title__suffix">
+          {{ title_suffix }}
+        </div>
+      {%- endif %}
+    </div>{# end page-title #}
+  {% endif %}
+{% endif %}

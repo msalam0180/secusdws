@@ -1,0 +1,57 @@
+{% set heading_level = heading_level|render|trim|default(3) %}
+{% set show_photo = show_photo|render|trim|default(1) %}
+{% set show_email = show_email|render|trim|default(1) %}
+{% set show_phone = show_phone|render|trim|default(1) %}
+{% set title = title %}
+{% set email = email|render|trim %}
+{% set phone = phone|render|trim %}
+
+<div class="card-person">
+  {% if image and show_photo %}
+    <div class="card-person__image">
+      {%- if link %}
+        {# Note: Link is same as person’s name so hide from screen readers and prevent tabbing #}
+        <a class="card-person__image__link" href="{{ link }}" aria-hidden="true" tabindex="-1">
+      {% endif -%}
+      {# FIXME: Add “srcset” with 1x and 2x files, or multiple sizes if thats not possible #}
+      {# Note: Alt text is redundant in person cards #}
+      {{ image }}
+      {% if link %}
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+  <h{{ heading_level }} class="card-person__name">
+    {% if link %}
+      <a class="card-person__name__link usa-link" href="{{ link }}">
+    {% endif %}
+    {{- first_name }} {{ last_name -}}
+    {% if link %}
+      </a>
+    {% endif %}
+  </h{{ heading_level }}>
+  {% if title %}
+    <p class="card-person__text">{{ title }}</p>
+  {% endif %}
+  {% if department %}
+    <p class="card-person__text">{{ department }}</p>
+  {% endif %}
+  {% if email and show_email %}
+    {# Note: We’re adding <wbr> before the “@” to allow browsers to break long emails #}
+    {# https://jira.ad.sec.gov/browse/OSSS-22938 #}
+    {% set email_arr = email|split('@') %}
+    {# Strip common characters from phone number #}
+    <a class="card-person__link" href="mailto:{{ email }}">
+      {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'mail'} %}
+      {{ email_arr[0] }}<wbr>@{{ email_arr[1] }}
+    </a>
+  {% endif %}
+  {% if phone and show_phone %}
+    {# Strip common characters from phone number #}
+    {% set phone_clean = phone|replace({' ': '', '-': '', '(': '', ')': '', '+': '', '.': ''}) %}
+    <a class="card-person__link" href="tel:1{{ phone_clean }}">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'phone'} %}
+    {{ phone }}
+    </a>
+  {% endif %}
+</div>

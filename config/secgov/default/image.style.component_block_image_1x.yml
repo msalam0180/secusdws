@@ -1,0 +1,15 @@
+uuid: d5c7fb75-34af-44bb-9158-b3b1aad2fb15
+langcode: en
+status: true
+dependencies: {  }
+name: component_block_image_1x
+label: 'Component Block Image 1x'
+effects:
+  099eb203-7429-4916-a0f7-0b2028952dd3:
+    uuid: 099eb203-7429-4916-a0f7-0b2028952dd3
+    id: image_scale
+    weight: 1
+    data:
+      width: 896
+      height: null
+      upscale: false

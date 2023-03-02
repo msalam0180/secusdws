@@ -1,0 +1,32 @@
+//------------------------------------------------------------------------
+// Callout Component
+//------------------------------------------------------------------------
+
+.callout {
+  --bg-color: #{$callout-gray};
+  --bg-color-border: #{$callout-gray-light};
+  --border-width: 1px;
+
+  // temporarily comment out until type of callout boxes are defined by designer or PO
+  // &--default-outline {
+  //   --bg-color: transparent;
+  //   --bg-color-border: #{$callout-gray-light};
+  //   --border-width: 3px;
+  // }
+  
+  // &--alternate {
+  //   --bg-color: #{$callout-yellow};
+  //   --bg-color-border: #{$callout-yellow-light};
+  //   --border-width: 1px;
+  // }
+
+  // &--alternate-outline {
+  //   --bg-color: transparent;
+  //   --bg-color-border: #{$callout-yellow-light};
+  //   --border-width: 3px;
+  // }
+  
+  padding: 35px;
+  background-color: var(--bg-color);
+  border: var(--border-width) solid var(--bg-color-border);
+}

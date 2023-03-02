@@ -1,0 +1,15 @@
+uuid: 5169c238-d405-4bf0-8649-d23b57a8ffd5
+langcode: en
+status: true
+dependencies: {  }
+name: people_cards_1x
+label: 'People Cards 1x'
+effects:
+  737892f7-3ed7-4a78-9885-16e2cc82e360:
+    uuid: 737892f7-3ed7-4a78-9885-16e2cc82e360
+    id: image_scale
+    weight: 1
+    data:
+      width: 147
+      height: null
+      upscale: false

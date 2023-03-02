@@ -1,0 +1,71 @@
+id: icseealsolinks
+label: Import of Investment Company See Also Links
+migration_group: regulations
+migration_tags:
+  - ic
+  - seealsolinks
+source:
+  plugin: see_also_links
+  source_field: investment_company
+  path: public://migration/icreleases_category.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    #category,investment_company,file_num,file_num_url,notice_id,notice_url,notice_date,order_id,order_url,order_date
+    0:
+      name: category
+      label: "Category"
+    1:
+      name: investment_company
+      label: "Investment Company"
+    2:
+      name: file_num
+      label: "File Number"
+    3:
+      name: file_num_url
+      label: "File Number Url"
+    4:
+      name: notice_id
+      label: "Notice ID"
+    5:
+      name: notice_url
+      label: "Notice Url"
+    6:
+      name: notice_date
+      label: "Notice Date"
+    7:
+      name: order_id
+      label: "Order ID"
+    8:
+      name: order_url
+      label: "Order Url"
+    9:
+      name: order_date
+      label: "Order Date"
+  constants:
+    delimiter: ','
+process:
+
+  status:
+    plugin: default_value
+    default_value: 1
+
+  name: title
+  
+  field_media_entity_link/uri: url
+
+  field_media_entity_link/title: title
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+destination:
+  plugin: 'entity:media'
+  default_bundle: link

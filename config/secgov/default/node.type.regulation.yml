@@ -1,0 +1,39 @@
+uuid: 348b5591-6d71-4d6f-8b79-7f7dc8d5f2a4
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node_save_redirect
+    - scheduler
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  scheduler:
+    expand_fieldset: null
+    fields_display_mode: null
+    publish_enable: false
+    publish_past_date: null
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+  node_save_redirect:
+    save_type: '0'
+    save_location: ''
+    save_destination: 0
+    edit_type: '0'
+    edit_location: ''
+    edit_destination: 0
+name: 'Regulatory Release'
+type: regulation
+description: 'Rule releases are referenced from rules. A user should not visit a rules release node page. Rules releases are basically a sub entity of the "Rule" content type.'
+help: "To import a release w/ files and metadata, see the <a href=\"/admin/release_importer\">Release Importer</a>\r\n<br /><br />\r\n"
+new_revision: true
+preview_mode: 0
+display_submitted: false

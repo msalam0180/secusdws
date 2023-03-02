@@ -1,0 +1,90 @@
+uuid: 29824676-dad4-4a09-bffd-6e72cc009778
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.component_block
+    - field.storage.block_content.field_text
+    - paragraphs.paragraphs_type.accordion
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.card_group
+    - paragraphs.paragraphs_type.horizontal_card
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.lead_paragraph
+    - paragraphs.paragraphs_type.subpage_card_group
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.video
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: block_content.component_block.field_text
+field_name: field_text
+entity_type: block_content
+bundle: component_block
+label: Component
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      accordion: accordion
+      alert: alert
+      card_group: card_group
+      horizontal_card: horizontal_card
+      image: image
+      lead_paragraph: lead_paragraph
+      subpage_card_group: subpage_card_group
+      text: text
+      video: video
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: -26
+        enabled: true
+      accordion_section:
+        weight: -20
+        enabled: false
+      alert:
+        weight: -25
+        enabled: true
+      card:
+        weight: -24
+        enabled: false
+      card_group:
+        weight: -22
+        enabled: true
+      horizontal_card:
+        weight: -21
+        enabled: true
+      image:
+        weight: -18
+        enabled: true
+      lead_paragraph:
+        weight: -17
+        enabled: true
+      position_history:
+        weight: -27
+        enabled: false
+      related_document_s_:
+        weight: -23
+        enabled: false
+      subpage_card:
+        weight: -19
+        enabled: false
+      subpage_card_group:
+        weight: -16
+        enabled: true
+      text:
+        weight: -15
+        enabled: true
+      video:
+        weight: 26
+        enabled: true
+field_type: entity_reference_revisions

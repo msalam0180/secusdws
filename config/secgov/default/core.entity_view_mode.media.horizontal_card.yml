@@ -1,0 +1,10 @@
+uuid: 5a1db709-828f-4743-afdd-51eb2c1d5ccd
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.horizontal_card
+label: 'Horizontal Card'
+targetEntityType: media
+cache: true

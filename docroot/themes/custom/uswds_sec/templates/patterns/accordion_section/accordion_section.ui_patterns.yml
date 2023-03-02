@@ -1,0 +1,35 @@
+accordion_section:
+  label: Accordion Section
+  description: Default USWDS accordion with custom styling https://designsystem.digital.gov/components/accordion/
+  fields:
+    expanded:
+      type: boolean
+      label: Expanded
+      description: Allow multiple groups to be expanded at once
+      preview: "true"
+    heading:
+      type: text
+      label: Heading
+      description: Interim Final Rule (34-53809)
+      preview: default
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3
+    entity_id:
+      type: text
+      label: Entity ID
+      description: Entity ID from Drupal
+      preview: 1
+    manually_created_id:
+      type: text
+      label: Manually Created ID
+      description: If there is no entity ID, then create a manual ID to create a unique accordion sections.
+      preview: 1
+    body:
+      type: text
+      label: Body
+      description: '<ul><li><a href="/">Example link</a></li><li>Lorem ipsum dolor sit amet</li></ul>'
+      preview: default
+    

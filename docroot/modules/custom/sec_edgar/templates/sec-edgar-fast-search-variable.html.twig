@@ -1,0 +1,21 @@
+{{ attach_library('sec_edgar/edgar-company-person') }}
+{% set content %}
+<form id="sec-edgar-company-person-form" class="usa-form" method="get" action="{{ submission_url }}">
+	<div>
+		<h2>{{ title }}</h2>
+		<div class="form-item">
+			<input name="sc" type="hidden" value="companyseries">
+			<input name="action" type="hidden" value="getcompany">
+			<div class="inline-form">
+				<input id="cik" class="usa-input" name="CIK" type="text" title="Series, Class, or CIK" alt="Series, Class, or CIK" aria-invalid="false" aria-required="true" placeholder="Series, Class, or CIK">
+				<button class="collapsed-submit usa-button" name="Find" type="submit" value="Search">Search</button>
+			</div>
+			<div class="element-description usa-hint">{{ description }}</div>
+		</div>
+	</div>
+</form>
+{% endset %}
+
+{{ pattern('callout', {
+  'content': content,
+}) }}

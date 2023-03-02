@@ -1,0 +1,30 @@
+---
+button_content:
+  buttons:
+    - modifier: ''
+      text: Default
+      aria_disabled: false
+    - modifier: __secondary
+      text: Secondary
+      aria_disabled: false
+    - modifier: __accent-cool
+      text: Accent cool
+      aria_disabled: false
+    - modifier: __accent-warm
+      text: Accent warm
+      aria_disabled: false
+    - modifier: __base
+      text: Base
+      aria_disabled: false
+    - modifier: __outline __inverse
+      text: Outline inverse
+      aria_disabled: false
+    - modifier: __outline
+      text: Outline
+      aria_disabled: false
+    - modifier: __disabled
+      text: Disabled
+      aria_disabled: true
+    - modifier: __big
+      text: Big button
+      aria_disabled: false

@@ -1,0 +1,10 @@
+uuid: 8e0bbd0e-1f15-47ec-a3d0-fd6afdb4df03
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.release_inline_entity_reference
+label: 'Release Inline Entity Reference'
+targetEntityType: taxonomy_term
+cache: true

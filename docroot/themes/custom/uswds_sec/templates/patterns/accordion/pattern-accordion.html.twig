@@ -1,0 +1,11 @@
+{# USWDS Accordion #}
+{% set is_multiselectable = is_multiselectable | render %}
+{% set multiselect_class = is_multiselectable == 'True' ? ' usa-accordion--multiselectable' %}
+{% set style_class = style and style != 'default' ? ' usa-accordion--' ~ style %}
+{% set color_class = color ? ' is-' ~ color : '' %}
+
+{# Note: We added a leading space to each class #}
+<div class="usa-accordion{{ multiselect_class }}{{ style_class }}{{ color_class }}"
+  {% if is_multiselectable == 'True' %}data-allow-multiple{% endif %}>
+  {{ accordion_sections }}
+</div>

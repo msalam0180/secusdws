@@ -1,0 +1,40 @@
+id: sro_taxonomy
+label: Import of SRO Taxonomies
+migration_group: regulations
+migration_tags:
+  - terms
+  - sro
+source:
+  plugin: csv
+  path: public://migration/sro_categories.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    #  id,name,code,category
+    0:
+      name: id
+      label: "id"
+    1:
+      name: name
+      label: "Name"
+    2:
+      name: code
+      label: "Short Code"
+    3:
+      name: category
+      label: "Category"
+process:
+  name: name
+  field_abbreviated: code
+  field_category:
+    plugin: entity_generate
+    source: category
+    value_key: name
+    bundle_key: vid
+    bundle: sro_organization_category
+    entity_type: taxonomy_term
+    ignore_case: true
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: sro_organization

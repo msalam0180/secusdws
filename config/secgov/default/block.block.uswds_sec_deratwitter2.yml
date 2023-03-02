@@ -1,0 +1,31 @@
+uuid: ba4d0e76-8317-4053-8b35-025a9cad469e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:177bbf3a-1507-46d7-8288-b17f11b922b1'
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+id: uswds_sec_deratwitter2
+theme: uswds_sec
+region: content
+weight: -24
+provider: null
+plugin: 'block_content:177bbf3a-1507-46d7-8288-b17f11b922b1'
+settings:
+  id: 'block_content:177bbf3a-1507-46d7-8288-b17f11b922b1'
+  label: 'DERA: Twitter2'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

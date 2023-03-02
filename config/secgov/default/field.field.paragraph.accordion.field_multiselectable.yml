@@ -1,0 +1,28 @@
+uuid: 074af0b5-6308-436b-83af-fb389661427f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_multiselectable
+    - paragraphs.paragraphs_type.accordion
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.accordion.field_multiselectable
+field_name: field_multiselectable
+entity_type: paragraph
+bundle: accordion
+label: Multiselectable
+description: 'If checked, this will allow the user to open multiple accordion sections simultaneously.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

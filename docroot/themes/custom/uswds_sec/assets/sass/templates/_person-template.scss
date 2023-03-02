@@ -1,0 +1,22 @@
+//------------------------------------------------------------------------
+// Person page tempalte
+//------------------------------------------------------------------------
+.node--type-secperson {
+  .layout--twocol-section {
+    @include layout-sidebar-wrap;
+  }
+
+  .layout__region--first {
+    @include layout-sidebar-main;
+
+    // NOTE: It would be better to add the .usa-prose class in the markup
+    .text-formatted {
+      @include usa-prose;
+      @include sec-prose;
+    }
+  }
+
+  .layout__region--second {
+    @include layout-sidebar-aside;
+  }
+}

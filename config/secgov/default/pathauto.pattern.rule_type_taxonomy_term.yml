@@ -1,0 +1,22 @@
+uuid: 941fc8a8-19d6-44d0-ae3e-741f1683850c
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: rule_type_taxonomy_term
+label: 'Rule Type Taxonomy Term'
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:field_release_path]'
+selection_criteria:
+  56d54b4d-1257-4a86-a9d9-853237b22efc:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 56d54b4d-1257-4a86-a9d9-853237b22efc
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      rule_type: rule_type
+selection_logic: and
+weight: -5
+relationships: {  }

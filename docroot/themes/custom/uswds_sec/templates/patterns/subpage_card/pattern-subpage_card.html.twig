@@ -1,0 +1,13 @@
+{% set heading_level = heading_level|default(3) %}
+<div class="subpage-card">
+  <h{{ heading_level }} class="subpage-card__headline">
+    <a class="subpage-card__headline__link" href="{{ link }}">
+      {{- heading -}}
+    </a>
+  </h{{ heading_level }}>
+  <p class="subpage-card__body">{{ body }}</p>
+  {% include '@uswds_sec/includes/icon.html.twig' with {
+    'name': 'arrow_forward',
+    'classes': 'child-page__icon'
+  } %}
+</div>

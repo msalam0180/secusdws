@@ -1,0 +1,30 @@
+uuid: d4e447f7-91f1-4cac-866a-447f350e7595
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.owb
+  module:
+    - system
+  theme:
+    - uswds_sec
+id: uswds_sec_owb
+theme: uswds_sec
+region: sidebar_first
+weight: -2
+provider: null
+plugin: 'system_menu_block:owb'
+settings:
+  id: 'system_menu_block:owb'
+  label: OWB
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/whistleblower\r\n/whistleblower*\r\n/whistleblower-2\r\n/whistleblower-2*"

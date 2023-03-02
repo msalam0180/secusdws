@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Use the PREPROCESS Directory - See README in that directory
+ */
+
+/**
+ * Use the PROCESS Directory - See README in that directory
+ */
+
+/**
+ * Add theme Suggestions
+ */
+
+require_once dirname(__FILE__) . '/includes/theme_suggestions/block.inc';
+require_once dirname(__FILE__) . '/includes/theme_suggestions/field.inc';
+require_once dirname(__FILE__) . '/includes/theme_suggestions/form.inc';
+require_once dirname(__FILE__) . '/includes/theme_suggestions/taxonomy.inc';
+require_once dirname(__FILE__) . '/includes/theme_suggestions/views.inc';

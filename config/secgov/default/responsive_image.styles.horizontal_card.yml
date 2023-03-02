@@ -1,0 +1,27 @@
+uuid: fc490564-44de-4271-8a2f-909c1e3faf6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.horizontal_card_
+    - image.style.horizontal_card_medium
+    - image.style.horizontal_card_small
+    - image.style.horizontal_card_x_large
+    - image.style.horizontal_card_x_small
+id: horizontal_card
+label: 'Horizontal Card'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width: 639px) 100vw, (max-width: 860px) 35vw, (max-width: 1178px) 36vw,  428px'
+      sizes_image_styles:
+        - horizontal_card_
+        - horizontal_card_medium
+        - horizontal_card_small
+        - horizontal_card_x_large
+        - horizontal_card_x_small
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+breakpoint_group: responsive_image
+fallback_image_style: horizontal_card_x_small

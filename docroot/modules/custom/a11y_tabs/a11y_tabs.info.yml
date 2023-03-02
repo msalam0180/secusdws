@@ -1,0 +1,6 @@
+name: a11y-tabs
+type: module
+description: Adds a library for Accessible tabs
+package: SEC
+core: 8.x
+core_version_requirement: ^8 || ^9

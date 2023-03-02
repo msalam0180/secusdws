@@ -1,0 +1,32 @@
+uuid: d31c49ea-01ed-4e9e-93fe-c47480bf4037
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.olia
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: d92_4rKcnK5gOty14Vx5zDeExq8r1TCFOvAk9KaUm6U
+id: uswds_sec_olia
+theme: uswds_sec
+region: sidebar_first
+weight: -19
+provider: null
+plugin: 'system_menu_block:olia'
+settings:
+  id: 'system_menu_block:olia'
+  label: OLIA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/olia\r\n/olia/*"

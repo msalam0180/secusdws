@@ -1,0 +1,45 @@
+name: SEC USWDS
+type: theme
+description: 'A subtheme of USWDS for SEC using USWDS-gulp and the UI Patterns Module.'
+core_version_requirement: ^8.7.7 || ^9
+base theme: uswds
+
+libraries:
+  - uswds_sec/custom-global-css
+
+# override base theme stylesheets
+libraries-override:
+  uswds/uswds:
+    css:
+      theme:
+        assets/css/uswds.css: dist/css/uswds.css
+    js:
+      assets/js/uswds.min.js: dist/js/app.min.js
+
+# Remove CSS files:
+stylesheets-remove:
+  - '@classy/css/components/messages.css'
+
+# Add the CSS to CKEditor, so that custom entries in "Style" will work.
+ckeditor_stylesheets:
+  - dist/css/uswds.css
+  - dist/css/styles.css
+dependencies:
+  - drupal:twig_tweak
+  - drupal:ui_patterns
+  - drupal:twig_field_value
+
+regions:
+  header: 'Header'
+  primary_menu: 'Primary Menu'
+  secondary_menu: 'Secondary Menu'
+  tabs: 'Tabs'
+  page_title_region: 'Page Title'
+  sidebar_first: 'First sidebar'
+  sidebar_second: 'Second sidebar'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  hero: 'Hero'
+  content: 'Content'
+  footer_menu: 'Footer Menu'

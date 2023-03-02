@@ -1,0 +1,18 @@
+uuid: 802af2f7-c7b5-4859-9b30-67be99da6974
+langcode: en
+status: false
+dependencies:
+  theme:
+    - uswds_sec
+id: uswds_sec_flashsoftware
+theme: uswds_sec
+region: header
+weight: -33
+provider: null
+plugin: 'simple_block:live_player_help_block'
+settings:
+  id: 'simple_block:live_player_help_block'
+  label: 'Flash Software'
+  label_display: visible
+  provider: simple_block
+visibility: {  }

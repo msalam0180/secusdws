@@ -1,0 +1,19 @@
+{# Mobile side nav (uses accordion markup) #}
+<div class="l-show-sidenav-mobile l-fullwidth">
+  <div class="usa-accordion is-menu">
+    <h2 class="usa-accordion__heading">
+      {# FIXME: Integrate heading using current section name instead of “About” #}
+      <button class="usa-accordion__button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="sidenav_mobile">
+        More in About
+      </button>
+    </h2>
+    <div class="usa-accordion__content" id="sidenav_mobile">
+      <nav class="" aria-label="Section navigation">
+        {{ page.sidebar_first }}
+      </nav>
+    </div>
+  </div>
+</div>

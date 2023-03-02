@@ -1,0 +1,26 @@
+{
+  "name": "investor",
+  "version": "1.0.0",
+  "description": "Compiling and theming for the Investor Website",
+  "main": "index.js",
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "event-stream": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "postcss": "^8.4.18",
+    "postcss-csso": "^6.0.1",
+    "sass": "^1.56.1",
+    "stylelint": "^14.14.1",
+    "susy": "^2.2.14"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "gulp sass",
+    "watch": "gulp watch"
+  },
+  "author": "",
+  "license": "ISC"
+}

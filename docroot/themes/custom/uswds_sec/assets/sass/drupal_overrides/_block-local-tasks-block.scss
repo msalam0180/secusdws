@@ -1,0 +1,57 @@
+// Drupal block admin buttons
+.block-local-tasks-block {
+  $bp-hide: 620px;
+  border-bottom: 1px solid $border-gray-light;
+  background-color: $button-gray-lighter;
+
+  @include max-width($bp-hide - 1px) {
+    display: none !important;
+  }
+
+  .usa-button {
+    font-size: rem(12px);
+    padding: rem(10px);
+
+    // Custom active styles (i.e. current tab, not :active)
+    &.is-active {
+      background-color: usa.color('gray-70') !important;
+      color: #fff !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: usa.color('gray-90') !important;
+      }
+    }
+  }
+
+  // remove margin
+  .usa-button-group__item {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  // 1. The USWDS button group component is coded in an odd way that results
+  //    in the background color extending past the horz border by 1px. We’re
+  //    changng how borders are applied to fix this.
+  .usa-button-group--segmented {
+    .usa-button-group__item {
+      &:not(:first-child, :last-child) {
+        .usa-button {
+          border-right: 1px solid usa.color('gray-cool-40') !important;// [1]
+        }
+      }
+    }
+
+    .usa-button {
+      border-radius: 0 !important;
+      display: block;
+      margin-left: 0 !important;// [1]
+      margin-right: 0 !important;// [1]
+
+      &:before {
+        display: none !important;// [1]
+      }
+    }
+  }
+}

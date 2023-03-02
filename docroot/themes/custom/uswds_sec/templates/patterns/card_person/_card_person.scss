@@ -1,0 +1,82 @@
+//------------------------------------------------------------------------
+// Person card
+// See /templates/patterns/card/_card.scss for default card styles
+//------------------------------------------------------------------------
+.card-person {
+  $bp-end-scale: 460px;
+  @include card-box-shadow;
+  @include card-horz-padding;
+  background-color: $bg-default;
+  padding-bottom: rem(26px);
+  padding-top: rem(30px);
+
+  &__image {
+    // Optional link
+    &__link {
+      display: block;
+      width: fit-content;// fit to image width
+    }
+
+    img {
+      display: block;
+      height: auto;
+      max-width: rem(137px);
+      width: 100%;
+
+      @include min-width($bp-end-scale) {
+        max-width: rem(147px);
+      }
+    }
+  }
+
+  &__name {
+    font-size: rem(15px);
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: rem(22px);
+
+    // Optional link (currently using “.usa-link” class)
+    // &__link {}
+  }
+
+  &__text {
+    font-size: rem(15px);
+    line-height: 1.5;
+    margin-top: rem(6px);
+
+    & + & {
+      margin-top: rem(3px);
+    }
+  }
+
+  // Used for email and phone links
+  // Note: These styles are mostly the same as .card-division, could refactor
+  &__link {
+    align-items: center;
+    color: $c-default;
+    display: flex;
+    line-height: 1.1;
+    margin-top: rem(12px);
+    text-decoration: none;
+    width: fit-content;// otherwise “flex” will cause it to be 100% wide
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+
+    // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
+    // Note: Since we can’t get each individual icon’s viewBox dimensions
+    //       in the template, the size of the SVG element won’t match the
+    //       use element, so the styles may not match Figma _exactly_.
+    .usa-icon {
+      fill: $c-blue;
+      flex-shrink: 0;
+      height: 100%;
+      margin-right: rem(8px);
+      max-height: rem(27px);
+      max-width: rem(27px);
+      width: 100%;
+    }
+  }
+}

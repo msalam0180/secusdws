@@ -1,0 +1,51 @@
+uuid: 60fb54c2-1085-4b3d-a632-1cac7425e3d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.person_card
+    - field.field.block_content.person_card.field_heading_level
+    - field.field.block_content.person_card.field_person_card
+    - field.field.block_content.person_card.field_show_email
+    - field.field.block_content.person_card.field_show_phone
+    - field.field.block_content.person_card.field_show_photo
+  module:
+    - ds
+    - empty_fields
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_group
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      cards:
+        - field_person_card
+id: block_content.person_card.default
+targetEntityType: block_content
+bundle: person_card
+mode: default
+content:
+  field_person_card:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: people_cards
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      ds:
+        ds_limit: ''
+    weight: 0
+    region: cards
+hidden:
+  field_heading_level: true
+  field_show_email: true
+  field_show_phone: true
+  field_show_photo: true
+  search_api_excerpt: true

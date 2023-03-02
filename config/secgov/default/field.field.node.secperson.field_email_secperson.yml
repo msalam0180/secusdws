@@ -1,0 +1,24 @@
+uuid: 88017f02-cc55-447b-87c0-29517d8e5ef3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_email_secperson
+    - node.type.secperson
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: node.secperson.field_email_secperson
+field_name: field_email_secperson
+entity_type: node
+bundle: secperson
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,44 @@
+//------------------------------------------------------------------------
+// Custom text styles
+//
+// For h2–h6 wysiwyg heading styles, see /mixins/_headings.scss
+//------------------------------------------------------------------------
+@use "../vars/color-vars" as *;
+@use "../vars/font-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../functions/rem" as *;
+@use "media-queries" as *;
+@use "scale" as *;
+
+// Default page title
+@mixin page-title($color: $c-navy) {
+  @include scale(font-size, (375px: 26px, $layout-text-scale-end-bp: 36px));
+  @include scale(letter-spacing, (320px: -1px, 640px: 0));// reduce text wrapping in mobile
+  color: var(--theme-text-color, #{$color});
+  font-family: $gotham-font-family;
+  font-weight: bold;
+  line-height: 1.2;
+
+  @include min-width(640px) {
+    line-height: 1.1;
+  }
+}
+
+// Small uppercase heading used for supertitle and sidebar headings
+@mixin upper-heading($color: $c-navy) {
+  color: var(--theme-text-color, #{$color});
+  font-family: $gotham-font-family;
+  font-size: rem(16px);
+  font-weight: $gotham-medium;
+  letter-spacing: rem(0.5px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+// Larger body copy used for intro block
+@mixin large-body-copy($color: $c-black) {
+  @include scale(font-size, (375px: 19px, $layout-text-scale-end-bp: 26px));
+  color: var(--theme-text-color, $color);
+  font-weight: 300;
+  line-height: 1.175;
+}

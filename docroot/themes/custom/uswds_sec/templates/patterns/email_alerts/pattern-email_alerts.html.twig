@@ -1,0 +1,20 @@
+{# Email alerts sign-up promo #}
+{% set heading_level = heading_level|default(3) %}
+<div class="email-alerts bg-navy bg-gradient-overlay l-padding">
+  {% include '@uswds_sec/includes/icon.html.twig' with {
+    'name': 'mail',
+    'classes': 'email-alerts__icon'
+  } %}
+  <h{{ heading_level }} class="email-alerts__heading">
+    {{- headline -}}
+  </h{{ heading_level }}>
+
+  {{ pattern('govdelivery_form', {
+    list_id: list_id,
+    form_id: 'email-alerts',
+    class_prefix: 'email-alerts',
+    label_text: 'Your email address',
+    button_text: 'Subscribe',
+    })
+  }}
+</div>

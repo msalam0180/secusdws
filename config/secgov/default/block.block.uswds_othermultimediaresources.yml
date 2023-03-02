@@ -1,0 +1,31 @@
+uuid: 4cb66653-bb3e-4a0c-83f1-9441d9c02383
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:0d11b6fb-c150-4a11-a65c-638fb8ea82ff'
+  module:
+    - block_content
+    - system
+  theme:
+    - uswds
+id: uswds_othermultimediaresources
+theme: uswds
+region: header_top
+weight: -28
+provider: null
+plugin: 'block_content:0d11b6fb-c150-4a11-a65c-638fb8ea82ff'
+settings:
+  id: 'block_content:0d11b6fb-c150-4a11-a65c-638fb8ea82ff'
+  label: 'Other Videos'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /news/sec-videos

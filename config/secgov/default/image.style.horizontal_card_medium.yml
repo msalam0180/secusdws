@@ -1,0 +1,15 @@
+uuid: 56707644-586e-4608-8ad8-f26de3f21ece
+langcode: en
+status: true
+dependencies: {  }
+name: horizontal_card_medium
+label: 'Horizontal Card: medium'
+effects:
+  902d404a-1a5e-4604-8c10-474efb3c7b50:
+    uuid: 902d404a-1a5e-4604-8c10-474efb3c7b50
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 750
+      height: 750
+      anchor: center-center

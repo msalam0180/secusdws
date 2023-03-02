@@ -1,0 +1,27 @@
+uuid: fd07ebce-0958-4664-a6b2-a7b530804c65
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.tools
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: 9SPLTvLIK7iH7jakq-GEeYb-g9rfKrbLc-EFve1gYtI
+id: uswds_tools
+theme: uswds
+region: header
+weight: -25
+provider: null
+plugin: 'system_menu_block:tools'
+settings:
+  id: 'system_menu_block:tools'
+  label: Tools
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

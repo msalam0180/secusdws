@@ -1,0 +1,27 @@
+uuid: 8158b3c2-c380-4537-88f6-9af6376cc273
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.mobile-navigation
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: qyMfKt0kDBGViakO0COWAebj-uwXCIxQcfMm5wWQZVs
+id: uswds_mobilenavigation
+theme: uswds
+region: header
+weight: -31
+provider: null
+plugin: 'system_menu_block:mobile-navigation'
+settings:
+  id: 'system_menu_block:mobile-navigation'
+  label: 'Mobile Navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

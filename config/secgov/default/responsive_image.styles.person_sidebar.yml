@@ -1,0 +1,24 @@
+uuid: f54f9647-47ad-4bd7-992a-a2195976bb9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.person_sidebar_1x
+    - image.style.person_sidebar_2x
+  theme:
+    - uswds_sec
+id: person_sidebar
+label: 'Person Sidebar'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: person_sidebar_1x
+    breakpoint_id: uswds_sec.person_sidebar
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: person_sidebar_2x
+    breakpoint_id: uswds_sec.person_sidebar
+    multiplier: 2x
+breakpoint_group: uswds_sec
+fallback_image_style: person_sidebar_1x

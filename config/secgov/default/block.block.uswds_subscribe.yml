@@ -1,0 +1,39 @@
+uuid: 5a1df156-f000-4400-8fde-6645c69a8f10
+langcode: en
+status: false
+dependencies:
+  module:
+    - node
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: wMkxuirL_po6d4Dd48jzNk6a4txmmm7ael5FADipJbQ
+id: uswds_subscribe
+theme: uswds
+region: header
+weight: -24
+provider: null
+plugin: 'block_content:ea02559b-82a2-4e05-9886-500965f4c7a0'
+settings:
+  id: 'block_content:ea02559b-82a2-4e05-9886-500965f4c7a0'
+  label: Subscribe
+  label_display: '0'
+  provider: core
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: "/error-403-forbidden\r\n/page-temporarily-unavailable\r\n/oops-we-cant-find-file"
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      news_type: news_type
+      page: page

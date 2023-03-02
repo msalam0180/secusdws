@@ -1,0 +1,17 @@
+//------------------------------------------------------------------------
+// Text color utility classes
+// Note: $text-util-colors must be defined defined in _color-vars.scss
+//------------------------------------------------------------------------
+@each $name, $color in $text-util-colors {
+  .c {
+    &-default {
+      --theme-text-color: #{$c-default};
+      color: var(--theme-text-color) !important;
+    }
+
+    &-#{$name} {
+      --theme-text-color: #{$color};
+      color: var(--theme-text-color) !important;
+    }
+  }
+}

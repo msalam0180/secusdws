@@ -1,0 +1,326 @@
+id: petition
+label: Import of SEC petition Rules
+migration_group: regulations
+migration_tags:
+  - petition
+source:
+  plugin: federal_register
+  path: public://migration/petitions_for_rulemaking.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    #"id","releaseurl","date","type","details"
+    0:
+      name: id
+      label: "Release Number"
+    1:
+      name: releaseurl
+      label: "Release URL"
+    2:
+      name: date
+      label: "Date"
+    3:
+      name: details
+      label: "Details"
+  constants:
+    rule_type: "Petition"
+    site: "https://www.sec.gov/"
+    delimiter: "/"
+    division_office: "Enforcement"
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+
+  type:
+    plugin: default_value
+    default_value: regulation
+
+  title: title
+
+  field_display_title: title
+
+  body_text:
+    -
+      plugin: skip_on_contains
+      method: process
+      contains:
+        - '.pdf'
+        - '.txt'
+      source: releaseurl
+    -
+      plugin: str_replace
+      search: ')'
+      replace: ''
+    -
+      plugin: html_to_string
+    -
+      plugin: body_html_import
+      format: 'simple_text'
+
+  body:
+    plugin: if_else
+    source: '@body_text'
+    equals: NULL
+    then: '@abstract'
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+  file_number: file_number
+
+  field_release_file_number:
+    plugin: entity_generate
+    access_check: false
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    source: '@file_number'
+    bundle: rulemaking_index
+    values:
+      field_respondents: title
+
+  field_document_citation/value: citation
+  field_document_citation/format:
+    plugin: default_value
+    default_value: 'plain_text'
+
+
+  field_publish_date:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'Y-m-d\TH:i:s'
+
+  field_federal_register_publish_d:
+    plugin: format_date
+    source: publication_date
+    from_format: 'Y-m-d'
+    from_timezone: 'America/New_York'
+    to_format: 'Y-m-d\TH:i:s'
+
+  field_compliance_date:
+    - plugin: skip_on_missing
+      source: details
+      missing:
+        - 'Compliance Date: '
+        - 'Compliance Dates: '
+      method: process
+    - plugin: str_replace
+      regex: true
+      search: '/^.+Compliance Dates?: (.+?)(?=See also|Effective|Applicability|Comments? (due|received)|Note:|File No|Federal Register (PDF|version|\()|Other|Release|$)(.+$)?/i'
+      replace: $1
+      source: details
+
+  field_effective_date:
+    - plugin: skip_on_missing
+      source: details
+      missing:
+        - 'Effective Date: '
+        - 'Effective Dates: '
+      method: process
+    - plugin: str_replace
+      regex: true
+      search: '/^.+Effective Dates?: (.+?)(?=See also|Compliance|Applicability|Comments? (due|received)|Note:|File No|Federal Register (PDF|version|\()|Other|Release|$)(.+$)?/i'
+      replace: $1
+      source: details
+
+  field_applicability_date:
+    - plugin: skip_on_missing
+      source: details
+      missing: 'Applicability Date: '
+      method: process
+    - plugin: str_replace
+      regex: true
+      search: '/^.+Applicability Date: (.+?)(?=See also|Federal Register (PDF|version|\()|$)(.+$)?/i'
+      replace: $1
+      source: details
+
+  field_notes/format:
+    plugin: default_value
+    default_value: simple_text
+    
+  field_notes/value:
+    - plugin: skip_on_missing
+      source: details
+      missing:
+        - 'Note:'
+        - 'NOTE:'
+      method: process
+    - plugin: str_replace
+      regex: true
+      search: '/^.+Note: (.+)(?=See|\)|$).+$/i'
+      replace: $1
+      source: details
+    - plugin: str_replace
+      search: 'public://migration'
+      replace: 'https://www.sec.gov'
+    - plugin: str_replace
+      search: '(https://www.sec.gov/about/acrobat.htm)'
+      replace: ''
+    - plugin: str_replace
+      regex: true
+      search: '/([\w\s.-]+) \((http.+?)(\)|$)/i'
+      replace: '<a href="$2">$1</a>'
+    - plugin: str_replace
+      regex: true
+      search: '/Other Release Nos?\.: .+$/i'
+      replace: ''
+
+  field_rule_type:
+    plugin: entity_generate
+    source: constants/rule_type
+    value_key: name
+    bundle_key: vid
+    bundle: rule_type
+    entity_type: taxonomy_term
+    ignore_case: true
+
+  field_rin: regulation_id_numbers
+
+  field_release_number:
+    plugin: get_other_release_nos
+    source: details
+
+  field_primary_division_office:
+    plugin: entity_lookup
+    source: constants/division_office
+    value_key: name
+    bundle_key: vid
+    bundle: division_office
+    entity_type: taxonomy_term
+    ignore_case: true
+
+  field_release_file:
+    plugin: migration_lookup
+    migration:
+      - conceptreleases
+      - conceptseealso
+      - finalreleases
+      - finalseealso
+      - interim_finalreleases
+      - interim_finalseealso
+      - interpretivereleases
+      - interpretiveseealso
+      - otherreleases
+      - otherseealso
+      - proposedreleases
+      - proposedseealso
+      - sroreleases
+      - sroseealso
+      - aljinitialreleases
+      - aljinitialseealsofiles
+      - aljorderapreleases
+      - aljorderreleases
+      - aljorderseealsofiles
+      - apreleases
+      - apseealsofiles
+      - litigationreleasesreleases
+      - litigationreleasesseealsofiles
+      - opinionsordersreleases
+      - opinionsordersseealsofils
+      - stopordersreleases
+      - stopordersseealsofiles
+      - tradingsuspensionfiles
+      - tradingsuspensionseealso
+      - petitionreleases
+      - petitionseealso
+    no_stub: true
+    source: releaseurl
+
+  seealsourls:
+    plugin: see_also_urls
+    source: details
+
+  field_see_also:
+    - plugin: see_also_urls
+      return_associative: true
+      source: details
+    - plugin: sub_process
+      process:
+        target_id:
+          plugin: migration_lookup
+          source: url
+          migration:
+            - petitionseealsolinks
+            - petitionreleases
+            - petitionseealso
+            - conceptreleases
+            - conceptseealso
+            - finalreleases
+            - finalseealso
+            - interim_finalreleases
+            - interim_finalseealso
+            - interpretivereleases
+            - interpretiveseealso
+            - otherreleases
+            - otherseealso
+            - proposedreleases
+            - proposedseealso
+            - sroreleases
+            - sroseealso
+            - aljinitialreleases
+            - aljinitialseealsofiles
+            - aljorderapreleases
+            - aljorderreleases
+            - aljorderseealsofiles
+            - apreleases
+            - apseealsofiles
+            - litigationreleasesreleases
+            - litigationreleasesseealsofiles
+            - opinionsordersreleases
+            - opinionsordersseealsofils
+            - stopordersreleases
+            - stopordersseealsofiles
+            - tradingsuspensionfiles
+            - tradingsuspensionseealso
+            - otherseealsolinks
+            
+
+  field_federal_register_version/uri: federal_register_version
+  field_federal_register_version/title: 'Federal Register version'
+
+  has_conformed:
+    plugin: skip_on_missing
+    source: details
+    method: process
+    missing:
+      - 'Corrected to conform'
+      - 'Corrected to Conform'
+
+  field_conformed_to_federal_regis:
+    plugin: if_else
+    source: '@has_conformed'
+    equals: NULL
+    then: FALSE
+    else: TRUE
+
+  field_submitted_by:
+    - plugin: skip_on_missing
+      source: details
+      missing:
+        - 'Submitted by: '
+      method: process
+    - plugin: str_replace
+      regex: true
+      search: '/^.+Submitted by: (.+?)(?=See also|Compliance|Applicability|Comments? (due|received)|Note:|File No|Federal Register (PDF|version|\()|Other|Release|$)(.+$)?/i'
+      replace: $1
+      source: details
+
+destination:
+  plugin: entity:node
+
+migration_dependencies:
+  required:
+    - petitionseealso
+    - petitionseealsolinks
+    - petitionreleases
+    - petitioncomments

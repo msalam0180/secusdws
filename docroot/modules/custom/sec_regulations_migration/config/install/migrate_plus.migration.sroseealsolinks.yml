@@ -1,0 +1,58 @@
+id: sroseealsolinks
+label: Import of SRO Rules See Also Links
+migration_group: regulations
+migration_tags:
+  - sro
+  - seealsolinks
+source:
+  plugin: see_also_links
+  source_field: details
+  path: public://migration/sro_releases.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    0:
+      name: fileno
+      label: "File Number"
+    1:
+      name: fileurl
+      label: "File Url"
+    2:
+      name: id
+      label: "Release Number"
+    3:
+      name: releaseurl
+      label: "Release URL"
+    4:
+      name: date
+      label: "Date"
+    5:
+      name: details
+      label: "Details"
+  constants:
+    delimiter: ','
+process:
+
+  status:
+    plugin: default_value
+    default_value: 1
+
+  name: title
+  
+  field_media_entity_link/uri: url
+
+  field_media_entity_link/title: title
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+destination:
+  plugin: 'entity:media'
+  default_bundle: link

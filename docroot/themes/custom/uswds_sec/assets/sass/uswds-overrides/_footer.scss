@@ -1,0 +1,234 @@
+//------------------------------------------------------------------------
+// Footer overrides (SEC uses the “big footer” variation from USWDS)
+// https://designsystem.digital.gov/components/footer/
+//------------------------------------------------------------------------
+// Note: Footer has “bg-navy bg-gradient-overlay” classes (see page.html.twig)
+.usa-footer {
+  // Note: Footer uses USWDS grid for layout
+  // https://designsystem.digital.gov/utilities/layout-grid/#responsive-variants
+  // Breakopints are configured in uswds_sec/assets/sass/_uswds-settings.scss
+  // TODO: Figure out how to reference these breakpoints from USWDS directly
+  $bp-2-col: 640px;
+  $bp-full: 1024px;
+  $max-width: 1326px;// footer uses a custom max-width
+  @include scale(padding-top, ($bp-2-col: 38px, $bp-full: 60px));
+  padding-bottom: rem(72px);
+
+  @include max-width($bp-2-col - 1px) {
+    text-align: center;
+  }
+
+  @include min-width($bp-2-col) {
+    padding-bottom: rem(42px);
+  }
+
+  &__wrap {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: rem($max-width);
+  }
+
+  &__return-to-top {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    @include min-width($bp-full) {
+      margin-bottom: rem(22px);
+    }
+  }
+
+  &__nav {
+    // Note: Duplicate the selector to increase specificity in order to
+    //       override the USWDS styles wihtout resorting to !important.
+    &#{&} {
+      border-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .grid-container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  a,
+  a:hover,
+  a:focus,
+  a:active,
+  a:visited {
+    color: inherit;
+
+    @supports (text-decoration-thickness: 1px) {
+      text-decoration-color: currentColor;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+  }
+
+  &__primary {
+    &-section {
+      background-color: transparent;
+    }
+
+    &-content {
+      border-top: 0;
+
+      @include max-width($bp-full - 1px) {
+        margin-top: rem(34px);
+
+        :where(.region-footer-menu .grid-row > *:first-child) & {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &-heading {
+      margin-bottom: rem(10px);
+    }
+
+    // Note: This is the column heading in the nav section, currently a static h4
+    &-link {
+      color: inherit;
+    }
+  }
+
+  // Email sign-up form
+  .usa-sign-up {
+    margin-top: rem(35px);
+    padding-bottom: 0;
+    padding-top: 0;
+
+    @include max-width($bp-2-col) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: rem(340px);
+    }
+
+    &__heading {
+      font-size: rem(16px);
+      line-height: 1.2;
+
+      @include min-width($bp-2-col) {
+        font-size: rem(22px);
+      }
+    }
+
+    .usa-button {
+      // --theme-button-bg-color: #{$button-blue-dark};
+      // --theme-button-color: currentColor;
+      // --theme-button-hover-bg-color: #{$button-blue-darker};
+      margin-top: rem(36px);
+      width: auto;
+    }
+  }
+
+  // This class is added to <li> in nav section
+  &__secondary {
+    &-section {
+      background-color: transparent;
+      color: inherit;
+      padding-bottom: 0;
+      padding-top: 0;
+
+      @include max-width($bp-2-col - 1px) {
+        margin-top: rem(30px);
+      }
+
+      @include min-width($bp-2-col) {
+        margin-top: rem(60px);
+      }
+
+      @include min-width($bp-full) {
+        margin-top: rem(38px);
+      }
+
+      .grid-row {
+        @include min-width($bp-2-col) {
+          align-items: center;
+        }
+      }
+    }
+
+    &-link {
+      margin-left: 0;
+
+      &:not(:first-child) {
+        padding-top: rem(16px);
+      }
+    }
+  }
+
+  &__logo {
+    margin-bottom: 0;
+    margin-top: 0;
+
+    @include max-width($bp-2-col - 1px) {
+      margin-bottom: rem(40px);
+      margin-top: rem(44px);
+    }
+
+    &--mobile {
+      @include min-width($bp-2-col) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      @include max-width($bp-2-col - 1px) {
+        display: none;
+      }
+    }
+
+    &-img {
+      max-width: rem(276px);
+
+      @include max-width($bp-2-col - 1px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  &__contact-links {
+    margin-top: 0;
+
+    @include max-width($bp-2-col - 1px) {
+      width: 100%;
+    }
+  }
+
+  &__social-links {
+    padding-bottom: 0;
+
+    @include max-width($bp-2-col - 1px) {
+      justify-content: space-evenly;
+    }
+  }
+
+  .usa-social-link {
+    $link-size: 44px;
+    background-color: transparent;
+    height: rem($link-size);
+    transition: background-color 180ms ease;
+    width: rem($link-size);
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: rgba(#fff, 0.2);
+    }
+
+    // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
+    // Note: Since we can’t get each individual icon’s viewBox dimensions
+    //       in the template, the size of the SVG element won’t match the
+    //       use element, so the styles may not match Figma _exactly_.
+    .usa-icon {
+      height: 100%;
+      max-height: rem($link-size);
+      width: 100%;
+    }
+  }
+}

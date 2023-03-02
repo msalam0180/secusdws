@@ -1,0 +1,26 @@
+{% set message_class = message_class | render | lower %}
+
+{% if message_class == "informative" %}
+  {% set message_class = "info" %}
+{% elseif message_class == "none" %}
+  {% set message_class = "info usa-alert--no-icon" %}
+{% elseif message_class == "slim" %}
+  {% set message_class = "info usa-alert--slim" %}
+{% elseif message_class == "error" %}
+  {% set role = "role=alert" %}
+{% endif %}
+
+<div class="usa-alert usa-alert--{{- message_class }}" {{ role }}>
+  <div class="usa-alert__body">
+    {% if heading | render | length > 0 %}
+      <h3 class="usa-alert__heading">
+        {{- heading | render | capitalize -}}
+      </h3>
+    {% endif %}
+    {% if body | render | length > 0 %}
+      <div class="usa-alert__text">
+        {{ body | raw }}
+      </div>
+    {% endif %}
+  </div>
+</div>

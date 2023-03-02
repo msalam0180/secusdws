@@ -1,0 +1,24 @@
+subpage_card:
+  label: Subpage Card
+  description: Subpage card that links to a single page
+  fields:
+    heading:
+      type: text
+      label: Heading
+      description: Heading of the subpage card
+      preview: Mutual Fund & Variable Insurance Products Search
+    body:
+      type: text
+      label: Body
+      description: The body of the subpage card
+      preview: Et has minim elitr intellegat. Mea aeterno eleifend antiopam ad, nam no suscipit quaerendum. At nam minimum ponderum.
+    link:
+      type: text
+      label: Link
+      description: Link to page
+      preview: /
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3

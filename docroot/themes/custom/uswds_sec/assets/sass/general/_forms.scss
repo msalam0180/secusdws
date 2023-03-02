@@ -1,0 +1,160 @@
+// Regularizing forms throughout Drupal
+
+// Form
+.usa-form,
+.usa-form-group {
+  @include usa.at-media("mobile-lg") {
+    max-width: usa.units("tablet");
+  }
+  // Adds asterisk to required fields
+  .form-required::after {
+    display: inline-block;
+    margin-right: 0.15em;
+    margin-left: 0.15em;
+    content: "*";
+    color: $bg-red;
+    font-size: 1rem;
+  }
+  // Adds padding to the password suggestions
+  .password-suggestions ul {
+    padding-left: 1.2rem;
+  }
+}
+
+// Fieldsets and other grouped fields
+.usa-form-group.form-item-files-file,
+.usa-form-group.form-item-usa-managed-file,
+.usa-form-group.js-form-type-managed-file,
+.usa-fieldset,
+.field--widget-entity-reference-autocomplete {
+  border: 1px solid usa.color('base-lighter');
+  padding: usa.units(2);
+}
+
+.usa-fieldset {
+  margin-top: usa.units(3);
+}
+
+// Inline containers
+.container-inline {
+  div,
+  label {
+    display: inline-block;
+  }
+  
+  .usa-form-group {
+    margin-top: 0px;
+  }
+}
+
+// Ckeditor
+.form-textarea-wrapper .cke{
+  margin-top: usa.units(1);
+}
+
+// Radio Buttons and checkboxes
+.usa-radio {
+  background: transparent;
+}
+
+.usa-fieldset .form-radios > .usa-radio:first-child > label,
+.usa-fieldset .form-checkboxes > .usa-checkbox:first-child > label {
+  margin-top: 0;
+}
+
+.form-radios + .usa-hint,
+.form-checkboxes + .usa-hint,
+.usa-radios .usa-hint,
+.usa-checkbox .usa-hint {
+  margin-top: usa.units(1);
+}
+
+// Date/Date time
+.form-datetime-wrapper h2 {
+  margin-bottom: 0;
+}
+
+// Form accordion aka details
+.usa-form {
+  .usa-accordion {
+    margin-top: usa.units(3);
+  }
+  .usa-accordion + .usa-accordion {
+    margin-top: 0;
+  }
+}
+
+.usa-accordion .usa-accordion {
+  list-style: none;
+}
+
+.usa-accordion__content {
+   > div,
+   > fieldset {
+    &:first-of-type {
+      margin-top: 0;
+      > .usa-form-group:first-child,
+      > .usa-checkbox:first-of-type .usa-label,
+      > .usa-radio:first-of-type .usa-label {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.usa-accordion--bordered .usa-accordion__content {
+  max-width: 100%;
+}
+
+// Form Tables
+.field-multiple-table {
+  td > .usa-form-group {
+    margin: 0;
+  }
+  width: 100%;
+}
+
+.paragraphs-subform > .usa-accordion {
+  padding-right: 30px;
+}
+
+// autocomplete fields
+.js input.form-autocomplete {
+  background-position: right 7px center;
+}
+
+.tabledrag-toggle-weight-wrapper {
+  float: right;
+}
+.tabledrag-toggle-weight {
+  @extend .usa-button;
+}
+
+
+.field--widget-entity-reference-autocomplete {
+  margin-top: usa.units(3);
+  .usa-table {
+    margin: 0;
+  }
+}
+
+// inline form
+.form--inline {
+  display: inline-flex;
+  gap: 7px;
+  margin-top: usa.units(2);
+  flex-wrap: wrap;
+
+  .usa-form-group {
+    margin-top: 0;
+  }
+
+  .form-actions {
+    align-self: end;
+  }
+}
+
+// Views Exposed forms
+.views-exposed-form {
+  width: 100%;
+}

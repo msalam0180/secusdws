@@ -1,0 +1,20 @@
+side_nav:
+  version: VERSION
+  js:
+    assets/js/components-sidenav.js: { }
+  dependencies:
+    - core/once
+    - core/drupal.active-link
+
+components_filter:
+  version: VERSION
+  js:
+    assets/js/components-filter.js: { }
+  dependencies:
+    - core/once
+
+custom_styles:
+  version: VERSION
+  css:
+    theme:
+      assets/css/styles.css: { }

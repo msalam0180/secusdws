@@ -1,0 +1,35 @@
+{% set heading_level = heading_level|default(3) %}
+<div class="card-sidebar">
+  <div class="card-sidebar__main">
+    {% if logo %}
+      {# NOTE: Image code will need to be refactored during integration #}
+      {# If we can’t use 1x and 2x images we will needs to add the “sizes” attribute #}
+      {% set path_to_logo = drupal_url(active_theme_path() ~ '/dist/img/logos/' ~ logo) %}
+      <div  class="card-sidebar__image_wrapper">
+        {{logo}}
+      </div>
+    {% endif %}
+    {% if description %}
+      <p class="card-sidebar__text">{{ description }}</p>
+    {% endif %}
+    {% if footer %}
+      <div class="card-sidebar__footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="card-sidebar__sidebar usa-prose">
+    {% if sidebar_heading %}
+      <p class="card-sidebar__sidebar__heading">{{ sidebar_heading }}</p>
+    {% endif %}
+    {% if sidebar_list_items %}
+      {% set items = sidebar_list_items|first['#field_type'] ? sidebar_list_items|first|children : sidebar_list_items|split(',') %}
+        
+        <ul class="card-sidebar__sidebar__list">
+          {% for item in items %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+uuid: b5042548-8593-44da-8658-e0c653422274
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_customized_quick_links
+    - taxonomy.vocabulary.rule_type
+  module:
+    - field_config_cardinality
+    - link
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: taxonomy_term.rule_type.field_customized_quick_links
+field_name: field_customized_quick_links
+entity_type: taxonomy_term
+bundle: rule_type
+label: 'Customized Quick Links'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

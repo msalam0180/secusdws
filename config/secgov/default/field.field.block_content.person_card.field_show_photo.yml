@@ -1,0 +1,28 @@
+uuid: 2af6bd01-1f54-4114-81ea-389c86b4d060
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.person_card
+    - field.storage.block_content.field_show_photo
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.person_card.field_show_photo
+field_name: field_show_photo
+entity_type: block_content
+bundle: person_card
+label: 'Show Photo'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

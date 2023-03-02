@@ -1,0 +1,17 @@
+/// Strip units
+/// @group Sass Utils
+/// @param {Number} $value - Value to strip
+/// @return {Number} - Stripped value
+/// @link http://stackoverflow.com/a/12335841/673457
+@use "sass:math";
+
+@function strip-unit($value) {
+  // Return unitless value if valid number
+  @if type-of($value) == 'number' {
+    @return math.div($value, $value * 0 + 1);
+  }
+  // Error if not a valid number
+  @else {
+    @error 'strip-unit(#{inspect($value)} is not a valid number';
+  }
+}

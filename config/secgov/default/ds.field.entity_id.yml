@@ -1,0 +1,11 @@
+id: entity_id
+label: 'Entity ID'
+ui_limit: ''
+type: token
+type_label: 'Token field'
+entities:
+  paragraph: paragraph
+properties:
+  content:
+    value: '[paragraph:id:value]'
+    format: plain_text

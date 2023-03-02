@@ -1,0 +1,15 @@
+uuid: 8a92d1dc-a0db-4c72-933a-9b344097233d
+langcode: en
+status: true
+dependencies: {  }
+name: landing_page_header_small
+label: 'Landing Page Header: small'
+effects:
+  58abc88b-21a3-461a-8e65-0ef751cadfbc:
+    uuid: 58abc88b-21a3-461a-8e65-0ef751cadfbc
+    id: image_scale
+    weight: 1
+    data:
+      width: 765
+      height: 459
+      upscale: false

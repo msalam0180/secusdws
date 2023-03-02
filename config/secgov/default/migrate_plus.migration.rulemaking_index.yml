@@ -1,0 +1,46 @@
+uuid: cc4e4687-4831-422f-a18d-36b9befddc96
+langcode: en
+status: true
+dependencies: {  }
+id: rulemaking_index
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - aws
+migration_group: aws
+label: 'Import of Rulemaking Index content'
+source:
+  plugin: csv
+  path: 'public://migration/rulemaking_index.csv'
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    -
+      name: date
+      label: date
+    -
+      name: id
+      label: id
+    -
+      name: rulemaking
+      label: rulemaking
+    -
+      name: actions
+      label: actions
+  constants: null
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: id
+  field_rulemaking:
+    plugin: substr
+    start: 0
+    length: 255
+    source: rulemaking
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: rulemaking_index
+migration_dependencies: null

@@ -1,0 +1,39 @@
+//------------------------------------------------------------------------
+// Heading block with “view all” link (used by collection, reports promo)
+//------------------------------------------------------------------------
+.heading-block {
+  $bp-row: 360px;
+  $bp-link-align: 580px;// when link stops being aligned to the right edge
+  $bp-end-scale: 640px;
+  margin-bottom: rem(35px);
+
+  @include min-width($bp-row) {
+    align-items: baseline;
+    display: flex;
+  }
+
+  &__heading {
+    @include scale(font-size, (375px: 20px, $bp-end-scale: 24px));
+    font-family: $gotham-font-family;
+    font-weight: bold;
+    line-height: 1;
+
+    @include mq((min-width: $bp-row, max-width: $bp-link-align - 1px)) {
+      margin-right: rem(25px);
+    }
+  }
+
+  &__link {
+    @include scale(font-size, (375px: 14px, $bp-end-scale: 16px));
+    display: inline-block;
+    line-height: 1;
+
+    @include max-width($bp-row - 1px) {
+      margin-top: 2em;
+    }
+
+    @include min-width($bp-row) {
+      margin-left: auto;
+    }
+  }
+}

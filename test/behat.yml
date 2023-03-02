@@ -1,0 +1,187 @@
+default:
+  suites:
+    default:
+      contexts:
+        - EntityContext
+        - FeatureContext
+        - HomepageContext
+        - WysiwygContext
+        - ListPageContext
+        - PanelsContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\RawDrupalContext
+        - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+# investorgov test suite
+    investorgov:
+      paths:  [ '%paths.base%/features_investor' ]
+      contexts:
+        - EntityContext
+        - FeatureContext
+        - HomepageContext
+        - WysiwygContext
+        - ListPageContext
+        - PanelsContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\RawDrupalContext
+        - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Drupal\MinkExtension:
+      ajax_timeout: 10
+      goutte: ~
+      selenium2:
+        browser: chrome
+        wd_host: http://chrome-sec.lndo.site:4444/wd/hub
+        capabilities:
+          marionette: null
+          extra_capabilities:
+            chromeOptions:
+              args:
+                - "--disable-gpu"
+                - "--window-size=1820,1024"
+              w3c: false
+              prefs:
+                profile:
+                  content_settings:
+                    exceptions:
+                      clipboard:
+                        'https://sec.lndo.site,*':
+                          last_modified: '13312479654276119'
+                          setting: 1
+                          expiration: "0"
+      files_path: '%paths.base%/files'
+      show_cmd: chrome.exe
+    Bex\Behat\ScreenshotExtension:
+      image_drivers:
+        local:
+          screenshot_directory: '%paths.base%/behat-screenshots'
+          clear_screenshot_directory: true
+    Drupal\DrupalExtension:
+      selectors:
+        message_selector: '#messages'
+        error_message_selector: '#messages.messages-error'
+        success_message_selector: '#messages.messages-status'
+      blackbox: ~
+      api_driver: 'drupal'
+      region_map:
+        header: "#block-secgov-branding"
+        header_uswdssec: ".usa-navbar"
+        footer: "#block-secgov-footer"
+        breadcrumbs: "#breadcrumbs"
+        menu: "#block-secgov-main-menu"
+        contenttitle: "#block-secgov-page-title"
+        contentbanner: "#page-title"
+        title: "#main-wrapper h1"
+        articletitle: ".article-title"
+        prlistpage : ".pr-list-page"
+        speecheslistpage : ".speech-list-page"
+        banner: ".banner-org-name"
+        navigation: ".local-nav"
+        latest: ".newsroom-latest-pr"
+        formfooter: ".layout-region-node-footer"
+        alerttitle: "#alert .alert-title"
+        alertbody: "#alert .alert-body"
+        storyleft: ".block-region-section-1-left"
+        informprotectright: "#section-2"
+        facilitatecapitalformationleft: ".block-region-section-3-left"
+        providedataright: "#section-6"
+        regulatesecuritiesmarketsleft: "#section-5"
+        enforcefederalsecuritieslawsleft: "#section-4"
+        externalresource: "#edit-field-external-resource-0"
+        articlecontent: "div.content.aside"
+        sidebar: "#sidebar-second"
+        panelfirst: ".panel-col-first"
+        panelsecond: ".panel-col-last"
+        addlink: ".ajax-new-content"
+        footer1: ".site-footer"
+        footer2: ".site-footer2"
+        navigation_tab: ".tabs"
+        sixpack_homepage: "#homepage-links-wrapper"
+        modal: "#drupal-modal"
+        investor_menu: "#block-investor-main-menu"
+        contentarea: "#block-secgov-content"
+        left_nav_menu: "#investor-main-menu"
+        recent_edits: ".view-workbench-edited"
+        bread_crumbs: "#block-investor-breadcrumbs"
+        breadcrumb: ".c-breadcrumb"
+        maincontent: "#content"
+        new_link: ".ajax-new-content"
+        search_pagination: ".view-display-id-page_1 > nav:nth-child(5)"
+        landingpage_blocks: "#drupal-off-canvas"
+        landingpage_img: "div.field:nth-child(2)"
+        landingpage_video: "#grid"
+        accordion_img: "div.field__item:nth-child(2)"
+        status_message: "div.messages.messages--status"
+        addthis_region: "div.addthis-wrapper"
+        env_indicator: "#environment-indicator"
+        addthis_investor: "#at4-share"
+        bulletedListFirst: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ul > li:nth-child(1)"
+        bulletedListSecond: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ul > li:nth-child(2)"
+        bulletedListThird: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ul > li:nth-child(3)"
+        bulletedListForth: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ul > li:nth-child(4)"
+        numberedListFirst: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(1)"
+        numberedListFirstSub: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(1) > ol > li"
+        numberedListSecond: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(2)"
+        numberedListSecondSub: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(2) > ol > li"
+        numberedListThird: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(3)"
+        numberedListThirdSub: "div.field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > ol > li:nth-child(3) > ol > li"
+        investor_content: "#block-investor-content"
+        medialist: "#views-form-media-media-page-list"
+        image: "body > img"
+        edit_meta: "#edit-meta-published"
+        site_alert: "#alert"
+        edit_author: "#edit-meta-author"
+        speakers: "#edit-field-person-wrapper"
+        container: ".page-container"
+        relevant_results: "div.relevant-results-row"
+        other_results: "div.other-results-row"
+        wizard_allchoices: "#decision-tree > div.question-area.clearfix > div.all-choices"
+        webform_fileupload: ".js-form-type-webform-document-file"
+        ruling_comment_webform_fileupload: ".js-form-item.form-item.js-form-type-managed-file"
+        article_content: "#block-investor-content > article > div.node__content.main > div.layout.layout--threecol-25-50-25 > div.layout__region.layout__region--second > div.block.block-layout-builder.block-field-blocknodearticlebody.block-title- > div > p"
+        user_report: "#block-adminimal-theme-content > div > div > div.view-content > table"
+        inv_video_dog_caption: "#video412313 > div.mfp-bottom-bar > div.mfp-title > span"
+        trading_sus_leftNav: "#block-enforcement"
+        trading_sus_emailRegion: "#content > div"
+        trading_sus_view: "#DataTables_Table_0_wrapper"
+        admin_pro_emailRegion: "#subscribe-form"
+        see_also: "#edit-field-see-also"
+        media_content_table: "#views-form-media-media-page-list > table"
+        OCR_press_release: "#DataTables_Table_0_wrapper"
+        person_related_speeches_statement: "#block-secgov-content > article > div.main > div > div.layout__region.layout__region--second > div.views-element-container.contextual-region.block.region__inner.person_related_speeches_and_statements-block_1"
+        person_related_press-releases: "#block-secgov-content > article > div.main > div > div.layout__region.layout__region--second > div.views-element-container.contextual-region.block.region__inner.person_related_press_releases-block_1"
+        person_related_testimony: "#block-secgov-content > article > div > div > div.panel-panel.panel-col-last > div > div > div.views-element-container.block.region__inner.person_related_testimonials-block_1"
+        release_view_about: "#block-secgov-content > div > header > div"
+        node_page_modified_date: "#block-secgov-content > article > div.article-date.modified"
+        file_num_respondent: "#block-secgov-content > div > header > div"
+        file_num_documents: "#block-secgov-content > div > footer"
+        release_respondent_field: "#edit-field-respondents-wrapper"
+        rulemaking_table_header: "#block-secgov-content > div > div > table > thead > tr"
+        rulemaking_grouped_by_filenumber: "#block-secgov-content > div > div > table > tbody > tr"
+        rulemaking_actions_rule_2: "#block-secgov-content > div > div > table > tbody > tr:nth-child(2) > td.views-field.views-field-nothing-1"
+        rulemaking_table: "#block-secgov-content > div > div > table"
+        rule_view_detail: "#block-secgov-content > article > div.main > div > div.grid-container-two-col__side-section"
+        rule_detail_accordion_1: "#ui-id-2 > article > div > div"
+        rule_detail_accordion_2: "#ui-id-4 > article > div"
+        rule_view_related_1: "#block-secgov-content > article > div.main > div > div.grid-container-two-col__side-section > div > div.field_related_rule.quickedit-field > div:nth-child(2) > article > div"
+        rule_view_related_2: "#block-secgov-content > article > div.main > div > div.grid-container-two-col__side-section > div > div.field_related_rule.quickedit-field > div:nth-child(1) > article > div"
+        rule_view_related_3: "#block-secgov-content > article > div.main > div > div.grid-container-two-col__side-section > div > div.field_related_rule.quickedit-field > div:nth-child(3) > article > div"
+        rule_detail_view_comment: "#block-secgov-content > article > div.main > div > div.grid-container-two-col__section-main"
+        rulemaking_file_detail_doc: "#block-secgov-content > div > footer > div.processed-table"
+        rulemaking_1st_last_action_date: "#block-secgov-content > div > div > table > tbody > tr:nth-child(1) > td.views-field.views-field-nothing"
+        parent_rule_type: "#block-pagetitle--2 > div > div > div"
+        rule_releases: "#inline-entity-form-field_related_rule-form"
+        SRO_rule_detail: "#block-secgov-content > article > div > div > div.grid-container-two-col__section-main > div.details-wrapper"
+        SRO_rule_accordion1_detail: "#ui-id-2 > article"
+        SRO_rule_accordion2_detail: "#ui-id-4 > article"
+        SRO_node_heading: "#block-pagetitle--2 > div"
+        NSE_table: "#filter"
+        NSE_header: "#block-secgov-content > div > div > table > thead > tr"
+        OT_header: "#block-secgov-content > div > table > thead > tr"
+        uswds_main_block: "#block-uswds-sec-content"
+        subforms: "#settings-block-form-field-text-0-subform-field-card-add-more-wrapper"
+        uswds_accordion_block: "#main-content > div > div.l-wrap > div"
+        uswds_person_image_area: "div.layout-simple-content > div"

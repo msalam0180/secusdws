@@ -1,0 +1,14 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{% for item in alert_yml.alert %}
+  {% if item.styleguide_heading %}
+    <h2>{{ item.styleguide_heading | render | capitalize }}</h2>
+  {% endif %}
+
+  {{ pattern('alert', {
+    message_class: item.title,
+    heading: item.heading,
+    body: item.content
+  }) }}
+{% endfor %}

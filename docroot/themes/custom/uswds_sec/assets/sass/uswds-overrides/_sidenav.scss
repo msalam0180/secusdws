@@ -1,0 +1,134 @@
+//------------------------------------------------------------------------
+// Side navigation overrides
+// https://designsystem.digital.gov/components/side-navigation/
+//
+// NOTE: We’re relying on :has() for certain styles to avoid adding extra
+//       back-end integration work. Firefox and older Safari users won’t
+//       see any shades of green, just dark greeen for the current links.
+//       https://caniuse.com/css-has
+//------------------------------------------------------------------------
+.usa-sidenav {
+  $selector: &;
+  $bg-color: $bg-gray-med-light;
+  // Note: These Sass-generated colors didn’t match Figma so hard coding
+  $level-1-color: #d0dcde;// mix($bg-teal, $bg-color, 10%);
+  $level-2-color: #bed6d5;// mix($bg-teal, $bg-color, 20%);
+  $level-3-color: #abcecd;// mix($bg-teal, $bg-color, 30%);
+  $current-background: #00847d;// different from $bg-teal-dark
+  $current-border-color: $bg-teal;
+  $current-border-width: 6px;
+  $divider-border: 1px solid $border-gray-dark;
+  background-color: $bg-color;
+  border-bottom: 0;
+  border-right: $divider-border;
+  font-size: rem(15px);
+  letter-spacing: rem(0.2px);
+  line-height: 1.2;
+
+  .no-js & {
+    border-bottom: $divider-border;
+  }
+
+  // Note: Due to how USWDS styled this component, we’re using !important
+  //       to override certain styles to keep our selectors simple.
+  a {
+    border-right: $current-border-width solid transparent;
+    padding: rem(15px 24px) !important;
+    transition: all 180ms ease;
+
+    &:not(.usa-current) {
+      color: $c-default !important;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #fff !important;
+      border-right-color: $bg-yellow !important;
+      color: inherit !important;
+    }
+  }
+
+  .usa-current {
+    @include font-smoothing;
+    background-color: $current-background;
+    border-right-color: $current-border-color;
+    color: #fff;
+
+    // Change styling for parent links of active page
+    &:has(+ #{$selector}__sublist .usa-current) {
+      background-color: inherit;
+      color: $c-default;
+    }
+
+    // Hide default USWDS current indicator
+    &:after {
+      display: none;
+    }
+  }
+
+  &__item {
+    border-bottom: $divider-border;
+    border-top: 0;
+
+    .no-js & {
+      border-bottom: 0;
+    }
+
+    li {
+      font-weight: normal;
+    }
+
+    // Note: We have to use :has() unless we can add additional
+    //       “usa-current” classes to 2nd-level items.
+    &:has(#{$selector}__sublist) {
+      font-weight: bold;
+
+      > a {
+        border-right-color: $current-border-color;
+      }
+    }
+
+    &:has(.usa-current) {
+      background-color: $level-1-color;
+
+      li & {
+        background-color: $level-2-color;
+
+        li & {
+          background-color: $level-3-color;
+        }
+      }
+    }
+  }
+
+  &__sublist {
+    border-top: $divider-border;
+    padding-left: 0 !important;
+
+    &:has(.usa-current) {
+      background-color: $level-2-color;
+
+      // 1. Keep link height the same even though font-size is smaller
+      #{$selector}__sublist & {
+        background-color: $level-3-color;
+        font-size: rem(14px);
+        line-height: 1.3;// [1]
+      }
+    }
+
+    li:last-child {
+      border-bottom: 0;
+    }
+
+    a {
+      padding-bottom: rem(10px) !important;
+      padding-left: rem(45px) !important;
+      padding-top: rem(10px) !important;
+
+      #{$selector}__sublist & {
+        padding-left: rem(60px) !important;
+      }
+    }
+  }
+}

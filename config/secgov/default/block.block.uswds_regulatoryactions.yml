@@ -1,0 +1,25 @@
+uuid: 794bdd1e-0317-4a26-a6a0-fe9252ec03e7
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.regulatory-actions
+  module:
+    - system
+  theme:
+    - uswds
+id: uswds_regulatoryactions
+theme: uswds
+region: header
+weight: -20
+provider: null
+plugin: 'system_menu_block:regulatory-actions'
+settings:
+  id: 'system_menu_block:regulatory-actions'
+  label: 'Regulatory Actions'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

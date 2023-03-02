@@ -1,0 +1,32 @@
+uuid: 92f09544-5cd7-4969-a2c0-73f01da64a11
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.dera
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: ACNPX5gKL3zHP_6zIqoGgITOl4khjrU62lzD6BkBhLY
+id: uswds_sec_dera
+theme: uswds_sec
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'system_menu_block:dera'
+settings:
+  id: 'system_menu_block:dera'
+  label: DERA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/dera\r\n/dera/*\r\n/divisions/dera/*\r\n/economic-and-risk-analysis/*"

@@ -1,0 +1,29 @@
+uuid: 63a72002-e41f-4956-892b-5b5a93cde87a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_text
+    - paragraphs.paragraphs_type.lead_paragraph
+  module:
+    - allowed_formats
+    - field_config_cardinality
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - simple_text
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.lead_paragraph.field_text
+field_name: field_text
+entity_type: paragraph
+bundle: lead_paragraph
+label: Text
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

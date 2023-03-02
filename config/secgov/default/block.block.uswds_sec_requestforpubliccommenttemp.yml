@@ -1,0 +1,31 @@
+uuid: 9c940604-6799-419c-b8f8-c7ef0bcf9618
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d0142948-e54b-466a-9b70-09df76e800f0'
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+id: uswds_sec_requestforpubliccommenttemp
+theme: uswds_sec
+region: content
+weight: -33
+provider: null
+plugin: 'block_content:d0142948-e54b-466a-9b70-09df76e800f0'
+settings:
+  id: 'block_content:d0142948-e54b-466a-9b70-09df76e800f0'
+  label: 'Requests for Public Comment - temp'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

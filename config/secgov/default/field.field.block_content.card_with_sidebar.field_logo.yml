@@ -1,0 +1,34 @@
+uuid: e51a465d-047d-428d-a852-e33ba00516b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.card_with_sidebar
+    - field.storage.block_content.field_logo
+    - media.type.image_media
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.card_with_sidebar.field_logo
+field_name: field_logo
+entity_type: block_content
+bundle: card_with_sidebar
+label: Logo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image_media: image_media
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

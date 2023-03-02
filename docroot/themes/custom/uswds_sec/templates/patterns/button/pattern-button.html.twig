@@ -1,0 +1,17 @@
+{% if variant != '' and variant|lower != 'default' %}
+  {% set variants = variant|split('__') %}
+  {% for variant in variants %}
+    {% set attributes = attributes.addClass('usa-button--' ~ variant|lower|replace({'_': '-'})) %}
+  {% endfor %}
+{% endif %}
+
+{% if disabled == true %}
+  {% set attributes = attributes.setAttribute('disabled', 'disabled') %}
+{% endif %}
+
+{% if url or attributes.href %}
+  {% set url = url ?: attributes.href %}
+  <a{{ attributes.addClass('usa-button').addClass(classes).setAttribute('href', url) }}>{{ label }}</a>
+{% else %}
+  <span{{ attributes.addClass('usa-button') }}>{{ label }}</span>
+{% endif %}

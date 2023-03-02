@@ -1,0 +1,65 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+{% set template_path = '/templates/partials/p-usa-collection-default.html.twig' %}
+
+{{ attach_library('a11y_tabs/a11y_tabs') }}
+
+{% set a11y_tabs = [
+  {'tab_title':'Default Style', 'id':'panel-0', 'selected': 'true'},
+  {'tab_title':'Events Style', 'id':'panel-1', 'selected': 'false'},
+] %}
+
+<p>The default style will be used for all content other than events.</p>
+
+<div class="tabs__list" role="tablist">
+  {% for item in a11y_tabs %}
+    <button
+      class="tabs__item tabs__button usa-button"
+      role="tab"
+      aria-controls="{{ item.id }}"
+      aria-selected="{{ item.selected }}">
+      {{ item.tab_title }}
+    </button>
+  {% endfor %}
+</div>
+
+{# Start Tabs content. #}
+<div class="tabs__panel" id="{{ a11y_tabs.0.id | t }}" role="tabpanel" tab-title="{{ a11y_tabs.0.tab_title | t }}">
+  {{ pattern_preview('collection') }}
+</div>
+
+<div class="tabs__panel" id="{{ a11y_tabs.1.id | t }}" role="tabpanel" tab-title="{{ a11y_tabs.1.tab_title | t }}">
+  {{ pattern('collection', {
+    heading: 'Recently Adopted Rules',
+    content_type: 'Rules',
+    max_items: 3,
+    collection_test_yml: [
+      {
+        title: 'Protecting Older Investors & Investor Clinic Funding',
+        content_type: 'event',
+        taxonomy: 'Meeting',
+        body_text: 'A meeting to discuss accounting of non-traditional financial information, climate disclosure, a recommendation on protecting older investors, and a recommendation on funding investor advocacy clinics.',
+        link: '/',
+        date: 1685451600,
+        comments_deadline: 1700542740,
+        byline: ['Investor Advisory Committee'],
+        tags: ['Quarterly update', 'Cap Goal', 'APG']
+      },
+      {
+        title: '2022 RFK Compass Summer Investors Conference',
+        content_type: 'event',
+        taxonomy: 'Public Appearance',
+        link: '/',
+        date: 1686852000,
+        byline: ['Chair Gary Gensler']
+      }
+    ]
+  }) }}
+</div>
+
+{# <div class="tabs__panel" id="{{ a11y_tabs.3.id | t }}" role="tabpanel" tab-title="{{ a11y_tabs.3.tab_title | t }}">
+  <h2>{{ 'Headings Only' }}</h2>
+  {% include module_path ~ template_path with {
+    meta_name_icon: 'true',
+  } %}
+</div> #}

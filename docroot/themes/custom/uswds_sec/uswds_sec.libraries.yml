@@ -1,0 +1,5 @@
+custom-global-css:
+  version: 1.0.0
+  css:
+    theme:
+      dist/css/styles.css: {}

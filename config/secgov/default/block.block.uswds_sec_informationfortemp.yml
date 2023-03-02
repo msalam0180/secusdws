@@ -1,0 +1,31 @@
+uuid: c121b964-31d4-4441-9f25-97b712c31215
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:e773b0eb-141a-484b-bc2a-4d4d14c28326'
+  module:
+    - block_content
+  theme:
+    - uswds_sec
+id: uswds_sec_informationfortemp
+theme: uswds_sec
+region: content
+weight: -34
+provider: null
+plugin: 'block_content:e773b0eb-141a-484b-bc2a-4d4d14c28326'
+settings:
+  id: 'block_content:e773b0eb-141a-484b-bc2a-4d4d14c28326'
+  label: 'Information For -  temp'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

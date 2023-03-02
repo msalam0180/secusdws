@@ -1,0 +1,178 @@
+// Layout mixins
+@use "../vars/color-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../functions/rem" as *;
+@use "../mixins/typography" as *;
+@use "media-queries" as *;
+@use "scale" as *;
+@use "uswds-settings" as usa;
+
+// Default horizontal padding to prevent content from touching the viewport edges
+@mixin default-padding() {
+  @include scale(padding-left padding-right, (
+    375px: $layout-card-horz-padding-min,
+    460px: $layout-card-horz-padding-max
+  ));
+}
+
+// Default vertical margin above and below the main content well
+@mixin default-page-top($prop: padding-top) {
+  @include scale($prop, (320px: 40px, $layout-max-width-bp: 60px));
+}
+
+@mixin default-page-bottom($prop: padding-bottom) {
+  @include scale($prop, (320px: 60px, $layout-max-width-bp: 100px));
+}
+
+@mixin section-margin-top() {
+  @include scale(margin-top, (375px: 40px, $layout-max-width-bp: 60px));
+}
+
+// Card left/right padding
+// Note: Also used to inset “.usa-prose” content so its left aligned with card text
+@mixin card-horz-padding() {
+  @include scale(padding-left padding-right, (
+    375px: $layout-card-horz-padding-min,
+    460px: $layout-card-horz-padding-max
+  ));
+}
+
+// Make element 100vw width regardless of parent width
+// NOTE: These styles only work when the parent wrapper is centered.
+// https://css-tricks.com/full-width-containers-limited-width-parents/#aa-no-calc-needed
+@mixin layout-fullwidth($important: false) {
+  left: 50% #{if($important, ' !important', '')};
+  margin-left: -50vw #{if($important, ' !important', '')};
+  margin-right: -50vw #{if($important, ' !important', '')};// for RTL languages
+  position: relative #{if($important, ' !important', '')};
+  right: 50% #{if($important, ' !important', '')};// for RTL languages
+  width: 100vw #{if($important, ' !important', '')};
+
+  // Recalculate left offset and width when there’s an expanded sidenav on landing pages
+  // NOTE: “has-expanded-sidenav” is applied to <main> in /templates/system/layout/page.html.twig
+  :where(.has-expanded-sidenav) & {
+    @include min-width($layout-sidenav-bp) {
+      left: calc(50% + #{$layout-sidenav-width * 0.5}) #{if($important, ' !important', '')};
+      width: calc(100vw - #{$layout-sidenav-width}) #{if($important, ' !important', '')};
+    }
+  }
+
+  // Recalculate left offset and width when there’s a collapsed sidenav on default pages
+  // NOTE: “has-collapsed-sidenav” is applied to <main> in /templates/system/layout/page.html.twig
+  :where(.has-collapsed-sidenav) & {
+    @include min-width($layout-sidenav-bp) {
+      left: calc(50% + #{$layout-sidebar-border-width * 0.5}) #{if($important, ' !important', '')};
+      width: calc(100vw - #{$layout-sidebar-border-width}) #{if($important, ' !important', '')};
+    }
+  }
+}
+
+@mixin layout-fullwidth-sidebar() {
+  @include layout-fullwidth;
+
+  @include min-width($layout-sidebar-bp) {
+    left: calc(50% + #{rem($layout-sidebar-width * 0.5)});
+    right: calc(50% + #{rem($layout-sidebar-width * 0.5)});
+    width: calc(100vw - #{rem($layout-sidebar-width)});
+  }
+}
+
+// Left sidenav layout (used on landing pages)
+@mixin layout-sidenav-wrap() {
+  @include min-width($layout-sidenav-bp) {
+    display: flex;
+  }
+}
+
+@mixin layout-sidenav-main() {
+  @include min-width($layout-sidenav-bp) {
+    flex-grow: 1;
+    width: 100%;// IE11 fix
+
+    // Overrides for title block
+    .block-page-title-block,
+    .block-system-main-block {
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: rem($layout-sidenav-horz-padding);
+      padding-right: rem($layout-sidenav-horz-padding);
+      max-width: rem($layout-max-width + ($layout-padding-max * 2));
+    }
+  }
+}
+
+@mixin layout-sidenav-aside() {
+  background-color: $bg-gray-med-light;
+
+  @include max-width($layout-sidenav-bp - 1px) {
+    display: none;
+  }
+
+  @include min-width($layout-sidenav-bp) {
+    flex-shrink: 0;
+    order: -1;// always on the left
+    width: rem($layout-sidenav-width);
+  }
+}
+
+// Right sidebar layout (used on default template)
+@mixin layout-sidebar-wrap() {
+  @include min-width($layout-sidebar-bp) {
+    display: flex;
+  }
+}
+
+@mixin layout-sidebar-main() {
+  $main-content-padding-bottom: 100px;
+  $main-content-padding-top: 46px;
+  @include default-padding;
+  @include default-page-bottom;
+
+  @include min-width($layout-sidebar-bp) {
+    order: -1;// always on left
+    // padding-bottom: rem($main-content-padding-bottom);
+    // padding-top: rem($main-content-padding-top);
+    width: calc(100% - #{rem($layout-sidebar-width)});
+  }
+
+  > .content-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: rem($layout-max-width-narrow);
+  }
+}
+
+@mixin layout-sidebar-aside() {
+  @include max-width($layout-sidebar-bp - 1px) {
+    @include default-padding;
+    background-color: $bg-gray-lighter;
+    margin-top: rem(40px);
+    padding-bottom: rem(80px);
+    padding-top: rem(40px);
+  }
+
+  @include min-width($layout-sidebar-bp) {
+    border-left: 1px solid $border-gray;
+    flex: 0 0 rem($layout-sidebar-width);
+    padding: rem(50px $layout-sidebar-horz-padding 100px);
+  }
+
+  // Sidebar headings
+  // TODO: Would be better to have a consistent class name to use here
+  h2, h3, h4, h5, h6 {
+    &:first-child {
+      @include upper-heading;
+      border-bottom: 1px solid $border-gray;
+      margin-bottom: rem(26px);
+      padding-bottom: rem(26px);
+    }
+  }
+
+  a {
+    @include usa.typeset-link;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+}

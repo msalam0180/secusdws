@@ -1,0 +1,21 @@
+{
+  "name": "drupal/layout_builder_customizer",
+  "description": "Allows user to customize Layout Builder.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/layout_builder_customizer",
+  "authors": [
+    {
+      "name": "Neslee Canil Pinto",
+      "homepage": "https://www.drupal.org/u/neslee-canil-pinto",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/layout_builder_customizer",
+    "source": "https://git.drupalcode.org/project/layout_builder_customizer"
+  },
+  "require": {
+    "drupal/core": "^8.8 || ^9 || ^10"
+  }
+}

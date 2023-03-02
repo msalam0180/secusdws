@@ -1,0 +1,31 @@
+uuid: 6836986d-5e46-40e4-b17e-9106acc87f7a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:27a09b53-3f7a-4950-91e1-b6c3784ff8e1'
+  module:
+    - block_content
+  theme:
+    - uswds
+id: uswds_spotlighttemp
+theme: uswds
+region: content
+weight: -33
+provider: null
+plugin: 'block_content:27a09b53-3f7a-4950-91e1-b6c3784ff8e1'
+settings:
+  id: 'block_content:27a09b53-3f7a-4950-91e1-b6c3784ff8e1'
+  label: 'Spotlight - temp'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

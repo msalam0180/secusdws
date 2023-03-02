@@ -1,0 +1,225 @@
+id: stoporders
+label: Import of Stop Orders AWS content
+migration_group: aws
+migration_tags:
+  - aws
+  - stoporders
+source:
+  plugin: csv
+  path: public://migration/stop_orders.csv
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    0:
+      name: id
+      label: id
+    1:
+      name: releaseurl
+      label: 'Release URL'
+    2:
+      name: date
+      label: 'Date'
+    3:
+      name: respondents
+      label: 'Respondents'
+  constants:
+    release_type: 'Stop Orders'
+    site: 'https://www.sec.gov/'
+    delimiter: '/'
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+
+  type:
+    plugin: default_value
+    default_value: release
+
+  title: id
+
+  # skip pdf and txt files, we only want to import htm files as body content
+  body:
+    -
+      plugin: skip_on_contains
+      method: process
+      contains:
+        - '.pdf'
+        - '.txt'
+      source: releaseurl
+    -
+      plugin: str_replace
+      search: ')'
+      replace: ''
+    -
+      plugin: html_to_string
+    -
+      plugin: body_html_import
+
+
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'U'
+
+  changed: '@created'
+
+  field_publish_date:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: 'America/New_York'
+    to_format: 'Y-m-d\TH:i:s'
+
+
+  field_display_title: id
+
+  field_primary_division_office:
+    plugin: default_value
+    default_value: 39
+    #Enforcement
+
+  field_release_type:
+    plugin: entity_lookup
+    source: constants/release_type
+    value_key: name
+    bundle_key: vid
+    bundle: release_type
+    entity_type: taxonomy_term
+    ignore_case: true
+
+  field_release_number:
+    plugin: get_other_release_nos
+    source: respondents
+
+  field_release_file:
+    plugin: migration_lookup
+    migration:
+      - conceptreleases
+      - conceptseealso
+      - finalreleases
+      - finalseealso
+      - interim_finalreleases
+      - interim_finalseealso
+      - interpretivereleases
+      - interpretiveseealso
+      - otherreleases
+      - otherseealso
+      - proposedreleases
+      - proposedseealso
+      - sroreleases
+      - sroseealso
+      - aljinitialreleases
+      - aljinitialseealsofiles
+      - aljorderapreleases
+      - aljorderreleases
+      - aljorderseealsofiles
+      - apreleases
+      - apseealsofiles
+      - litigationreleasesreleases
+      - litigationreleasesseealsofiles
+      - opinionsordersreleases
+      - opinionsordersseealsofils
+      - stopordersreleases
+      - stopordersseealsofiles
+      - tradingsuspensionfiles
+      - tradingsuspensionseealso
+    no_stub: true
+    source: releaseurl
+
+  field_see_also:
+    - plugin: see_also_urls
+      return_associative: true
+      source: respondents
+    - plugin: sub_process
+      process:
+        target_id:
+          plugin: migration_lookup
+          source: url
+          migration:
+            - conceptreleases
+            - conceptseealso
+            - finalreleases
+            - finalseealso
+            - interim_finalreleases
+            - interim_finalseealso
+            - interpretivereleases
+            - interpretiveseealso
+            - otherreleases
+            - otherseealso
+            - proposedreleases
+            - proposedseealso
+            - sroreleases
+            - sroseealso
+            - aljinitialreleases
+            - aljinitialseealsofiles
+            - aljorderapreleases
+            - aljorderreleases
+            - aljorderseealsofiles
+            - apreleases
+            - apseealsofiles
+            - litigationreleasesreleases
+            - litigationreleasesseealsofiles
+            - opinionsordersreleases
+            - opinionsordersseealsofils
+            - stopordersreleases
+            - stopordersseealsofiles
+            - tradingsuspensionfiles
+            - tradingsuspensionseealso
+
+  filename:
+    plugin: end
+    source: releaseurl
+    delimiter: "/"
+
+  internal_path:
+    -
+      plugin: str_replace
+      source: releaseurl
+      search: 'https://www.sec.gov/'
+      replace: 'public://'
+    -
+      plugin: real_path
+
+
+  file_number:
+    plugin: get_file_number
+    source: releaseurl
+
+  respondents_value:
+    plugin: get_respondent
+    source: respondents
+
+  field_release_file_number:
+    plugin: entity_generate
+    access_check: false
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    source: '@file_number'
+    bundle: rulemaking_index
+    values:
+      field_respondents: '@respondents_value'
+
+  field_respondents:
+    -
+      plugin: skip_on_value
+      method: process
+      source: '@file_number'
+      not_equals: true
+      value: NULL
+    -
+      plugin: get
+      source: '@respondents_value'
+
+destination:
+  plugin: entity:node
+
+migration_dependencies:
+  required:
+    - stopordersseealsofiles
+    - stopordersreleases
+    - apreleases
+    - aljinitialreleases

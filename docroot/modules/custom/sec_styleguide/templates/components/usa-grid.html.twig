@@ -1,0 +1,130 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{# Example styles copied from https://designsystem.digital.gov/utilities/layout-grid/ #}
+<style>
+  .docs-grid-example .grid-row {
+      margin-top: .5rem
+  }
+
+  .docs-grid-example [class*=grid-col] {
+      background-color: #e1e7f1;
+      text-align: center
+  }
+
+  .docs-grid-example .grid-row:not([class*=grid-gap]) [class*=grid-col] {
+      border: 1px solid;
+      padding: 1rem
+  }
+
+  .docs-grid-example [class*=grid-gap] [class*=grid-col]>* {
+      background-color: #fff;
+      border: 1px solid;
+      padding: 1rem
+  }
+</style>
+
+
+<h2>3-Col Grid</h2>
+
+{% set example_grid_1 = '<div class="grid-container">
+  <div class="grid-row">
+    <div class="tablet:grid-col">.tablet:grid-col</div>
+    <div class="tablet:grid-col">.tablet:grid-col</div>
+    <div class="tablet:grid-col">.tablet:grid-col</div>
+  </div>
+</div>' %}
+
+<div class="docs-grid-example">
+  {{ example_grid_1|raw }}
+</div>
+
+{{ pattern('accordion', {
+  unique_id: 'example_1',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_grid_1|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<p>2-col in mobile, 3-col in tablet</p>
+
+{% set example_grid_4 = '<div class="grid-row">
+  <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
+  <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
+  <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
+</div>' %}
+
+<div class="docs-grid-example">
+  {{ example_grid_4|raw }}
+</div>
+
+{{ pattern('accordion', {
+  unique_id: 'example_4',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_grid_4|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+
+<h2>4-Col Grid</h2>
+<p>2-col in tablet, 4-col in desktop</p>
+
+{% set example_grid_2 = '<div class="grid-container">
+  <div class="grid-row">
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+  </div>
+</div>' %}
+
+<div class="docs-grid-example">
+  {{ example_grid_2|raw }}
+</div>
+
+{{ pattern('accordion', {
+  unique_id: 'example_2',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_grid_2|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+
+<h2>Custom Columns</h2>
+
+{% set example_grid_3 = '<div class="grid-row">
+  <div class="tablet:grid-col-4">.tablet:grid-col-4</div>
+  <div class="tablet:grid-col-8">.tablet:grid-col-8</div>
+</div>' %}
+
+<div class="docs-grid-example">
+  {{ example_grid_3|raw }}
+</div>
+
+{{ pattern('accordion', {
+  unique_id: 'example_3',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_grid_3|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+

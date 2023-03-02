@@ -1,0 +1,16 @@
+//------------------------------------------------------------------------
+// Modal overrides
+// https://designsystem.digital.gov/components/modal/
+//------------------------------------------------------------------------
+.usa-modal {
+  // Prevent FOUC by hiding modal content before the JS has initialized.
+  .js & {
+    display: none;
+  }
+
+  // Once the modal JS runs, it moves the original markup to the
+  // end of the <body> inside of a “.usa-modal-wrapper” wrapper.
+  .js .usa-modal-wrapper & {
+    display: block;
+  }
+}

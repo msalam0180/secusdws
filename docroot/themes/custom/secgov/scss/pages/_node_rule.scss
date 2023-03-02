@@ -1,0 +1,204 @@
+.node--type-rule, .node--type-regulation {
+
+  // basic styles and overrides
+  [role="article"] { float: none; }
+  #page-title h1 { padding-top: 0; }
+  #content-wrapper { width: 100%; }
+  .main-content { margin-bottom: 20px; }
+
+  .main {
+    a { text-decoration: underline; }
+  }
+}
+
+.node--type-rule {
+
+  .rule-type-header {
+    color: rgb(39, 58, 86);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  // Page Grid
+  .grid-container-two-col{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: auto;
+
+    @media screen and (min-width: 960px) {
+      grid-template-columns: auto 300px;
+    }
+  }
+
+  // -------------------------------------
+  // Main Section
+  .grid-container-two-col__section-main {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+
+  // Related Topics Section
+  .field_related_topics {
+    margin-bottom: 20px;
+  }
+
+  .field_related_topics > div{
+    background-color: #e3e3e3;
+    border-radius: 2px;
+    margin-right: .25rem;
+    display: inline-block;
+    padding: 3px 4px;
+  }
+
+  // Comments section
+  .public-comments {
+    margin-bottom: 20px;
+    padding: 10px 20px 20px 20px;
+    background: #efefef;
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .sro-node-comments {
+      margin: 10px 0;
+      .article-label {
+        display: block;
+        display: block;
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    a {
+      @extend button;
+      text-decoration: none;
+    }
+  }
+}
+
+// -------------------------------------
+// Details
+
+.details-wrapper {
+  background: #e3e3e3;
+  padding: 20px;
+
+  .field_release_file a span {
+    text-transform: uppercase;
+  }
+}
+
+.details-wrapper, .ui-accordion {
+  line-height: 1.1em;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .details-section > div, .field, .field_file_number {
+    margin-bottom: 10px;
+  }
+
+  .article-info span:not(.article-label) {
+    display: block;
+    line-height: 1.4em;
+  }
+
+  a {/* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    // /* This is the dangerous one in WebKit, as it breaks things wherever */
+    // word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .field-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+
+  .article-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+
+  .article-publishdate{
+    display: block;
+  }
+
+  .side-resources,
+  .side-details {
+    > div{
+      margin-bottom: 5px;
+    }
+  }
+  .side-details {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #273a56;
+  }
+
+  .side-resources h3,
+  .side-details h3 {
+    margin-bottom: 13px;
+    font-size: 1.4em;
+  }
+
+  .field_see_also {
+    & > div {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.node--type-rule {
+  // First Rule Release Specifics
+  .field_related_rule {
+    & > div:first-child {
+      margin-bottom: 20px;
+    }
+
+    // The rest of the Rule Releases Specifics
+    & > div:not(:first-child) {
+      margin-bottom: 20px;
+      article {
+        background: #f1f1f1;
+        padding: 10px;
+        border-left: 1px solid #273a56;
+        & + article {
+          margin-top: 15px;
+        }
+      }
+      .side-resources,
+      .side-details{
+        border-top: 1px solid #273a56;
+        padding-top: 10px;
+        margin-top: 10px;
+        h2 {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    & > div:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}

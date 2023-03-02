@@ -1,0 +1,15 @@
+uuid: bd5fb383-d23e-45e0-8922-804f07503458
+langcode: en
+status: true
+dependencies: {  }
+name: landing_page_header_medium
+label: 'Landing Page Header: medium'
+effects:
+  20edc1f9-0cda-479e-9cc0-612f6b3092c8:
+    uuid: 20edc1f9-0cda-479e-9cc0-612f6b3092c8
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 895
+      height: 537
+      anchor: center-center

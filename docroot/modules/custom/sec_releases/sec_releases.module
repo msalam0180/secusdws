@@ -1,0 +1,412 @@
+<?php
+
+/**
+ * @file
+ * Adds customizations to SEC releases
+ */
+
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\File\FileUrlGenerator;
+use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\pathauto\PathautoPatternInterface;
+
+
+ /**
+ * Implements hook_page_attachments().
+ *
+ * Adds the drupal.contextual-links library to the page for any user who has the
+ * 'access contextual links' permission.
+ *
+ * @see contextual_preprocess()
+ */
+function sec_releases_page_attachments(array &$page) {
+	$page['#attached']['library'][] = 'sec_releases/customizations';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function sec_releases_theme() {
+  return [
+    'media__static_file__release_see_also_files' => [
+      'template' => 'media--static-file--release-see-also-files',
+      'base hook' => 'media'
+    ],
+    'media__link__release_see_also_files' => [
+      'template' => 'media--link--release-see-also-files',
+      'base hook' => 'media'
+    ],
+    'media__static_file__regulation_see_also_files' => [
+      'template' => 'media--static-file--release-see-also-files',
+      'base hook' => 'media'
+    ],
+    'media__link__release_regulation_files' => [
+      'template' => 'media--link--release-see-also-files',
+      'base hook' => 'media'
+    ],
+    'node__regulation__title_and_type' => [
+      'template' => 'node--regulation--title-and-type',
+      'base hook' => 'node'
+    ],
+  ];
+}
+
+function sec_releases_preprocess_views_view_field(&$variables){
+  $view = $variables['view'];
+  if ($view->id() == 'releases_via_taxonomy' || $view->id() == 'releases'){
+
+    if($variables['field']->field == 'field_release_file_number'){
+      if($variables['field']->options['admin_label'] == 'respondents_preprocessed_file_number' || $variables['field']->options['admin_label'] == 'respondents_preprocessed_derived'){
+
+        $node = $variables['row']->nid;
+        if (is_string($node)) {
+          $node = Node::load($node);
+        }
+        if($node && !is_string($node)) {
+          if ($node->hasField("field_release_file_number") && $node->hasField("field_respondents")) {
+            $override_file_number_respondent = $node->field_override_file_number_respo->value ?? FALSE;
+            if (!$override_file_number_respondent) {
+              $file_numbers = $node->get('field_release_file_number');
+              $file_numbers_respondents = [];
+              if (!$file_numbers->isEmpty()) {
+                foreach ($file_numbers->referencedEntities() as $file_number) {
+                  $file_number_respondents_value = trim($file_number->get('field_respondents')->getValue()[0]['value']);
+                  if ($file_number_respondents_value !== NULL || $file_number_respondents_value !== "") {
+                    // turn line breaks into comma separated lists
+                    $output_value = str_replace("\r\n", ', ', $file_number_respondents_value);
+                    $file_numbers_respondents[] = $output_value;
+                  }
+                }
+              }
+              $file_numbers_respondents = array_filter($file_numbers_respondents);
+              if (empty($file_numbers_respondents)) {
+                $release_respondents = $node->get('field_respondents');
+                if (!$release_respondents->isEmpty()) {
+                  $respondents_final = $release_respondents->value;
+                } else {
+                  $respondents_final = "No Respondents";
+                }
+              } else {
+                // $file_numbers_respondents
+                $file_numbers_respondents_unique = array_unique($file_numbers_respondents);
+                $file_numbers_respondents_list = implode(', ', $file_numbers_respondents_unique);
+                $respondents_final = $file_numbers_respondents_list;
+              }
+            }
+            else {
+              $release_respondents = $node->get('field_respondents');
+              if (!$release_respondents->isEmpty()) {
+                $respondents_final = $release_respondents->value;
+              } else {
+                $respondents_final = "No Respondents";
+              }
+            }
+            if ($variables['field']->options['admin_label'] == 'respondents_preprocessed_file_number') {
+              $file_uri = $node->field_release_file->entity->field_media_file->entity;
+              if (!empty($file_uri) && $file_uri !== NULL) {
+                $file_uri = $file_uri->getFileUri();
+                $file_url = \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri);
+                $link_path = $file_url;
+              } else {
+                $nid = $variables['row']->nid;
+                $alias_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $nid);
+                $link_path = $alias_path;
+              }
+
+              $respondents_final_markup = "<div class='release-view__respondents'><a href='{$link_path}'>{$respondents_final}</a></div>";
+              $variables['output'] = Markup::create($respondents_final_markup);
+            }
+
+            if ($variables['field']->options['admin_label'] == 'respondents_preprocessed_derived') {
+              $variables['output'] = Markup::create($respondents_final);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if ($view->id() == 'release_content' || $view->id() == 'releases'){
+    $output = str_replace("\r", '', $variables['output']);
+    $output = preg_replace('!\s+,!', ',', $output);
+    $variables['output'] = \Drupal\views\Render\ViewsRenderPipelineMarkup::create($output);
+  }
+  elseif ($view->id() == 'file_number') {
+    if ($view->current_display == 'file_number_admin_page') {
+      if ($variables['field']->field == 'nothing') {
+        $urls = [];
+        $file_number_tid = $variables['row']->tid;
+        $nids = \Drupal::entityQuery('node')
+          ->condition('type', 'release')
+          ->condition('field_release_file_number', $file_number_tid)
+          ->sort('title', 'ASC')
+          ->execute();
+        if (!empty($nids)) {
+          foreach ($nids as $nid) {
+            $node = \Drupal::service('entity_type.manager')->getStorage('node')->load($nid);
+            if ($node) {
+              $urls[] = $node->toLink()->toString();
+            }
+          }
+        }
+        $variables['output'] = Markup::create(implode(", ", $urls));
+      }
+    }
+  }
+  elseif ($view->id() == 'rulemaking_activity' && $view->current_display == 'rulemaking_activity_page') {
+    if ($variables['field']->field === 'nothing') {
+
+      if ($variables['field']->position == 0) {
+        if (isset($variables['row']->publish_date)) {
+          $variables['output'] = date('m/d/Y', strtotime($variables['row']->publish_date));
+        }
+      }
+      elseif ($variables['field']->position == 3) {
+        $exposed_inputs = $view->getExposedInput();
+        if (isset($variables['row']->nid)) {
+          $query = \Drupal::database()->select('node__field_related_rule', 'rr');
+          $query->join('node__field_rule_type', 'frt', 'frt.entity_id = rr.field_related_rule_target_id');
+
+          $query->fields('rr', ['field_related_rule_target_id'])
+          ->condition('rr.entity_id', $variables['row']->nid)
+          ->condition('rr.delta', '0');
+
+          if (!empty($exposed_inputs['rulemaking_status'])) {
+            $query->condition('frt.field_rule_type_target_id', $exposed_inputs['rulemaking_status']);
+          }
+
+          $nid = $query->range(0, 1)
+            ->execute()
+            ->fetchField();
+
+          if (!empty($nid)) {
+            $variables['regulation_nid'] = $nid;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+function sec_releases_preprocess_media(&$variables) {
+  $media = $variables['media'];
+  $viewmode = $variables['view_mode'];
+  $mediabundle =  $media->bundle();
+  if ($mediabundle == 'static_file' && $viewmode == 'release_see_also_files'){
+
+    // Define the text for a see also file field label
+    // field_link_text_override > field_static_file_type > field_display_title > name
+    $variables['processed_file_label'] = '';
+    if ($media->hasField('field_link_text_override') && !$media->get('field_link_text_override')->isEmpty()) {
+      $variables['processed_file_label'] = $media->get('field_link_text_override')->value;
+
+    }elseif ($media->hasField('field_static_file_type') && !$media->get('field_static_file_type')->isEmpty()) {
+      $variables['processed_file_label'] = $media->get('field_static_file_type')->entity->get('name')->value;
+
+    }elseif ($media->hasField('field_display_title') && !$media->get('field_display_title')->isEmpty()) {
+      $variables['processed_file_label'] = $media->get('field_display_title')->value;
+
+    }elseif ($media->hasField('name') && !$media->get('name')->isEmpty()) {
+      $variables['processed_file_label'] = $media->get('name')->value;
+    }
+  }
+  if (($mediabundle == 'static_file' || $mediabundle == 'link') && $viewmode == 'release_see_also_files'){
+    $activeThemeName = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+    $variables['activeThemeName'] = $activeThemeName;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function sec_releases_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'taxonomy_term_rulemaking_index_form') {
+    $form['name']['widget'][0]['value']['#title'] = 'File Number';
+  }
+}
+
+/**
+ * Perform alterations before an entity form is included in the IEF widget.
+ */
+function sec_releases_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface &$form_state) {
+  if ($entity_form['#parents'][0] == 'field_release_file_number') {
+    $entity_form['name']['widget'][0]['value']['#title'] = 'File Number';
+  }
+}
+
+function sec_releases_inline_entity_form_table_fields_alter(array &$fields, array $context) {
+  if ($context['field_name'] == 'field_release_file_number') {
+    $fields['label']['label'] = 'File Number';
+  }
+}
+
+function sec_releases_preprocess_field(&$variables) {
+
+   // Get a few convenient handles.
+   $entity      = $variables['element']['#object'];
+   $entity_type = $variables['element']['#object']->bundle();
+   $field_name  = $variables['element']['#field_name'];
+   $view_mode   = $variables['element']['#view_mode'];
+   $field_type   = $variables['element']['#field_type'];
+
+  if ($entity_type == "regulation") {
+    //  set static text on entity references
+    if ($field_type == 'entity_reference') {
+      if ($field_name == 'field_release_file') {
+        $items = $variables['element']['#items'];
+        foreach ($items as $key => $item) {
+          if ($field_name == 'field_release_file') {
+            $field_display_title =  $variables['items'][$key]['content'][0]['#title'];
+
+            // Add Rule Type into Link
+            $ruleType = $variables['element']['#object']->get('field_rule_type')->entity->label();
+            $field_display_title = str_replace("--rule_type--", $ruleType, $field_display_title);
+
+            // Add span around the file type so it could be styled
+            $field_display_title = str_replace("--span--", '<span>', $field_display_title);
+            $field_display_title = str_replace("--span_end--", '</span>', $field_display_title);
+
+            $variables['items'][$key]['content'][0]['#title'] = [
+              '#markup' => $field_display_title
+            ];
+          }
+        }
+      }
+    }
+  }
+   if ($entity_type == "rule"){
+     //  set static text on entity references
+     if ($field_type == 'entity_reference'){
+       if ($field_name == 'field_submit_comments'|| $field_name == 'field_release_file') {
+         $items = $variables['element']['#items'];
+         foreach ($items as $key=>$item) {
+          if ($field_name == 'field_submit_comments'){
+            $file_number = "";
+            if (!empty($entity->field_file_number->entity)) {
+              $file_number = " on " . $entity->field_file_number->entity->label();       
+            }     
+            $variables['items'][$key]['content']['#title'] = "Submit A Comment" . $file_number;
+          }
+         }
+       }
+     }
+     if ($field_name == 'field_comments_due_date' || $field_name == 'field_comments_notice'){
+       $variables['label'] = "Public Comments Due";
+     }
+   }
+
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function sec_releases_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  // Clear field values that are unneeded
+  switch ($entity->bundle()) {
+    case 'rule':
+      $date_format = $entity->get('field_comments_date_format')->value;
+
+      if ($date_format == 'date'){
+        $entity->set('field_comments_notice', array());
+      }elseif ($date_format == 'text' ){
+        $entity->set('field_comments_due_date', array());
+      }else{
+        $entity->set('field_comments_notice', array());
+        $entity->set('field_comments_due_date', array());
+      }
+     break;
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function sec_releases_views_data_alter(&$data) {
+  $data['node_field_data']['rulemaking_status_filter'] = [
+    'title' => t('Rulemaking Status Filter'),
+    'filter' => [
+      'title' => t('Rulemaking Status Filter'),
+      'field' => 'tid',
+      'id' => 'rulemaking_status_filter',
+    ],
+  ];
+  $data['node_field_data']['division_office_filter'] = [
+    'title' => t('Rulemaking Division/Office Filter'),
+    'filter' => [
+      'title' => t('Rulemaking Division/Office Filter'),
+      'field' => 'tid',
+      'id' => 'division_office_filter',
+    ],
+  ];
+  $data['node_field_data']['rulemaking_year_filter'] = [
+    'title' => t('Rulemaking Last Action Year Filter'),
+    'filter' => [
+      'title' => t('Rulemaking Last Action Year Filter'),
+      'field' => 'tid',
+      'id' => 'regulation_year_date_filter',
+    ],
+  ];
+  $data['node_field_data']['sro_rule_date_filter'] = [
+    'title' => t('Rule SEC Issue Date Filter'),
+    'filter' => [
+      'title' => t('Rule SEC Issue Date Filter'),
+      'field' => 'id',
+      'id' => 'sro_rule_issue_date_filter',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function sec_releases_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+
+  if ($view->id() == 'rulemaking_activity' && $view->current_display == 'rulemaking_activity_page') {
+    $subquery = \Drupal::database()->select('node_field_data', 'rule_release_nfd');
+    $subquery->join('node__field_related_rule', 'rule_frr', 'rule_frr.field_related_rule_target_id = rule_release_nfd.nid');
+    $subquery->join('node__field_publish_date', 'rule_release_fpd', 'rule_release_fpd.entity_id = rule_release_nfd.nid');
+
+    $subquery
+      ->condition('rule_release_nfd.type', 'regulation')
+      ->condition('rule_release_nfd.status', 1)
+      ->fields('rule_frr', ['entity_id'])
+      ->groupBy('rule_frr.entity_id');
+    $subquery->addExpression('MAX(rule_release_fpd.field_publish_date_value)', 'publish_date');
+
+    $join_array = [
+      'type' => 'INNER',
+      'table' => $subquery,
+      'field' => 'entity_id',
+      'left_table' => 'node_field_data',
+      'left_field' => 'nid',
+      'adjust' => TRUE,
+    ];
+
+    $join = \Drupal::service('plugin.manager.views.join')->createInstance('standard', $join_array);
+    $query->addRelationship('rule_nfd', $join, 'node_field_data');
+    $query->addField('rule_nfd', 'entity_id', '', ['function' => 'groupby']);
+    $query->addField('rule_nfd', 'publish_date', 'publish_date');
+    $query->addGroupBy('rule_nfd.entity_id');
+    $query->orderby[0] = array(
+      'field' => 'rule_nfd.publish_date',
+      'direction' => 'DESC',
+    );
+
+  }
+}
+
+function sec_releases_pathauto_pattern_alter(PathautoPatternInterface $pattern, array $context) {
+  if ($context['module'] == 'node' && ($context['bundle'] == 'rule')) {
+    $node = $context['data']['node'];
+    if (!$node->get('field_sro_organization')->isEmpty()) {
+      $pattern->setPattern('/rules/sro/[node:field_file_number:entity:name]');
+    }
+  }
+}

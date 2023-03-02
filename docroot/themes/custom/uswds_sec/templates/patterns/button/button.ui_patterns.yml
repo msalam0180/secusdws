@@ -1,0 +1,37 @@
+button:
+  label: Button
+  description: "A button draws attention to important actions with a large selectable surface. https://designsystem.digital.gov/components/button/"
+  variants:
+    default:
+      label: Default
+    secondary:
+      label: Secondary
+    base:
+      label: Base
+    outline:
+      label: Outline
+    big:
+      label: Big
+    disabled:
+      label: Disabled
+    unstyled:
+      label: Unstyled
+  fields:
+    label:
+      type: text
+      label: Label
+      description: The button label
+      preview: Submit
+    url:
+      type: text
+      label: URL
+      description: The button URL. Optional.
+      preview: /
+    classes:
+      type: text
+      label: Classes
+      description: Additional Classes that can be added to a button
+    disabled:
+      type: boolean
+      label: Disabled
+      description: Sets the button to disabled

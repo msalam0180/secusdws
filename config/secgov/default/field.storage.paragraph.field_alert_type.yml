@@ -1,0 +1,36 @@
+uuid: 142b4361-aaef-42e5-b007-c7ed06128cf0
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_alert_type
+field_name: field_alert_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Informative
+      label: Informative
+    -
+      value: Warning
+      label: Warning
+    -
+      value: Error
+      label: Error
+    -
+      value: Success
+      label: Success
+    -
+      value: None
+      label: None
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

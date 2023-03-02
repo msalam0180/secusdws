@@ -1,0 +1,126 @@
+//------------------------------------------------------------------------
+// Custom reset styles not included in normalize.css (included by USWDS)
+//------------------------------------------------------------------------
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// 1. Set "box-sizing: border-box" globally
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;// [1]
+}
+
+// Fluid media
+img,
+picture,
+video,
+canvas {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+// 1. Ensure 3rd-party iframe embeds do not overlap sticky headers,
+//    nav dropdowns, modals, or other similar elements
+iframe,
+object,
+embed {
+  display: block;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;// [1]
+}
+
+// Note: Use :where() since its specificity is 0, avoiding conflicts
+:where(svg) {
+  fill: currentColor;
+}
+
+// Only remove bullets when role="list" is applied in order
+// to prevent VO in Safari from removing the list semantics.
+// https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html
+// https://piccalil.li/blog/a-modern-css-reset/
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+a {
+  // Prevent long mailto links from breaking layouts
+  // https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+  &:where([href^="mailto"]) {
+    word-break: break-all;
+    word-break: break-word;// Non-standard value for WebKit
+  }
+
+  // Override iOS phone number link styling
+  &:where([href^="tel"]) {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// Ensure SVGs don’t steal click event in links and buttons
+// https://css-tricks.com/links-inline-svg-staying-target-events/
+a,
+button {
+  & > svg {
+    pointer-events: none;
+  }
+}
+
+// Change the cursor for better usability
+button,
+label,
+select,
+[type="button"],
+[type="checkbox"],
+[type="radio"],
+[type="reset"],
+[type="submit"],
+[aria-controls] {
+  cursor: pointer;
+}
+
+[readonly] {
+  cursor: text;
+}
+
+[aria-busy="true"] {
+  cursor: progress;
+}
+
+[aria-disabled="true"],
+[disabled] {
+  cursor: not-allowed;
+}
+
+// Reset legacy SEC layout styles
+// .block-system-main-block .layout {
+//   display: block !important;
+//   width: 100% !important;
+// }
+
+// Reset legacy SEC wysiwyg markup
+.block-layout-builder .text-formatted {
+  [style] {
+    background-color: transparent !important;
+    color: $c-default !important;
+    font: inherit !important;
+    margin: inherit !important;
+    padding: inherit !important;
+    text-align: inherit !important;
+  }
+
+  [class*="colspan"] {
+    float: none !important;
+    margin: 1em 0 !important;
+    width: 100% !important;
+  }
+}

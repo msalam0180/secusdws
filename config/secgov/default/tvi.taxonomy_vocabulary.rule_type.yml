@@ -1,0 +1,5 @@
+enable_override: true
+view: regulations_via_taxonomy
+view_display: regulations_via_taxonomy_page
+inherit_settings: true
+pass_arguments: true

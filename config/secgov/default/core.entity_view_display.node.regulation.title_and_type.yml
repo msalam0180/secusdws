@@ -1,0 +1,249 @@
+uuid: 3482f031-bcea-4d46-ba71-3339bc0c2d7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.title_and_type
+    - field.field.node.regulation.body
+    - field.field.node.regulation.field_applicability_date
+    - field.field.node.regulation.field_comments_date_format
+    - field.field.node.regulation.field_comments_due_date
+    - field.field.node.regulation.field_comments_notice
+    - field.field.node.regulation.field_compliance_date
+    - field.field.node.regulation.field_conformed_to_federal_regis
+    - field.field.node.regulation.field_display_title
+    - field.field.node.regulation.field_document_citation
+    - field.field.node.regulation.field_effective_date
+    - field.field.node.regulation.field_federal_register_publish_d
+    - field.field.node.regulation.field_federal_register_version
+    - field.field.node.regulation.field_notes
+    - field.field.node.regulation.field_parent_rule
+    - field.field.node.regulation.field_primary_division_office
+    - field.field.node.regulation.field_publish_date
+    - field.field.node.regulation.field_release_file
+    - field.field.node.regulation.field_release_file_number
+    - field.field.node.regulation.field_release_number
+    - field.field.node.regulation.field_rin
+    - field.field.node.regulation.field_rule_type
+    - field.field.node.regulation.field_see_also
+    - field.field.node.regulation.field_submitted_by
+    - node.type.regulation
+  module:
+    - empty_fields
+    - field_group
+    - layout_builder
+    - user
+third_party_settings:
+  field_group:
+    group_side_section:
+      children: {  }
+      label: Details
+      parent_name: ''
+      region: hidden
+      weight: 30
+      format_type: html_element
+      format_settings:
+        classes: details-section
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_resources:
+      children: {  }
+      label: Resources
+      parent_name: ''
+      region: hidden
+      weight: 32
+      format_type: html_element
+      format_settings:
+        classes: side-resources
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_main_section:
+      children: {  }
+      label: 'Main Section'
+      parent_name: ''
+      region: hidden
+      weight: 29
+      format_type: html_element
+      format_settings:
+        classes: section-main
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_public_comments:
+      children: {  }
+      label: 'Public Comments'
+      parent_name: ''
+      region: hidden
+      weight: 27
+      format_type: html_element
+      format_settings:
+        classes: public-comments
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_grid_container:
+      children: {  }
+      label: 'Grid Container'
+      parent_name: ''
+      region: hidden
+      weight: 33
+      format_type: html_element
+      format_settings:
+        classes: grid-container_side-section
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_overview:
+      children: {  }
+      label: Overview
+      parent_name: ''
+      region: hidden
+      weight: 34
+      format_type: html_element
+      format_settings:
+        classes: regulation-overview
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_more_about_this_release:
+      children: {  }
+      label: 'More About This Release'
+      parent_name: ''
+      region: hidden
+      weight: 28
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_button_group:
+      children: {  }
+      label: 'Button Group'
+      parent_name: ''
+      region: hidden
+      weight: 26
+      format_type: html_element
+      format_settings:
+        classes: button-group
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_regulation_sidebar:
+      children: {  }
+      label: 'Regulation Sidebar'
+      parent_name: ''
+      region: hidden
+      weight: 31
+      format_type: html_element
+      format_settings:
+        classes: regulation-sidebar
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.regulation.title_and_type
+targetEntityType: node
+bundle: regulation
+mode: title_and_type
+content:
+  field_display_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_rule_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 1
+    region: content
+hidden:
+  body: true
+  field_applicability_date: true
+  field_comments_date_format: true
+  field_comments_due_date: true
+  field_comments_notice: true
+  field_compliance_date: true
+  field_conformed_to_federal_regis: true
+  field_document_citation: true
+  field_effective_date: true
+  field_federal_register_publish_d: true
+  field_federal_register_version: true
+  field_notes: true
+  field_parent_rule: true
+  field_primary_division_office: true
+  field_publish_date: true
+  field_release_file: true
+  field_release_file_number: true
+  field_release_number: true
+  field_rin: true
+  field_see_also: true
+  field_submitted_by: true
+  links: true
+  search_api_excerpt: true

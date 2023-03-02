@@ -1,0 +1,26 @@
+uuid: 351e1e5d-c9ce-4323-b50a-761c150002ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_notes
+    - node.type.regulation
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - simple_text
+id: node.regulation.field_notes
+field_name: field_notes
+entity_type: node
+bundle: regulation
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

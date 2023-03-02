@@ -1,0 +1,30 @@
+// Global helper classes not included in USWDS
+.u {
+  // Visually hide text whie still making it accessible to assistive devices.
+  // Note: We’re not using the sr-only() mixin from USWDS since it doesn’t
+  //       address as many edge cases (uses older negative text-indent method)
+  // https://github.com/uswds/uswds/blob/main/packages/uswds-core/src/styles/mixins/general/screen-reader.scss
+  // Note:
+  &-visually-hidden {
+    @include visually-hidden;
+  }
+
+  // Also include the unprefixed class since it appears to be used
+  // in some places even though it’s not included in USWDS.
+  @at-root .visually-hidden {
+    @include visually-hidden;
+  }
+
+  // Prevent text from wrapping
+  &-nowrap {
+    @include min-width(320px) {
+      display: inline-block;// necessary for nested inline elements
+      text-decoration: inherit;// don’t break link styles
+      white-space: nowrap !important;
+
+      @supports (text-decoration-color: #000) {
+        text-decoration-color: inherit;// Safari fix
+      }
+    }
+  }
+}

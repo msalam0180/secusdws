@@ -1,0 +1,19 @@
+uuid: d79d2c8a-5f5a-4f5a-bd29-3894296faf8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_applicability_date
+field_name: field_applicability_date
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

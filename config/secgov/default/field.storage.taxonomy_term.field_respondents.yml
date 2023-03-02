@@ -1,0 +1,19 @@
+uuid: 85746885-4dc8-4cb1-aa5c-33a5f72a736b
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_respondents
+field_name: field_respondents
+entity_type: taxonomy_term
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

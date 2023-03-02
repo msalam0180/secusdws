@@ -1,0 +1,13 @@
+//------------------------------------------------------------------------
+// Skip nav link
+// https://github.com/uswds/uswds/blob/develop/packages/usa-skipnav/src/styles/_usa-skipnav.scss
+//------------------------------------------------------------------------
+.usa-skipnav {
+  z-index: $z-skip-links;
+
+  &.is-desktop {
+    @include max-width($layout-nav-bp - 1px) {
+      display: none;
+    }
+  }
+}

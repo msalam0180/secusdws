@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a single field in a view.
+ *
+ * Available variables:
+ * - view: The view that the field belongs to.
+ * - field: The field handler that can process the input.
+ * - row: The raw result of the database query that generated this field.
+ * - output: The processed output that will normally be used.
+ *
+ * When fetching output from the row this construct should be used:
+ * data = row[field.field_alias]
+ *
+ * The above will guarantee that you'll always get the correct data, regardless
+ * of any changes in the aliasing that might happen if the view is modified.
+ *
+ * @see template_preprocess_views_view_field()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set rule_node = row._entity %}
+{% set regulation_node = row._relationship_entities.field_related_rule %}
+{% if regulation_node %}
+  {% set node_title = regulation_node.field_display_title.isEmpty() ? regulation_node.label : regulation_node.field_display_title.value %}
+{% elseif rule_node %}
+  {% set node_title = (rule_node.field_display_title.isEmpty() ? rule_node.label : rule_node.field_display_title.value ) %}
+{% endif %}
+{% if regulation_node and not regulation_node.field_release_file.isEmpty() %}
+  <a href="{{ file_url(regulation_node.field_release_file.entity.field_media_file.entity.uri.value) }}">{{ node_title }}</a><br>
+{% else %}
+  <a href="{{ path('entity.node.canonical', {'node': rule_node.id}) }}">{{ node_title }}</a><br>
+{% endif %}
+
+{% if not rule_node.field_comments_due_date.isEmpty() %}
+Comments Due: {{ rule_node.field_comments_due_date.value|date("F j, Y") }}<br>
+{% endif %}
+{% if not rule_node.field_comments_notice.isEmpty() %}
+Comments Due: {{ rule_node.field_comments_notice.value | check_markup(rule_node.field_comments_notice.format) | striptags }}<br>
+{% endif %}
+{% if not rule_node.field_comments_received.isEmpty() %}
+  {% set comment_received_url = rule_node.field_comments_received.0.url %}
+  {% set comment_received_title = rule_node.field_comments_received.title is empty ? "View Received Comments" : rule_node.field_comments_received.title %}
+  <a href="{{ comment_received_url }}">{{ comment_received_title }}</a><br>
+{% endif %}
+{% if regulation_node is defined and not regulation_node.field_related_rule.entity.field_see_also.isEmpty() %}
+  {% for see_also_item in regulation_node.field_see_also %}
+    {% if loop.first %}
+    See Also -
+    {% endif %}
+    {% if see_also_item.entity.bundle.target_id == "static_file" %}
+      {% set file_title = see_also_item.entity.field_link_text_override.value is empty ? see_also_item.entity.label : see_also_item.entity.field_link_text_override.value %}
+      <a href="{{ file_url(see_also_item.entity.field_media_file.entity.uri.value) }}">{{ file_title }}</a>{% if not loop.last %}, {% endif %}
+    {% elseif see_also_item.entity.bundle.target_id == "link" %}
+      <a href="{{ see_also_item.entity.field_media_entity_link.0.url }}" target="_blank">{{ see_also_item.entity.field_media_entity_link.title }}</a>{% if not loop.last %}, {% endif %}
+    {% endif %}
+    {% if loop.last %}
+    <br>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% if rule_node.field_show_submit_comments.value and not rule_node.field_submit_comments.isEmpty() %}
+  {{ drupal_field('field_submit_comments', 'node', rule_node.id) }}
+{% endif %}
+
+{% if not regulation_node.field_federal_register_version.isEmpty() %}
+  <a href="{{ regulation_node.field_federal_register_version.0.uri }}"> <i>Federal Register</i> version </a> {% if not regulation_node.field_document_citation.isEmpty() %}({{ regulation_node.field_document_citation.value }}){% endif %}
+{% endif %}
+{% if not regulation_node.field_notes.isEmpty() %}
+  <p>Note: {{ regulation_node.field_notes.value|raw }}</p>
+{% endif %}
+{% if regulation_node.field_rule_type.entity.label() == "Investment Company Act Release" %}
+  {{ rule_node.body.value|raw }}
+{% endif %}

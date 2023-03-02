@@ -1,0 +1,27 @@
+uuid: 89c6fd81-0a97-4a8e-8190-ff7f0f75c878
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_comments_date_format
+field_name: field_comments_date_format
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: date
+      label: Date
+    -
+      value: text
+      label: Text
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

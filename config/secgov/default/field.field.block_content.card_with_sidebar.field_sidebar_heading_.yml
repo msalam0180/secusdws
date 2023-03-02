@@ -1,0 +1,24 @@
+uuid: 421f7e77-1806-47fd-9366-dbebef5cfa94
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.card_with_sidebar
+    - field.storage.block_content.field_sidebar_heading_
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.card_with_sidebar.field_sidebar_heading_
+field_name: field_sidebar_heading_
+entity_type: block_content
+bundle: card_with_sidebar
+label: 'Sidebar heading'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

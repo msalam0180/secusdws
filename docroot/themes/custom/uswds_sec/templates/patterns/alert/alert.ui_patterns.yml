@@ -1,0 +1,19 @@
+alert:
+  label: Alert
+  description: "An alert keeps users informed of important and sometimes time-sensitive changes."
+  fields:
+    message_class:
+      type: text
+      label: Message Class
+      description: The class used for the alert
+      preview: info
+    heading:
+      type: text
+      label: Heading
+      description: The heading of the alert
+      preview: Hello, I am an alert
+    body:
+      type: text
+      label: Body
+      description: The body of the card
+      preview: "Lorem ipsum dolor sit amet, <a class='usa-link' href='#'>consectetur adipiscing</a> elit, sed do eiusmod."

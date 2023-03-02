@@ -1,0 +1,10 @@
+//------------------------------------------------------------------------
+// Link overrides
+// https://designsystem.digital.gov/components/link/
+// https://github.com/uswds/uswds/blob/develop/packages/usa-link/src/styles/_usa-link.scss
+// https://github.com/uswds/uswds/blob/develop/packages/usa-dark-background/src/styles/_usa-dark-background.scss
+//------------------------------------------------------------------------
+.usa-link {
+  // Adds support for SEC CSS vars
+  @include link-underline;
+}

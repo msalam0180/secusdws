@@ -1,0 +1,526 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<h2>Default Table</h2>
+
+{% set example_default = '<table class="usa-table">
+    <caption>
+      Bordered table
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Document title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Declaration of Independence
+        </th>
+        <td data-label="Description">
+          Statement adopted by the Continental Congress declaring independence
+          from the British Empire.
+        </td>
+        <td data-label="Year">1776</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">Bill of Rights</th>
+        <td data-label="Description">
+          The first ten amendments of the U.S. Constitution guaranteeing rights
+          and freedoms.
+        </td>
+        <td data-label="Year">1791</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Declaration of Sentiments
+        </th>
+        <td data-label="Description">
+          A document written during the Seneca Falls Convention outlining the
+          rights that American women should be entitled to as citizens.
+        </td>
+        <td data-label="Year">1848</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Emancipation Proclamation
+        </th>
+        <td data-label="Description">
+          An executive order granting freedom to slaves in designated southern
+          states.
+        </td>
+        <td data-label="Year">1863</td>
+      </tr>
+    </tbody>
+  </table>' %}
+
+{{ example_default|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_default',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_default|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h2>Borderless Table</h2>
+
+{% set example_borderless = '<table class="usa-table usa-table--borderless">
+  <caption>
+    Borderless table: A borderless table can be useful when you want the
+    information to feel more a part of the text it accompanies and extends.
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Document title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Declaration of Independence</th>
+      <td>
+        Statement adopted by the Continental Congress declaring independence
+        from the British Empire.
+      </td>
+      <td>1776</td>
+    </tr>
+    <tr>
+      <th scope="row">Bill of Rights</th>
+      <td>
+        The first ten amendments of the U.S. Constitution guaranteeing rights
+        and freedoms.
+      </td>
+      <td>1791</td>
+    </tr>
+    <tr>
+      <th scope="row">Declaration of Sentiments</th>
+      <td>
+        A document written during the Seneca Falls Convention outlining the
+        rights that American women should be entitled to as citizens.
+      </td>
+      <td>1848</td>
+    </tr>
+    <tr>
+      <th scope="row">Emancipation Proclamation</th>
+      <td>
+        An executive order granting freedom to slaves in designated southern
+        states.
+      </td>
+      <td>1863</td>
+    </tr>
+  </tbody>
+</table>' %}
+
+{{ example_borderless|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_borderless',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_borderless|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+{# 
+<h2 class="margin-top-7">Responsive stacked table</h2>
+
+{% set example_stacked = '<table class="usa-table usa-table--stacked">
+    <caption>
+      Bordered table
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Document title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Declaration of Independence
+        </th>
+        <td data-label="Description">
+          Statement adopted by the Continental Congress declaring independence
+          from the British Empire.
+        </td>
+        <td data-label="Year">1776</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">Bill of Rights</th>
+        <td data-label="Description">
+          The first ten amendments of the U.S. Constitution guaranteeing rights
+          and freedoms.
+        </td>
+        <td data-label="Year">1791</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Declaration of Sentiments
+        </th>
+        <td data-label="Description">
+          A document written during the Seneca Falls Convention outlining the
+          rights that American women should be entitled to as citizens.
+        </td>
+        <td data-label="Year">1848</td>
+      </tr>
+      <tr>
+        <th data-label="Document title" scope="row">
+          Emancipation Proclamation
+        </th>
+        <td data-label="Description">
+          An executive order granting freedom to slaves in designated southern
+          states.
+        </td>
+        <td data-label="Year">1863</td>
+      </tr>
+    </tbody>
+  </table>' %}
+
+{{ example_stacked|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_stacked',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_stacked|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }} #}
+
+<h2>Scrollable table</h2>
+
+{% set example_scroll = '<div class="usa-table-container--scrollable">
+  <table class="usa-table">
+    <caption>
+      Scrollable table
+    </caption>
+    <colgroup>
+      <col>
+    </colgroup>
+    <colgroup span="2"></colgroup>
+    <colgroup span="2"></colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2">Federal Budget<br>Baseline Projections</th>
+        <th colspan="2" scope="colgroup" class="text-center">2017</th>
+        <th colspan="2" scope="colgroup" class="text-center">2018</th>
+        <th colspan="2" scope="colgroup" class="text-center">2019</th>
+        <th colspan="2" scope="colgroup" class="text-center">2020</th>
+        <th colspan="2" scope="colgroup" class="text-center">2021</th>
+        <th colspan="2" scope="colgroup" class="text-center">Hist. Avg.</th>
+      </tr>
+      <tr>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Revenue</th>
+        <td class="font-mono-sm text-tabular text-right">17.2%</td>
+        <td class="font-mono-sm text-tabular text-right">3,316</td>
+        <td class="font-mono-sm text-tabular text-right">16.4%</td>
+        <td class="font-mono-sm text-tabular text-right">3,338</td>
+        <td class="font-mono-sm text-tabular text-right">16.3%</td>
+        <td class="font-mono-sm text-tabular text-right">3,490</td>
+        <td class="font-mono-sm text-tabular text-right">16.7%</td>
+        <td class="font-mono-sm text-tabular text-right">3,678</td>
+        <td class="font-mono-sm text-tabular text-right">16.7%</td>
+        <td class="font-mono-sm text-tabular text-right">3,827</td>
+        <td class="font-mono-sm text-tabular text-right">17.4%</td>
+        <td class="font-mono-sm text-tabular text-right">3,381</td>
+      </tr>
+      <tr>
+        <th scope="row">Outlays</th>
+        <td class="font-mono-sm text-tabular text-right">20.6%</td>
+        <td class="font-mono-sm text-tabular text-right">3,982</td>
+        <td class="font-mono-sm text-tabular text-right">20.2%</td>
+        <td class="font-mono-sm text-tabular text-right">4,142</td>
+        <td class="font-mono-sm text-tabular text-right">21.0%</td>
+        <td class="font-mono-sm text-tabular text-right">4,470</td>
+        <td class="font-mono-sm text-tabular text-right">21.3%</td>
+        <td class="font-mono-sm text-tabular text-right">4,685</td>
+        <td class="font-mono-sm text-tabular text-right">21.6%</td>
+        <td class="font-mono-sm text-tabular text-right">4,949</td>
+        <td class="font-mono-sm text-tabular text-right">20.3%</td>
+        <td class="font-mono-sm text-tabular text-right">4,198</td>
+      </tr>
+      <tr>
+        <th scope="row">Budget Deficit</th>
+        <td class="font-mono-sm text-tabular text-right">-3.5%</td>
+        <td class="font-mono-sm text-tabular text-right">-665</td>
+        <td class="font-mono-sm text-tabular text-right">-3.8%</td>
+        <td class="font-mono-sm text-tabular text-right">-804</td>
+        <td class="font-mono-sm text-tabular text-right">-4.6%</td>
+        <td class="font-mono-sm text-tabular text-right">-981</td>
+        <td class="font-mono-sm text-tabular text-right">-4.6%</td>
+        <td class="font-mono-sm text-tabular text-right">-1,008</td>
+        <td class="font-mono-sm text-tabular text-right">-4.9%</td>
+        <td class="font-mono-sm text-tabular text-right">-1,123</td>
+        <td class="font-mono-sm text-tabular text-right">-2.9%</td>
+        <td class="font-mono-sm text-tabular text-right">-483</td>
+      </tr>
+      <tr>
+        <th scope="row">Debt Held by Public</th>
+        <td class="font-mono-sm text-tabular text-right">76.0%</td>
+        <td class="font-mono-sm text-tabular text-right">14,665</td>
+        <td class="font-mono-sm text-tabular text-right">77.4%</td>
+        <td class="font-mono-sm text-tabular text-right">15,688</td>
+        <td class="font-mono-sm text-tabular text-right">79.2%</td>
+        <td class="font-mono-sm text-tabular text-right">16,762</td>
+        <td class="font-mono-sm text-tabular text-right">80.9%</td>
+        <td class="font-mono-sm text-tabular text-right">17,872</td>
+        <td class="font-mono-sm text-tabular text-right">83.1%</td>
+        <td class="font-mono-sm text-tabular text-right">18,998</td>
+        <td class="font-mono-sm text-tabular text-right">41.7%</td>
+        <td class="font-mono-sm text-tabular text-right">8,065</td>
+      </tr>
+    </tbody>
+  </table>
+</div>' %}
+
+{{ example_scroll|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_scroll',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_scroll|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h2>Compact scrollable table with horizontal stripes</h2>
+
+{% set example_compact = '<div class="usa-table-container--scrollable" tabindex="0">
+  <table class="usa-table usa-table--compact usa-table--striped">
+    <caption>
+      Compact scrollable table with horizontal stripes
+    </caption>
+    <colgroup>
+      <col>
+    </colgroup>
+    <colgroup span="2"></colgroup>
+    <colgroup span="2"></colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2">Federal Budget<br>Baseline Projections</th>
+        <th colspan="2" scope="colgroup" class="text-center">2017</th>
+        <th colspan="2" scope="colgroup" class="text-center">2018</th>
+        <th colspan="2" scope="colgroup" class="text-center">2019</th>
+        <th colspan="2" scope="colgroup" class="text-center">2020</th>
+        <th colspan="2" scope="colgroup" class="text-center">2021</th>
+        <th colspan="2" scope="colgroup" class="text-center">Hist. Avg.</th>
+      </tr>
+      <tr>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+        <th scope="col" class="text-right">%GDP</th>
+        <th scope="col" class="text-right">USD*</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Revenue</th>
+        <td class="font-mono-sm text-tabular text-right">17.2%</td>
+        <td class="font-mono-sm text-tabular text-right">3,316</td>
+        <td class="font-mono-sm text-tabular text-right">16.4%</td>
+        <td class="font-mono-sm text-tabular text-right">3,338</td>
+        <td class="font-mono-sm text-tabular text-right">16.3%</td>
+        <td class="font-mono-sm text-tabular text-right">3,490</td>
+        <td class="font-mono-sm text-tabular text-right">16.7%</td>
+        <td class="font-mono-sm text-tabular text-right">3,678</td>
+        <td class="font-mono-sm text-tabular text-right">16.7%</td>
+        <td class="font-mono-sm text-tabular text-right">3,827</td>
+        <td class="font-mono-sm text-tabular text-right">17.4%</td>
+        <td class="font-mono-sm text-tabular text-right">3,381</td>
+      </tr>
+      <tr>
+        <th scope="row">Outlays</th>
+        <td class="font-mono-sm text-tabular text-right">20.6%</td>
+        <td class="font-mono-sm text-tabular text-right">3,982</td>
+        <td class="font-mono-sm text-tabular text-right">20.2%</td>
+        <td class="font-mono-sm text-tabular text-right">4,142</td>
+        <td class="font-mono-sm text-tabular text-right">21.0%</td>
+        <td class="font-mono-sm text-tabular text-right">4,470</td>
+        <td class="font-mono-sm text-tabular text-right">21.3%</td>
+        <td class="font-mono-sm text-tabular text-right">4,685</td>
+        <td class="font-mono-sm text-tabular text-right">21.6%</td>
+        <td class="font-mono-sm text-tabular text-right">4,949</td>
+        <td class="font-mono-sm text-tabular text-right">20.3%</td>
+        <td class="font-mono-sm text-tabular text-right">4,198</td>
+      </tr>
+      <tr>
+        <th scope="row">Budget Deficit</th>
+        <td class="font-mono-sm text-tabular text-right">-3.5%</td>
+        <td class="font-mono-sm text-tabular text-right">-665</td>
+        <td class="font-mono-sm text-tabular text-right">-3.8%</td>
+        <td class="font-mono-sm text-tabular text-right">-804</td>
+        <td class="font-mono-sm text-tabular text-right">-4.6%</td>
+        <td class="font-mono-sm text-tabular text-right">-981</td>
+        <td class="font-mono-sm text-tabular text-right">-4.6%</td>
+        <td class="font-mono-sm text-tabular text-right">-1,008</td>
+        <td class="font-mono-sm text-tabular text-right">-4.9%</td>
+        <td class="font-mono-sm text-tabular text-right">-1,123</td>
+        <td class="font-mono-sm text-tabular text-right">-2.9%</td>
+        <td class="font-mono-sm text-tabular text-right">-483</td>
+      </tr>
+      <tr>
+        <th scope="row">Debt Held by Public</th>
+        <td class="font-mono-sm text-tabular text-right">76.0%</td>
+        <td class="font-mono-sm text-tabular text-right">14,665</td>
+        <td class="font-mono-sm text-tabular text-right">77.4%</td>
+        <td class="font-mono-sm text-tabular text-right">15,688</td>
+        <td class="font-mono-sm text-tabular text-right">79.2%</td>
+        <td class="font-mono-sm text-tabular text-right">16,762</td>
+        <td class="font-mono-sm text-tabular text-right">80.9%</td>
+        <td class="font-mono-sm text-tabular text-right">17,872</td>
+        <td class="font-mono-sm text-tabular text-right">83.1%</td>
+        <td class="font-mono-sm text-tabular text-right">18,998</td>
+        <td class="font-mono-sm text-tabular text-right">41.7%</td>
+        <td class="font-mono-sm text-tabular text-right">8,065</td>
+      </tr>
+    </tbody>
+  </table>
+</div>' %}
+
+{{ example_compact|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_compact',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_compact|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}
+
+<h2>Sortable striped table with various content types</h2>
+
+{% set example_sort = '<div class="usa-table-container--scrollable" tabindex="0">
+  <table class="usa-table usa-table--striped">
+    <caption>
+      Sortable striped table with various content types
+    </caption>
+    <thead>
+      <tr>
+        <th data-sortable scope="col" role="columnheader">Alphabetical</th>
+        <th data-sortable scope="col" role="columnheader">Month</th>
+        <th data-sortable scope="col" role="columnheader">Percent</th>
+        <th data-sortable scope="col" role="columnheader">Count</th>
+        <th data-sortable scope="col" role="columnheader">Rank (Ordinal)</th>
+        <th data-sortable scope="col" role="columnheader">Rank (Cardinal)</th>
+        <th data-sortable scope="col" role="columnheader">Unix Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Tango</th>
+        <td data-sort-value="3">March</td>
+        <td data-sort-value="0.206" class="font-mono-sm text-tabular text-right">
+          20.6%
+        </td>
+        <td data-sort-value="23612" class="font-mono-sm text-tabular text-right">
+          23,612
+        </td>
+        <td data-sort-value="3">Third</td>
+        <td data-sort-value="3">3rd</td>
+        <td data-sort-value="1332884673452">March 27, 2012</td>
+      </tr>
+      <tr>
+        <th scope="row">Foxtrot</th>
+        <td data-sort-value="4">April</td>
+        <td data-sort-value="0.026" class="font-mono-sm text-tabular text-right">
+          2.6%
+        </td>
+        <td data-sort-value="-32" class="font-mono-sm text-tabular text-right">
+          -32
+        </td>
+        <td data-sort-value="1">First</td>
+        <td data-sort-value="1">1st</td>
+        <td data-sort-value="1617974313232">April 9, 2021</td>
+      </tr>
+      <tr>
+        <th scope="row">Hilo</th>
+        <td data-sort-value="1">January</td>
+        <td data-sort-value="-0.036" class="font-mono-sm text-tabular text-right">
+          -3.6%
+        </td>
+        <td data-sort-value="0.002" class="font-mono-sm text-tabular text-right">
+          0.002
+        </td>
+        <td data-sort-value="2">Second</td>
+        <td>2nd</td>
+        <td data-sort-value="1611169964684">January 20, 2021</td>
+      </tr>
+      <tr>
+        <th scope="row">Bravo</th>
+        <td data-sort-value="12">December</td>
+        <td data-sort-value="-3.006" class="font-mono-sm text-tabular text-right">
+          -300.6%
+        </td>
+        <td data-sort-value="0" class="font-mono-sm text-tabular text-right">
+          0
+        </td>
+        <td data-sort-value="4">Fourth</td>
+        <td data-sort-value="4">4th</td>
+        <td data-sort-value="1608114345343">December 16, 2020</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="usa-sr-only usa-table__announcement-region" aria-live="polite"></div>
+</div>' %}
+
+{{ example_sort|raw }}
+
+{{ pattern('accordion', {
+  unique_id: 'example_sort',
+  style: 'bordered',
+  items: [
+    {
+      heading: 'Code',
+      content: "<pre><code>#{example_sort|e}</code></pre>",
+      expanded: 'false',
+    }
+  ]
+}) }}

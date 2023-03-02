@@ -1,0 +1,29 @@
+uuid: 25f59a49-31b8-4d98-a277-8276be7684e5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+  theme:
+    - uswds
+id: uswds_pagetitle
+theme: uswds
+region: header_top
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      regulation: regulation
+      release: release
+      rule: rule

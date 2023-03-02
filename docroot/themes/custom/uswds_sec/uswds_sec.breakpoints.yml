@@ -1,0 +1,28 @@
+uswds_sec.card_with_sidebar_breakpoint:
+  label: Card with Sidebar Breakpoint
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+uswds_sec.person_sidebar:
+  label: Person Sidebar
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+uswds_sec.people_cards:
+  label: People Cards
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+uswds_sec.component_block_image:
+  label: Component Block Image
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x

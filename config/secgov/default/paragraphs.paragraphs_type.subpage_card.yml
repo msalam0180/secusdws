@@ -1,0 +1,10 @@
+uuid: 1dc86492-bced-45e1-9ce2-993e70dc8b33
+langcode: en
+status: true
+dependencies: {  }
+id: subpage_card
+label: 'Subpage Card'
+icon_uuid: null
+icon_default: null
+description: 'Card that links to a single page'
+behavior_plugins: {  }

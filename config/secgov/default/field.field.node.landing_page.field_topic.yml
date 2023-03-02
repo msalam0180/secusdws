@@ -1,0 +1,29 @@
+uuid: e3f928f3-0aba-4a4c-82de-b273c288add6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_topic
+    - node.type.landing_page
+    - taxonomy.vocabulary.topics
+id: node.landing_page.field_topic
+field_name: field_topic
+entity_type: node
+bundle: landing_page
+label: Topic
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      topics: topics
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

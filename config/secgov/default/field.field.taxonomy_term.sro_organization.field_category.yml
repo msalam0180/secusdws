@@ -1,0 +1,34 @@
+uuid: eb1d8cd1-31b6-4e21-a4cb-90b1aa3d76f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_category
+    - taxonomy.vocabulary.sro_organization
+    - taxonomy.vocabulary.sro_organization_category
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: taxonomy_term.sro_organization.field_category
+field_name: field_category
+entity_type: taxonomy_term
+bundle: sro_organization
+label: Category
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      sro_organization_category: sro_organization_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

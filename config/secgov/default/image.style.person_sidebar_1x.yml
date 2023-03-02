@@ -1,0 +1,15 @@
+uuid: f1ce16eb-c982-4132-99a4-1025137d469d
+langcode: en
+status: true
+dependencies: {  }
+name: person_sidebar_1x
+label: 'Person Sidebar 1x'
+effects:
+  80db3de7-76ef-4d4b-8a9a-7d31bec04599:
+    uuid: 80db3de7-76ef-4d4b-8a9a-7d31bec04599
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 360
+      height: 360
+      anchor: center-center

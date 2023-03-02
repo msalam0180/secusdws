@@ -1,0 +1,59 @@
+uuid: 646af530-cd4f-4f02-847a-2bbfcf8b7ec7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.email_alerts_signup
+    - field.field.block_content.email_alerts_signup.field_email_list_id
+    - field.field.block_content.email_alerts_signup.field_heading_level
+    - field.field.block_content.email_alerts_signup.field_headline
+  module:
+    - ds
+    - options
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_email_alerts
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      headline:
+        - field_headline
+      list_id:
+        - field_email_list_id
+      heading_level:
+        - field_heading_level
+id: block_content.email_alerts_signup.default
+targetEntityType: block_content
+bundle: email_alerts_signup
+mode: default
+content:
+  field_email_list_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: list_id
+  field_heading_level:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: heading_level
+  field_headline:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: headline
+hidden:
+  search_api_excerpt: true

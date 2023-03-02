@@ -1,0 +1,116 @@
+//------------------------------------------------------------------------
+// Accordion style overrides
+// https://designsystem.digital.gov/components/accordion/
+//------------------------------------------------------------------------
+.usa-accordion {
+  $selector: &;
+  $bp-inset: 480px;// content horz padding
+  $content-horz-padding-min: 16px;
+  $content-horz-padding-max: 24px;
+  --bg-color: #{$accordion-yellow};
+  --bg-color-hover: #{$accordion-yellow-light};
+
+  &.is-gray {
+    --bg-color: #{$accordion-gray};
+    --bg-color-hover: #{$accordion-gray-light};
+  }
+
+  // The USWDS nav and banner both use the “usa-accordion__button” class.
+  // This means we have to ignore those components using :not() to avoid
+  // breaking them. This isn’t ideal but we can’t do much about it.
+  &__button:not(.usa-banner__button):not(.usa-nav__link) {
+    $icon-size: 20px;
+    align-items: center;
+    background-color: var(--bg-color);
+    background-image: none !important;// hide USWDS icon
+    display: flex;
+    padding: rem(20px 20px 20px 22px);
+    transition: background-color 180ms ease;
+
+    &:hover,
+    &:focus,
+    &[aria-expanded="true"] {
+      background-color: var(--bg-color-hover);
+    }
+
+    // Icon
+    &:before {
+      background-image: svg-url('plusCircle', (fill: $c-default));
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      height: rem($icon-size);
+      margin-right: rem(22px);
+      width: rem($icon-size);
+
+      .no-js & {
+        display: none;
+      }
+    }
+
+    &[aria-expanded="true"] {
+      &:before {
+        background-image: svg-url('minus', (fill: $c-default));
+        background-size: rem(14px) auto;
+      }
+    }
+
+    // Alternate styles when used as mobile nav menu (e.g. side nav)
+    .is-menu & {
+      $icon-size: 18px;
+      @include font-smoothing;
+      justify-content: space-between;
+      padding: rem(15px 16px);
+
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $bg-navy;
+        color: #fff;
+      }
+
+      // Icon
+      &:before {
+        background-image: svg-url('chevDown', (fill: #fff));
+        background-size: contain;
+        content: '';
+        height: rem($icon-size);
+        margin-left: rem(22px);
+        margin-right: 0;
+        order: 1;
+        width: rem($icon-size);
+      }
+
+      &[aria-expanded="true"] {
+        &:before {
+          transform: rotateX(180deg);
+        }
+      }
+    }
+  }
+
+  // Note: The USWDS accordion causes a FOUC on load.
+  //       Fixing this would require modifying the JS
+  //       to add a class once it has initialized, which
+  //       we could use to fix this with CSS.
+  &__content {
+    @include scale(padding-left padding-right, (
+      375px: $content-horz-padding-min,
+      $bp-inset: $content-horz-padding-max
+    ));
+    max-width: rem($layout-max-width-narrow + ($content-horz-padding-max * 2));
+
+    // Override .usa-prose styles
+    & > * {
+      max-width: none !important;
+    }
+
+    // Alternate styles when used as mobile nav menu (e.g. side nav)
+    .is-menu & {
+      max-width: none;
+      padding: 0;
+    }
+  }
+}

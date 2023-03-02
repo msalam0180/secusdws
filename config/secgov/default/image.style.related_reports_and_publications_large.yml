@@ -1,0 +1,15 @@
+uuid: 53a8989a-bb26-430a-b3be-00f67906e22b
+langcode: en
+status: true
+dependencies: {  }
+name: related_reports_and_publications_large
+label: 'Related Reports and Publications: large'
+effects:
+  63006efc-30c2-4ffb-ba7d-61d5bc0692d5:
+    uuid: 63006efc-30c2-4ffb-ba7d-61d5bc0692d5
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 720
+      height: 480
+      anchor: center-center

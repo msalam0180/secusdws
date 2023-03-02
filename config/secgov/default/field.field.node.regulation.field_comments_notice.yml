@@ -1,0 +1,25 @@
+uuid: f84867cf-7a34-4467-a3ef-c26fda5cb876
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments_notice
+    - node.type.regulation
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats: {  }
+id: node.regulation.field_comments_notice
+field_name: field_comments_notice
+entity_type: node
+bundle: regulation
+label: 'Comments Due Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,16 @@
+{# Copy link button (used on standard pages, i.e. not landing pages) #}
+{#
+  Note: Technically, the button text should to match the “aria-label” value
+  to be 508 compliant, but this _may_ be an ok exception. We should run
+  it by the folks doing accessibility testing to get their take.
+#}
+<button class="copy-link usa-button usa-button--base usa-button--icon no-js-hide"
+  type="button"
+  aria-label="Copy page URL to clipboard."
+  data-copy-url>
+  {# Note: Icon and text is toggled using CSS and a parent class added on click #}
+  {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'link', classes: 'initial'} %}
+  <span class="copy-link__text initial">Copy Link</span>
+  {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'check_circle', classes: 'success'} %}
+  <span class="copy-link__text success">Copied!</span>
+</button>

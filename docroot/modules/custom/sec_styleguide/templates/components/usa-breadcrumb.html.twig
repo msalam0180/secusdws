@@ -1,0 +1,14 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<div style="padding: 30px;">
+  {{ pattern_preview('breadcrumb') }}
+</div>
+
+{% set colors = ['navy', 'yellow', 'red', 'teal', 'blue', 'gray'] %}
+
+{% for color in colors %}
+  <div class="bg-{{ color }}" style="padding: 30px;">
+    {{ pattern_preview('breadcrumb') }}
+  </div>
+{% endfor %}

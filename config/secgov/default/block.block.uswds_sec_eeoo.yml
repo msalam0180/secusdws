@@ -1,0 +1,32 @@
+uuid: d327ff8e-b556-435f-b172-e7a6aab60765
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.eeoo
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: X_dvESbQTP5azqfjTac0bncNdXI81fqR-sKm3_vYkbs
+id: uswds_sec_eeoo
+theme: uswds_sec
+region: sidebar_first
+weight: -29
+provider: null
+plugin: 'system_menu_block:eeoo'
+settings:
+  id: 'system_menu_block:eeoo'
+  label: EEO
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/eeo\r\n/eeo/*"

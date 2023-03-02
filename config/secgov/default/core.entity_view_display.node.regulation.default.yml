@@ -1,0 +1,260 @@
+uuid: 6ddb6547-a419-415f-a80d-46edda0b927c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.regulation.body
+    - field.field.node.regulation.field_applicability_date
+    - field.field.node.regulation.field_comments_date_format
+    - field.field.node.regulation.field_comments_due_date
+    - field.field.node.regulation.field_comments_notice
+    - field.field.node.regulation.field_compliance_date
+    - field.field.node.regulation.field_conformed_to_federal_regis
+    - field.field.node.regulation.field_display_title
+    - field.field.node.regulation.field_document_citation
+    - field.field.node.regulation.field_effective_date
+    - field.field.node.regulation.field_federal_register_publish_d
+    - field.field.node.regulation.field_federal_register_version
+    - field.field.node.regulation.field_notes
+    - field.field.node.regulation.field_parent_rule
+    - field.field.node.regulation.field_primary_division_office
+    - field.field.node.regulation.field_publish_date
+    - field.field.node.regulation.field_release_file
+    - field.field.node.regulation.field_release_file_number
+    - field.field.node.regulation.field_release_number
+    - field.field.node.regulation.field_rin
+    - field.field.node.regulation.field_rule_type
+    - field.field.node.regulation.field_see_also
+    - field.field.node.regulation.field_submitted_by
+    - node.type.regulation
+  module:
+    - datetime
+    - empty_fields
+    - field_group
+    - fixed_text_link_formatter
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_side_section:
+      children:
+        - field_rule_type
+        - field_release_number
+        - field_publish_date
+        - field_effective_date
+        - field_compliance_date
+        - field_applicability_date
+        - field_federal_register_publish_d
+        - field_document_citation
+        - field_rin
+        - group_resources
+      label: Details
+      parent_name: group_details_wrapper
+      region: content
+      weight: 21
+      format_type: html_element
+      format_settings:
+        classes: details-section
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_resources:
+      children:
+        - field_release_file
+        - field_federal_register_version
+        - field_see_also
+      label: Resources
+      parent_name: group_side_section
+      region: content
+      weight: 12
+      format_type: html_element
+      format_settings:
+        classes: side-resources
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_grid_container:
+      children:
+        - group_details_wrapper
+      label: 'Grid Container'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: html_element
+      format_settings:
+        classes: grid-container_side-section
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_details_wrapper:
+      children:
+        - group_side_section
+      label: 'Details Wrapper'
+      parent_name: group_grid_container
+      region: content
+      weight: 20
+      format_type: html_element
+      format_settings:
+        classes: details-wrapper
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+id: node.regulation.default
+targetEntityType: node
+bundle: regulation
+mode: default
+content:
+  field_applicability_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_compliance_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_document_citation:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_effective_date:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_federal_register_publish_d:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_federal_register_version:
+    type: fixed_text_link
+    label: hidden
+    settings:
+      trim_length: null
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: _blank
+      link_text: 'Federal Register Version'
+      link_class: ''
+      allow_override: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 8
+    region: content
+  field_publish_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_release_file:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_release_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_rin:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_rule_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_see_also:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: release_see_also_files
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 9
+    region: content
+  field_submitted_by:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_comments_date_format: true
+  field_comments_due_date: true
+  field_comments_notice: true
+  field_conformed_to_federal_regis: true
+  field_display_title: true
+  field_notes: true
+  field_parent_rule: true
+  field_primary_division_office: true
+  field_release_file_number: true
+  search_api_excerpt: true

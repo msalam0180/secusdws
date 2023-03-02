@@ -1,0 +1,28 @@
+uuid: c74845ec-004c-47f8-a5d2-ec76de2ce0f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.person_card
+    - field.storage.block_content.field_show_phone
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.person_card.field_show_phone
+field_name: field_show_phone
+entity_type: block_content
+bundle: person_card
+label: 'Show Phone'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

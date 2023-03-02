@@ -1,0 +1,14 @@
+reports_promo:
+  label: Related Reports and Publications
+  description: Three-up card promo of reports and publications, dynamically generated based on topic
+  fields:
+    topic:
+      type: text
+      label: Topic
+      description: Topic tag used to filter reports
+      preview: example-topic
+    heading_level:
+      type: text
+      label: Heading level
+      description: 2–6
+      preview: 3

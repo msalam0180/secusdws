@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * UI Pattern meta information.
+ */
+#}
+
+{% if pattern is not empty %}
+
+  {# Pattern name and description. #}
+  <h2 class="pattern-preview__label">{{ pattern.label }}</h2>
+  <p class="pattern-preview__description">{{ pattern.description }}</p>
+
+  {# Pattern fields descriptions. #}
+  <div class="usa-table-container--scrollable">
+    <table class="pattern-preview__fields usa-table usa-table--borderless">
+      <thead>
+      <tr>
+        <th>{{ "Field"|t }}</th>
+        <th>{{ "Label"|t }}</th>
+        <th>{{ "Type"|t }}</th>
+        <th>{{ "Description"|t }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for field in pattern.fields %}
+        <tr>
+          <td><code>{{ field.name }}</code></td>
+          <td>{{ field.label }}</td>
+          <td><code>{{ field.type }}</code></td>
+          <td>{{ field.description }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endif %}

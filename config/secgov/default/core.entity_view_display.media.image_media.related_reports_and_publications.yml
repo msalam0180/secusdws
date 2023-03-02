@@ -1,0 +1,58 @@
+uuid: 4c63f916-fe4b-4334-815d-87e3c2350c72
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.related_reports_and_publications
+    - field.field.media.image_media.field_act
+    - field.field.media.image_media.field_audience
+    - field.field.media.image_media.field_media_caption
+    - field.field.media.image_media.field_media_image
+    - field.field.media.image_media.field_media_person
+    - field.field.media.image_media.field_primary_division_office
+    - field.field.media.image_media.field_publish_date
+    - field.field.media.image_media.field_regulation
+    - field.field.media.image_media.field_supporting_division_office
+    - field.field.media.image_media.field_tags
+    - media.type.image_media
+    - responsive_image.styles.related_reports_and_publications
+  module:
+    - empty_fields
+    - layout_builder
+    - responsive_image
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: media.image_media.related_reports_and_publications
+targetEntityType: media
+bundle: image_media
+mode: related_reports_and_publications
+content:
+  field_media_image:
+    type: responsive_image
+    label: hidden
+    settings:
+      responsive_image_style: related_reports_and_publications
+      image_link: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_act: true
+  field_audience: true
+  field_media_caption: true
+  field_media_person: true
+  field_primary_division_office: true
+  field_publish_date: true
+  field_regulation: true
+  field_supporting_division_office: true
+  field_tags: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
+  workbench_moderation_control: true

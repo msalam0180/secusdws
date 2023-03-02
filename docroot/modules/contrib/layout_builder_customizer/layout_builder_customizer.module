@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Layout Builder Customizer module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_form_alter().
+ */
+function layout_builder_customizer_form_alter(&$form, FormStateInterface $formState) {
+  if (!\Drupal::currentUser()->hasPermission('administer layout builder customizer')) {
+    return;
+  }
+
+  if ($form['#form_id'] === 'entity_view_display_edit_form') {
+    $config = \Drupal::config('layout_builder_customizer.settings_form');
+    $is_disable = $config->get('layout_builder_customizer_disable');
+    if ($is_disable == 1) {
+      $form['layout']['allow_custom']['#states'] = [
+        'disabled' => [
+          ':input[name="layout[enabled]"]' => ['checked' => TRUE],
+        ],
+        'invisible' => [
+          ':input[name="layout[enabled]"]' => ['checked' => FALSE],
+        ],
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function layout_builder_customizer_entity_operation(EntityInterface $entity) {
+  $account = \Drupal::currentUser();
+  $entity_type_id = $entity->getEntityTypeId();
+  $route_name = "layout_builder.overrides.$entity_type_id.view";
+  $route_parameters = [
+    $entity_type_id => $entity->id(),
+  ];
+  $access_manager = \Drupal::service('access_manager');
+  if (!$access_manager->checkNamedRoute($route_name, $route_parameters, $account)) {
+    return;
+  }
+  return [
+    'Layout' => [
+      'title' => t('Layout'),
+      'weight' => 50,
+      'url' => Url::fromRoute($route_name, $route_parameters),
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function layout_builder_customizer_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'layout_builder_customizer/global-styling';
+}

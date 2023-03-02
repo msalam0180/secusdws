@@ -1,0 +1,12 @@
+// CSS for content page
+.lead-paragraph {
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 31px;
+}
+
+// CSS for Landing Page
+.node--type-landing-page .lead-paragraph {
+  font-size: 21px;
+  line-height: 25px;
+}

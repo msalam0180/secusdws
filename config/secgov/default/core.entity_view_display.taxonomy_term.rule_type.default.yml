@@ -1,0 +1,51 @@
+uuid: cc2644c0-1b96-4df3-9065-3380f3e9932c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.rule_type.field_customized_quick_links
+    - field.field.taxonomy_term.rule_type.field_description
+    - field.field.taxonomy_term.rule_type.field_page_title
+    - field.field.taxonomy_term.rule_type.field_quick_links
+    - field.field.taxonomy_term.rule_type.field_release_path
+    - taxonomy.vocabulary.rule_type
+  module:
+    - link
+    - options
+    - text
+id: taxonomy_term.rule_type.default
+targetEntityType: taxonomy_term
+bundle: rule_type
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_customized_quick_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_quick_links:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_description: true
+  field_page_title: true
+  field_release_path: true
+  search_api_excerpt: true

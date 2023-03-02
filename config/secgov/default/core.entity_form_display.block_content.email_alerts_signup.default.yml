@@ -1,0 +1,40 @@
+uuid: 43ae5680-4574-4938-976a-438b7559f7bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.email_alerts_signup
+    - field.field.block_content.email_alerts_signup.field_email_list_id
+    - field.field.block_content.email_alerts_signup.field_heading_level
+    - field.field.block_content.email_alerts_signup.field_headline
+  module:
+    - workbench_moderation
+id: block_content.email_alerts_signup.default
+targetEntityType: block_content
+bundle: email_alerts_signup
+mode: default
+content:
+  field_email_list_id:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_heading_level:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_headline:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  info: true

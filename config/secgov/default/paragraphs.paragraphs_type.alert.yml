@@ -1,0 +1,10 @@
+uuid: b6ea2d11-09ae-4692-8198-5eef1e37b79b
+langcode: en
+status: true
+dependencies: {  }
+id: alert
+label: Alert
+icon_uuid: null
+icon_default: null
+description: 'Alerts keep users informed of important and sometimes time-sensitive changes.'
+behavior_plugins: {  }

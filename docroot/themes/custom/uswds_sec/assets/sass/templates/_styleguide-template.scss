@@ -1,0 +1,29 @@
+//------------------------------------------------------------------------
+// Style guide template
+//------------------------------------------------------------------------
+.path-sec-styleguide {
+  .main-content {
+    // @include default-page-bottom;
+    // @include default-page-top;
+    // @include default-padding;
+
+    // > .region {
+    //   margin-left: auto;
+    //   margin-right: auto;
+    //   max-width: rem($layout-max-width);
+    // }
+
+    // .region-content {
+    //   @include default-page-top;
+    // }
+
+    // NOTE: It would be better to add the .usa-prose class in the markup
+    .block-system-main-block {
+      // Use :where() to reduce specificity
+      :where(&) {
+        @include usa-prose;
+        @include sec-prose;
+      }
+    }
+  }
+}

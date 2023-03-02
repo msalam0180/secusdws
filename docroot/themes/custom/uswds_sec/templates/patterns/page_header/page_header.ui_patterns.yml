@@ -1,0 +1,24 @@
+page_header:
+  label: Landing Page Header
+  description: Only used on landing page templates
+  fields:
+    color:
+      type: text
+      label: Background color
+      description: Supports white, blue, gray, navy, red, teal, and yellow
+      preview: navy
+    heading:
+      type: text
+      label: Heading
+      description: Page title
+      preview: Rules & Regulations Overview
+    description:
+      type: text
+      label: Description
+      description: Description copy
+      preview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sagittis purus sit amet volutpat consequat.
+    img_src:
+      type: text
+      label: Image Source
+      description: Optional, only top-level landing pages should have images
+      preview: https://federalist-3b6ba08e-0df4-44c9-ac73-6fc193b0e19c.sites.pages.cloud.gov/preview/uswds/uswds/develop/hero.jpg

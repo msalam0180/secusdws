@@ -1,0 +1,45 @@
+{{ attach_library('sec_styleguide/custom_styles') }}
+
+{# Description #}
+{% if (component_yml.desc) %}
+  <p>{{ component_yml.desc }}</p>
+{% endif %}
+
+{# Extended description #}
+{% if (component_yml.extended_description) %}
+  <p>{{ component_yml.extended_description }}</p>
+{% endif %}
+
+{# Documentation #}
+{% if (component_yml.external_documentation) %}
+  {{ pattern('button', {
+    label: 'USWDS Docs',
+    url: component_yml.external_documentation
+  }, 'outline') }}
+{% endif %}
+
+{# Development Note #}
+{% if (component_yml.dev_note) %}
+  <div class="usa-alert usa-alert--error" role="alert">
+    <div class="usa-alert__body">
+      <h4 class="usa-alert__heading">Development Note</h4>
+      <p class="usa-alert__text">
+        {{component_yml.dev_note}}
+      </p>
+    </div>
+  </div>
+{% endif %}
+
+{# Usage #}
+{% if (component_yml.usage) %}
+  <div class="usa-alert usa-alert--info usa-alert--no-icon">
+    <div class="usa-alert__body">
+    <h4 class="usa-alert__heading">Usage</h4>
+      {{component_yml.usage}}
+    </div>
+  </div>
+{% endif %}
+
+<hr>
+
+{# Consider adding twig.symfony.com/doc/3.x/filters/markdown_to_html.html#markdown-to-html to add markdown int he yml #}

@@ -1,0 +1,35 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{% set colors = ['navy', 'yellow', 'white', 'red', 'teal', 'blue', 'gray'] %}
+
+<h2>{{ 'Default '|t }}</h2>
+
+{% for color in colors %}
+  {{ pattern('page_header', {
+    'color': color,
+    heading: 'Rules & Regulations Overview',
+  }) }}
+{% endfor %}
+
+<h2>{{ 'Default with Description '|t }}</h2>
+
+{% for color in colors %}
+  {{ pattern('page_header', {
+    'color': color,
+    heading: 'Rules & Regulations Overview',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sagittis purus sit amet volutpat consequat.',
+  }) }}
+{% endfor %}
+
+<h2>{{ 'Image'|t }}</h2>
+<p>This is intended for top-level landing pages. The description will be hidden when there’s an image.</p>
+
+{% for color in colors %}
+  {{ pattern('page_header', {
+    'color': color,
+    heading: 'Rules & Regulations Overview',
+    img_src: 'https://federalist-3b6ba08e-0df4-44c9-ac73-6fc193b0e19c.sites.pages.cloud.gov/preview/uswds/uswds/develop/hero.jpg',
+  }) }}
+{% endfor %}
+

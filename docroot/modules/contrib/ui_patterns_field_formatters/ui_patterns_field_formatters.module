@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * UI Patterns Field Formatters module.
+ */
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function ui_patterns_field_formatters_field_formatter_info_alter(array &$info) {
+  /** @var \Drupal\Core\Field\FieldTypePluginManagerInterface $fieldTypeManager */
+  $fieldTypeManager = \Drupal::service('plugin.manager.field.field_type');
+  $allFieldTypes = array_keys($fieldTypeManager->getDefinitions());
+
+  // Add all existing field types.
+  $info['pattern_formatter']['field_types'] = $allFieldTypes;
+
+  // Add Paragraphs module compatibility.
+  if (in_array('entity_reference_revisions', $allFieldTypes, TRUE)) {
+    $info['pattern_wrapper_entity_reference_formatter']['field_types'][] = 'entity_reference_revisions';
+  }
+}

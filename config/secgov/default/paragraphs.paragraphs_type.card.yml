@@ -1,0 +1,10 @@
+uuid: bd8708fb-d2a7-4b4d-9c89-9e4e67ab531a
+langcode: en
+status: true
+dependencies: {  }
+id: card
+label: Card
+icon_uuid: null
+icon_default: null
+description: 'Cards contain content and actions about a single subject.'
+behavior_plugins: {  }

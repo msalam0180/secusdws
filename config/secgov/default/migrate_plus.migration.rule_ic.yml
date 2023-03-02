@@ -1,0 +1,163 @@
+uuid: 2274b94a-703f-4c99-bd52-2f696024b768
+langcode: en
+status: true
+dependencies: {  }
+id: rule_ic
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - rule_ic
+  - rule
+migration_group: regulations
+label: 'Import of SEC SRO Rules'
+source:
+  plugin: federal_register
+  id_field: file_num
+  title_field: investment_company
+  id_prefix: 'Investment Company Act Release No. '
+  path: 'public://migration/icreleases_category.csv'
+  header_offset: 0
+  ids:
+    - file_num
+  fields:
+    -
+      name: category
+      label: Category
+    -
+      name: investment_company
+      label: 'Investment Company'
+    -
+      name: file_num
+      label: 'File Number'
+    -
+      name: file_num_url
+      label: 'File Number Url'
+    -
+      name: notice_id
+      label: 'Notice ID'
+    -
+      name: notice_url
+      label: 'Notice Url'
+    -
+      name: notice_date
+      label: 'Notice Date'
+    -
+      name: order_id
+      label: 'Order ID'
+    -
+      name: order_url
+      label: 'Order Url'
+    -
+      name: order_date
+      label: 'Order Date'
+  constants:
+    site: 'https://www.sec.gov/'
+    delimiter: /
+    division_office: Enforcement
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  type:
+    plugin: default_value
+    default_value: rule
+  title: title
+  field_display_title: title
+  body_text:
+    -
+      plugin: skip_on_contains
+      method: process
+      contains:
+        - .pdf
+        - .txt
+      source: notice_url
+    -
+      plugin: str_replace
+      search: )
+      replace: ''
+    -
+      plugin: html_to_string
+    -
+      plugin: body_html_import
+      get_value: true
+  body/value:
+    plugin: if_else
+    source: '@body_text'
+    equals: null
+    then: '@abstract'
+  body/format:
+    plugin: default_value
+    default_value: simple_text
+  _created_date:
+    plugin: if_else
+    source: notice_date
+    equals: null
+    then: '@order_date'
+    else: '@notice_date'
+  created:
+    plugin: format_date
+    source: '@_created_date'
+    from_format: m/d/Y
+    from_timezone: America/New_York
+    to_format: U
+  changed: '@created'
+  field_related_rule:
+    -
+      plugin: get
+      source:
+        - notice_id
+        - order_id
+    -
+      plugin: array_associative
+    -
+      plugin: sub_process
+      process:
+        target_id:
+          -
+            plugin: skip_on_value
+            method: process
+            value: N/A
+            source: key
+          -
+            plugin: migration_lookup
+            no_stub: true
+            migration:
+              - icnotice
+              - icorder
+  field_primary_division_office:
+    plugin: entity_lookup
+    source: constants/division_office
+    value_key: name
+    bundle_key: vid
+    bundle: division_office
+    entity_type: taxonomy_term
+    ignore_case: true
+  field_file_number:
+    plugin: entity_generate
+    access_check: false
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    source: file_num
+    bundle: rulemaking_index
+    values:
+      field_respondents: title
+  field_comments_received:
+    plugin: get_comments_received
+    multiple: false
+    source: investment_company
+  field_investment_company_act_cat:
+    plugin: entity_generate
+    access_check: false
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    source: category
+    bundle: investment_company_act_category
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - icnotice
+    - icorder

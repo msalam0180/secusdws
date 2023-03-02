@@ -1,0 +1,8 @@
+uuid: 06af3c7d-7225-4430-bec6-d26c69712eaa
+langcode: en
+status: true
+dependencies: {  }
+id: email_alerts_signup
+label: 'Email Alerts Signup'
+revision: 1
+description: 'Block generated based on Email Alerts Signup Pattern.'

@@ -1,0 +1,32 @@
+uuid: c9a0c0e9-8a8f-4f39-95f4-aee9152ef745
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.structured-data-left-nav
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: re1uDI6rABR8FgJZeoDLLfiKYhH8Pyh5BOTMHMIJNro
+id: uswds_sec_structureddata
+theme: uswds_sec
+region: sidebar_first
+weight: -3
+provider: null
+plugin: 'system_menu_block:structured-data-left-nav'
+settings:
+  id: 'system_menu_block:structured-data-left-nav'
+  label: 'Structured Data'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/structureddata/*\r\n/structureddata\r\n/structured-disclosure/*"

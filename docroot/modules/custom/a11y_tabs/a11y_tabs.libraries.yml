@@ -1,0 +1,6 @@
+# https://github.com/AgnosticUI/a11y-tabs
+a11y_tabs:
+  version: VERSION
+  js:
+    dist/library/js/a11y-tabs.min.js: {}
+    dist/js/a11y-tabs-init.js: {}

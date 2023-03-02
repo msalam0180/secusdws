@@ -1,0 +1,78 @@
+uuid: c6e86a9e-aa17-4501-a376-385f44e5dfd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.subpage_card.field_body_subpage_card
+    - field.field.paragraph.subpage_card.field_heading_level_subpage_card
+    - field.field.paragraph.subpage_card.field_link_subpage_card
+    - field.field.paragraph.subpage_card.field_title_subpage_card
+    - paragraphs.paragraphs_type.subpage_card
+  module:
+    - ds
+    - empty_fields
+    - link
+    - options
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_subpage_card
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      heading:
+        - field_title_subpage_card
+      body:
+        - field_body_subpage_card
+      link:
+        - field_link_subpage_card
+      heading_level:
+        - field_heading_level_subpage_card
+id: paragraph.subpage_card.default
+targetEntityType: paragraph
+bundle: subpage_card
+mode: default
+content:
+  field_body_subpage_card:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: body
+  field_heading_level_subpage_card:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: heading_level
+  field_link_subpage_card:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: true
+      url_plain: true
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 2
+    region: link
+  field_title_subpage_card:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: heading
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,71 @@
+uuid: b3254935-ae63-4a5b-97ea-b875ff3e22e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subpage_card
+    - paragraphs.paragraphs_type.subpage_card
+    - paragraphs.paragraphs_type.subpage_card_group
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: paragraph.subpage_card_group.field_subpage_card
+field_name: field_subpage_card
+entity_type: paragraph
+bundle: subpage_card_group
+label: 'Subpage Cards'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      subpage_card: subpage_card
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 14
+        enabled: false
+      accordion_section:
+        weight: 15
+        enabled: false
+      alert:
+        weight: 16
+        enabled: false
+      card:
+        weight: 9
+        enabled: false
+      card_group:
+        weight: 10
+        enabled: false
+      horizontal_card:
+        weight: 11
+        enabled: false
+      image:
+        weight: 20
+        enabled: false
+      position_history:
+        weight: 12
+        enabled: false
+      related_document_s_:
+        weight: 13
+        enabled: false
+      subpage_card:
+        weight: 14
+        enabled: true
+      subpage_card_group:
+        weight: 15
+        enabled: false
+      text:
+        weight: 16
+        enabled: false
+      video:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions

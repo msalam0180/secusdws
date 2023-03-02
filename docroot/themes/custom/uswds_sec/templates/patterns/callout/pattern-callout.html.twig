@@ -1,0 +1,16 @@
+{% if variant != '' and variant|lower != 'default' %}
+  {% set variants = variant|split('__') %}
+  {% for variant in variants %}
+    {% set attributes = attributes.addClass('callout--' ~ variant|lower|replace({'_': '-'})) %}
+  {% endfor %}
+{% endif %}
+
+{% set classes = [
+  'callout',
+  'usa-prose',
+  modifier_classes ? modifier_classes : '',
+]|join(' ')|trim %}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ content }}
+</div>

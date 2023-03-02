@@ -1,0 +1,10 @@
+uuid: 62838dfb-508d-4646-aae7-e9e958b4b09b
+langcode: en
+status: true
+dependencies: {  }
+id: horizontal_card
+label: 'Horizontal Card'
+icon_uuid: null
+icon_default: null
+description: 'Horizontal card contains content and actions about a single subject.'
+behavior_plugins: {  }

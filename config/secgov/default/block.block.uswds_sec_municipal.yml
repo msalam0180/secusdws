@@ -1,0 +1,32 @@
+uuid: 36998972-4ed6-4a78-97c8-35722351ffcd
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.municipal
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: 9UPhKMZIwQvy39RezCsEDkPtkp7nWQjOIdEiLiarlhk
+id: uswds_sec_municipal
+theme: uswds_sec
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'system_menu_block:municipal'
+settings:
+  id: 'system_menu_block:municipal'
+  label: Municipal
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/municipal\r\n/municipal/*"

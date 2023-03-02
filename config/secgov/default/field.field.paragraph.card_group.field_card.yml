@@ -1,0 +1,71 @@
+uuid: 94f4232b-d061-44ab-9b94-55cf9966cef5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_card
+    - paragraphs.paragraphs_type.card
+    - paragraphs.paragraphs_type.card_group
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: paragraph.card_group.field_card
+field_name: field_card
+entity_type: paragraph
+bundle: card_group
+label: Cards
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      card: card
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 14
+        enabled: false
+      accordion_section:
+        weight: 15
+        enabled: false
+      alert:
+        weight: 16
+        enabled: false
+      card:
+        weight: 7
+        enabled: true
+      card_group:
+        weight: 9
+        enabled: false
+      horizontal_card:
+        weight: 11
+        enabled: false
+      image:
+        weight: 20
+        enabled: false
+      position_history:
+        weight: 10
+        enabled: false
+      related_document_s_:
+        weight: 11
+        enabled: false
+      subpage_card:
+        weight: 14
+        enabled: false
+      subpage_card_group:
+        weight: 15
+        enabled: false
+      text:
+        weight: 12
+        enabled: false
+      video:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: regulations
+label: 'SEC Regulations'
+description: 'Import of legacy Regulations Content for SEC'
+source_type: csv
+module: null
+shared_configuration: null

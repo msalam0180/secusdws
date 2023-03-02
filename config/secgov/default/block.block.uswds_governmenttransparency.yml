@@ -1,0 +1,25 @@
+uuid: fe4fbb3b-99a5-43ee-8807-85d3acc1b595
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.government-transparency
+  module:
+    - system
+  theme:
+    - uswds
+id: uswds_governmenttransparency
+theme: uswds
+region: footer
+weight: -35
+provider: null
+plugin: 'system_menu_block:government-transparency'
+settings:
+  id: 'system_menu_block:government-transparency'
+  label: Transparency
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,15 @@
+//------------------------------------------------------------------------
+// Table overrides
+// https://designsystem.digital.gov/components/table/
+//------------------------------------------------------------------------
+.usa-table {
+  &-container {
+    &--scrollable {
+      // 1. USWDS sets it to “nowrap” which results in tables containing
+      //    long links having very wide columns (e.g. Press Releases)
+      td {
+        white-space: normal;// [1]
+      }
+    }
+  }
+}

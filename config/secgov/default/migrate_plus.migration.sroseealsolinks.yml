@@ -1,0 +1,59 @@
+uuid: c512f960-dd1e-4236-9e60-de946769723e
+langcode: en
+status: true
+dependencies: {  }
+id: sroseealsolinks
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - sro
+  - seealsolinks
+migration_group: regulations
+label: 'Import of SRO Rules See Also Links'
+source:
+  plugin: see_also_links
+  source_field: details
+  path: 'public://migration/sro_releases.csv'
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    -
+      name: fileno
+      label: 'File Number'
+    -
+      name: fileurl
+      label: 'File Url'
+    -
+      name: id
+      label: 'Release Number'
+    -
+      name: releaseurl
+      label: 'Release URL'
+    -
+      name: date
+      label: Date
+    -
+      name: details
+      label: Details
+  constants:
+    delimiter: ','
+process:
+  status:
+    plugin: default_value
+    default_value: 1
+  name: title
+  field_media_entity_link/uri: url
+  field_media_entity_link/title: title
+  created:
+    plugin: format_date
+    source: date
+    from_format: 'F j, Y'
+    from_timezone: America/New_York
+    to_format: U
+  changed: '@created'
+destination:
+  plugin: 'entity:media'
+  default_bundle: link
+migration_dependencies: null

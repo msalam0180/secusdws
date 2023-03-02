@@ -1,0 +1,61 @@
+uuid: 45624fca-da17-4c84-b41b-ea5189e43209
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.horizontal_card.field_body_horz_card
+    - field.field.paragraph.horizontal_card.field_button_horz_card
+    - field.field.paragraph.horizontal_card.field_heading_level_horz_card
+    - field.field.paragraph.horizontal_card.field_image_horz_card
+    - field.field.paragraph.horizontal_card.field_title_horz_card
+    - paragraphs.paragraphs_type.horizontal_card
+  module:
+    - link
+id: paragraph.horizontal_card.default
+targetEntityType: paragraph
+bundle: horizontal_card
+mode: default
+content:
+  field_body_horz_card:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_button_horz_card:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_heading_level_horz_card:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_image_horz_card:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title_horz_card:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

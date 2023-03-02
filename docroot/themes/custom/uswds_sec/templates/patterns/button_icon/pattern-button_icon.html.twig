@@ -1,0 +1,16 @@
+{% if variant != '' and variant|lower != 'default' %}
+  {% set variants = variant|split('__') %}
+  {% for variant in variants %}
+    {% set attributes = attributes.addClass('usa-button--' ~ variant|lower|replace({'_': '-'})) %}
+  {% endfor %}
+{% endif %}
+
+{% if url or attributes.href %}
+  {% set url = url ?: attributes.href %}
+  <a {{ attributes.addClass('usa-button usa-button--base usa-button--icon').setAttribute('href', url) }}>
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': icon} %}
+    {{ label }}
+  </a>
+{% else %}
+  <span{{ attributes.addClass('usa-button') }}>{{ label }}</span>
+{% endif %}

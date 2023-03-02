@@ -1,0 +1,49 @@
+uuid: ff7c354f-f5f0-4aec-80e6-079c07fafde3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.rulemaking_index.field_ap_status
+    - field.field.taxonomy_term.rulemaking_index.field_respondents
+    - field.field.taxonomy_term.rulemaking_index.field_rulemaking
+    - taxonomy.vocabulary.rulemaking_index
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_respondents_subject:
+      children:
+        - field_respondents
+      label: Respondents
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+id: taxonomy_term.rulemaking_index.default
+targetEntityType: taxonomy_term
+bundle: rulemaking_index
+mode: default
+content:
+  field_respondents:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  description: true
+  field_ap_status: true
+  field_rulemaking: true
+  search_api_excerpt: true

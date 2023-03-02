@@ -1,0 +1,51 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+{% set backgrounds = ["bg-transparent", "bg-blue", "bg-navy", "bg-teal"] %}
+{% set variants = ["default", "secondary", "base", "outline"] %}
+{# {% set variants = ["default", "secondary", "base", "outline", "big", "unstyled"] %} #}
+{% set class_names = ["Default", "Hover", "Active", "Focus", "External", "Disabled"] %}
+{% set classes = [
+  {"Default": ""},
+  {"Hover": "usa-button--hover"},
+  {"Active": "usa-button--active"},
+  {"Focus": "usa-focus"},
+  {"External": ""},
+  {"Disabled": "usa-button--disabled"}
+] %}
+
+{% for variant in variants %}
+  <h2>{{ variant|capitalize }}</h2>
+  {% for bgClass in backgrounds %}
+    <div class="{{ bgClass }}" style="display: flex; gap: 30px; padding: 20px;">
+      {% for class in classes %}
+        <div class="button-preview">
+          {% set path = class_names[loop.index0] == "External" ? "https://example.com" : "/" %}
+          {{ pattern('button', {
+            label: class_names[loop.index0],
+            url: path,
+            classes: class
+          }, variant) }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+{% endfor %}
+
+{# Button with icon #}
+<h2>Icon</h2>
+<div style="display: flex;">
+  {% for bgClass in backgrounds %}
+    <div class="{{ bgClass }}" style="padding: 20px 30px;">
+      {{ pattern('button_icon', {
+        label: 'Example',
+        icon: 'account_balance',
+        url: '/'
+      }) }}
+    </div>
+  {% endfor %}
+</div>
+
+{# Copy link button #}
+<h2>Copy Link</h2>
+{% include '@uswds_sec/includes/copy-link-button.html.twig' %}

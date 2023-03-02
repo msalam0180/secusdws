@@ -1,0 +1,27 @@
+uuid: ab3e94cd-acf2-4b9c-b9b0-6fdd6bed0696
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: q_QpWC-EzywcuNk-jCYxTxQJ4mL-65Ixrebbedy2o2A
+id: uswds_breadcrumbs
+theme: uswds
+region: breadcrumb
+weight: -27
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/about/upcoming-events.htm\r\n/news/upcoming-events\r\n/news/upcoming-events/*\r\n/news/spotlights\r\n/news/spotlights/*\r\n/spotlight-topic/*\r\n/dera/market-statistics/*"

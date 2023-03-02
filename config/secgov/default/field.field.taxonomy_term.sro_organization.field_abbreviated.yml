@@ -1,0 +1,19 @@
+uuid: 7256ff1a-3736-4cbb-8649-900140109082
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_abbreviated
+    - taxonomy.vocabulary.sro_organization
+id: taxonomy_term.sro_organization.field_abbreviated
+field_name: field_abbreviated
+entity_type: taxonomy_term
+bundle: sro_organization
+label: 'Short Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

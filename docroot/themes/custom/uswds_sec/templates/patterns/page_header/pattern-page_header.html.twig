@@ -1,0 +1,49 @@
+{# Landing page header #}
+<div class="page-header {{ img_src ? 'has-image' }} bg-{{ color }} bg-gradient-overlay">
+
+  <div class="page-header__content l-padding">
+    {# show show more breadcrumbs in the pattern preview #}
+    {% if context.type == 'preview' %}
+      {{pattern_preview('breadcrumb')}}
+    {% else %}
+      {{ drupal_block('system_breadcrumb_block') }}
+    {% endif %}
+
+    <div class="page-header__text l-wrap">
+      {# Note: Extra inner wrapper required for layout purposes #}
+      <div class="page-header__text__inner">
+        <h1 class="page-header__heading">{{ heading }}</h1>
+
+        {#
+          Note: Descriptions should not be shown for top-level landing pages.
+                We’re currently using CSS to hide it when there’s an image.
+        #}
+        {% if description %}
+          <div class="page-header__description">
+            {{ description }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Note: Only top-level landing pages should have images #}
+  {% if img_src %}
+    <div class="page-header__media">
+      {# Note: Leave alt blank if image will be repeated on the page it links to #}
+      <img class="page-header__img"
+        src="{{ img_src }}"
+        srcset="{{ img_src }} 1476w"
+        sizes="(max-width: 739px) 100vw, (max-width: 1023px) 50vw, (max-width: 1083px) 37.5vw, (max-width: 1199px) 39vw, 40vw"
+        loading="lazy"
+        alt="">
+    </div>
+  {% else %}
+    {# SEC seal (fallback when there’s no image, hidden in mobile) #}
+    {# Note: Use wrapper div since we don’t have an easy way to add classes to the SVG #}
+    {# TODO: Consider adding seal to SVG sprite if used on most pages #}
+    <div class="page-header__seal">
+      {{ source(active_theme_path() ~ '/dist/img/logos/sec-logo-seal-fill.svg') }}
+    </div>
+  {% endif %}
+</div>

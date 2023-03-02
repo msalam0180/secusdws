@@ -1,0 +1,32 @@
+uuid: c33cf981-51bf-45a6-9bfa-623865de45e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.opa
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: Tyr-3aVMai0QVUFFXmYMdN9xfcea90z1d-ajzp_B2gk
+id: uswds_opa
+theme: uswds
+region: sidebar_first
+weight: -16
+provider: null
+plugin: 'system_menu_block:opa'
+settings:
+  id: 'system_menu_block:opa'
+  label: OPA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/opa\r\n/opa/*"

@@ -1,0 +1,10 @@
+uuid: 60fe30c9-ad10-449a-8fbe-88c869bddec5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.referenced_mode
+label: 'Referenced Mode'
+targetEntityType: node
+cache: true

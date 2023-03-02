@@ -1,0 +1,24 @@
+uuid: cc639a24-544f-4e77-81ca-c180bfc96e53
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.component_block_image_1x
+    - image.style.component_block_image_2x
+  theme:
+    - uswds_sec
+id: component_block_image
+label: 'Component Block Image'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: component_block_image_1x
+    breakpoint_id: uswds_sec.component_block_image
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: component_block_image_2x
+    breakpoint_id: uswds_sec.component_block_image
+    multiplier: 2x
+breakpoint_group: uswds_sec
+fallback_image_style: component_block_image_1x

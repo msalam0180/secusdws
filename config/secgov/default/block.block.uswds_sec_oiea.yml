@@ -1,0 +1,32 @@
+uuid: 084ac834-6c34-4787-9a6e-25a4b107c48a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.oiea
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: XjfoBwjVAFKsSots-08qqsEaYRMwseXe7rZ8WySM9r8
+id: uswds_sec_oiea
+theme: uswds_sec
+region: sidebar_first
+weight: -21
+provider: null
+plugin: 'system_menu_block:oiea'
+settings:
+  id: 'system_menu_block:oiea'
+  label: OIEA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/oiea\r\n/oiea/*"

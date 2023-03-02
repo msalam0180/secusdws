@@ -1,0 +1,31 @@
+uuid: 325f96fd-11d5-4b21-8dca-7656273b55f7
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:1b1e7546-5848-4d40-bf5c-9adb51968912'
+  module:
+    - block_content
+  theme:
+    - uswds
+id: uswds_latestnewstemp
+theme: uswds
+region: sidebar_first
+weight: -35
+provider: null
+plugin: 'block_content:1b1e7546-5848-4d40-bf5c-9adb51968912'
+settings:
+  id: 'block_content:1b1e7546-5848-4d40-bf5c-9adb51968912'
+  label: 'Latest News - temp'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    negate: false
+    context_mapping: {  }
+    bundles:
+      basic: basic

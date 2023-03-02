@@ -1,0 +1,10 @@
+// Note: This comment will be dynamically updated with the current USWDS version
+/*! uswds @version */
+
+// Apply our custom USDWS settings
+@use "uswds-settings" as *;
+
+// Load just what we need from USWDS instead of everything
+// Note: USWDS includes normalize.css
+// https://github.com/necolas/normalize.css/
+@use "uswds-custom" as *;

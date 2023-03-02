@@ -1,0 +1,32 @@
+uuid: 672d4c0e-ef9d-4395-b557-85a12cad8531
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.investor-advocate
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: u5ucVTpsgbl1qxmr_1-NZWQuI_qeAY---Dy8JVL3HJk
+id: uswds_investoradvocate
+theme: uswds
+region: sidebar_first
+weight: -12
+provider: null
+plugin: 'system_menu_block:investor-advocate'
+settings:
+  id: 'system_menu_block:investor-advocate'
+  label: 'Investor Advocate'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/investorad\r\n/investorad/*\r\n/advocate/*\r\n"

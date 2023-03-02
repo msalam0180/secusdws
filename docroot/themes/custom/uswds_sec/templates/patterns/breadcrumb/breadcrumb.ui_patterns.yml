@@ -1,0 +1,17 @@
+breadcrumb:
+  label: Breadcrumb
+  description: "TODO: description"
+  fields:
+    breadcrumb:
+      type: array
+      label: Accordion items
+      description: "TODO: description"
+      preview:
+      - url: '/'
+        text: 'Home'
+      - url: '/'
+        text: 'Federal Contracting'
+      - url: '/'
+        text: 'Contracting assistance programs'
+      - text: 'Women-owned small business federal contracting program'
+  use: "@uswds_sec/templates/block/breadcrumb.html.twig"

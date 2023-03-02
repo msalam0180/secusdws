@@ -1,0 +1,109 @@
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<h2>{{ 'Default Cards'|t }}</h2>
+
+<p>Default cards are used when creating a Landing page inside layout builder. It is also a pattern that can be used to create view listing of cards.</p>
+{{ pattern('card', {
+  heading: 'Hello, I am a card',
+  body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+  footer: pattern_preview('button')
+}) }}
+
+<h2>{{ '3-up Card Grid'|t }}</h2>
+
+{# Note: Add data-cols="2" to force 2 columns, otherwise it will auto adjust #}
+<div class="usa-card-group">
+  {{ pattern('card', {
+    heading: 'Hello, I am a card',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+    footer: pattern_preview('button')
+  }) }}
+  {{ pattern('card', {
+    heading: 'Hello, I am a card',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+    footer: pattern_preview('button')
+  }) }}
+  {{ pattern('card', {
+    heading: 'Hello, I am a card',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+    footer: pattern_preview('button')
+  }) }}
+</div>
+
+<h2>{{ '2-up Card Grid'|t }}</h2>
+
+<div class="usa-card-group">
+  {{ pattern('card', {
+    heading: 'Hello, I am a card',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+    footer: pattern_preview('button')
+  }) }}
+  {{ pattern('card', {
+    heading: 'Hello, I am a card',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis earum tenetur quo cupiditate, eaque qui officia recusandae.',
+    footer: pattern_preview('button')
+  }) }}
+</div>
+
+<h2>{{ 'Card with Image'|t }}</h2>
+
+<div class="usa-card-group">
+  {{ pattern_preview('card', 'with-media') }}
+  {{ pattern_preview('card', 'with-media') }}
+  {{ pattern_preview('card', 'with-media') }}
+</div>
+
+<h2>{{ 'Horizontal Card'|t }}</h2>
+{{ pattern_preview('card_horz') }}
+
+<h2>{{ 'Person Cards'|t }}</h2>
+
+<p>Person cards are used when creating a Landing page inside layout builder. After a card is added to the page, the user can choose what person will display in the card. They can add a group of cards or just one.</p>
+
+<div class="usa-card-group">
+  {{ pattern_preview('card_person') }}
+  {{ pattern_preview('card_person') }}
+  {{ pattern_preview('card_person') }}
+</div>
+
+<h2>{{ 'Subpage Cards'|t }}</h2>
+
+<p>Subpage cards are used when creating a Landing page inside layout builder. Subpage cards should <strong>only</strong> be used to link to a child page of the page you are creating. After a subpage card is added, the user can choose what page to link to ...TODO: Need to figure out how the rest of this is populated</p>
+
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<div class="usa-card-group">
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+  {{ pattern_preview('subpage_card') }}
+</div>
+
+<h2>{{ 'Division Cards'|t }}</h2>
+
+<p class=>Division cards are used when creating a Landing page inside layout builder. After a card is added to the page, the user can choose what division's information will display in the card.</p>
+
+<div class="usa-card-group">
+  {{ pattern_preview('card_division') }}
+  {{ pattern_preview('card_division') }}
+</div>
+
+<h2>{{ 'Card with Icon'|t }}</h2>
+<p>This is currently only used on the homepage.</p>
+
+{{ pattern_preview('card_icon') }}
+
+<h2>{{ 'Card with Sidebar'|t }}</h2>
+<p>This is currently only used on the homepage.</p>
+
+{{ pattern_preview('card_sidebar') }}
+
+<h2>{{ '3-up Reports Strata'|t }}</h2>
+<p>This block includes fields for the heading and “view all” link.</p>
+
+<div style="margin-top: 40px;">
+  {{ pattern_preview('reports_promo') }}
+</div>

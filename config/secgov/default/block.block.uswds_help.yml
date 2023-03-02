@@ -1,0 +1,22 @@
+uuid: c4c9180b-0071-4cb1-bfb7-d6a06151db14
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - uswds
+_core:
+  default_config_hash: IQw6OHod6o1CWDkA9xyp5urvhoQjQel2m8P38FPLnnM
+id: uswds_help
+theme: uswds
+region: header
+weight: -33
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

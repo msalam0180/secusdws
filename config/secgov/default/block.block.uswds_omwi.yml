@@ -1,0 +1,32 @@
+uuid: 99e7c443-e461-4531-913e-0d360d6469db
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.omwi
+  module:
+    - system
+  theme:
+    - uswds
+_core:
+  default_config_hash: E28ANTVA4k35xF5XjXBGT2AUCQBOMxqMuyAXueOmQjs
+id: uswds_omwi
+theme: uswds
+region: sidebar_first
+weight: -18
+provider: null
+plugin: 'system_menu_block:omwi'
+settings:
+  id: 'system_menu_block:omwi'
+  label: OMWI
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/omwi\r\n/omwi/*"

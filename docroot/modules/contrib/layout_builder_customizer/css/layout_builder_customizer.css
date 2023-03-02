@@ -1,0 +1,38 @@
+#layout-builder .layout-builder-customizer--links .contextual {
+  left: 5px;
+  top: 0;
+  right: unset;
+  margin: auto;
+}
+#layout-builder .layout-builder-customizer--links button {
+  display: none;
+}
+#layout-builder .layout-builder-customizer--links .contextual-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+#layout-builder .layout-builder-customizer--links .contextual-links li {
+  margin: 5px;
+}
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-update a,
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-move a,
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-remove a {
+  font-size: 0;
+}
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-update a::after {
+  width: 100%;
+  height: 100%;
+  content: url('../images/configure.svg');
+}
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-move a::after {
+  width: 100%;
+  height: 100%;
+  content: url('../images/move.svg');
+}
+#layout-builder .layout-builder-customizer--links .contextual-links .layout-builder-block-remove a::after {
+  width: 100%;
+  height: 100%;
+  content: url('../images/remove.svg');
+}

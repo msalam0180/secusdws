@@ -1,0 +1,55 @@
+uuid: 29a40e7b-0f75-44fe-80c2-b1d431e4a229
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.position
+    - field.field.paragraph.position_history.field_current_position
+    - field.field.paragraph.position_history.field_from
+    - field.field.paragraph.position_history.field_position_category
+    - field.field.paragraph.position_history.field_position_title
+    - field.field.paragraph.position_history.field_to
+    - paragraphs.paragraphs_type.position_history
+  module:
+    - datetime
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.position_history.position
+targetEntityType: paragraph
+bundle: position_history
+mode: position
+content:
+  field_current_position:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_from:
+    type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_position_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_position_category: true
+  field_to: true
+  search_api_excerpt: true

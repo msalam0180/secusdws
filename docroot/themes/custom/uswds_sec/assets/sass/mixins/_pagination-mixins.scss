@@ -1,0 +1,21 @@
+@use "../vars/color-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../mixins/media-queries" as *;
+
+@mixin pager-buttons() {
+  @include max-width($pagination-controls-bp) {
+    display: none;
+  }
+
+  color: $c-blue;
+  border: none;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-size: 1.13rem;
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: underline;
+  }
+}
+  

@@ -1,0 +1,27 @@
+uuid: 432d286a-cf8e-4143-9f18-87a104f3856e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.video.field_static_file_media
+    - paragraphs.paragraphs_type.video
+  module:
+    - empty_fields
+id: paragraph.video.default
+targetEntityType: paragraph
+bundle: video
+mode: default
+content:
+  field_static_file_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: component_block_video
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

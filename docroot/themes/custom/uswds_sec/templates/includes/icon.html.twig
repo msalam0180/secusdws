@@ -1,0 +1,6 @@
+{# Icon markup for USWDS SVG sprite #}
+{# https://designsystem.digital.gov/components/icon/ #}
+{% set classes = ['usa-icon', classes] %}
+<svg {{ create_attribute({'class': classes}) }} aria-hidden="true" focusable="false" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+  <use xlink:href="{{ drupal_url(active_theme_path() ~ '/dist/img/sprite.svg') }}#{{ name }}"></use>
+</svg>

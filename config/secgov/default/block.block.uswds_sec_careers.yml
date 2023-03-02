@@ -1,0 +1,32 @@
+uuid: cda0973f-fcca-46ec-9545-7a3d03e87713
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.careers-nav
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: eqO0jgb70su29fcjif8ibouejcInwKweBQkizK7QEfc
+id: uswds_sec_careers
+theme: uswds_sec
+region: sidebar_first
+weight: -33
+provider: null
+plugin: 'system_menu_block:careers-nav'
+settings:
+  id: 'system_menu_block:careers-nav'
+  label: 'Careers '
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/careers\r\n/careers/*\r\n/forms/ada4applicants\r\n/forms/ada4programs"

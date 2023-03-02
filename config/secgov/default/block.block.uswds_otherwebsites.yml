@@ -1,0 +1,25 @@
+uuid: 97aa6b44-4b47-4a4f-bff1-f386dd6dec3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.other-websites
+  module:
+    - system
+  theme:
+    - uswds
+id: uswds_otherwebsites
+theme: uswds
+region: footer
+weight: -34
+provider: null
+plugin: 'system_menu_block:other-websites'
+settings:
+  id: 'system_menu_block:other-websites'
+  label: Websites
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,19 @@
+uuid: 42bba144-2376-4f15-b314-be727f0c90b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rin
+    - node.type.regulation
+id: node.regulation.field_rin
+field_name: field_rin
+entity_type: node
+bundle: regulation
+label: RIN
+description: 'Regulation Identifier Number'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

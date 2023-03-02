@@ -1,0 +1,24 @@
+uuid: c0f98da7-25ed-4307-b9cb-fc9997781559
+langcode: en
+status: false
+dependencies:
+  config:
+    - simple_block.simple_block.webcast_player_help_block
+  module:
+    - simple_block
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: O-SsgP_B3yEf_dG0fy8ReZYXKv8HRnEBG2ulrvai9g8
+id: uswds_sec_webcast_trouble
+theme: uswds_sec
+region: header
+weight: -21
+provider: null
+plugin: 'simple_block:webcast_player_help_block'
+settings:
+  id: 'simple_block:webcast_player_help_block'
+  label: 'Webcast Troubleshooting Guide'
+  label_display: visible
+  provider: simple_block
+visibility: {  }

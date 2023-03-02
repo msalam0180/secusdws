@@ -1,0 +1,70 @@
+//------------------------------------------------------------------------
+// CTA card with image and sidebar
+//------------------------------------------------------------------------
+.card-sidebar {
+  $bp-end-scale: 460px;
+  $bp-sidebar: 680px;
+  @include card-box-shadow;
+  background-color: $bg-default;
+
+  @include min-width($bp-sidebar) {
+    display: flex;
+  }
+
+  &__main {
+    padding: rem(30px 22px 22px);
+
+    @include min-width($bp-sidebar) {
+      flex-grow: 1;
+      padding: rem(48px 36px 42px 45px);
+    }
+  }
+
+  &__image_wrapper img, &__image{
+    display: block;
+    max-width: rem(326px);
+    width: 100%;
+  }
+
+  &__text {
+    @include scale(font-size, (375px: 16px, $bp-end-scale: 20px));
+    @include scale(margin-top, (375px: 18px, $bp-end-scale: 36px));
+    line-height: 1.4;
+    max-width: rem(280px);
+  }
+
+  &__footer {
+    @include scale(margin-top, (375px: 26px, $bp-end-scale: 40px));
+
+    .usa-button {
+      width: auto;// override USWDS default
+    }
+  }
+
+  // NOTE: Has “usa-prose” class
+  &__sidebar {
+    background-color: $bg-green-light;
+    padding: rem(22px 22px 30px);
+
+    @include min-width($bp-sidebar) {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      justify-content: center;
+      min-width: rem(230px);
+      padding: rem(33px);
+      width: 35%;
+    }
+
+    &__heading {
+      font-size: rem(13px);
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    &__list {
+      @include scale(font-size, (375px: 14px, $bp-end-scale: 16px));
+    }
+  }
+}

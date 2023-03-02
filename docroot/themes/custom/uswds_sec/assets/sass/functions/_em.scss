@@ -1,0 +1,21 @@
+/// Convert px to em
+/// @group Main
+/// @param {Number | Map} $values - Value or values to convert
+/// @return {*} - Converted value or list of values
+@use "sass:math";
+
+@function em($values, $base-font-size: 16px) {
+  // Placeholder list for converted values
+  $output: ();
+
+  @each $val in $values {
+    // Only convert pixel values, leave others unchanged
+    @if type-of($val) == 'number' and unit($val) == 'px' {
+      $val: math.div($val, $base-font-size) * 1em;
+    }
+
+    $output: append($output, $val);
+  }
+
+  @return $output;
+}

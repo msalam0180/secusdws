@@ -1,0 +1,34 @@
+uuid: 6115303a-d5e1-408a-bc4e-6f46583e0f6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_investment_company_act_cat
+    - node.type.rule
+    - taxonomy.vocabulary.investment_company_act_category
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: node.rule.field_investment_company_act_cat
+field_name: field_investment_company_act_cat
+entity_type: node
+bundle: rule
+label: 'Investment Company Act Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      investment_company_act_category: investment_company_act_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

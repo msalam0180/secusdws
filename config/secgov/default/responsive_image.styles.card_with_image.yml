@@ -1,0 +1,25 @@
+uuid: b22cff46-3f1d-4f84-a461-042d3df8a976
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.card_with_image_large
+    - image.style.card_with_image_medium
+    - image.style.card_with_image_small
+    - image.style.card_with_image_x_small
+id: card_with_image
+label: 'Card with Image'
+image_style_mappings:
+  -
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width: 599px) 87vw, (max-width: 767px) 89vw, (max-width: 965px) 44vw, 434px'
+      sizes_image_styles:
+        - card_with_image_large
+        - card_with_image_medium
+        - card_with_image_small
+        - card_with_image_x_small
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+breakpoint_group: responsive_image
+fallback_image_style: card_with_image_x_small

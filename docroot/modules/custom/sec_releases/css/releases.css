@@ -1,0 +1,124 @@
+/* Release Content View: Make the Also see files appear inline */
+.release-regulation-admin-views .views-field-field-see-also .media {
+  display: inline;
+  margin-right: -3px;
+}
+
+.release-regulation-admin-views .views-field-field-see-also .media .file {
+  display: inline;
+}
+
+/* Release Content View: Adjust table column widths */
+.release-regulation-admin-views .views-field-field-publish-date,
+.release-regulation-admin-views .views-field-changed,
+.release-regulation-admin-views .field--name-field-media-file .file {
+  white-space: nowrap;
+}
+
+.release-regulation-admin-views .views-field-field-publish-date {
+  min-width: 110px;
+}
+
+.release-regulation-admin-views .views-field-changed {
+  min-width: 80px;
+}
+
+.release-regulation-admin-views .form-item-file-number,
+.release-regulation-admin-views  .form-item-field-release-file-number-target-id {
+  max-width: 150px;
+}
+
+.release-regulation-admin-views .form-item-field-primary-division-office-target-id,
+.release-regulation-admin-views .form-item-field-related-topics-target-id {
+  max-width: 250px;
+}
+
+.release-regulation-admin-views .views-field-field-respondents {
+  max-width: 500px;
+}
+
+.release-regulation-admin-views .views-field-field-parent-rule {
+  min-width: 200px; 
+}
+
+/* Exposed Filters */
+.release-regulation-admin-views .views-exposed-form .form-type-textfield {
+  max-width: 180px;
+}
+
+.release-regulation-admin-views .views-exposed-form .form-item-field-publish-date-value,
+.release-regulation-admin-views .views-exposed-form .form-item-field-publish-date-value-1,
+.release-regulation-admin-views .views-exposed-form .form-item-field-release-number-value {
+  max-width: 140px;
+}
+
+.release-regulation-admin-views table caption {
+  position: absolute;
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0,0,0,0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+.view-table_subfield.view-table_subfield_see_also .view-table_subfield_value .contextual {
+  display: none;
+}
+
+.view-table_subfield.view-table_subfield_see_also .view-table_subfield_value .media {
+  display: inline;
+  margin-right: -3px;
+}
+
+.view-table_subfield_comments_notice p {
+  margin: 0;
+}
+
+.view-table_subfield_label {
+  font-weight: bold;
+}
+
+.view-table_subfield_comments_due p {
+  margin: 0;
+}
+
+.view-table_subfield_comments_due .view-table_subfield_value *:first-child {
+  display: inline;
+}
+
+
+/* view-file-number */
+
+/* Release Content View: Adjust table column widths */
+.view-file-number .views-field-changed {
+  white-space: nowrap;
+}
+
+.view-file-number .views-field-field-respondents {
+  max-width: 500px;
+}
+
+.view-file-number .views-field-changed {
+  width: 80px;
+}
+
+.view-file-number .views-field-status {
+  width: 90px;
+}
+
+.view-rule-admin-content .views-field-field-display-title,.view-rule-admin-content  .views-field-title {
+  min-width: 200px;
+}
+
+.view-rule-admin-content  .view-footer .rule-note{
+  display: block;
+  margin-top: 10px;
+}
+
+.field_release_file .file-download span{
+  text-transform: uppercase;
+}

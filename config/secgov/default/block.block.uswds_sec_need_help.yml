@@ -1,0 +1,30 @@
+uuid: 4a71201a-20c7-4207-8bcc-5df27a88471e
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_block.simple_block.webcast_info_block
+  module:
+    - simple_block
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: GMNZUsRkV6yf1VP3de9j9zSdw1Ockqzi7dvs1F1Xjbw
+id: uswds_sec_need_help
+theme: uswds_sec
+region: content
+weight: -31
+provider: null
+plugin: 'simple_block:webcast_info_block'
+settings:
+  id: 'simple_block:webcast_info_block'
+  label: Info
+  label_display: '0'
+  provider: simple_block
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /news/webcasts

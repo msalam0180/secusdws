@@ -1,0 +1,25 @@
+{% set big_button_class = (is_button_big == true) ? 'usa-button--big' %}
+
+<form class="{{class_prefix}}__form usa-form"
+  action="https://public.govdelivery.com/accounts/USSEC/subscribers/qualify"
+  method="post"
+  id="GD-snippet-form_{{form_id_prefix}}"
+  name="GD-snippet-form"
+  accept-charset="UTF-8">
+  <input name="utf8" type="hidden" value="&#x2713;">
+  <input name="authenticity_token" type="hidden" value="rNLpZE6ui1SUXb98DT0ck6yojFmsiphJS29lz62OQ/k=">
+  <input name="topic_id" type="hidden" id="topic_id" value="{{ list_id }}">
+  <label class="{{class_prefix}}__label usa-label" for="{{form_id_prefix}}__email">{{label_text}}</label>
+  <input class="{{class_prefix}}__input usa-input" type="email" name="email" id="{{form_id_prefix}}__email" aria-required="true" autocomplete="email">
+  <button class="{{class_prefix}}__submit usa-button {{big_button_class}}" type="submit" name="commit" value="Sign Up">{{button_text}}</button>
+</form>
+{# 
+{{ pattern('govdelivery_form', {
+  list_id: '1234',
+  form_id_prefix: 'footer',
+  class_prefix: 'footer_signup',
+  label_text: 'Your email address',
+  button_text: 'Sign Up',
+  is_button_big: true
+  })
+}} #}

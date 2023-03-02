@@ -1,0 +1,64 @@
+{{ attach_library('sec_styleguide/components_filter') }}
+
+{% set component_details = module_path ~ '/templates/component_details.html.twig' %}
+{% include component_details %}
+
+<form class="usa-form clearfix" onsubmit="return false">
+  <div class="grid-row grid-gap margin-bottom-5" style="align-items: flex-end;">
+
+    <div class="desktop:grid-col-4">
+      <label for="filter-input" class="usa-label">
+        {{ 'Type to filter icons'|t }}
+      </label>
+      <input class='usa-input' type="text" id="filter-input" placeholder="Icon name…">
+    </div>
+
+    <div class="desktop:grid-col-auto">
+      <button type='reset' id="btn-filter-reset" class="usa-button">
+        {{ "Reset filter"|t }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<p style="margin-bottom: 1em; margin-top: 1em;">
+  <span id="icon-count">{{ icon_yml.items|length }} icons.</span>
+  Click an icon to copy its code snippet.
+</p>
+
+{# Note: Set “data-filter” to the CSS selector for the component’s title element #}
+<div class="margin-top-4">
+  <ul class="icons" data-filter=".icons__button__name" role="list">
+    {% for item in icon_yml.items %}
+      <li class="icons__item" aria-label="{{ item.name }} icon.">
+        <button class="icons__button usa-button usa-button--base usa-button--icon"
+          type="button"
+          onclick="copyHTML(this)"
+          aria-label="Copy to clipboard">
+          {% include '@uswds_sec/includes/icon.html.twig' with {'name': item.name} %}
+          <span class="icons__button__name" aria-hidden="true">{{ item.name }}</span>
+        </button>
+
+        <span class="icons__message" aria-live="assertive" style="pointer-events: none" aria-label="{{ item.name }}"></span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+  function copyHTML(el) {
+    code = el.querySelector("svg").outerHTML;
+    messagePlaceholder = el.nextElementSibling;
+    oldCopyNotice = document.getElementById("icon-copy-notice");
+    if (oldCopyNotice) {
+      oldCopyNotice.remove();
+    }
+    message = document.createElement("span");
+    message.setAttribute("id", "icon-copy-notice");
+    message.setAttribute("aria-live", "assertive");
+    message.innerHTML = "Copied to clipboard!";
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(code);
+    messagePlaceholder.append(message);
+  }
+</script>

@@ -1,0 +1,32 @@
+uuid: 45d8d192-ad67-457f-8044-525ae0bfb913
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.foia
+  module:
+    - system
+  theme:
+    - uswds_sec
+_core:
+  default_config_hash: l_aREUHOSrXHdAu5fOehs3HH-v5oySGjVnuNWNDMHMk
+id: uswds_sec_foia
+theme: uswds_sec
+region: sidebar_first
+weight: -28
+provider: null
+plugin: 'system_menu_block:foia'
+settings:
+  id: 'system_menu_block:foia'
+  label: FOIA
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/oso/foia-freq-docs-custom-list-page\r\n/foia-frequently-requested-documents\r\n/page/foia"

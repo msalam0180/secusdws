@@ -1,0 +1,29 @@
+uuid: 3b2b30e4-1d06-4cec-95ee-fd07c52e83db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_parent_rule
+    - node.type.regulation
+    - node.type.rule
+id: node.regulation.field_parent_rule
+field_name: field_parent_rule
+entity_type: node
+bundle: regulation
+label: 'Parent Rule'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      rule: rule
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
