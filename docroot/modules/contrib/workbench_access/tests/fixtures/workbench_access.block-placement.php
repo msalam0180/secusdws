@@ -29,7 +29,7 @@ foreach ($block_configs as $block_config) {
 }
 
 // Enable block module.
-$config = unserialize($connection->query("SELECT data FROM {config} where name = :name", [':name' => 'core.extension'])->fetchField());
+$config = unserialize($connection->query("SELECT data FROM {config} where name = :name", [':name' => 'core.extension'])->fetchField(), ['allowed_classes' => FALSE]);
 $config['module']['block'] = 0;
 $connection->update('config')
   ->fields(['data' => serialize($config)])

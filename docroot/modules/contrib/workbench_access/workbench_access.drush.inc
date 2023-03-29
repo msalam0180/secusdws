@@ -90,7 +90,7 @@ function drush_workbench_access_test() {
     }
   }
   catch (Exception $e) {
-    drush_print('The test vocabulary has already been created.');
+    echo('The test vocabulary has already been created.');
   }
 }
 
@@ -105,5 +105,5 @@ function drush_workbench_access_flush() {
     ]);
     $section_storage->delete($sections);
   }
-  drush_print('User and role assignments cleared.');
+  echo('User and role assignments cleared.');
 }

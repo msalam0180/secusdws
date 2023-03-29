@@ -39,7 +39,7 @@ class SeeAlsoLinks extends CSV {
       $source_field = $this->configuration["source_field"];
     }
     foreach ($rows as $row) {
-      $regex = "/ (\( Note:|;|See also:) (.+?)\((https?\:\/\/[^\" \n \)]+)/i";
+      $regex = "/ (\( Note:|;|,|See also:) ([\w\s.-]+) \((http.+?)(\)|$)/i";
       preg_match_all($regex, $row[$source_field], $matches);
       if (!empty($matches)) {
         for ($i=0; $i < count($matches[3]); $i++) {

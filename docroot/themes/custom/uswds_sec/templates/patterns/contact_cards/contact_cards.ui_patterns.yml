@@ -1,0 +1,18 @@
+contact_cards:
+  label: Contact Cards Group
+  description: Contact cards group
+  fields:
+    cards_per_row:
+      type: text
+      label: Cards per Row
+      description: Number of cards per row.
+      preview: 1
+    grid_alignment:
+      type: text
+      label: Grid Alignment
+      description: Sets the alignment to stretch to fit or align to grid
+      preview: stretch to fit
+    cards:
+      type: "render"
+      label: Cards
+      description: Cards

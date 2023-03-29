@@ -17,7 +17,16 @@ class NodeFormMultipleTest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
-   * Simple array.
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
+   * Simple array of terms.
+   *
+   * @var array
    */
   protected $terms = [];
 
@@ -44,21 +53,21 @@ class NodeFormMultipleTest extends BrowserTestBase {
    * Tests field handling for multiple checkboxes.
    */
   public function testNodeMultipleCheckboxesForm() {
-    #$this->runFieldTest('options_buttons');
+    // $this->runFieldTest('options_buttons');
   }
 
   /**
    * Tests field handling for basic autocomplete.
    */
   public function testNodeMultipleAutocompleteForm() {
-    #$this->runFieldTest('entity_reference_autocomplete');
+    // $this->runFieldTest('entity_reference_autocomplete');
   }
 
   /**
    * Runs tests against different field configurations.
    *
-   * @param $field_type
-   *  The type of field widget to test: options_select|options_buttons.
+   * @param string $field_type
+   *   The type of field widget to test: options_select|options_buttons.
    */
   private function runFieldTest($field_type = 'options_select') {
     // Set up a content type, taxonomy field, and taxonomy scheme.
@@ -68,7 +77,6 @@ class NodeFormMultipleTest extends BrowserTestBase {
     $field = $this->setUpTaxonomyFieldForEntityType('node', $node_type->id(), $vocab->id(), $field_name, 'Section', 3, $field_type);
     $scheme = $this->setUpTaxonomyScheme($node_type, $vocab);
     $user_storage = \Drupal::service('workbench_access.user_section_storage');
-    $role_storage = \Drupal::service('workbench_access.role_section_storage');
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     // Set up an editor and log in as them.
@@ -98,7 +106,10 @@ class NodeFormMultipleTest extends BrowserTestBase {
     $this->terms[$base_term->id()] = $base_term->getName();
 
     // Add the user to the base section and the staff section.
-    $user_storage->addUser($scheme, $editor, [$base_term->id(), $staff_term->id()]);
+    $user_storage->addUser($scheme, $editor, [
+      $base_term->id(),
+      $staff_term->id()
+    ]);
     $expected = [$editor->id()];
     $existing_users = $user_storage->getEditors($scheme, $base_term->id());
     $this->assertEquals($expected, array_keys($existing_users));
@@ -108,7 +119,8 @@ class NodeFormMultipleTest extends BrowserTestBase {
     // Create a page as super-admin.
     $admin = $this->setUpAdminUser([
       'bypass node access',
-      'bypass workbench access']);
+      'bypass workbench access'
+    ]);
     $this->drupalLogin($admin);
 
     $web_assert = $this->assertSession();
@@ -148,7 +160,8 @@ class NodeFormMultipleTest extends BrowserTestBase {
 
     // Save the node.
     $edit['title[0][value]'] = 'Test node';
-    $this->drupalPostForm('node/add/page', $edit, 'Save');
+    $this->drupalGet('node/add/page');
+    $this->submitForm($edit, 'Save');
 
     // Get node data. Note that we create one new node for each test case.
     $nid = 1;
@@ -191,13 +204,16 @@ class NodeFormMultipleTest extends BrowserTestBase {
 
     // This should retain $base_term->id() and $super_staff_term->id().
     $edit['title[0][value]'] = 'Updated node';
-    $this->drupalPostForm('node/1/edit', $edit, 'Save');
+    $this->drupalGet('node/1/edit');
+    $this->submitForm($edit, 'Save');
 
     // Reload the node and test.
-    $expected = [3,2];
+    $expected = [3, 2];
     $node_storage->resetCache([$nid]);
     $node = $node_storage->load($nid);
-    $values = $scheme->getAccessScheme()->getEntityValues($node);
+    /** @var \Drupal\workbench_access\AccessControlHierarchyInterface $access_scheme */
+    $access_scheme = $scheme->getAccessScheme();
+    $values = $access_scheme->getEntityValues($node);
     $this->assertCount(2, $values);
     $this->assertEquals($values, $expected);
 

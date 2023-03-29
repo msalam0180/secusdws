@@ -87,8 +87,9 @@
   &__meta {
     margin-top: rem(12px) !important;// [1]
 
-    // We don’t have a separate class on “meta” lists for tags use use :has()
-    // This isn’t supported in all browsers but it’s a minor adjustment so nbd.
+    // We don’t have a separate class on “meta” lists for tags so we’re using :has()
+    // This isn’t supported in all browsers but it’s very minor so not a big deal.
+    // https://caniuse.com/css-has
     &:has(.usa-tag) {
       margin-top: rem(9px) !important;// [1]
     }

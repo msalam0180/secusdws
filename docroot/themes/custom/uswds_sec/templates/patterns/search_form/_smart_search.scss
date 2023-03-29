@@ -1,0 +1,214 @@
+//------------------------------------------------------------------------
+// Smart Search
+//
+// Smart search popup is used by the header search form AND "Edgar Search Tools block"
+// Note: Search form used in the header that has the search autocomplete.
+//------------------------------------------------------------------------
+@use "uswds-settings" as usa;
+@use "../../../assets/sass/vars/color-vars" as *;
+@use "../../../assets/sass/vars/layout-vars" as *;
+@use "../../../assets/sass/vars/z-index" as *;
+@use "../../../assets/sass/functions/rem" as *;
+@use "../../../assets/sass/mixins/box-shadows" as *;
+@use "../../../assets/sass/mixins/media-queries" as *;
+@use "../../../assets/sass/mixins/scale" as *;
+
+// Container
+.smart-search {
+  $selector: &;
+  $bp-show-cik-number: 520px;
+  $menu-max-width: 560px;
+  $menu-border-radius: 5px;
+  $hover-bg-color: usa.color('blue-10');
+  $border-color: rgba($c-black, 0.2);
+
+  // This is the top-level wrapper
+  &-container {
+    font-size: rem(14px);
+    left: 50%;
+    max-width: rem($menu-max-width);
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    width: calc(100vw - 30px);// 30px to align with search field in narrow viewports
+    z-index: 1;
+
+    @include min-width(360px) {
+      font-size: rem(15px);
+    }
+
+    .header & {
+      @include min-width($layout-nav-bp) {
+        left: auto;
+        right: 0;
+        transform: none;
+        width: rem($menu-max-width);
+      }
+    }
+
+    // Custom styles for EDGAR Company Filing Search page
+    // https://www.sec.gov/edgar/searchedgar/companysearch
+    @at-root .edgar-search-container .inline-form {
+      position: relative;
+      z-index: $z-main + 1;
+    }
+
+    .edgar-search-container & {
+      @include min-width(700px) {
+        left: 0;
+        transform: none;
+      }
+    }
+  }
+
+  &-section {
+    @include scale(padding-left padding-right, (375px: 20px, $layout-nav-bp: 46px));
+    padding-bottom: rem(26px);
+    padding-top: rem(30px);
+
+    &:first-child {
+      border-radius: $menu-border-radius $menu-border-radius 0 0;
+    }
+
+    &:not(:first-child) {
+      border-top: 1px solid $border-color;
+    }
+
+    &:last-child {
+      border-radius: 0 0 $menu-border-radius $menu-border-radius;
+    }
+
+    &__edgar {
+      background-color: usa.color('blue-5');
+    }
+
+    &__webpages_documents {
+      background-color: #fff;
+    }
+  }
+
+  &-entity-hints {
+    // The is the inner wrapper around all of the content
+    // Note: This element has some inline styles
+    &:is(div) {
+      border-radius: 5px;
+      box-shadow: $card-box-shadow-desktop;
+      display: none;
+      left: 0 !important;
+      position: absolute !important;
+      top: 0 !important;
+      width: 100%;
+      z-index: 1000 !important;
+    }
+
+    // The company results are wrapped in a table
+    &:is(table) {
+      margin-bottom: rem(10px);
+      width: 100%;// override inline width attr
+
+      td {
+        vertical-align: baseline;
+      }
+
+      a {
+        color: $c-default;
+        display: block;
+        line-height: 1.2;
+        padding-bottom: rem(8px);
+        padding-top: rem(8px);
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $c-default;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  // This is the <tr> for each company suggestion
+  &-hint {
+    $hover-bg-extend: 4px;
+    box-shadow: -$hover-bg-extend 0 0 0 transparent, $hover-bg-extend 0 0 0 transparent;
+    position: relative;
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+
+    &:hover,
+    &:focus-within,
+    // This class is added via JS when using the up/down arrow keys
+    &#{$selector}-selected-hint {
+      background-color: $hover-bg-color;
+      box-shadow: -$hover-bg-extend 0 0 0 $hover-bg-color, $hover-bg-extend 0 0 0 $hover-bg-color;
+      cursor: pointer;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    // Company name <td>
+    &-entity {
+    }
+
+    // CIK number <td>
+    &-cik {
+      padding-left: rem(26px);
+
+      // Hide CIK number in narrow viewports
+      @include max-width($bp-show-cik-number - 1px) {
+        display: none;
+      }
+    }
+  }
+
+  &-heading {
+    border-bottom: 1px solid $border-color;
+    font-size: rem(16px);
+    font-weight: bold;
+    margin-bottom: rem(12px);
+    padding-bottom: rem(20px);
+  }
+
+  &-EDGAR,
+  &-SEC-gov {
+    margin-right: rem(5px);
+  }
+
+  // "Search for" links
+  &-edgar-full-text,
+  &-sec-gov-website {
+    color: $link-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: rem(16px);
+    text-decoration: underline;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $link-color-hover;
+
+      &:before {
+        background-color: currentColor;
+      }
+    }
+
+    &:before {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: rem(20px);
+      margin-right: rem(10px);
+      mask-image: url('/themes/custom/uswds_sec/assets/img/usa-icons/search.svg');
+      position: relative;
+      top: rem(4px);
+      width: rem(20px);
+    }
+  }
+
+  &-search-text {
+    font-weight: bold;
+  }
+}

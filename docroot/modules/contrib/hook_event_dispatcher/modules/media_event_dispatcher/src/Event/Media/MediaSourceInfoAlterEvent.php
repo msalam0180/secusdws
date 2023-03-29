@@ -7,6 +7,8 @@ use Drupal\media_event_dispatcher\MediaHookEvents;
 
 /**
  * Class MediaSourceInfoAlterEvent.
+ *
+ * @HookEvent(id="media_source_info_alter", alter="media_source_info")
  */
 class MediaSourceInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

@@ -61,4 +61,5 @@ hidden:
   field_respondents: true
   field_see_also: true
   field_submit_comments: true
+  langcode: true
   search_api_excerpt: true

@@ -1,15 +1,35 @@
 //------------------------------------------------------------------------
 // Navigation overrides
 //------------------------------------------------------------------------
+@use "uswds-settings" as usa;
+@use "../vars/color-vars" as *;
+@use "../vars/font-vars" as *;
+@use "../vars/layout-vars" as *;
+@use "../vars/z-index" as *;
+@use "../functions/rem" as *;
+@use "../functions/svg-url" as *;
+@use "../mixins/layout-mixins" as *;
+@use "../mixins/link-mixins" as *;
+@use "../mixins/media-queries" as *;
+@use "../mixins/scale" as *;
+
 .usa-nav {
   $selector: &;
   $bp-wide: $layout-nav-bp;
+  $horz-padding-mobile: 17px;
+  $horz-padding-desktop: 36px;
+  $horz-rule-color: rgba($c-black, 0.2);
   --mobile-nav-speed: 150ms;
   --mobile-nav-easing: ease;//#{$easeOutCubic};
   background-color: #fff;
   display: flex;// override USWDS default
   float: none !important;// override USWDS default
   z-index: $z-nav;
+
+  // Change z-index when logged in to avoid overlapping the Drupal menu
+  .user-logged-in & {
+    z-index: 100;
+  }
 
   // This class is applied to the body when the mobile nav is expanded
   // @at-root .usa-js-mobile-nav--active {
@@ -35,11 +55,11 @@
 
   // Note: Primary nav also has “.usa-accordion” class
   &__primary {
-    $horz-padding-mobile: 16px;
     margin-top: 0;// override USWDS default
 
     @include min-width($bp-wide) {
       justify-content: space-between;
+      min-height: rem(69px);
     }
 
     .grid-row {
@@ -50,29 +70,18 @@
 
     #{$selector}__submenu {
       @include max-width($bp-wide - 1px) {
-        padding-bottom: rem(16px);
-        padding-top: rem(7px);
+        padding-bottom: rem(18px);
+        padding-top: rem(15px);
       }
+    }
 
-      &-item {
-        border-top: 0;// override USWDS default
-
-        a {
-          color: $c-black !important;// override USWDS default
-          font-size: rem(16px);
-
-          @include max-width($bp-wide - 1px) {
-            padding: rem(10px $horz-padding-mobile);
-          }
-
-          &:hover,
-          &:focus,
-          &:active {
-            background-color: transparent;// override USWDS default
-            color: currentColor;
-            text-decoration: underline;
-          }
-        }
+    // Override USWDS defaults
+    a:not(.usa-button) {
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent;
+        text-decoration: underline;
       }
     }
 
@@ -83,14 +92,50 @@
 
       @include min-width($bp-wide) {
         flex-grow: 1;
+        //position: relative;// for submenu positioning
+
+        &:not(.has-menu) {
+          align-self: center;
+        }
 
         // Instead of using JS to detect when the menu is cutoff on the right,
         // USWDS just uses CSS to make the lest submenu right aligned, so we’re
         // using that same approach.
-        &:last-of-type {
+        &.has-menu:last-of-type {
           #{$selector}__submenu {
             right: 0;
+
+            // No need to right align once viewport is wide enough
+            // Note: Breakpoint depends on the submenu max-width
+            @include min-width(1540px) {
+              right: auto;
+            }
           }
+        }
+
+        // Override default USWDS styles
+        & > .usa-button {
+          color: var(--theme-button-color, #fff) !important;
+          padding: rem(14px 22px) !important;
+          text-transform: none;
+        }
+      }
+
+      // Top-level CTA
+      // NOTE: “is-button” class must be added manually
+      &.is-button {
+        @include max-width($bp-wide - 1px) {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          margin-left: rem($horz-padding-mobile);
+          margin-right: rem($horz-padding-mobile);
+          margin-top: rem(23px);
+        }
+
+        @include min-width($bp-wide) {
+          margin-left: rem(24px);
+          min-width: rem(196px);
         }
       }
     }// end item
@@ -105,6 +150,8 @@
       // Use chevron instead of default plus/minus icon in mobile.
       // Don’t switch chevron in desktop so we can use transform to animate it.
       span {
+        display: block;
+
         &:after {
           mask-image: url('/themes/custom/uswds_sec/assets/img/usa-icons/expand_more.svg') !important;
           transition: background-color 180ms ease, transform 180ms ease;
@@ -258,15 +305,177 @@
   }
 
   &__submenu {
+    $submenu-selector: &;
+
     @include min-width($bp-wide) {
       background-color: #fff;
       box-shadow: $card-box-shadow-desktop;
-      padding: rem(36px);
+      padding-bottom: rem(36px);
+      padding-top: rem(36px);
+      width: max-content;
 
-      // FIXME: Remove/refactor once subnav markup is final
-      .grid-row {
-        display: block !important;
+      // Right align menus so they’re not cutoff on the right
+      &.align-right {
+        right: 0;
       }
     }
+
+    &.is-megamenu {
+      @include min-width($bp-wide) {
+        @include layout-fullwidth($position: absolute);
+      }
+    }
+
+    &-list {
+      // Switch to 2-col layout when >=10 links
+      // See /uswds_sec/templates/system/menu/menu--primary_menu.html.twig
+      @include min-width(580px) {
+        &[data-cols="2"] {
+          columns: 2;
+          column-gap: 0;
+        }
+      }
+
+      @include min-width($bp-wide) {
+        .is-megamenu & {
+          display: flex;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: rem($layout-max-width-global);
+          width: 100%;
+        }
+      }
+
+      & > #{$submenu-selector}-item {
+        @include max-width($bp-wide - 1px) {
+          padding-left: rem($horz-padding-mobile);
+          padding-right: rem($horz-padding-mobile);
+        }
+
+        @include min-width($bp-wide) {
+          flex-grow: 1;
+          min-width: 25%;
+          padding-left: rem($horz-padding-desktop);
+          padding-right: rem($horz-padding-desktop);
+        }
+      }
+    }
+
+    // These styles apply to megamenu items as well
+    &-item {
+      border-top: 0;// override USWDS default
+
+      &:first-child {
+        .usa-button {
+          margin-top: 0;
+        }
+      }
+
+      &.has-menu {
+        @include max-width($bp-wide - 1px) {
+          &:not(:first-child) {
+            border-top: 1px solid $horz-rule-color;
+            margin-top: rem(25px);
+            padding-top: rem(20px);
+          }
+        }
+      }
+
+      a:where(:not(.usa-button)) {
+        color: $c-black !important;// override USWDS default
+        font-size: rem(16px);
+        padding-left: 0 !important;// override USWDS default
+        padding-right: 0 !important;// override USWDS default
+
+        @include max-width($bp-wide - 1px) {
+          padding: rem(10px $horz-padding-mobile);
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: transparent;// override USWDS default
+          color: currentColor;
+          text-decoration: underline;
+        }
+      }
+
+      // Override USWDS defaults
+      .usa-button {
+        //@include usa-button;
+        color: var(--theme-button-color) !important;
+        margin-top: rem(18px);
+        padding: usa.units(1.5) usa.units(2.5) !important;
+
+        &--outline {
+          color: var(--theme-outline-button-color, $button-blue-dark) !important;
+        }
+      }
+    }
+
+    &-heading {
+      border-bottom: 1px solid $horz-rule-color;
+      color: $c-black;
+      display: flex;// prevent link from being 100% wide
+      font-family: $gotham-font-family;
+      font-size: rem(13px);
+      font-weight: bold;
+      line-height: 1.1;
+      margin-bottom: rem(6px);
+      padding-bottom: rem(14px);
+      text-transform: uppercase;
+
+      @include max-width($bp-wide - 1px) {
+        margin-left: rem($horz-padding-mobile);
+        margin-right: rem($horz-padding-mobile);
+      }
+
+      @include min-width($bp-wide) {
+        margin-bottom: rem(8px);
+        margin-left: rem($horz-padding-desktop);
+        margin-right: rem($horz-padding-desktop);
+      }
+
+      .is-megamenu & {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      // Note: Use !important to override USWDS default styles
+      a {
+        color: currentColor !important;
+        font-size: inherit;
+        font-weight: inherit;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        @supports (mask-size: contain) {
+          // Use SVG mask to add icon so it can inherit the color
+          // https://jsfiddle.net/34rmz5k7/2/
+          &:after {
+            background: currentColor;// this is the icon color
+            content: '';
+            display: inline-flex;
+            font-size: inherit;
+            height: 1em;
+            margin-left: rem(5px);
+            margin-top: rem(-2px);
+            mask-image: svg-url('chevRight'), linear-gradient(transparent, transparent);
+            mask-position: center;
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            vertical-align: middle;
+            width: rem(5px);
+          }
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: transparent !important;
+          text-decoration: underline !important;
+        }
+      }
+    }// end heading
   }
 }

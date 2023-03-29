@@ -8,6 +8,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityLoadEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_load",
+ *   hook = "entity_load"
+ * )
  */
 class EntityLoadEvent extends Event implements EventInterface {
 

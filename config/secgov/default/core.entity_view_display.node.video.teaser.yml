@@ -87,5 +87,7 @@ hidden:
   field_tags: true
   field_topic: true
   field_transcript: true
+  langcode: true
   links: true
   scheduling_options: true
+  search_api_excerpt: true

@@ -72,6 +72,7 @@ AddEncoding gzip svgz
   RewriteEngine on
 
   RewriteCond %{HTTP_HOST} !\.lndo\.site [NC]  # exclude local
+  RewriteCond %{HTTP_HOST} !local\.sec\.gov [NC]  # exclude local
   RewriteCond %{REMOTE_ADDR} !^162\.138\.2[0-1]0\.3|127\.0\.0\.1$
   RewriteCond %{ENV:AH_Client_IP} !^162\.138\.2[0-1]0\.3|127\.0\.0\.1$
   RewriteRule ^(scripts|profile|includes|cron\.php|core/install\.php|install\.php|update\.php|xmlrpc\.php|filter($|/)|user($|/)|admin($|/)) - [F,L]
@@ -97,12 +98,14 @@ AddEncoding gzip svgz
   RewriteCond %{HTTPS} off
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteCond %{HTTP_HOST} !\.lndo\.site [NC] # exclude local
+  RewriteCond %{HTTP_HOST} !local\.sec\.gov [NC] # exclude local
   RewriteCond %{HTTP_HOST} !\.acquia-sites\.com [NC] # exclude Acquia domains
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 
   #Add Investor Press Release redirects to homepage
   RewriteCond %{HTTP_HOST} \.lndo\.site [OR]
+  RewriteCond %{HTTP_HOST} local\.sec\.gov [OR]
   RewriteCond %{HTTP_HOST} investor\.gov [NC]
   RewriteRule ^additional-resources/news-alerts/press-releases/(.*)$ / [NC,L,R=301]
 

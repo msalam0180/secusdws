@@ -10,13 +10,13 @@ Scenario: View the Fast Answers List Page
       | name       | field_media_file       | status |
       | Behat File | behat-file_corpfin.pdf | 1      |
     And "secarticle" content:
-    | title                | field_display_title       | changed   | status | field_article_type_secarticle | field_primary_division_office | field_media_file_upload |
-    | Bahat Fast Answers 0 | Behat Fast Answers Test 0 | +1 month  | 1      | Fast Answers                  | Corporation Finance           | Behat File              |
-    | Bahat Fast Answers 1 | Behat Fast Answers Test 1 | -3 month  | 0      | Fast Answers                  | Corporation Finance           |                         |
-    | Bahat Fast Answers 2 | Behat Fast Answers Test 2 | +2 day    | 1      | Fast Answers                  | Corporation Finance           |                         |
-    | Bahat Fast Answers 3 | Behat Fast Answers Test 3 | +11 month | 1      | Fast Answers                  | Corporation Finance           |                         |
-    | Bahat Fast Answers 4 | Behat Fast Answers Test 4 | +90 day   | 1      | Fast Answers                  | Corporation Finance           |                         |
-    | Bahat Fast Answers 5 | Behat Fast Answers Test 5 | +2 year   | 1      | Fast Answers                  | Corporation Finance           |                         |
+      | title                | field_display_title       | changed   | status | field_article_type_secarticle | field_primary_division_office | field_media_file_upload |
+      | Bahat Fast Answers 0 | Behat Fast Answers Test 0 | +1 month  | 1      | Fast Answers                  | Corporation Finance           | Behat File              |
+      | Bahat Fast Answers 1 | Behat Fast Answers Test 1 | -3 month  | 0      | Fast Answers                  | Corporation Finance           |                         |
+      | Bahat Fast Answers 2 | Behat Fast Answers Test 2 | +2 day    | 1      | Fast Answers                  | Corporation Finance           |                         |
+      | Bahat Fast Answers 3 | Behat Fast Answers Test 3 | +11 month | 1      | Fast Answers                  | Corporation Finance           |                         |
+      | Bahat Fast Answers 4 | Behat Fast Answers Test 4 | +90 day   | 1      | Fast Answers                  | Corporation Finance           |                         |
+      | Bahat Fast Answers 5 | Behat Fast Answers Test 5 | +2 year   | 1      | Fast Answers                  | Corporation Finance           |                         |
   When I visit "/fast-answers"
   Then I should see the heading "Fast Answers - Key Topics"
     #list view should display link to announcement with display title as text
@@ -128,10 +128,10 @@ Scenario: Verify PDF file opens when the link is clicked from the list view for 
     And I click "Edit" in the "Verify PDF file having article type as Fast Answers and Corporate Finance as Division" row
     And I wait 2 seconds
     And I select the first autocomplete option for "Behat Test File" on the "Use existing media" field
-    And I wait for AJAX to finish
     And I publish it
-  When I am on "/fast-answers"
-    And I should see the link "Verify PDF file having article type as Fast Answers and Corporate Finance as Division"
-    And I click "Verify PDF file having article type as Fast Answers and Corporate Finance as Division"
+    And I am not logged in
+    And I am on "/fast-answers"
+  Then I should see the link "Verify PDF file having article type as Fast Answers and Corporate Finance as Division"
+  When I click "Verify PDF file having article type as Fast Answers and Corporate Finance as Division"
     And I wait 2 seconds
   Then I should be on "/files/behat-file_fanswer.pdf"

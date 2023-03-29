@@ -6,8 +6,7 @@ Feature: Drupal Admin Search
 #Scenario: Validate all users who have access to search
 
 Background:
-  Given I am logged in as a user with the "administrator" role
-    And "division_office" terms:
+  Given "division_office" terms:
       | name                |
       | DERA                |
       | Corpfin             |
@@ -34,13 +33,17 @@ Background:
        | title                      | field_display_title   | moderation_state   | changed | status | field_publish_date  |
        | BEHAT Test Webcast Content | My Webcast            | published          | +1 hour | 1      | 2018-12-19 15:00:00 |
     And "event" content:
-       | title                       | status | moderation_state | changed |
-       | BEHAT Test Event Content    | 1      | published        | +2 hour |
+      | title                    | status | moderation_state | changed |
+      | BEHAT Test Event Content | 1      | published        | +2 hour |
+    And "secperson" content:
+      | title        | field_first_name_secperson | field_last_name_secperson |
+      | Gary Lineker | Gary                       | Lineker                   |
+      | David Platt  | David                      | Platt                     |
 
 @api
 #PASS
 Scenario: Verify all fields exist in the Drupal search view
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
     And I am on "/admin/content/search"
   Then I should see the text "Title"
     And I should see the text "Display Title"
@@ -61,9 +64,9 @@ Scenario: Verify all fields exist in the Drupal search view
 Scenario Outline: Search Admin Content By Field
   Given "secarticle" content:
     | field_article_type_secarticle | moderation_state | title                     | field_display_title               | status | body                 | field_primary_division_office |
-    | Other                         | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corporation Finance           |
-    | Other                         | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | Corporation Finance           |
-    And I am logged in as a user with the "administrator" role
+    | Other                         | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corpfin                       |
+    | Other                         | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | Corpfin                       |
+    And I am logged in as a user with the "content_creator" role
   When I am on "/admin/content/search"
     And I fill in "<FieldName>" with "<SearchValue>"
     And I press "Filter"
@@ -80,14 +83,14 @@ Scenario Outline: Search Admin Content By Field
 #FAIL: OSSS-8359 created- filter criteria for division/office field on search view is incorrect. Hence, incorrect search results are being displayed
 Scenario Outline: Search Admin Content By Selectors
   Given "secarticle" content:
-   | field_article_type_secarticle | field_article_sub_type_secart | moderation_state | title                     | field_display_title               | status | body                 | field_primary_division_office |
-   | Data                          | Market Structure              | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corporation Finance           |
-   | Other                         | - None -                      | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | Agency-Wide                   |
+      | field_article_type_secarticle | field_article_sub_type_secart | moderation_state | title                     | field_display_title               | status | body                 | field_primary_division_office |
+      | Data                          | Market Structure              | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corpfin                       |
+      | Other                         | - None -                      | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | DERA                          |
     And "news" content:
-     | field_news_type_news          | field_primary_division_office | moderation_state | title                     | status | body                     | field_display_title               | field_person  |
-     | Press Release                 | Agency-wide                   | published        | This is the BEHAT title   | 1      | This is the first body.  | This is the BEHAT display title   | Adam Moore    |
-     | Speech                        | Agency-wide                   | published        | This is the NOT the title | 1      | This is the second body. | This is the NOT the display title | Barry Walters |
-    And I am logged in as a user with the "administrator" role
+      | field_news_type_news | field_primary_division_office | moderation_state | title                     | status | body                     | field_display_title               | field_person |
+      | Press Release        | Agency-wide                   | published        | This is the BEHAT title   | 1      | This is the first body.  | This is the BEHAT display title   | Gary Lineker |
+      | Speech               | Agency-wide                   | published        | This is the NOT the title | 1      | This is the second body. | This is the NOT the display title | David Platt  |
+    And I am logged in as a user with the "content_creator" role
   When I am on "/admin/content/search"
     And I select "<Selector>" from "<Field>"
     And I press "Filter"
@@ -96,19 +99,19 @@ Scenario Outline: Search Admin Content By Selectors
     And I should not see the link "This is the NOT the title"
 
    Examples:
-   | Selector                  | Field                      |
-   | Data                      | Article Type               |
-   | Press Release             | News Type                  |
-   | Adam Moore                | Person                     |
-   | Corporation Finance       | Primary Division / Office  |
+      | Selector      | Field                     |
+      | Data          | Article Type              |
+      | Press Release | News Type                 |
+      | Gary Lineker  | Person                    |
+      | Corpfin       | Primary Division / Office |
 
 @api @javascript
 Scenario: Search Admin Content By Article SubType Selector
   Given "secarticle" content:
-   | field_article_type_secarticle | field_article_sub_type_secart | moderation_state | title                     | field_display_title               | status | body                 | field_primary_division_office |
-   | Data                          | Data-MarketStructure          | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corporation Finance           |
-   | Other                         | - None -                      | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | Agency-Wide                   |
-    And I am logged in as a user with the "administrator" role
+    | field_article_type_secarticle | field_article_sub_type_secart | moderation_state | title                     | field_display_title               | status | body                 | field_primary_division_office |
+    | Data                          | Data-MarketStructure          | published        | This is the BEHAT title   | This is the BEHAT display title   | 1      | This is the body     | Corpfin                       |
+    | Other                         | - None -                      | published        | This is the NOT the title | This is the NOT the display title | 1      | This is NOT the body | DERA                          |
+    And I am logged in as a user with the "content_creator" role
   When I am on "/admin/content/search"
     And I select "Data" from "Article Type"
     And I wait for ajax to finish
@@ -120,7 +123,7 @@ Scenario: Search Admin Content By Article SubType Selector
 
 @api @javascript
 Scenario: Admin Content View Title Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "Article" from "Content type"
     And I additionally select "Event" from "Content type"
@@ -145,7 +148,7 @@ Scenario: Admin Content View Title Sorting
 
 @api @javascript
 Scenario: Admin Content View Display Title Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "Article" from "Content type"
     And I additionally select "Event" from "Content type"
@@ -170,7 +173,7 @@ Scenario: Admin Content View Display Title Sorting
 
 @api @javascript
 Scenario: Admin Content View Content Type Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "Article" from "Content type"
     And I additionally select "Event" from "Content type"
@@ -191,7 +194,7 @@ Scenario: Admin Content View Content Type Sorting
 
 @api @javascript
 Scenario: Admin Content View Article Type Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "Article" from "Content type"
     And I press "Filter"
@@ -209,7 +212,7 @@ Scenario: Admin Content View Article Type Sorting
 
 @api @javascript
 Scenario: Admin Content View News Type Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "News" from "Content type"
     And I press "Filter"
@@ -227,7 +230,7 @@ Scenario: Admin Content View News Type Sorting
 
 @api @javascript
 Scenario: Admin Content View Updated Sorting
-  Given I am logged in as a user with the "administrator" role
+  Given I am logged in as a user with the "content_creator" role
   When I visit "/admin/content/search"
     And I select "Article" from "Content type"
     And I additionally select "Event" from "Content type"

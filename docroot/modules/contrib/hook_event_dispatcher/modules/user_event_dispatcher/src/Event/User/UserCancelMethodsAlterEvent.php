@@ -7,7 +7,12 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 use Drupal\user_event_dispatcher\UserHookEvents;
 
 /**
- * Class UserFormatNameAlterEvent.
+ * Class UserCancelMethodsAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "user_cancel_methods_alter",
+ *   alter = "user_cancel_methods"
+ * )
  */
 final class UserCancelMethodsAlterEvent extends Event implements EventInterface {
 

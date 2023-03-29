@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class PageAttachmentsEvent.
+ *
+ * @HookEvent(id="page_attachments", hook="page_attachments")
  */
 class PageAttachmentsEvent extends Event implements EventInterface {
 

@@ -323,7 +323,7 @@
     <div class="rule-type-header">{{ rule_type_title ~ " Rule" }}</div>
     {% endif %}
     <div id="page-title">
-    {% if node.field_display_title.value %}
+    {% if node.field_display_title.value and node.title.value|length < 256 %}
       <h1>{{ node.field_display_title.value }}</h1>
     {% else %}
       <h1>{{ node.title.value }}</h1>

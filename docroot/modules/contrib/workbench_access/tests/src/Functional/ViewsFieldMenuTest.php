@@ -15,6 +15,13 @@ use Drupal\Tests\BrowserTestBase;
 class ViewsFieldMenuTest extends BrowserTestBase {
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Test links.
    *
    * @var \Drupal\menu_link_content\MenuLinkContentInterface[]
@@ -61,7 +68,7 @@ class ViewsFieldMenuTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create some sections and some nodes in them.
     $sections = [

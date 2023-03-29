@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityPredeleteEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_predelete",
+ *   hook = "entity_predelete"
+ * )
  */
 class EntityPredeleteEvent extends AbstractEntityEvent {
 

@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class FileUrlAlterEvent.
+ *
+ * @HookEvent(id="file_url_alter", alter="file_url")
  */
 class FileUrlAlterEvent extends Event implements EventInterface {
 

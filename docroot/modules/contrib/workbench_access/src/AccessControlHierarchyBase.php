@@ -4,6 +4,7 @@ namespace Drupal\workbench_access;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginWithFormsTrait;
@@ -20,6 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a base hierarchy class that others may extend.
+ *
+ * @phpstan-consistent-constructor
  */
 abstract class AccessControlHierarchyBase extends PluginBase implements AccessControlHierarchyInterface, ContainerFactoryPluginInterface {
 
@@ -29,9 +32,8 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
   /**
    * A configuration factory object to store configuration.
    *
-   * @var ConfigFactory
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-
   protected $configFactory;
 
   /**
@@ -138,6 +140,13 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
   /**
    * {@inheritdoc}
    */
+  public function entityType() {
+    return $this->pluginDefinition['entity'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function calculateDependencies() {
     return [];
   }
@@ -160,16 +169,20 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
    * {@inheritdoc}
    */
   public function load($id) {
+    $plugin = NULL;
     // This cache is specific to the object being called.
-    // e.g. Drupal\workbench_access\Plugin\AccessControlHierarchy\Menu
+    // e.g. Drupal\workbench_access\Plugin\AccessControlHierarchy\Menu.
     if (!isset($this->tree)) {
       $this->tree = $this->getTree();
     }
     foreach ($this->tree as $parent => $data) {
       if (isset($data[$id])) {
-        return $data[$id];
+        $plugin = $data[$id];
+        break;
       }
     }
+
+    return $plugin;
   }
 
   /**
@@ -204,7 +217,7 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
   /**
    * {@inheritdoc}
    */
-  public function disallowedOptions($field) {
+  public function disallowedOptions(array $field) {
     $options = [];
     if (isset($field['widget']['#default_value']) && isset($field['widget']['#options'])) {
       // Default value may be an array or a string.
@@ -220,7 +233,7 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getApplicableFields($entity_type, $bundle) {
     // Extending classes are expected to provide their own implementation.
@@ -231,13 +244,18 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
    * {@inheritdoc}
    */
   public static function submitEntity(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\workbench_access\Entity\AccessSchemeInterface $access_scheme */
-    foreach (\Drupal::entityTypeManager()->getStorage('access_scheme')->loadMultiple() as $access_scheme) {
-      $scheme = $access_scheme->getAccessScheme();
-      $hidden_values = $form_state->getValue('workbench_access_disallowed');
-      if (!empty($hidden_values)) {
-        $entity = $form_state->getFormObject()->getEntity();
-        $scheme->massageFormValues($entity, $form_state, $hidden_values);
+    $form_object = $form_state->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      /** @var \Drupal\workbench_access\Entity\AccessSchemeInterface $access_scheme */
+      foreach (\Drupal::entityTypeManager()
+        ->getStorage('access_scheme')
+        ->loadMultiple() as $access_scheme) {
+        $scheme = $access_scheme->getAccessScheme();
+        $hidden_values = $form_state->getValue('workbench_access_disallowed');
+        if (!empty($hidden_values)) {
+          $entity = $form_object->getEntity();
+          $scheme->massageFormValues($entity, $form_state, $hidden_values);
+        }
       }
     }
   }
@@ -255,7 +273,8 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
   public function addWhere(Section $filter, array $values) {
     // The JOIN data tells us if we have multiple tables to deal with.
     $join_data = $this->getViewsJoin($filter->getEntityType(), $filter->realField);
-    if (count($join_data) == 1) {
+    if (count($join_data) === 1) {
+      // @phpstan-ignore-next-line
       $filter->query->addWhere($filter->options['group'], "$filter->tableAlias.$filter->realField", array_values($values), $filter->operator);
     }
     else {
@@ -264,6 +283,7 @@ abstract class AccessControlHierarchyBase extends PluginBase implements AccessCo
         $alias = $data['table_alias'] . '.' . $data['real_field'];
         $or->condition($alias, array_values($values), $filter->operator);
       }
+      // @phpstan-ignore-next-line
       $filter->query->addWhere($filter->options['group'], $or);
     }
   }

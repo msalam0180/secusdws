@@ -16,7 +16,7 @@ $bg-blue-light: #e5eef5;// Quick Links in homepage hero
 $bg-blue-lighter: rgba($bg-blue, 0.04);// page cards, #f7f9fc
 $bg-gray: #6b7882;
 $bg-gray-light: #f4f5f4;
-$bg-gray-lighter: #f6f6f6;// Used by right sidebar in mobile
+$bg-gray-lighter: #fafafa;// Used by right rail, page background
 $bg-gray-med-light: #dfe3e5;// Used by left nav
 $bg-green-light: #eaf3f2;// Used by sidebar card (#98c2c0 in Figma at 20% opacity)
 $bg-navy: #003864;
@@ -86,14 +86,14 @@ $button-teal-darker: #28605c;// Secondary button hover state
 // Border colors
 //---------------------------------
 $border-gray: #d9d9d9;// collection horz rule, sidebar borders
-$border-gray-dark: #a7aaac;// mobile nav, sidenav
-$border-gray-medium: usa.color('gray-cool-20');// desktop nav
+$border-gray-dark: #a7aaac;// mobile nav, sidenav dividers
+$border-gray-medium: usa.color('gray-cool-20');// desktop nav, sidenav, #c6cace
 $border-gray-light: #dcdee0;// nav, tables, page card
-$border-navy: usa.color('blue-warm-80v');// #162E51, outline button
+$border-navy: usa.color('blue-warm-80v');// outline button, #162e51
 
 // Table colors
 //---------------------------------
-$table-header: usa.color('gray-cool-10');// using default USWDS
+$table-header: usa.color('gray-cool-10');// default USWDS color, #dfe1e2
 
 // Accordion colors
 //---------------------------------

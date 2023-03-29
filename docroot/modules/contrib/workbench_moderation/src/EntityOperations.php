@@ -20,11 +20,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class EntityOperations {
 
   /**
+   * Moderation interface.
+   *
    * @var \Drupal\workbench_moderation\ModerationInformationInterface
    */
   protected $moderationInfo;
 
   /**
+   * An entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
@@ -37,11 +41,15 @@ class EntityOperations {
   protected $eventDispatcher;
 
   /**
+   * The form builder.
+   *
    * @var \Drupal\Core\Form\FormBuilderInterface
    */
   protected $formBuilder;
 
   /**
+   * Revision tracker.
+   *
    * @var \Drupal\workbench_moderation\RevisionTrackerInterface
    */
   protected $tracker;
@@ -81,19 +89,18 @@ class EntityOperations {
   /**
    * Hook bridge.
    *
-   * @see hook_entity_storage_load().
-   *
-   * @param EntityInterface[] $entities
+   * @param \Drupal\Core\Entity\EntityInterface[] $entities
    *   An array of entity objects that have just been loaded.
    * @param string $entity_type_id
    *   The type of entity being loaded, such as "node" or "user".
+   *
+   * @see hook_entity_storage_load()
    */
   public function entityStorageLoad(array $entities, $entity_type_id) {
 
     // Ensure that all moderatable entities always have a moderation_state field
     // with data, in all translations. That avoids us needing to have a thousand
     // NULL checks elsewhere in the code.
-
     // Quickly exclude any non-moderatable entities.
     $to_check = array_filter($entities, [$this->moderationInfo, 'isModeratableEntity']);
     if (!$to_check) {
@@ -165,8 +172,8 @@ class EntityOperations {
       $latest_revision = $this->moderationInfo->getLatestRevision($entity->getEntityTypeId(), $entity->id());
       $state_before = !empty($latest_revision) ? $latest_revision->moderation_state->target_id : NULL;
       // @todo: Revert to this simpler version when https://www.drupal.org/node/2700747 is fixed.
-      // $state_before = isset($entity->original) ? $entity->original->moderation_state->target_id : NULL;
-
+      // $state_before = isset($entity->original) ?
+      // $entity->original->moderation_state->target_id : NULL;
       $state_after = $entity->moderation_state->target_id;
 
       // Allow other modules to respond to the transition. Note that this
@@ -174,24 +181,24 @@ class EntityOperations {
       // Entity API doesn't allow hook_entity_presave to short-circuit a save.
       $event = new WorkbenchModerationTransitionEvent($entity, $state_before, $state_after);
 
-      $this->eventDispatcher->dispatch(WorkbenchModerationEvents::STATE_TRANSITION, $event);
+      $this->eventDispatcher->dispatch($event, WorkbenchModerationEvents::STATE_TRANSITION);
     }
   }
 
   /**
    * Hook bridge.
    *
-   * @see hook_entity_insert().
-   *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that was just saved.
+   *
+   * @see hook_entity_insert()
    */
   public function entityInsert(EntityInterface $entity) {
     if (!$this->moderationInfo->isModeratableEntity($entity)) {
       return;
     }
 
-    /** ContentEntityInterface $entity */
+    /* ContentEntityInterface $entity */
 
     // Update our own record keeping.
     $this->tracker->setLatestRevision($entity->getEntityTypeId(), $entity->id(), $entity->language()->getId(), $entity->getRevisionId());
@@ -200,17 +207,17 @@ class EntityOperations {
   /**
    * Hook bridge.
    *
-   * @see hook_entity_update().
-   *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that was just saved.
+   *
+   * @see hook_entity_update()
    */
   public function entityUpdate(EntityInterface $entity) {
     if (!$this->moderationInfo->isModeratableEntity($entity)) {
       return;
     }
 
-    /** ContentEntityInterface $entity */
+    /* ContentEntityInterface $entity */
 
     // Update our own record keeping.
     $this->tracker->setLatestRevision($entity->getEntityTypeId(), $entity->id(), $entity->language()->getId(), $entity->getRevisionId());

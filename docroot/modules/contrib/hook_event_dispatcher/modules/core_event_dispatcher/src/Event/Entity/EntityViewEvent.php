@@ -8,6 +8,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityViewEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_view",
+ *   hook = "entity_view"
+ * )
  */
 class EntityViewEvent extends AbstractEntityEvent {
 

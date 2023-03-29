@@ -4,40 +4,41 @@
 // stylelint-disable no-important media-feature-name-no-unknown
 // -------------------------------------------------------------------------
 :root {
-  // Header height needed for nav positioning in mobile
-  // --header-height: #{rem(70px)};
-  //
-  // @include min-width(740px) {
-  //   --header-height-mobile: #{rem(112px)};
-  // }
+  // Header height needed for jump link offset
+  --sticky-header-height: #{rem(70px)};
+
+  @include min-width($layout-header-bp-medium) {
+    --sticky-header-height: #{rem(112px)};
+  }
+
+  @include min-width($layout-header-bp-wide) {
+    --sticky-header-height: #{rem(131px)};
+  }
 }
 
-// 1. USWDS automatically applies background-color to the body but we’re also applying
-//    it to the html tag to ensure it always fills the page.
-//    http://css-tricks.com/just-one-of-those-weird-things-about-css-background-on-body/
 html {
-  background-color: $bg-default;// [1]
-
   // Support iOS accessibility text size
   // Note: Only apply on iOS due to bug with Safari 14 on Big Sur
   // https://webkit.org/blog/3709/using-the-system-font-in-web-content/
   // https://www.interactiveaccessibility.com/blog/text-resizing-web-pages-ios-using-dynamic-type
   // https://dev.to/colingourlay/how-to-support-apple-s-dynamic-text-in-your-web-content-with-css-40c0
   // https://gist.github.com/colingourlay/d95908ec5cd4854c7a5afa06f3989479
-  // stylelint-disable font-family-no-missing-generic-family-keyword
+  // https://github.com/twbs/bootstrap/issues/34107
+  // NOTE: The “ua-ios” class is added via inline JS in the <head> in html.html.twig
+  //       We’re detecting iOS by checking the user-agent string, hence the “ua” prefix.
   &.ua-ios {
+    // stylelint-disable font-family-no-missing-generic-family-keyword
     @supports (font: -apple-system-body) {
       font: -apple-system-body;
     }
   }
 
-  // Add extra margin above jump link targets to offset the fixed header
+  // Add extra margin above jump link targets to offset the sticky header
   // https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/
   // https://caniuse.com/mdn-css_properties_scroll-padding
-  // @supports (scroll-padding-top: 0) {
-  //   $vert-offset: 20px;
-  //   scroll-padding-top: calc(var(--layout-header-height) + $vert-offset);
-  // }
+  @supports (scroll-padding-top: 0) {
+    scroll-padding-top: calc(var(--sticky-header-height) + 20px);
+  }
 
   // Allow long words to wrap in narrow viewports
   @include max-width(319px) {
@@ -48,11 +49,23 @@ html {
 // 2. Set “font-family” on body since we’re applying “-apple-system-body” on html element
 // 3. Prevent browsers from automatically adding hyphens by default
 body {
+  background-color: $bg-gray-lighter;// override USWDS
   font-family: $body-copy-font;// [2]
   hyphens: manual;// [3]
+
+  // No gray background on the homepage
+  &.path-frontpage {
+    background-color: $bg-default;
+  }
+
+  // background in WYSIWYG
+  &.cke_editable {
+    background-color: $bg-default;
+  }
 }
 
 // Prevent zoom on iOS (requires adding "ios" class to <html>)
+// https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/
 // http://www.456bereastreet.com/archive/201212/ios_webkit_browsers_and_auto-zooming_form_controls/
 .ua-ios {
   input,
@@ -61,17 +74,6 @@ body {
     // Use max() to make it possible to override in component styles
     @supports (font-size: #{"max(1em, 16px)"}) {
       font-size: #{"max(1em, 16px)"};
-    }
-  }
-}
-
-main {
-  clear: both;// TODO: See if still needed after header and nav are done
-
-  // Custom styles for when there’s a collapsible left sidenav
-  &.has-collapsed-sidenav {
-    @include min-width($layout-sidenav-bp) {
-      border-left: $layout-sidebar-border-width solid $button-blue-dark;
     }
   }
 }

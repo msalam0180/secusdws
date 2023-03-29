@@ -9,6 +9,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class ConfigImportStepsAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "config_import_steps_alter",
+ *   alter = "config_import_steps"
+ * )
  */
 class ConfigImportStepsAlterEvent extends Event implements EventInterface {
 

@@ -10,13 +10,13 @@ Feature: Utilizing Layout Builder with the New Theme
 
   Background:
     Given "division_office" terms:
-        | name                     |
-        | The Rebel Alliance-Luke  |
-        | The Rebel Alliance-Leia  |
-        | The Rebel Alliance-Solo  |
-        | The Rebel Alliance-Lando |
-        | The Rebel Alliance-Wedge |
-        | The Rebel Alliance-OB1   |
+      | name                     |
+      | The Rebel Alliance-Luke  |
+      | The Rebel Alliance-Leia  |
+      | The Rebel Alliance-Solo  |
+      | The Rebel Alliance-Lando |
+      | The Rebel Alliance-Wedge |
+      | The Rebel Alliance-OB1   |
 
   @api @javascript
   Scenario: Adding an Email Alerts Sign-Up Block
@@ -1140,6 +1140,7 @@ Feature: Utilizing Layout Builder with the New Theme
       And I am on "/page/behat-image-block-landing-page/"
     Then I should see the heading "BEHAT Image Block Landing Page"
       And I should see the text "BEHAT Image Block"
+     # Regression bug where image component cards no longer displaying captions
       And I should see the text "a F-22 fighter jet"
       And I should see the text "a F-35 fighter jet"
 
@@ -1150,13 +1151,14 @@ Feature: Utilizing Layout Builder with the New Theme
       | title                                | moderation_state |
       | BEHAT Person Card Group Landing Page | published        |
       And "secperson" content:
-      | title            | field_first_name_secperson | field_last_name_secperson | field_email           | field_phone  | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
-      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999 | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
-      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999 | The Rebel Alliance-Leia       | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
-      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999 | The Rebel Alliance-Solo       | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
-      | Lando Calrissian | Lando                      | Calrissian                | lando@testing.com     | 999-222-9999 | The Rebel Alliance-Lando      | An old friend of Han Solo and the administrator of the floating Cloud City on the gas planet Bespin                                                | 1                           | 1      | published        |
-      | Wedge Antilles   | Wedge                      | Antilles                  | antilles@testing.com  | 333-222-9999 | The Rebel Alliance-Wedge      | A famed Corellian pilot and general, known as a hero of the Rebel Alliance and New Republic                                                        | 1                           | 1      | published        |
-      | Obi-Wan Kenobi   | Obi-Wan                    | Kenobi                    | ob1@testing.com       | 111-222-9999 | The Rebel Alliance-OB1        | A legendary Jedi Master, he was a noble man and gifted in the ways of the Force (No image)                                                         | 1                           | 1      | published        |
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office                   | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke                         | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999          | The Rebel Alliance-Leia                         | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
+      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999          | The Rebel Alliance-Solo                         | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
+      | Lando Calrissian | Lando                      | Calrissian                | lando@testing.com     | 999-222-9999          | The Rebel Alliance-Lando                        | An old friend of Han Solo and the administrator of the floating Cloud City on the gas planet Bespin                                                | 1                           | 1      | published        |
+      | Wedge Antilles   | Wedge                      | Antilles                  | antilles@testing.com  | 333-222-9999          | The Rebel Alliance-Wedge                        | A famed Corellian pilot and general, known as a hero of the Rebel Alliance and New Republic                                                        | 1                           | 1      | published        |
+      | Obi-Wan Kenobi   | Obi-Wan                    | Kenobi                    | ob1@testing.com       | 111-222-9999          | The Rebel Alliance-OB1                          | A legendary Jedi Master, he was a noble man and gifted in the ways of the Force (No image)                                                         | 1                           | 1      | published        |
+      | Jabba the Hutt   | Jabba                      | the Hutt                  |                       |                       | The Rebel Alliance-OB1, The Rebel Alliance-Solo | A powerful crime lord on the planet Tatooine, who is of the Hutt species.                                                                          | 1                           | 1      | published        |
     # Edit each Person page to add person image & position
     When I am on "/biography/luke-skywalker/edit"
       And I press "Add Position History"
@@ -1248,6 +1250,11 @@ Feature: Utilizing Layout Builder with the New Theme
       And I wait for ajax to finish
       And I click "Person Card"
       And I fill in "Title" with "BEHAT Person Card Group"
+      And the "Show Phone" checkbox is unchecked
+      And the "Show Email" checkbox is unchecked
+      # Show Phone & Email (checkboxes checked)
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-phone-value label"
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-email-value label"
       # Create card 1 - Luke
       And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
       # Create card 2 - Leia
@@ -1265,6 +1272,9 @@ Feature: Utilizing Layout Builder with the New Theme
       # Create card 5 - Obi-Wan
       And I press "Add another item"
       And I fill in "settings[block_form][field_person_card][5][target_id]" with "Obi-Wan Kenobi"
+      # Create card 6 - Jabba the Hutt with no contact info
+      And I press "Add another item"
+      And I fill in "settings[block_form][field_person_card][6][target_id]" with "Jabba the Hutt"
       And I press "Add block"
     Then I should see the text "BEHAT Person Card Group"
     #Saving the layout
@@ -1306,6 +1316,8 @@ Feature: Utilizing Layout Builder with the New Theme
       And I should see the link "999-222-9999"
       And I should see the link "333-222-9999"
       And I should see the link "111-222-9999"
+    # Validate that for a person with no contact info provided, the person's card should not even show the place holders for contact info
+      And I should not see the "a.card-person__link" element in the "uswds_person_card7" region
     # Link to person page
     When I click "Wedge Antilles"
     Then I should be on "/biography/wedge-antilles"
@@ -1318,10 +1330,10 @@ Feature: Utilizing Layout Builder with the New Theme
       | title                                | moderation_state |
       | BEHAT Person Card Group Landing Page | published        |
       And "secperson" content:
-      | title            | field_first_name_secperson | field_last_name_secperson | field_email           | field_phone  | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
-      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999 | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
-      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999 | The Rebel Alliance-Leia       | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
-      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999 | The Rebel Alliance-Solo       | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999          | The Rebel Alliance-Leia       | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
+      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999          | The Rebel Alliance-Solo       | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
     # Edit each Person page to add person image & position
     When I am on "/biography/luke-skywalker/edit"
       And I press "Add Position History"
@@ -1378,6 +1390,9 @@ Feature: Utilizing Layout Builder with the New Theme
       And I fill in "Title" with "BEHAT Person Card Group"
      # Hide images - "Show Photo" option for card group is Unchecked
       And I click on the element with css selector ".form-item-settings-block-form-field-show-photo-value label"
+      # Show Phone & Email (checkboxes checked)
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-phone-value label"
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-email-value label"
       # Create card 1 - Luke
       And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
       # Create card 2 - Leia
@@ -1400,3 +1415,175 @@ Feature: Utilizing Layout Builder with the New Theme
       And I should not see the css selector "div > div > div:nth-child(1) > div > a > img"
       And I should not see the css selector "div:nth-child(2) > div > a > img"
       And I should not see the css selector "div:nth-child(3) > div > a > img"
+
+  @api @javascript
+  Scenario: Hide Phone & Email for Person Card Group
+    Given I am logged in as a user with the "sitebuilder" role
+      And "landing_page" content:
+      | title                                | moderation_state |
+      | BEHAT Person Card Group Landing Page | published        |
+      And "secperson" content:
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+    # Edit Person page to add additional details
+    When I am on "/biography/luke-skywalker/edit"
+      And I press "Add Position History"
+      And I select "Other" from "Position Category"
+      And I fill in "Jedi" for "Position Title"
+      And I fill in the following:
+        | field_position_history_paragraph[0][subform][field_from][0][value][date] | 01-01-1999 |
+      And I check "Current Position"
+      And I attach the file "behat-luke.png" to "Photo"
+      And I wait for ajax to finish
+      And I fill in "Alternative text" with "Luke"
+      And I publish it
+    Then I should see the heading "Luke Skywalker"
+    # Adding the person card group block using layout builder & adding the cards
+    When I am on "/page/behat-person-card-group-landing-page/layout"
+      And I click "Add section"
+      And I wait for ajax to finish
+      And I click "One column"
+      And I wait for ajax to finish
+      And I press "Add section"
+      And I wait for ajax to finish
+      And I click "Add block"
+      And I wait for ajax to finish
+      And I click "Create custom block"
+      And I wait for ajax to finish
+      And I click "Person Card"
+      And I fill in "Title" with "BEHAT Person Card Group"
+      # Hide Phone & Email (default - by leaving checkboxes unchecked)
+      # Create card 1 - Luke
+      And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
+      And I press "Add block"
+    Then I should see the text "BEHAT Person Card Group"
+    #Saving the layout
+    When I scroll to the top
+      And I press "Save layout"
+      And I wait for ajax to finish
+    Then I should see the text "The layout override has been saved."
+    # As a site visitor, verifying Phone & Email are hidden
+    When I am not logged in
+      And I am on "/page/behat-person-card-group-landing-page"
+    Then I should see the heading "BEHAT Person Card Group Landing Page"
+      And I should not see the link "skywalker@testing.com"
+      And I should not see the link "444-222-9999"
+
+  @api @javascript
+  Scenario: Person Card with multiple Positions History - No Current Position checkbox selected so From Date used for Hierarchy
+    Given I am logged in as a user with the "sitebuilder" role
+      And "landing_page" content:
+      | title                                | moderation_state |
+      | BEHAT Person Card Group Landing Page | published        |
+      And "secperson" content:
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+    # Edit Person page to add multiple positions history
+    When I am on "/biography/luke-skywalker/edit"
+      And I press "Add Position History"
+      And I select "Other" from "Position Category"
+      And I fill in "Jedi" for "Position Title"
+      And I fill in the following:
+        | field_position_history_paragraph[0][subform][field_from][0][value][date] | 05-25-1983 |
+        | field_position_history_paragraph[0][subform][field_to][0][value][date]   | 12-15-2017 |
+      And I press "Add Position History"
+      And I select "Other" from "field_position_history_paragraph[1][subform][field_position_category]"
+      And I fill in "Tatooine Farmboy" for "field_position_history_paragraph[1][subform][field_position_title][0][value]"
+      And I fill in the following:
+        | field_position_history_paragraph[1][subform][field_from][0][value][date] | 09-25-1951 |
+        | field_position_history_paragraph[1][subform][field_to][0][value][date]   | 05-24-1983 |
+      And I attach the file "behat-luke.png" to "Photo"
+      And I wait for ajax to finish
+      And I fill in "Alternative text" with "Luke"
+      And I publish it
+    Then I should see the heading "Luke Skywalker"
+      And I should see the text "Jedi" in the "uswds_person_image_area" region
+      And I should see the text "Tatooine Farmboy" in the "uswds_person_image_area" region
+    # Adding the person card group block using layout builder & adding the card
+    When I am on "/page/behat-person-card-group-landing-page/layout"
+      And I click "Add section"
+      And I wait for ajax to finish
+      And I click "One column"
+      And I wait for ajax to finish
+      And I press "Add section"
+      And I wait for ajax to finish
+      And I click "Add block"
+      And I wait for ajax to finish
+      And I click "Create custom block"
+      And I wait for ajax to finish
+      And I click "Person Card"
+      And I fill in "Title" with "BEHAT Person Card Group"
+      # Create card 1 - Luke
+      And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
+      And I press "Add block"
+    Then I should see the text "BEHAT Person Card Group"
+    #Saving the layout
+    When I scroll to the top
+      And I press "Save layout"
+      And I wait for ajax to finish
+    Then I should see the text "The layout override has been saved."
+    # As a site visitor, verifying correct position is displayed from history based on most recent "From" Date
+    When I am not logged in
+      And I am on "/page/behat-person-card-group-landing-page"
+    Then I should see the heading "BEHAT Person Card Group Landing Page"
+      And I should see the text "Jedi" in the "uswds_accordion_block" region
+      And I should not see the text "Tatooine Farmboy" in the "uswds_accordion_block" region
+
+  @api @javascript
+  Scenario: Person Card with multiple Positions History - Current Position checkbox selection used for Hierarchy
+    Given I am logged in as a user with the "sitebuilder" role
+      And "landing_page" content:
+      | title                                | moderation_state |
+      | BEHAT Person Card Group Landing Page | published        |
+      And "secperson" content:
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+    # Edit Person page to add multiple position histories
+    When I am on "/biography/luke-skywalker/edit"
+      And I press "Add Position History"
+      And I select "Other" from "Position Category"
+      And I fill in "Jedi" for "Position Title"
+      And I fill in the following:
+        | field_position_history_paragraph[0][subform][field_from][0][value][date] | 05-25-1983 |
+        | field_position_history_paragraph[0][subform][field_to][0][value][date]   | 12-15-2017 |
+      And I press "Add Position History"
+      And I select "Other" from "field_position_history_paragraph[1][subform][field_position_category]"
+      And I fill in "Tatooine Farmboy" for "field_position_history_paragraph[1][subform][field_position_title][0][value]"
+      And I fill in the following:
+        | field_position_history_paragraph[1][subform][field_from][0][value][date] | 09-25-1951 |
+        | field_position_history_paragraph[1][subform][field_to][0][value][date]   | 05-24-1983 |
+      And I check "field_position_history_paragraph[1][subform][field_current_position][value]"
+      And I attach the file "behat-luke.png" to "Photo"
+      And I wait for ajax to finish
+      And I fill in "Alternative text" with "Luke"
+      And I publish it
+    Then I should see the heading "Luke Skywalker"
+    # Adding the person card group block using layout builder & adding the card
+    When I am on "/page/behat-person-card-group-landing-page/layout"
+      And I click "Add section"
+      And I wait for ajax to finish
+      And I click "One column"
+      And I wait for ajax to finish
+      And I press "Add section"
+      And I wait for ajax to finish
+      And I click "Add block"
+      And I wait for ajax to finish
+      And I click "Create custom block"
+      And I wait for ajax to finish
+      And I click "Person Card"
+      And I fill in "Title" with "BEHAT Person Card Group"
+      # Create card 1 - Luke
+      And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
+      And I press "Add block"
+    Then I should see the text "BEHAT Person Card Group"
+    #Saving the layout
+    When I scroll to the top
+      And I press "Save layout"
+      And I wait for ajax to finish
+    Then I should see the text "The layout override has been saved."
+    # As a site visitor, verifying correct position is displayed from history based on "Current Position" checkbox selection
+    When I am not logged in
+      And I am on "/page/behat-person-card-group-landing-page"
+    Then I should see the heading "BEHAT Person Card Group Landing Page"
+      And I should see the text "Tatooine Farmboy" in the "uswds_accordion_block" region
+      And I should not see the text "Jedi" in the "uswds_accordion_block" region

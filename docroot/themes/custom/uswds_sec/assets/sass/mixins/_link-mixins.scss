@@ -3,6 +3,8 @@
 //------------------------------------------------------------------------
 @use "uswds-settings" as usa;
 @use "../vars/color-vars" as *;
+@use "../vars/file-types" as *;
+@use "../functions/rem" as *;
 
 // Note: These CSS vars are used to theme text inside “bg-[color]” classes
 @mixin link-underline() {
@@ -23,12 +25,48 @@
   &:visited {
     color: var(--theme-link-visited-color, $link-color-visited);
   }
+}
 
-  // Automatically append external link icon
-  // Note: Use :where() to keep specificity low
-  &:where([href^="http"]):where(:not([href*="lndo.site"], [href*="//localhost"], [href*="sec.gov"])) {
-    @include usa.external-link();
-    padding-right: 1.9ex;// Override USWDS default of 1.75ex
+// Note: USWDS doesn’t have a mixin for this so we’re overriding usa.external-link()
+// Note: Use ems so icon scales with font-size
+@mixin add-download-icon($icon-size: 1.04em) {
+  --icon-size: #{$icon-size};
+  @include usa.external-link();
+  padding-right: var(--icon-size);// Override USWDS default
+
+  &:after {
+    background-image: url('/themes/custom/uswds_sec/dist/img/usa-icons/file_download.svg');
+    height: var(--icon-size);
+    margin-left: 0;
+    margin-top: 0.32em;// magic number, adjust if icon size changes
+    width: var(--icon-size);
+
+    @supports (mask: url("")) {
+      background-image: none;
+      mask-image: url('/themes/custom/uswds_sec/dist/img/usa-icons/file_download.svg');
+    }
+  }
+}
+
+@mixin add-external-icon {
+  @include usa.external-link();
+  padding-right: 1.9ex;// Override USWDS default of 1.75ex
+}
+
+// Automatically append external link and download icons
+// Note: We’re using :where() to keep specificity low
+@mixin link-add-icons {
+  // Automatically append external link icon to all absolute links
+  // (i.e. href starts with “http”) that don’t contain `lndo.site`,
+  // `//localhost`, or `sec.gov`.
+  &:where([href^="http"]:not([href*="lndo.site"], [href*="//localhost"], [href*="sec.gov"])) {
+    @include add-external-icon;
   }
 
+  // Automatically append download icon to file links
+  // Note: $file-download-selector is generated in /vars/_file-types.scss
+  // Note: Use :where() to keep specificty low
+  &:where(#{$file-download-selector}) {
+    @include add-download-icon;
+  }
 }

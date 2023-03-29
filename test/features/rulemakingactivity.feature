@@ -10,7 +10,7 @@ Feature: Rulemaking Activity List View
         | bi-91-po  | Harry             | 1      | Open            | Behat Finance    |
         | bi-92-po  | Larry             | 1      | Open            | Behat Billing    |
         | bi-93-po  | Curly             | 1      | Open            | Behat Operations |
-        | bi-94-po  | Moe               | 1      | Open            | Behat Shipping   |
+        | bi-84-po  | Moe               | 1      | Open            | Behat Shipping   |
         | ti-100-po | Joe               | 1      | Open            | Behat Customer   |
       And "division_office" terms:
         | name           |
@@ -22,22 +22,22 @@ Feature: Rulemaking Activity List View
         | Behat-office 6 |
         | Behat-office 7 |
       And "regulation" content:
-        | field_display_title   | title                      | body                | field_rule_type | field_release_number | field_publish_date  | moderation_state | status |
-        | Child1 Rule Release 1 | Behat Proposed Rule 1      | detail body 1       | Proposed        | 01-11111             | 2022-01-04 12:00:00 | published        | 1      |
-        | Child1 Rule Release 2 | Behat Final-Concept Rule 2 | detail body 2       | Final, Concept  | 02-22222             | 2021-07-01 12:00:00 | published        | 1      |
-        | Child1 Rule Release 3 | Behat Interim Final Rule 3 | detail body 3       | Interim Final   | 03-33333             | 2021-01-03 12:00:00 | published        | 1      |
-        | Child2 Rule Release 4 | Behat Concept Rule 4       | detail body 4       | Concept         | 04-44444             | 2020-06-29 12:00:00 | published        | 1      |
-        | Child2 Rule Release 5 | Behat Interpretive Rule 5  | detail body 5       | Interpretive    | 05-55555             | 2020-01-01 12:00:00 | published        | 1      |
-        | Child2 Rule Release 6 | Behat Final Rule 6         | detail body 6       | Final           | 05-66666             | 2021-01-01 12:00:00 | published        | 1      |
-        | Child3 Rule Release 7 | Behat Draft Rule-Release 7 | Draft will not show | Final           | 06-77777             | 2000-01-01 12:00:00 | draft            | 0      |
+        | title                 | field_display_title        | body                | field_rule_type               | field_release_number | field_publish_date  | moderation_state | status |
+        | Child1 Rule Release 1 | Behat Proposed Rule 1      | detail body 1       | Proposed                      | 01-11111             | 2022-01-04 12:00:00 | published        | 1      |
+        | Child1 Rule Release 2 | Behat Final-Concept Rule 2 | detail body 2       | Final, Concept                | 02-22222             | 2021-07-01 12:00:00 | published        | 1      |
+        | Child1 Rule Release 3 | Behat Interim Final Rule 3 | detail body 3       | Interim Final                 | 03-33333             | 2021-01-03 12:00:00 | published        | 1      |
+        | Child2 Rule Release 4 | Behat Concept Rule 4       | detail body 4       | Concept, Proposed             | 04-44444             | 2020-06-29 12:00:00 | published        | 1      |
+        | Child2 Rule Release 5 | Behat Interpretive Rule 5  | detail body 5       | Interpretive, Final, Proposed | 05-55555             | 2020-01-01 12:00:00 | published        | 1      |
+        | Child2 Rule Release 6 | Behat Final Rule 6         | detail body 6       | Final                         | 05-66666             | 2021-01-01 12:00:00 | published        | 1      |
+        | Child3 Rule Release 7 | Behat Draft Rule-Release 7 | Draft will not show | Final                         | 06-77777             | 2000-01-01 12:00:00 | draft            | 0      |
       And "rule" content:
-        | title           | field_display_title         | field_file_number | body                             | field_related_rule                          | field_primary_division_office | moderation_state | status |
-        | Behat1 Parent 1 | Behat Rule Display8 Title 1 | bi-90-po          | This is a parent rule overview 1 | Behat Proposed Rule 1, Behat Concept Rule 4 | Behat-office 1                | published        | 1      |
-        | Behat1 Parent 3 | Behat Rule Display8 Title 3 | bi-91-po          | This is a parent rule overview 3 | Behat Interim Final Rule 3                  | Behat-office 3                | published        | 1      |
-        | Behat1 Parent 4 | Behat Rule Display8 Title 4 | bi-92-po          | This is a parent rule overview 4 | Behat Final-Concept Rule 2                  | Behat-office 4                | published        | 1      |
-        | Behat2 Parent 5 | Behat Rule Display9 Title 5 | ti-100-po         | This is a parent rule overview 5 | Behat Interpretive Rule 5                   | Behat-office 5                | published        | 1      |
-        | Behat2 Parent 6 | Behat Rule Display9 Title 6 | bi-94-po          | This is a parent rule overview 6 | Behat Final Rule 6                          | Behat-office 6                | published        | 1      |
-        | Behat2 Parent 7 | Behat Rule Display9 Title 7 | bi-93-po          | This is a parent rule overview 7 | Behat Concept Rule 4                        |                               | published        | 1      |
+        | title           | field_display_title         | field_file_number | body                             | field_related_rule                           | field_primary_division_office         | moderation_state | status |
+        | Behat1 Parent 1 | Behat Rule Display8 Title 1 | bi-90-po          | This is a parent rule overview 1 | Child1 Rule Release 1, Child2 Rule Release 4 | Chief Accountant                      | published        | 1      |
+        | Behat1 Parent 3 | Behat Rule Display8 Title 3 | bi-91-po          | This is a parent rule overview 3 | Child1 Rule Release 3                        | Corporation Finance                   | published        | 1      |
+        | Behat1 Parent 4 | Behat Rule Display8 Title 4 | bi-92-po          | This is a parent rule overview 4 | Child1 Rule Release 2                        | Economic and Risk Analysis            | published        | 1      |
+        | Behat2 Parent 5 | Behat Rule Display9 Title 5 | ti-100-po         | This is a parent rule overview 5 | Child2 Rule Release 5                        | FOIA Services                         | published        | 1      |
+        | Behat2 Parent 6 | Behat Rule Display9 Title 6 | bi-84-po          | This is a parent rule overview 6 | Child2 Rule Release 6                        | General Counsel                       | published        | 1      |
+        | Behat2 Parent 7 | Behat Rule Display9 Title 7 | bi-93-po          | This is a parent rule overview 7 | Child2 Rule Release 4                        | Information Technology                | published        | 1      |
 
   @api @javascript
   Scenario: Validate Rulemaking Activity Page
@@ -54,14 +54,16 @@ Feature: Rulemaking Activity List View
       And I should see the text "Behat Final Rule 6" in the "01/01/2021" row
       And I should see the text "Behat Proposed Rule 1" in the "01/04/2022" row
       And I should see the text "bi-90-po" in the "01/04/2022" row
-      And I should see the text "Behat Accounting" in the "01/04/2022" row
+      And I should see the text "Behat Rule Display8 Title 1" in the "01/04/2022" row
       And I should see the text "01-11111" in the "01/04/2022" row
       And I should see the text "Proposed Rule" in the "01/04/2022" row
+      And I should see the text "Corporation Finance" in the "01/03/2021" row
+      And I should see the text "06/29/2020" in the "Rulemaking_activity_Behat_Concept_rule_4_cell" region
       And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
       And I should see the text "Final Rule" in the "07/01/2021" row
       And I should see the text "Concept Rule" in the "07/01/2021" row
       And I should not see the text "bi-90-po" in the "07/01/2021" row
-      And I should not see the text "Behat Accounting" in the "07/01/2021" row
+      And I should not see the text "Behat Rule Display8 Title 1" in the "07/01/2021" row
       And I should not see the text "01-11111" in the "07/01/2021" row
       And I should not see the text "Behat Concept Rule 4" in the "01/04/2022" row
       And I should not see the text "Behat Draft Rule-Release 7" in the "rulemaking_table" region
@@ -71,25 +73,29 @@ Feature: Rulemaking Activity List View
       And I should see the link "Behat Concept Rule 4" before I see the link "Behat Interpretive Rule 5" in the "Rulemaking Activity" view
       And I should see the link "Behat Interim Final Rule 3" before I see the link "Behat Final Rule 6" in the "Rulemaking Activity" view
     When I click "Behat Proposed Rule 1"
-    Then I should be on "/rules/behat1-parent-1"
+    Then I should be on "/rules/2022/01/behat1-parent-1"
       And I should see the heading "Behat Rule Display8 Title 1"
-    #^bug here. will fail till its fixed
       And I should see "Concept Rule (04-44444)"
 
   @api
   Scenario: Validating Rulemaking Activity View Search Filters
     Given I am not logged in
     When I am on "/rules/rulemaking-activity"
-      And I fill in "Search" with "Operations"
+      And I fill in "Search" with "Display9"
       And I press "Apply"
     Then I should see "Behat Concept Rule 4"
-      And I should see "Displaying 1 - 1 of 1"
-      And I should not see "Behat Final Rule 6"
-    When I fill in "Search" with "bi-9"
-      And I press "Apply"
-    Then I should see "Displaying 1 - 5 of 5"
       And I should see "Behat Final Rule 6"
+      And I should see "Behat Interpretive Rule 5"
+      And I should not see "Behat Final-Concept Rule 2"
+      And I should see "Displaying 1 - 3 of 3"
+    When I am on "/rules/rulemaking-activity"
+      And I fill in "Search" with "bi-9"
+      And I press "Apply"
+    Then I should see "Displaying 1 - 4 of 4"
+      And I should see "Behat Final-Concept Rule 2"
       And I should see "Behat Proposed Rule 1"
+      And I should see "Behat Interim Final Rule 3"
+      And I should see "Behat Concept Rule 4"
       And I should not see "Behat Interpretive Rule 5"
     When I fill in "Search" with "ti-100-po"
       And I press "Apply"
@@ -137,20 +143,35 @@ Feature: Rulemaking Activity List View
       And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
       And I should not see the text "Behat Draft Rule-Release 7" in the "rulemaking_table" region
       And I should see "Displaying 1 - 6 of 6"
-    When I select "Complete" from "Status"
+    When I select "Proposed" from "Status"
       And I press "Apply"
-    Then I should see "Displaying 1 - 2 of 2"
-      And I should see the text "Behat Final Rule 6" in the "01/01/2021" row
-      And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
-      And I should not see the text "Behat Proposed Rule 1" in the "rulemaking_table" region
-      And I select "Proposed" from "Status"
-      And I press "Apply"
-      And I should see "Displaying 1 - 4 of 4"
-      And I should see the text "Behat Proposed Rule 1" in the "01/04/2022" row
-      And I should see the text "Behat Interim Final Rule 3" in the "01/03/2021" row
-      And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
-      And I should see the text "Behat Interpretive Rule 5" in the "01/01/2020" row
+    Then I should see "Displaying 1 - 3 of 3"
       And I should not see the text "Behat Final Rule 6" in the "rulemaking_table" region
+      And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
+      And I should see the text "Behat Proposed Rule 1" in the "01/04/2022" row
+      And I select "Final" from "Status"
+      And I press "Apply"
+      And I should see "Displaying 1 - 3 of 3"
+      And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
+      And I should see the text "Behat Final Rule 6" in the "01/01/2021" row
+      And I should see the text "Behat Interpretive Rule 5" in the "01/01/2020" row
+      And I should not see the text "Behat Proposed Rule 1" in the "rulemaking_table" region
+      And I select "Concept" from "Status"
+      And I press "Apply"
+      And I should see "Displaying 1 - 2 of 2"
+      And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
+      And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
+      And I should not see the text "Behat Interpretive Rule 5" in the "rulemaking_table" region
+      And I select "Interim Final" from "Status"
+      And I press "Apply"
+      And I should see "Displaying 1 - 1 of 1"
+      And I should see the text "Behat Interim Final Rule 3" in the "01/03/2021" row
+      And I should not see the text "Behat Final-Concept Rule 2" in the "rulemaking_table" region
+      And I select "Interpretive" from "Status"
+      And I press "Apply"
+      And I should see "Displaying 1 - 1 of 1"
+      And I should see the text "Behat Interpretive Rule 5" in the "01/01/2020" row
+      And I should not see the text "Behat Interim Final Rule 3" in the "rulemaking_table" region
     When I select "- Any -" from "Status"
       And I press "Apply"
     Then I should see the text "Behat Final Rule 6" in the "01/01/2021" row
@@ -161,53 +182,60 @@ Feature: Rulemaking Activity List View
       And I should see "Behat Concept Rule 4"
       And I should not see "Behat Draft Rule-Release 7"
       And I should see "Displaying 1 - 6 of 6"
-    #Status + last action date
-    When I select "Proposed" from "Status"
-      And I select "2020" from "Last Action Date"
-      And I press "Apply"
-      And I should see "Displaying 1 - 2 of 2"
-    Then I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
-      And I should see the text "Behat Interpretive Rule 5" in the "01/01/2020" row
-      And I should not see the text "Behat Proposed Rule 1" in the "rulemaking_table" region
-    #Status + last action date + search
-    When I fill in "Search" with "Concept"
-      And I press "Apply"
-    Then I should see "Displaying 1 - 1 of 1"
-      And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
-      And I should not see the text "Behat Interpretive Rule 5" in the "rulemaking_table" region
-    #Status + last action date + search + Division can be added when bug is fixed
-    When I select "Behat-office 1" from "Division"
-    #^bug:(OSSS-21392) will fail till its fixed
-    #TODO complete remaining validation steps once OSSS-21392 is fixed
 
   @api
-  Scenario Outline: Division/Office Filter
+  Scenario Outline: Rulemaking Activity View Division/Office Filter Dropdown
     Given "regulation" content:
       | title                 | body          | field_rule_type | field_release_number | field_publish_date  | moderation_state | status |
       | Behat Proposed Rule 1 | detail body 1 | Proposed        | 01-11111             | 2022-01-04 12:00:00 | published        | 1      |
-       And "rule" content:
-        | title               | field_display_title | field_file_number | body                             | field_related_rule    | field_primary_division_office | moderation_state | status |
-        | Behat Parent Rule 1 | Behat Parent Rule 1 | bi-90-po          | This is a parent rule overview 1 | Behat Proposed Rule 1 | Behat-office 1                | published        | 1      |
+      And "rule" content:
+      | title            | field_display_title | field_file_number | field_related_rule    | field_primary_division_office | moderation_state | status |
+      | Behat3 Parent 8  | Behat Parent Rule 1 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
+      | Behat3 Parent 9  | Behat Parent Rule 2 | bi-90-po          | Behat Proposed Rule 1 | Municipal Securities          | published        | 1      |
+      | Behat3 Parent 10 | Behat Parent Rule 3 | bi-90-po          | Behat Proposed Rule 1 | Trading and Markets           | published        | 1      |
+      | Behat4 Parent 11 | Behat Parent Rule 4 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
     When I am on "/rules/rulemaking-activity"
-    Then I select "<office>" from "Division"
-    #TODO complete remaining validation steps once OSSS-21392 is fixed
-
+      And I select "<office>" from "Division"
+      And I press "Apply"
+    Then I should see "<office>" in the "rulemaking_table" region
+      And I should not see "<office2>" in the "rulemaking_table" region
     Examples:
-      | office                     |
-      | Investment Management      |
-      | Trading and Markets        |
-      | Corporation Finance        |
-      | Economic and Risk Analysis |
-      | FOIA Services              |
-      | Chief Accountant           |
-      | General Counsel            |
-      | Information Technology     |
-      | Municipal Securities       |
-    #functionality of the Division filter will be tested when the bug (OSSS-21392) is fixed
+      | office                     | office2                    |
+      | Investment Management      | Trading and Markets        |
+      | Trading and Markets        | Corporation Finance        |
+      | Corporation Finance        | Economic and Risk Analysis |
+      | Economic and Risk Analysis | FOIA Services              |
+      | FOIA Services              | Chief Accountant           |
+      | Chief Accountant           | General Counsel            |
+      | General Counsel            | Information Technology     |
+      | Information Technology     | Municipal Securities       |
+      | Municipal Securities       | Investment Management      |
+
+  @api
+  Scenario: Validating Rulemaking Activity View Division/Office Filter Results
+    Given "regulation" content:
+      | title                 | body          | field_rule_type | field_release_number | field_publish_date  | moderation_state | status |
+      | Behat Proposed Rule 1 | detail body 1 | Proposed        | 01-11111             | 2022-01-04 12:00:00 | published        | 1      |
+      And "rule" content:
+      | title            | field_display_title | field_file_number | field_related_rule    | field_primary_division_office | moderation_state | status |
+      | Behat3 Parent 8  | Behat Parent Rule 1 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
+      | Behat3 Parent 9  | Behat Parent Rule 2 | bi-90-po          | Behat Proposed Rule 1 | Municipal Securities          | published        | 1      |
+      | Behat3 Parent 10 | Behat Parent Rule 3 | bi-90-po          | Behat Proposed Rule 1 | Trading and Markets           | published        | 1      |
+      | Behat4 Parent 12 | Behat Parent Rule 4 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
+      | Behat4 Parent 13 | Behat Parent Rule 5 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
+      | Behat4 Parent 14 | Behat Parent Rule 6 | bi-90-po          | Behat Proposed Rule 1 | Investment Management         | published        | 1      |
+    When I am on "/rules/rulemaking-activity"
+      And I select "Investment Management" from "Division"
+      And I press "Apply"
+    Then I should see "Behat Parent Rule 1" in the "rulemaking_table" region
+      And I should see "Behat Parent Rule 6" in the "rulemaking_table" region
+      And I should see "Behat Parent Rule 4" in the "rulemaking_table" region
+      And I should see "Behat Parent Rule 5" in the "rulemaking_table" region
+      And I should not see "Behat Parent Rule 3" in the "rulemaking_table" region
+      And I should not see "Behat Parent Rule 2" in the "rulemaking_table" region
 
   @api
   Scenario: Last Action Date (Year) Filter
-    #Last Action Date filter
     Given I am not logged in
     When I am on "/rules/rulemaking-activity"
     Then I should see the text "Behat Proposed Rule 1" in the "01/04/2022" row
@@ -241,23 +269,112 @@ Feature: Rulemaking Activity List View
       And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
       And I should not see the text "Behat Draft Rule-Release 7" in the "rulemaking_table" region
       And I should see "Displaying 1 - 6 of 6"
-    #last action date + status
-    When I select "2021" from "Last Action Date"
-      And I select "Proposed" from "Status"
+
+  @api
+  Scenario: Rulemaking Activity View Combined search
+    #search + status
+    When I am on "/rules/rulemaking-activity"
+      And I fill in "Search" with "Display9"
+      And I select "Final" from "Status"
       And I press "Apply"
-    Then I should see the text "Behat Interim Final Rule 3" in the "01/03/2021" row
-      And I should not see the text "Behat Final Rule 6" in the "rulemaking_table" region
-      And I select "Complete" from "Status"
-      And I press "Apply"
+    Then I should see "Behat Interpretive Rule 5"
+      And I should see "Behat Final Rule 6"
       And I should see "Displaying 1 - 2 of 2"
-      And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
-      And I should see the text "Behat Final Rule 6" in the "01/01/2021" row
-      And I should not see the text "Behat Interim Final Rule 3" in the "rulemaking_table" region
-    #last action date + status + search
-    When I fill in "Search" with "Concept"
+    #search + Division
+    When I select "- Any -" from "Status"
       And I press "Apply"
-      And I should not see the text "Behat Final Rule 6" in the "rulemaking_table" region
-    Then I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
+    Then I should see "Displaying 1 - 3 of 3"
+      And I select "Information Technology" from "Division"
+      And I press "Apply"
+      And I should see "Behat Concept Rule 4"
+      And I should see "Displaying 1 - 1 of 1"
+      And I should not see "Behat Final Rule 6"
+    #search + Last Action
+    When I select "- Any -" from "Division"
+      And I press "Apply"
+    Then I should see "Displaying 1 - 3 of 3"
+      And I select "2020" from "Last Action Date"
+      And I press "Apply"
+      And I should see "Behat Concept Rule 4"
+      And I should see "Behat Interpretive Rule 5"
+      And I should not see "Behat Final Rule 6"
+      And I should see "Displaying 1 - 2 of 2"
+    #status + division
+    When I am on "/rules/rulemaking-activity"
+      And I select "Proposed" from "Status"
+      And I select "Chief Accountant" from "Division"
+      And I press "Apply"
+    Then I should see "Displaying 1 - 1 of 1"
+      And I should see "Behat Proposed Rule 1"
+      And I should not see "Behat Concept Rule 4"
+      And I select "- Any -" from "Division"
+      And I press "Apply"
+      And I should see "Behat Concept Rule 4"
+      And I should see "Displaying 1 - 3 of 3"
+    #Status + last action date
+    When I select "2020" from "Last Action Date"
+      And I press "Apply"
+    Then I should see "Behat Concept Rule 4"
+      And I should see "Behat Interpretive Rule 5"
+      And I should not see "Behat Proposed Rule 1"
+      And I should see "Displaying 1 - 2 of 2"
+      And I select "- Any -" from "Last Action Date"
+      And I press "Apply"
+      And I should see "Displaying 1 - 3 of 3"
+    #Division + last action
+    When I am on "/rules/rulemaking-activity"
+      And I select "Economic and Risk Analysis" from "Division"
+      And I select "2021" from "Last Action Date"
+      And I press "Apply"
+    Then I should see "Behat Final-Concept Rule 2"
+      And I should not see "Behat Final Rule 6"
+      And I should see "Displaying 1 - 1 of 1"
+    When I select "- Any -" from "Division"
+      And I press "Apply"
+    Then I should see "Behat Final Rule 6"
+      And I should see "Displaying 1 - 3 of 3"
+      And I select "- Any -" from "Last Action Date"
+      And I press "Apply"
+      And I should see "Displaying 1 - 6 of 6"
+    #search + Status + Division + last action date
+    When I fill in "Search" with "bi-9"
+      And I press "Apply"
+    Then I should see "Behat Proposed Rule 1"
+      And I should see "Behat Final-Concept Rule 2"
+      And I should see "Behat Interim Final Rule 3"
+      And I should see "Behat Concept Rule 4"
+      And I should not see "Behat Final Rule 6"
+      And I should see "Displaying 1 - 4 of 4"
+    When I select "Proposed" from "Status"
+      And I press "Apply"
+    Then I should see "Behat Proposed Rule 1"
+      And I should see "Behat Concept Rule 4"
+      And I should not see "Behat Final-Concept Rule 2"
+      And I should see "Displaying 1 - 2 of 2"
+    When I fill in "Search" with "Display9"
+      And I select "2020" from "Last Action Date"
+      And I press "Apply"
+    Then I should see "Behat Concept Rule 4"
+      And I should see "Behat Interpretive Rule 5"
+      And I should see "Displaying 1 - 2 of 2"
+    When I select "Information Technology" from "Division"
+      And I press "Apply"
+    Then I should see "Behat Concept Rule 4"
+      And I should not see "Behat Interpretive Rule 5"
+      And I should see "Displaying 1 - 1 of 1"
+    When I fill in "Search" with " "
+      And I select "- Any -" from "Status"
+      And I select "- Any -" from "Division"
+      And I select "- Any -" from "Last Action Date"
+      And I press "Apply"
+    Then I should see the text "Behat Proposed Rule 1" in the "01/04/2022" row
+      And I should see the text "Behat Final-Concept Rule 2" in the "07/01/2021" row
+      And I should see the text "Behat Interim Final Rule 3" in the "01/03/2021" row
+      And I should see the text "Behat Interpretive Rule 5" in the "01/01/2020" row
+      And I should see the text "Behat Final Rule 6" in the "01/01/2021" row
+      And I should see the text "Behat Concept Rule 4" in the "06/29/2020" row
+      And I should not see the text "Behat Draft Rule-Release 7" in the "rulemaking_table" region
+      And I should see "Displaying 1 - 6 of 6"
 
   @api
   Scenario: Filters With No Results Found

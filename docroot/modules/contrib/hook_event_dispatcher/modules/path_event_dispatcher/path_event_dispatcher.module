@@ -15,7 +15,7 @@ use Drupal\path_event_dispatcher\Event\Path\PathUpdateEvent;
  */
 function path_event_dispatcher_path_alias_insert(PathAliasInterface $pathAlias) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new PathInsertEvent($pathAlias);
   $manager->register($event);
 }
@@ -25,7 +25,7 @@ function path_event_dispatcher_path_alias_insert(PathAliasInterface $pathAlias) 
  */
 function path_event_dispatcher_path_alias_update(PathAliasInterface $pathAlias) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new PathUpdateEvent($pathAlias);
   $manager->register($event);
 }
@@ -35,7 +35,7 @@ function path_event_dispatcher_path_alias_update(PathAliasInterface $pathAlias) 
  */
 function path_event_dispatcher_path_alias_delete(PathAliasInterface $pathAlias) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new PathDeleteEvent($pathAlias);
   $manager->register($event);
 }

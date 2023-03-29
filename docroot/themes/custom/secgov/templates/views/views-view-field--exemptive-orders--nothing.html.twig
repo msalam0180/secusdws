@@ -22,9 +22,12 @@
 #}
 {% set rule_node = row._entity %}
 {% set regulation_node = row._relationship_entities.field_related_rule %}
-{% set node_title = regulation_node.field_display_title.isEmpty() ? regulation_node.label : regulation_node.field_display_title.value %}
-
+{% set node_title = (regulation_node.field_display_title.isEmpty() or regulation_node.label|length > 256) ? regulation_node.label : regulation_node.field_display_title.value %}
+{% if not regulation_node.field_release_file.isEmpty() %}
+<a href="{{ file_url(regulation_node.field_release_file.entity.field_media_file.entity.uri.value) }}">{{ node_title }}</a><br>
+{% else %}
 <a href="{{ path('entity.node.canonical', {'node': rule_node.id}) }}">{{ node_title }}</a><br>
+{% endif %}
 {% if not rule_node.field_file_number.isEmpty() %}
 File No.: {{ rule_node.field_file_number.entity.label }}<br>
 {% endif %}
@@ -38,6 +41,9 @@ Comments Due: {{ rule_node.field_comments_notice.value | check_markup(rule_node.
   {% set comment_received_url = rule_node.field_comments_received.0.url %}
   {% set comment_received_title = rule_node.field_comments_received.title is empty ? "View Received Comments" : rule_node.field_comments_received.title %}
   <a href="{{ comment_received_url }}">{{ comment_received_title }}</a><br>
+{% endif %}
+{% if not regulation_node.field_federal_register_version.isEmpty() %}
+  <a href="{{ regulation_node.field_federal_register_version.0.uri }}"> <i>Federal Register</i> version </a> {% if not regulation_node.field_document_citation.isEmpty() %}({{ regulation_node.field_document_citation.value }}){% endif %}<br>
 {% endif %}
 {% if regulation_node is defined and not regulation_node.field_related_rule.entity.field_see_also.isEmpty() %}
   {% for see_also_item in regulation_node.field_see_also %}

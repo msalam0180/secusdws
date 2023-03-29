@@ -1,6 +1,17 @@
 button_icon:
   label: Button with Icon
   description: "Custom SEC button with icon"
+  settings:
+    wrapper:
+      type: select
+      label: Wrapper
+      allow_expose: false
+      options:
+        li: li
+    wrapperClass:
+      type: textfield
+      label: Modifier
+      description: Add modifier here
   fields:
     label:
       type: text

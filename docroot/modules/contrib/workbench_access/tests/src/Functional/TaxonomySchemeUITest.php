@@ -17,6 +17,13 @@ class TaxonomySchemeUITest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Admin user.
    *
    * @var \Drupal\user\UserInterface
@@ -47,14 +54,17 @@ class TaxonomySchemeUITest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->createContentType(['type' => 'page']);
     $this->createContentType(['type' => 'article']);
     $this->vocabulary = $this->setUpVocabulary();
     $this->setUpTaxonomyFieldForEntityType('node', 'page', $this->vocabulary->id());
     $this->setUpTaxonomyFieldForEntityType('taxonomy_term', $this->vocabulary->id(), $this->vocabulary->id(), 'recursive', 'Recursive Field');
-    $vocab = Vocabulary::create(['vid' => 'selected', 'name' => 'Selected Vocabulary']);
+    $vocab = Vocabulary::create([
+      'vid' => 'selected',
+      'name' => 'Selected Vocabulary'
+    ]);
     $vocab->save();
     $this->setUpTaxonomyFieldForEntityType('taxonomy_term', $vocab->id(), $this->vocabulary->id(), 'non_recursive', 'Allowed Field');
     entity_test_create_bundle('access_controlled');
@@ -69,7 +79,7 @@ class TaxonomySchemeUITest extends BrowserTestBase {
    */
   public function testSchemeUi() {
     $this->assertThatUnprivilegedUsersCannotAccessAdminPages();
-    $scheme = $this->assertCreatingAnAccessSchemeAsAdmin();
+    $scheme = $this->assertCreatingAnAccessSchemeAsAdmin('taxonomy', $this->admin);
     $this->assertAdminCanSelectVocabularies($scheme);
     $this->assertAdminCanAddPageNodeTypeToScheme($scheme);
     $this->assertAdminCannotAddArticleNodeTypeToScheme($scheme);
@@ -165,7 +175,6 @@ class TaxonomySchemeUITest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('The field Section on entity_test entities of type access_controlled is not in the selected vocabularies.');
     $this->assertSession()->pageTextNotContains('The field Section on node entities of type page is not in the selected vocabularies.');
   }
-
 
   /**
    * Assert admin cannot add a field that references its own vocabulary.

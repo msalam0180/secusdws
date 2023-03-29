@@ -37,7 +37,7 @@ process:
 
   title: title
 
-  field_display_title: title
+  field_display_title: short_title
 
   # body_text:
   #   -
@@ -174,7 +174,7 @@ process:
       replace: ''
 
   field_rule_type:
-    plugin: entity_lookup
+    plugin: entity_generate
     source: constants/rule_type
     value_key: name
     bundle_key: vid

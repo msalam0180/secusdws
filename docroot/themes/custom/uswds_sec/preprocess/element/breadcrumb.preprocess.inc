@@ -21,12 +21,15 @@ function uswds_sec_preprocess_breadcrumb(array &$variables) {
         if(preg_match('/node\/(\d+)/', $path, $matches)) {
           $node[$key] = \Drupal\node\Entity\Node::load($matches[1]);
         }
-  
-        // If there is a "display title" use that as the "Text"
-        if($node[$key] && !is_string($node[$key]) && $node[$key]->hasField("field_display_title")) {
-          $displayTitle = $node[$key]->get('field_display_title')->value;
-          $variables['breadcrumb'][$key]['text'] = $displayTitle;
+
+        if( isset($node) ) {
+          // If there is a "display title" use that as the "Text"
+          if($node[$key] && !is_string($node[$key]) && $node[$key]->hasField("field_display_title")) {
+            $displayTitle = $node[$key]->get('field_display_title')->value;
+            $variables['breadcrumb'][$key]['text'] = $displayTitle;
+          }
         }
+  
       }
     }
 
@@ -44,7 +47,7 @@ function uswds_sec_preprocess_breadcrumb(array &$variables) {
       }
 
       // If node and has field field_display_title
-      if($node && !is_string($node) && $node->hasField("field_display_title")) {
+      if(isset($node) && $node && !is_string($node) && $node->hasField("field_display_title")) {
         $displayTitle = $node->get('field_display_title')->value;
         if (!empty($displayTitle)){
           $page_title = $displayTitle;

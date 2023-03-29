@@ -8,6 +8,8 @@ use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsPostRenderEvent.
+ *
+ * @HookEvent(id="views_post_render", hook="views_post_render")
  */
 class ViewsPostRenderEvent extends AbstractViewsEvent {
 

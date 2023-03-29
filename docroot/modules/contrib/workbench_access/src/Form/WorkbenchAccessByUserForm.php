@@ -8,6 +8,7 @@ use Drupal\workbench_access\WorkbenchAccessManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\user\Entity\User;
 
@@ -73,16 +74,20 @@ class WorkbenchAccessByUserForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, AccessSchemeInterface $access_scheme = NULL, $id = NULL) {
     $this->scheme = $access_scheme;
 
-    $element = $access_scheme->getAccessScheme()->load($id);
     $existing_editors = $this->userSectionStorage->getEditors($access_scheme, $id);
     $potential_editors = $this->userSectionStorage->getPotentialEditors($id);
 
-    $form['existing_editors'] = ['#type' => 'value', '#value' => $existing_editors];
     $form['section_id'] = ['#type' => 'value', '#value' => $id];
+
+    $form['existing_editors'] = [
+      '#type' => 'value',
+      '#value' => $existing_editors
+    ];
 
     $form['add'] = [
       '#type' => 'container',
     ];
+
     if ($potential_editors) {
       $toggle = '<br>' . $this->t('<a class="switch" href="#">Switch between textarea/autocomplete</a>');
       $form['add']['editors_add'] = [
@@ -94,7 +99,7 @@ class WorkbenchAccessByUserForm extends FormBase {
           'match_operator' => 'STARTS_WITH',
           'filter' => ['section_id' => $id],
         ],
-        '#title' => $this->t('Add editors to the %label section.', ['%label' => $element['label']]),
+        '#title' => $this->t('Add editors to the %label section.', ['%label' => $access_scheme->label()]),
         '#description' => $this->t('Search editors to add to this section, separate with comma to add multiple editors.<br>Only users in roles with permission to be assigned can be referenced.') . $toggle,
         '#tags' => TRUE,
       ];
@@ -104,11 +109,14 @@ class WorkbenchAccessByUserForm extends FormBase {
       $potential_editors_roles = $this->userSectionStorage->getPotentialEditorsRoles($id);
       if (!isset($potential_editors_roles[AccountInterface::AUTHENTICATED_ROLE])) {
         // Add the role filter, which uses the role id stored as array_keys().
-        $form['add']['editors_add']['#selection_settings']['filter'] = ['role' => array_keys($potential_editors_roles), 'section_id' => $id];
+        $form['add']['editors_add']['#selection_settings']['filter'] = [
+          'role' => array_keys($potential_editors_roles),
+          'section_id' => $id
+        ];
       }
       $form['add']['editors_add_mass'] = [
         '#type' => 'textarea',
-        '#title' => $this->t('Add editors to the %label section.', ['%label' => $element['label']]),
+        '#title' => $this->t('Add editors to the %label section.', ['%label' => $access_scheme->label()]),
         '#description' => $this->t('Add a list of user ids or usernames separated with comma or new line. Invalid or existing users will be ignored.') . $toggle,
       ];
       $form['add']['actions'] = [
@@ -123,14 +131,14 @@ class WorkbenchAccessByUserForm extends FormBase {
     else {
       $form['add']['message'] = [
         '#type' => 'markup',
-        '#markup' => '<p>' . $this->t('There are no additional users that can be added to the %label section', ['%label' => $element['label']]) . '</p>',
+        '#markup' => '<p>' . $this->t('There are no additional users that can be added to the %label section', ['%label' => $access_scheme->label()]) . '</p>',
       ];
     }
 
     $form['remove'] = [
       '#type' => 'details',
       '#open' => TRUE,
-      '#title' => $this->t('Existing editors in the %label section.', ['%label' => $element['label']]),
+      '#title' => $this->t('Existing editors in the %label section.', ['%label' => $access_scheme->label()]),
       '#description' => $this->t('<p>Current editors list. Use the checkboxes to remove editors from this section.</p>'),
     ];
     // Prepare editors list for tableselect.
@@ -148,6 +156,7 @@ class WorkbenchAccessByUserForm extends FormBase {
       $page = $pager->getCurrentPage();
     }
     else {
+      // @phpstan-ignore-next-line
       $page = pager_default_initialize($total, $limit);
     }
     $start = $page * $limit;
@@ -178,7 +187,7 @@ class WorkbenchAccessByUserForm extends FormBase {
       '#type' => 'tableselect',
       '#header' => [$this->t('Username')],
       '#options' => $editors_data,
-      '#empty' => $this->t('There are no editors assigned to the %label section.', ['%label' => $element['label']]),
+      '#empty' => $this->t('There are no editors assigned to the %label section.', ['%label' => $access_scheme->label()]),
     ];
     if ($existing_editors) {
       $form['remove']['actions'] = [
@@ -203,7 +212,7 @@ class WorkbenchAccessByUserForm extends FormBase {
     $section_id = $form_state->getValue('section_id');
 
     // Add new editors.
-    if ($trigger['#name'] == 'add') {
+    if ($trigger['#name'] === 'add') {
       $uids_added = [];
       if ($add_editors = $form_state->getValue('editors_add')) {
         foreach ($add_editors as $target_entity) {
@@ -224,7 +233,7 @@ class WorkbenchAccessByUserForm extends FormBase {
           }
           elseif (strlen($uid_or_username) > 1) {
             $user = user_load_by_name(trim($uid_or_username));
-            if ($user) {
+            if ($user instanceof AccountInterface) {
               if (!isset($existing_editors[$user->id()])) {
                 $uids_added[] = $user->id();
               }
@@ -236,17 +245,17 @@ class WorkbenchAccessByUserForm extends FormBase {
         $this->addEditors($uids_added, $section_id, $existing_editors);
       }
       else {
-        \Drupal::messenger()->addMessage($this->t('No valid users were selected to add'), 'warning');
+        \Drupal::messenger()->addMessage($this->t('No valid users were selected to add'), MessengerInterface::TYPE_WARNING);
       }
     }
 
     // Remove unwanted editors.
-    if ($trigger['#name'] == 'remove') {
+    if ($trigger['#name'] === 'remove') {
       if ($remove_editors = array_filter($form_state->getValue('editors_remove'))) {
         $this->removeEditors($remove_editors, $section_id, $existing_editors);
       }
       else {
-        \Drupal::messenger()->addMessage($this->t('No users were selected to remove.'), 'warning');
+        \Drupal::messenger()->addMessage($this->t('No users were selected to remove.'), MessengerInterface::TYPE_WARNING);
       }
     }
   }
@@ -263,8 +272,7 @@ class WorkbenchAccessByUserForm extends FormBase {
    *   A page title.
    */
   public function pageTitle(AccessSchemeInterface $access_scheme, $id) {
-    $element = $access_scheme->getAccessScheme()->load($id);
-    return $this->t('Editors assigned to %label', ['%label' => $element['label']]);
+    return $this->t('Editors assigned to %label', ['%label' => $access_scheme->label()]);
   }
 
   /**

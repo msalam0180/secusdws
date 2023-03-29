@@ -7,6 +7,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityPresaveEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_presave",
+ *   hook = "entity_presave"
+ * )
  */
 class EntityPresaveEvent extends AbstractEntityEvent {
 

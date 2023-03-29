@@ -38,6 +38,14 @@ interface AccessControlHierarchyInterface extends ConfigurableInterface, Depende
   public function label();
 
   /**
+   * Gets the entity type id of entities controlled by the scheme.
+   *
+   * @return string
+   *   The entity type id.
+   */
+  public function entityType();
+
+  /**
    * Gets the entire hierarchy tree.
    *
    * This method will return a hierarcy tree from any supported source in a
@@ -79,7 +87,7 @@ interface AccessControlHierarchyInterface extends ConfigurableInterface, Depende
    * @param string $id
    *   The identifier for the item, such as a term id.
    *
-   * @return \Drupal\workbench_access\AccessControlHierarchyInterface
+   * @return \Drupal\workbench_access\AccessControlHierarchyInterface|null
    *   A plugin implementation.
    */
   public function load($id);
@@ -148,13 +156,13 @@ interface AccessControlHierarchyInterface extends ConfigurableInterface, Depende
    * editor does not remove sections that they cannot access. See submitEntity()
    * below for the implementation.
    *
-   * @param string $field
+   * @param array $field
    *   The field element from a node form, after running through alterOptions().
    *
    * @return array
    *   An array of section ids to remove from a form or list.
    */
-  public function disallowedOptions($field);
+  public function disallowedOptions(array $field);
 
   /**
    * Gets applicable fields for given entity type and bundle.
@@ -184,7 +192,6 @@ interface AccessControlHierarchyInterface extends ConfigurableInterface, Depende
    *
    * @param array &$form
    *   A form array.
-   *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form_state object.
    */

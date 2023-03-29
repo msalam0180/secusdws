@@ -233,3 +233,35 @@ Scenario: WDIO Other Commission Order Page
         | Behat Parent Rule 5 | Behat Parent Rule 5 |                   | This is a parent rule overview 5 | Behat Interpretive Rule 5  | published        | 1      |                              |                            |                       |                                     |                            |                         |
         | Behat Parent Rule 6 | Behat Parent Rule 6 | bi-93-po          | This is a parent rule overview 6 | Behat Final Rule 6         | published        | 0      |                              |                            |                       |                                     |                            |                         |
   Then I take a screenshot on "sec" using "views.feature" file with "@other_page" tag
+
+@ui @api @javascript @wdio
+Scenario: WDIO Public Petitions Page
+  Given "rulemaking_index" terms:
+      | name      |
+      | bi-90-po  |
+      | bi-91-po  |
+      | bi-92-po  |
+      | bi-93-po  |
+    And I create "media" of type "static_file":
+      | name         | field_display_title | field_media_file | field_description_abstract | status |
+      | Behat file 1 | published media     | behat-file.pdf   | This is description abs    | 1      |
+      | Behat file 2 | published media     | behat-file.pdf   | This is description abs    | 1      |
+      | Behat file 3 | published media     | behat-file.pdf   | This is description abs    | 1      |
+    And "regulation" content:
+      | title                      | body                | field_rule_type | field_release_number | field_publish_date  | moderation_state | status | field_release_file | field_release_file | field_see_also             | field_submitted_by |
+      | Behat Proposed Rule 1      | detail body 1       | Petition        | 01-11111             | 2022-01-04 12:00:00 | published        | 1      | Behat file 1       | behat file 1       | behat file 1, Behat file 2 | John Doe           |
+      | Behat Final-Concept Rule 2 | detail body 2       | Petition        | 02-22222             | 2021-07-01 12:00:00 | published        | 1      | Behat file 2       | behat file 2       | behat file 2               |                    |
+      | Behat Interim Final Rule 3 | detail body 3       | Petition        | 03-33333             | 2021-01-03 12:00:00 | published        | 1      |                    | behat file 3       | behat file 3               | Alex James Ingre   |
+      | Behat Concept Rule 4       | detail body 4       | Petition        | 04-44444             | 2020-06-29 12:00:00 | published        | 1      | Behat file 2       |                    |                            |                    |
+      | Behat Interpretive Rule 5  | detail body 5       | Petition        | 05-55555             | 2020-01-01 12:00:00 | published        | 1      |                    |                    |                            |                    |
+      | Behat Final Rule 6         | detail body 6       | Petition        | 05-66666             | 2023-01-01 12:00:00 | published        | 1      | Behat file 3       |                    |                            |                    |
+      | Behat Draft Rule-Release 7 | Draft will not show | Petition        | 06-77777             | 2000-01-01 12:00:00 | draft            | 0      |                    |                    |                            |                    |
+    And "rule" content:
+      | title               | field_file_number | field_display_title | body                             | field_related_rule         | moderation_state | status | field_show_comments_received | field_show_submit_comments | field_submit_comments | field_comments_received             | field_comments_date_format | field_comments_due_date |
+      | Behat Parent Rule 1 | bi-90-po          | Behat Parent Rule 1 | This is a parent rule overview 1 | Behat Proposed Rule 1      | published        | 1      | 1                            | 1                          | Comment Form          | Go to SEC.gov - https://www.sec.gov | date                       | 2018-12-05T17:00:00     |
+      | Behat Parent Rule 2 | bi-91-po          | Behat Parent Rule 2 | This is a parent rule overview 2 | Behat Final-Concept Rule 2 | published        | 1      | 1                            | 1                          | Comment Form          | Go to SEC.gov - https://www.sec.gov |                            |                         |
+      | Behat Parent Rule 3 | bi-92-po          | Behat Parent Rule 3 | This is a parent rule overview 3 | Behat Interim Final Rule 3 | published        | 1      |                              |                            |                       |                                     |                            |                         |
+      | Behat Parent Rule 4 |                   | Behat Parent Rule 4 | This is a parent rule overview 4 | Behat Final-Concept Rule 2 | published        | 0      |                              |                            |                       |                                     |                            |                         |
+      | Behat Parent Rule 5 |                   | Behat Parent Rule 5 | This is a parent rule overview 5 | Behat Interpretive Rule 5  | published        | 1      |                              |                            |                       |                                     |                            |                         |
+      | Behat Parent Rule 6 | bi-93-po          | Behat Parent Rule 6 | This is a parent rule overview 6 | Behat Final Rule 6         | published        | 0      |                              |                            |                       |                                     |                            |                         |
+  Then I take a screenshot on "sec" using "views.feature" file with "@petitions_page" tag

@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityExtraFieldInfoAlterEvent.
+ *
+ * @HookEvent(id="entity_extra_field_info_alter", alter="entity_extra_field_info")
  */
 class EntityExtraFieldInfoAlterEvent extends Event implements EventInterface {
 

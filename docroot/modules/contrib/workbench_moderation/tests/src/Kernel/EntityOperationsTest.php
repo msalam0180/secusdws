@@ -2,14 +2,13 @@
 
 namespace Drupal\Tests\workbench_moderation\Kernel;
 
-
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\workbench_moderation\Entity\ModerationState;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 
 /**
- * Class EntityOperationsTest
+ * Class EntityOperationsTest.
  *
  * @coversDefaultClass \Drupal\workbench_moderation\EntityOperations
  * @group workbench_moderation
@@ -19,12 +18,19 @@ class EntityOperationsTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['workbench_moderation', 'node', 'views', 'options', 'user', 'system'];
+  protected static $modules = [
+    'workbench_moderation',
+    'node',
+    'views',
+    'options',
+    'user',
+    'system',
+  ];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
     $this->installSchema('node', 'node_access');
@@ -62,7 +68,7 @@ class EntityOperationsTest extends KernelTestBase {
 
     // Verify the entity saved correctly, and that the presence of forward
     // revisions doesn't affect the default node load.
-    /** @var Node $page */
+    /** @var \Drupal\node\Entity\Node $page */
     $page = Node::load($id);
     $this->assertEquals('A', $page->getTitle());
     $this->assertTrue($page->isDefaultRevision());
@@ -135,7 +141,7 @@ class EntityOperationsTest extends KernelTestBase {
     $id = $page->id();
 
     // Verify the entity saved correctly.
-    /** @var Node $page */
+    /** @var \Drupal\node\Entity\Node $page */
     $page = Node::load($id);
     $this->assertEquals('A', $page->getTitle());
     $this->assertTrue($page->isDefaultRevision());

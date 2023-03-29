@@ -9,6 +9,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class LanguageSwitchLinksAlterEvent.
+ *
+ * @HookEvent(id="language_switch_links_alter", alter="language_switch_links")
  */
 class LanguageSwitchLinksAlterEvent extends Event implements EventInterface {
 

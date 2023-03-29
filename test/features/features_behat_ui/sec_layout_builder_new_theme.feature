@@ -402,13 +402,13 @@ Feature: Layout Builder with the New Theme for WDIO
       | title                                | moderation_state |
       | BEHAT Person Card Group Landing Page | published        |
       And "secperson" content:
-      | title            | field_first_name_secperson | field_last_name_secperson | field_email           | field_phone  | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
-      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999 | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
-      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999 | The Rebel Alliance-Leia       | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
-      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999 | The Rebel Alliance-Solo       | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
-      | Lando Calrissian | Lando                      | Calrissian                | lando@testing.com     | 999-222-9999 | The Rebel Alliance-Lando      | An old friend of Han Solo and the administrator of the floating Cloud City on the gas planet Bespin                                                | 1                           | 1      | published        |
-      | Wedge Antilles   | Wedge                      | Antilles                  | antilles@testing.com  | 333-222-9999 | The Rebel Alliance-Wedge      | A famed Corellian pilot and general, known as a hero of the Rebel Alliance and New Republic                                                        | 1                           | 1      | published        |
-      | Obi-Wan Kenobi   | Obi-Wan                    | Kenobi                    | ob1@testing.com       | 111-222-9999 | The Rebel Alliance-OB1        | A legendary Jedi Master, he was a noble man and gifted in the ways of the Force (No image)                                                         | 1                           | 1      | published        |
+      | title            | field_first_name_secperson | field_last_name_secperson | field_email_secperson | field_phone_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | skywalker@testing.com | 444-222-9999          | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+      | Princess Leia    | Leia                       | Organa                    | organa@testing.com    | 555-222-9999          | The Rebel Alliance-Leia       | The princess of the planet Alderaan who is a member of the Imperial Senate and, secretly, one of the leaders of the Rebel Alliance                 | 1                           | 1      | published        |
+      | Han Solo         | Han                        | Solo                      | solo@testing.com      | 777-222-9999          | The Rebel Alliance-Solo       | A cynical smuggler and captain of the Millennium Falcon                                                                                            | 1                           | 1      | published        |
+      | Lando Calrissian | Lando                      | Calrissian                | lando@testing.com     | 999-222-9999          | The Rebel Alliance-Lando      | An old friend of Han Solo and the administrator of the floating Cloud City on the gas planet Bespin                                                | 1                           | 1      | published        |
+      | Wedge Antilles   | Wedge                      | Antilles                  | antilles@testing.com  | 333-222-9999          | The Rebel Alliance-Wedge      | A famed Corellian pilot and general, known as a hero of the Rebel Alliance and New Republic                                                        | 1                           | 1      | published        |
+      | Obi-Wan Kenobi   | Obi-Wan                    | Kenobi                    | ob1@testing.com       | 111-222-9999          | The Rebel Alliance-OB1        | A legendary Jedi Master, he was a noble man and gifted in the ways of the Force (No image)                                                         | 1                           | 1      | published        |
     # Edit each Person page to add person image & position
     When I am on "/biography/luke-skywalker/edit"
       And I press "Add Position History"
@@ -487,6 +487,9 @@ Feature: Layout Builder with the New Theme for WDIO
       And I wait for ajax to finish
       And I click "Person Card"
       And I fill in "Title" with "BEHAT Person Card Group"
+      # Show Phone & Email (checkboxes checked)
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-phone-value label"
+      And I click on the element with css selector ".form-item-settings-block-form-field-show-email-value label"
       # Create card 1 - Luke
       And I fill in "settings[block_form][field_person_card][0][target_id]" with "Luke Skywalker"
       # Create card 2 - Leia

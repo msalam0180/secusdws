@@ -22,7 +22,7 @@ use Drupal\jsonapi_event_dispatcher\Event\JsonApiEntityFilterAccessEvent;
  */
 function jsonapi_event_dispatcher_jsonapi_entity_filter_access(EntityTypeInterface $entityType, AccountInterface $account): array {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new JsonApiEntityFilterAccessEvent($entityType, $account);
   $manager->register($event);
 
@@ -34,7 +34,7 @@ function jsonapi_event_dispatcher_jsonapi_entity_filter_access(EntityTypeInterfa
  */
 function jsonapi_event_dispatcher_jsonapi_entity_field_filter_access(FieldDefinitionInterface $fieldDefinition, AccountInterface $account): AccessResultInterface {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new JsonApiEntityFieldFilterAccessEvent($fieldDefinition, $account);
   $manager->register($event);
 

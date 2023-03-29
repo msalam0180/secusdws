@@ -9,6 +9,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class JsAlterEvent.
+ *
+ * @HookEvent(id="js_alter", alter="js")
  */
 final class JsAlterEvent extends Event implements EventInterface {
 

@@ -332,4 +332,5 @@ hidden:
   field_release_file_number: true
   field_rule_type: true
   field_submitted_by: true
+  langcode: true
   search_api_excerpt: true

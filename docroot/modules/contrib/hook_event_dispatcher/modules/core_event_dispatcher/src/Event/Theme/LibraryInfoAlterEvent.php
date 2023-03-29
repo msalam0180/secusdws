@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class LibraryInfoAlterEvent.
+ *
+ * @HookEvent(id="library_info_alter", alter="library_info")
  */
 class LibraryInfoAlterEvent extends Event implements EventInterface {
 

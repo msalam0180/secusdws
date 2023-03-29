@@ -376,6 +376,7 @@ hidden:
   field_sec_content_approver: true
   field_speaker_name_and_title: true
   field_tags: true
+  langcode: true
   links: true
   scheduling_options: true
   search_api_excerpt: true

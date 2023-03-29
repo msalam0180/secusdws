@@ -1,0 +1,29 @@
+uuid: 8600b3e3-67cd-4348-8501-b19fd969354c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_text
+    - paragraphs.paragraphs_type.contact_card
+  module:
+    - allowed_formats
+    - field_config_cardinality
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - simple_text
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.contact_card.field_text
+field_name: field_text
+entity_type: paragraph
+bundle: contact_card
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

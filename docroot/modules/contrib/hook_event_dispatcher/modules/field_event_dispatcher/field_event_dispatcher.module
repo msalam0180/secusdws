@@ -5,8 +5,8 @@
  * Field event dispatcher submodule.
  */
 
-use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Field\WidgetInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field_event_dispatcher\Event\Field\FieldFormatterInfoAlterEvent;
@@ -16,8 +16,8 @@ use Drupal\field_event_dispatcher\Event\Field\FieldWidgetSettingsSummaryAlterEve
 use Drupal\field_event_dispatcher\Event\Field\FieldWidgetThirdPartySettingsFormEvent;
 use Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent;
 use Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent;
-use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\Event\Field\WidgetMultivalueFormAlterEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementTypeFormAlterEvent;
 use Drupal\field_event_dispatcher\Event\Field\WidgetTypeFormAlterEvent;
 
@@ -58,9 +58,7 @@ function field_event_dispatcher_field_formatter_third_party_settings_form(
 ) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
   $manager = Drupal::service('hook_event_dispatcher.manager');
-  $event = new FieldFormatterThirdPartySettingsFormEvent(
-    $plugin, $fieldDefinition, $viewMode, $form, $formState
-  );
+  $event = new FieldFormatterThirdPartySettingsFormEvent($plugin, $fieldDefinition, $viewMode, $form, $formState);
   $manager->register($event);
 
   return $event->getElements();
@@ -78,7 +76,7 @@ function field_event_dispatcher_field_formatter_third_party_settings_form(
  */
 function field_event_dispatcher_field_widget_form_alter(array &$element, FormStateInterface $formState, array $context) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $manager->register(new WidgetFormAlterEvent($element, $formState, $context));
   $manager->register(new WidgetTypeFormAlterEvent($element, $formState, $context));
 }
@@ -88,7 +86,7 @@ function field_event_dispatcher_field_widget_form_alter(array &$element, FormSta
  */
 function field_event_dispatcher_field_widget_single_element_form_alter(array &$element, FormStateInterface $formState, array $context) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $manager->register(new WidgetSingleElementFormAlterEvent($element, $formState, $context));
   $manager->register(new WidgetSingleElementTypeFormAlterEvent($element, $formState, $context));
 }
@@ -109,7 +107,7 @@ function field_event_dispatcher_field_widget_multivalue_form_alter(array &$eleme
   ];
 
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $manager->register(new WidgetMultivalueFormAlterEvent($widgetCompleteForm, $formState, $context));
 }
 
@@ -118,7 +116,7 @@ function field_event_dispatcher_field_widget_multivalue_form_alter(array &$eleme
  */
 function field_event_dispatcher_field_widget_complete_form_alter(&$widgetCompleteForm, FormStateInterface $formState, $context) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = Drupal::service('hook_event_dispatcher.manager');
+  $manager = Drupal::service('hook_event_dispatcher.manager.legacy');
   $manager->register(new WidgetCompleteFormAlterEvent($widgetCompleteForm, $formState, $context));
 }
 
@@ -129,7 +127,7 @@ function field_event_dispatcher_field_widget_complete_form_alter(&$widgetComplet
  */
 function field_event_dispatcher_field_formatter_info_alter(array &$info) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
-  $manager = \Drupal::service('hook_event_dispatcher.manager');
+  $manager = \Drupal::service('hook_event_dispatcher.manager.legacy');
   $event = new FieldFormatterInfoAlterEvent($info);
   $manager->register($event);
 }
@@ -163,9 +161,7 @@ function field_event_dispatcher_field_widget_third_party_settings_form(
 ) {
   /** @var \Drupal\hook_event_dispatcher\Manager\HookEventDispatcherManagerInterface $manager */
   $manager = Drupal::service('hook_event_dispatcher.manager');
-  $event = new FieldWidgetThirdPartySettingsFormEvent(
-    $plugin, $fieldDefinition, $formMode, $form, $formState
-  );
+  $event = new FieldWidgetThirdPartySettingsFormEvent($plugin, $fieldDefinition, $formMode, $form, $formState);
   $manager->register($event);
 
   return $event->getElements();

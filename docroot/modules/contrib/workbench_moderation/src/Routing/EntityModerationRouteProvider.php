@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Provides the following routes:
+ * Provides the following routes:.
  *
  * - The latest version tab, showing the latest revision of an entity, not the
  *   default one.
  */
-class EntityModerationRouteProvider implements EntityRouteProviderInterface, EntityHandlerInterface  {
+class EntityModerationRouteProvider implements EntityRouteProviderInterface, EntityHandlerInterface {
 
   /**
    * The entity manager.
@@ -32,7 +32,7 @@ class EntityModerationRouteProvider implements EntityRouteProviderInterface, Ent
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_manager
    *   The entity manager.
    */
-  public function  __construct(EntityFieldManagerInterface $entity_manager) {
+  public function __construct(EntityFieldManagerInterface $entity_manager) {
     $this->entityFieldManager = $entity_manager;
   }
 
@@ -114,4 +114,5 @@ class EntityModerationRouteProvider implements EntityRouteProviderInterface, Ent
     $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions($entity_type->id());
     return $field_storage_definitions[$entity_type->getKey('id')]->getType();
   }
+
 }

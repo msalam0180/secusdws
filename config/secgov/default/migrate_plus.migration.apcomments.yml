@@ -40,8 +40,6 @@ process:
   type:
     plugin: default_value
     default_value: customized_comment_form
-  title: id
-  field_display_title: id
   field_primary_division_office:
     plugin: default_value
     default_value: 39
@@ -88,6 +86,13 @@ process:
       value_key: name
       bundle_key: vid
       bundle: rulemaking_index
+  title:
+    plugin: if_else
+    source: '@file_number'
+    equals: null
+    then: '@id'
+    else: '@file_number'
+  field_display_title: '@title'
 destination:
   plugin: 'entity:node'
 migration_dependencies: null

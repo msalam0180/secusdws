@@ -92,3 +92,12 @@ Feature: Create Styles on Pages
     Given I set my screensize to desktop
     When I visit "/article-p-smallest-font"
     Then I take screenshot of element "#content-wrapper"
+
+  @bullet_height @wdio
+  Scenario: Bullet Height Matches Text Height
+    Given I set my screensize to desktop
+    When I visit "/node/456"
+      And I scroll to "#accordion-CRS"
+      And I click on "#ui-id-3"
+      And I remove "#block-featured-content-block"
+    Then I take screenshot of element "#accordion-CRS"

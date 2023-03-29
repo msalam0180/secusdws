@@ -4,8 +4,12 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_related_rule
-    - node.type.regulation
     - node.type.rule
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
 id: node.rule.field_related_rule
 field_name: field_related_rule
 entity_type: node
@@ -17,13 +21,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      regulation: regulation
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: regulations_entity_reference
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

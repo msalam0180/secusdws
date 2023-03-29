@@ -37,7 +37,6 @@ dependencies:
     - node.type.event
   module:
     - address
-    - addtocalendar
     - datetime
     - file
     - image
@@ -62,21 +61,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 9
-    region: content
-  field_add_to_calendar:
-    type: add_to_calendar
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
+    weight: 8
     region: content
   field_additional_information:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   field_all_day_event:
     type: boolean
@@ -86,7 +78,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_attached_files:
     type: file_default
@@ -94,28 +86,28 @@ content:
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   field_cancelled_postponed:
     type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_caption:
     type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_contact:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   field_creator:
     type: entity_reference_label
@@ -123,7 +115,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   field_display_title:
     type: string
@@ -131,7 +123,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_geofield:
     type: leaflet_formatter_default
@@ -142,8 +134,8 @@ content:
       height: 400
       height_unit: px
       hide_empty_map: false
-      disable_wheel: false
       gesture_handling: false
+      disable_wheel: false
       reset_map:
         control: false
         position: topright
@@ -185,6 +177,9 @@ content:
         control: false
         options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":true,"removeOutsideVisibleBounds":false}'
         include_path: false
+      fullscreen:
+        control: false
+        options: '{"position":"topleft","pseudoFullscreen":false}'
       path: '{"color":"#3388ff","opacity":"1.0","stroke":true,"weight":3,"fill":"depends","fillColor":"*","fillOpacity":"0.2","radius":"6"}'
       geocoder:
         control: false
@@ -196,17 +191,16 @@ content:
           zoom: 16
           popup: false
           options: ''
-      fullscreen_control: true
       weight: ''
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: content
   field_location:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
   field_primary_media:
     type: image
@@ -217,7 +211,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_sec_content_approver:
     type: entity_reference_label
@@ -225,7 +219,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: content
   field_sec_event_date:
     type: datetime_default
@@ -265,7 +259,7 @@ content:
             'Outlook Online': 0
             'Yahoo! Calendar': 0
         addtocalendar_show: 0
-    weight: 7
+    weight: 6
     region: content
   field_sec_event_end_date:
     type: datetime_default
@@ -274,7 +268,7 @@ content:
       timezone_override: ''
       format_type: long
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   field_show_end_date:
     type: boolean
@@ -284,7 +278,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   field_webcast:
     type: entity_reference_label
@@ -292,12 +286,12 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   workbench_moderation_control:
     settings: {  }
@@ -306,6 +300,7 @@ content:
     region: content
 hidden:
   field_act: true
+  field_add_to_calendar: true
   field_audience: true
   field_division_office: true
   field_event_type: true
@@ -316,5 +311,6 @@ hidden:
   field_regulation: true
   field_related_landing_page: true
   field_tags: true
+  langcode: true
   scheduling_options: true
   search_api_excerpt: true

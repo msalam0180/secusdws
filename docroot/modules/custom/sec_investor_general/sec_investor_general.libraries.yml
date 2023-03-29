@@ -6,5 +6,6 @@ env_indicator:
   js:
     js/env_indicator.js: {}
   dependencies:
+    - core/jquery.once
     - toolbar/toolbar
     - environment_indicator/drupal.environment_indicator

@@ -1,0 +1,114 @@
+uuid: 80655dd5-6ff6-4f64-9023-9cdb9b64af06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_information
+    - paragraphs.paragraphs_type.address
+    - paragraphs.paragraphs_type.contact_card
+    - paragraphs.paragraphs_type.email
+    - paragraphs.paragraphs_type.fax_number
+    - paragraphs.paragraphs_type.link_with_icon
+    - paragraphs.paragraphs_type.phone_number
+    - paragraphs.paragraphs_type.text_with_icon
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: paragraph.contact_card.field_contact_information
+field_name: field_contact_information
+entity_type: paragraph
+bundle: contact_card
+label: 'Contact Details'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      address: address
+      text_with_icon: text_with_icon
+      link_with_icon: link_with_icon
+      email: email
+      fax_number: fax_number
+      phone_number: phone_number
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: -49
+        enabled: false
+      accordion_section:
+        weight: -48
+        enabled: false
+      address:
+        weight: -43
+        enabled: true
+      alert:
+        weight: -47
+        enabled: false
+      card:
+        weight: -46
+        enabled: false
+      card_group:
+        weight: -45
+        enabled: false
+      contact_card:
+        weight: -44
+        enabled: false
+      contact_cards:
+        weight: -26
+        enabled: false
+      email:
+        weight: -40
+        enabled: true
+      fax_number:
+        weight: -39
+        enabled: true
+      gov_delivery_alert:
+        weight: -37
+        enabled: false
+      horizontal_card:
+        weight: -36
+        enabled: false
+      image:
+        weight: -35
+        enabled: false
+      lead_paragraph:
+        weight: -34
+        enabled: false
+      link_with_icon:
+        weight: -41
+        enabled: true
+      phone_number:
+        weight: -38
+        enabled: true
+      position_history:
+        weight: -33
+        enabled: false
+      quick_link:
+        weight: -32
+        enabled: false
+      related_document_s_:
+        weight: -31
+        enabled: false
+      subpage_card:
+        weight: -30
+        enabled: false
+      subpage_card_group:
+        weight: -29
+        enabled: false
+      text:
+        weight: -28
+        enabled: false
+      text_with_icon:
+        weight: -42
+        enabled: true
+      video:
+        weight: -27
+        enabled: false
+field_type: entity_reference_revisions

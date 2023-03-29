@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 
 /**
- * Class LoginSecurityAdminSettings.
+ * Providing a class for LoginSecurityAdminSettings form.
  *
  * @package Drupal\login_security\Form
  */
@@ -37,7 +37,7 @@ class LoginSecurityAdminSettings extends ConfigFormBase {
       '#title' => $this->t('Track time'),
       '#default_value' => $config->get('track_time'),
       '#size' => 3,
-      '#description' => $this->t('The time window to check for security violations: the time in minutes the login information is kept to compute the login attempts count. A common example could be 60 minutes. After that time, the attempt is deleted from the list, and will never be considered again.'),
+      '#description' => $this->t('The time window to check for security violations: the time in minutes the login information is kept to compute the login attempts count. A common example could be 1440 minutes (24 hours). After that time, the attempt is deleted from the list, and will never be considered again.'),
       '#field_suffix' => $this->t('minute(s)'),
     ];
     $form['general_settings']['user_wrong_count'] = [
@@ -185,7 +185,7 @@ class LoginSecurityAdminSettings extends ConfigFormBase {
     $form['notification']['tokens'] = [
       '#type' => 'item',
       '#title' => $this->t('Tokens'),
-      '#description' => $this->t("<ul><li>%date: The (formatted) date and time of the event.</li><li>%ip: The IP address tracked for this event.</li><li>%username: The username entered in the login form (sanitized).</li><li>%email: If the user exists, this will be the email address.</li><li>%uid: If the user exists, this will be the user uid.</li><li>%site: The name of the site as configured in the administration.</li><li>%uri: The base url of this Drupal site.</li><li>%edit_uri: Direct link to the user (based on the name entered) edit page.</li><li>%hard_block_attempts: Configured maximum attempts before hard blocking the IP address.</li><li>%soft_block_attempts: Configured maximum attempts before soft blocking the IP address.</li><li>%user_block_attempts: Configured maximum login attempts before blocking the user.</li><li>%user_ip_current_count: The total attempts for this user name tracked from this IP address.</li><li>%ip_current_count: The total login attempts tracked from from this IP address.</li><li>%user_current_count: The total login attempts tracked for this user name .</li><li>%tracking_time: The tracking time value: in minutes.</li><li>%tracking_current_count: Total tracked events</li><li>%activity_threshold: Value of attempts to detect ongoing attack.</li></ul>"),
+      '#description' => $this->t("<ul><li>%date: The (formatted) date and time of the event.</li><li>%ip: The IP address tracked for this event.</li><li>%username: The username entered in the login form (sanitized).</li><li>%email: If the user exists, this will be the email address.</li><li>%uid: If the user exists, this will be the user uid.</li><li>%site: The name of the site as configured in the administration.</li><li>%uri: The base url of this Drupal site.</li><li>%edit_uri: Direct link to the user (based on the name entered) edit page.</li><li>%hard_block_attempts: Configured maximum attempts before hard blocking the IP address.</li><li>%soft_block_attempts: Configured maximum attempts before soft blocking the IP address.</li><li>%user_block_attempts: Configured maximum login attempts before blocking the user.</li><li>%user_ip_current_count: The total attempts for this user name tracked from this IP address.</li><li>%ip_current_count: The total login attempts tracked from from this IP address.</li><li>%user_current_count: The total login attempts tracked for this user name .</li><li>%tracking_time: The tracking time value: in hours.</li><li>%tracking_current_count: Total tracked events</li><li>%activity_threshold: Value of attempts to detect ongoing attack.</li></ul>"),
     ];
 
     // Clean event tracking list.

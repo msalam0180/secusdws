@@ -7,11 +7,14 @@ use Drupal\Component\Plugin\Discovery\DiscoveryCachedTrait;
 use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
 use Drupal\core_event_dispatcher\FileHookEvents;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class FileTransferInfoEvent.
+ *
+ * @HookEvent(id="file_transfer_info", hook="filetransfer_info")
  */
-class FileTransferInfoEvent extends Event implements EventInterface, DiscoveryInterface {
+class FileTransferInfoEvent extends Event implements EventInterface, DiscoveryInterface, HookReturnInterface {
 
   use DiscoveryCachedTrait;
 
@@ -63,6 +66,13 @@ class FileTransferInfoEvent extends Event implements EventInterface, DiscoveryIn
    */
   public function getDispatcherType(): string {
     return FileHookEvents::FILE_TRANSFER_INFO;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getDefinitions();
   }
 
 }

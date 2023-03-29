@@ -1,0 +1,28 @@
+attributes:
+  class:
+    label: ''
+    description: 'Enter a class for the menu link'
+  container_class:
+    label: 'Container Class'
+    description: 'Enter a class for the wrapping <code>&lt;li&gt;</code> element'
+  target:
+    label: ''
+    description: ''
+    options:
+      _blank: 'New window (_blank)'
+      _self: 'Same window (_self)'
+    default_value: ''
+  container_data-show-title:
+    label: 'Show in dropdown as title'
+    description: 'Show this value in the submenu as a menu title link'
+    options:
+      'true': 'True'
+      'false': 'False'
+    default_value: 'true'
+  container_is-mega-menu:
+    label: 'Is this menu item the parent of a mega menu'
+    description: 'This only works on top level items within the menu. A menu item where this is true must have children and grandchiden menu items for this to work correctly.'
+    options:
+      'true': 'True'
+      'false': 'False'
+    default_value: 'false'

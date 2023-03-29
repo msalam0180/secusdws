@@ -1,7 +1,12 @@
 search_form:
-  label: Search Form
-  description: Search form
+  label: Smart Search
+  description: Search form used in the header that has the search autocomplete. This is set to not load on the pattern page because of conflicts.
   fields:
+    is_searchgov:
+      type: boolean
+      label: Search.gov javascript
+      description: include the search.gov javascript
+      preview: false
     action:
       type: text
       label: Form Action

@@ -113,9 +113,9 @@ Feature: Create Styles on Pages
       | name             | field_media_image   | mid     |
       | BEHAT Image Test | behat-gold-pig.png  | 8272109 |
       And I create "media" of type "video":
-        | field_media_video_file | field_video_origin | field_video                                 | mid     | field_caption  |
-        | BEHAT Rabbit Video     | Upload             | https://www.youtube.com/watch?v=fsSOMSTsM0o | 8272108 | Rabbit caption |
-        | BEHAT Dog Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313  | Dog caption    |
+      | name               | field_video_origin | field_video                                 | mid     | field_caption  |
+      | BEHAT Rabbit Video | upload             |                                             | 8272108 | Rabbit caption |
+      | BEHAT Dog Image    | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313  | Dog caption    |
     When I am logged in as a user with the "Content Approver" role
       And I am on "/node/add/glossary_term"
       And I fill in "Title" with "Behat Test Glossary page"
@@ -167,3 +167,36 @@ Feature: Create Styles on Pages
       | P Large font    | @PLargefont    | Article with P large font    |
       | P Small font    | @PSmallfont    | Article with P small font    |
       | P Smallest font | @PSmallestfont | Article with P smallest font |
+
+  @ui @javascript @api @wdio
+  Scenario: Verify Bullet Height Matches Text Height in Accordions in Custom Blocks
+    Given I am logged in as a user with the "administrator" role
+      And "page" content:
+      | title              | body                                    | status | moderation_state | nid |
+      | Test Page Investor | Behat Display Title http://www.SEC.gov/ | 1      | published        | 456 |
+    When I visit "/block/add/feature_block"
+      And I fill in "Block description" with "Accordion Bullets Test"
+      And I fill in "Heading" with "Accordion BEHAT Example"
+      And I select "Gray" from "Color scheme"
+      And I select "3x" from "Width factor"
+      And I press "Add Text"
+      And I wait for ajax to finish
+      And I select "Full HTML" from "Text format"
+      And I press "Source" in the "Text" WYSIWYG Toolbar
+      And I wait 2 seconds
+      And I type '<div id="accordion-CRS"><p><strong>Behat Accordion 1</strong></p><div><ul><li>Fake number at 1-212-555-2368</li><li><a href="https://www.investor.gov/">Behat linked item 2</a></li></ul><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Your content here]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Your content second line]</p></div><p><strong>Behat Accordion 2</strong></p><div><ul><li><a href="https://www.sec.gov/">Behat linked item 1</a>&nbsp;&nbsp;<br /><a href="https://www.sec.gov" target="_blank"><img alt="view of cat" src="/sites/investorgov/files/2023-02/behat-cat_0.png" /></a></li><li>The domestic house cat is theorized to have originated in Egypt</li><li>Cat fact 2</li><li>Cat fact 3</li><img alt="view of cat" src="/sites/investorgov/files/2023-02/behat-cat_1.png" /></ul></div></div>' in css selector ".cke_source"
+      And I press "Save"
+    Then I should see "Feature Block Accordion Bullets Test has been created."
+    When I visit "/node/456/layout"
+      And I click on the element with css selector "#layout-builder > div:nth-child(2) > div > div.layout-builder__region.js-layout-builder-region.layout__region.layout__region--second > div.layout-builder__add-block > a"
+      And I wait for ajax to finish
+      And I fill in "Filter by block name" with "Accordion"
+      And I click "Accordion Bullets Test" in the "landingpage_blocks" region
+      And I wait for ajax to finish
+      And I press the "Add block" button
+      And I wait for ajax to finish
+      And I scroll to the top
+      And I click on the element with css selector "#edit-submit"
+    Then I should see the text "Behat Accordion 1"
+      And I should see the text "Behat Accordion 2"
+    Then I take a screenshot on "investor" using "styles.feature" file with "@bullet_height" tag

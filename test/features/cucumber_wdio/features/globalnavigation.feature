@@ -32,3 +32,9 @@ Feature: Global Navigation
     When I visit "/edgar/filer-information/current-edgar-technical-specifications"
       And I wait for "1" seconds
     Then I take screenshot of element "#main > div > div > div.desktop\:grid-col-3.tablet\:grid-col-4.mobile\:grid-col-12 > ul"
+
+  @copy_link @wdio
+  Scenario: Copy Link Function
+    Given I set my screensize to desktop
+    When I visit "/announcement/behat-article-copy-link"
+    Then I take screenshot of element "div.block.block-core.block-page-title-block > div > div > div"

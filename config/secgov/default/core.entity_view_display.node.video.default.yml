@@ -134,4 +134,6 @@ hidden:
   field_regulation: true
   field_sec_content_approver: true
   field_tags: true
+  langcode: true
   scheduling_options: true
+  search_api_excerpt: true

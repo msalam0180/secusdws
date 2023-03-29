@@ -22,7 +22,7 @@
  */
 #}
 {% set node = row._entity %}
-{% set node_title = node.field_display_title.isEmpty() ? node.label : node.field_display_title.value %}
+{% set node_title = (node.field_display_title.isEmpty() or node.label|length > 256) ? node.label : node.field_display_title.value %}
 
 <div class="rulemaking">
 	<div class="name">{{ node_title }}</span>

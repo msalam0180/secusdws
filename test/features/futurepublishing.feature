@@ -122,6 +122,7 @@ Feature: Future Publish and Unpublish
         | scheduling_options[form][0][update_timestamp][0][value][time] | 12:00:00PM |
       And I press "Create Scheduling Options"
       And I wait for ajax to finish
+      And I scroll to the bottom
       And I publish it
       And I visit "/node/add/event"
       And I fill in "BEHAT Future Publish Event Test" for "Title"
@@ -134,6 +135,7 @@ Feature: Future Publish and Unpublish
         | scheduling_options[form][0][update_timestamp][0][value][time] | 12:00:00AM |
       And I press "Create Scheduling Options"
       And I wait for ajax to finish
+      And I scroll to the bottom
       And I press "Save and Create New Draft"
     When I visit "/admin/workbench/content/all"
       And I select "All" from "Published"

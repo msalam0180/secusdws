@@ -1,0 +1,32 @@
+uuid: c4cb4b1d-4f88-4fa8-84d6-16ce64ea7032
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fax_number.field_phone_number
+    - paragraphs.paragraphs_type.fax_number
+  module:
+    - mask
+    - telephone
+id: paragraph.fax_number.default
+targetEntityType: paragraph
+bundle: fax_number
+mode: default
+content:
+  field_phone_number:
+    type: telephone_default
+    weight: 0
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      mask:
+        value: 000-000-0000
+        clearifnotmatch: '1'
+        selectonfocus: '1'
+        translation_help:
+          table: ''
+        reverse: 0
+hidden:
+  created: true
+  status: true

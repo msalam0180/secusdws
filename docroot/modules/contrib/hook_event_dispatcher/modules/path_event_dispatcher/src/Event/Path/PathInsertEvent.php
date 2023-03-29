@@ -6,6 +6,8 @@ use Drupal\path_event_dispatcher\PathHookEvents;
 
 /**
  * Class PathInsertEvent.
+ *
+ * @HookEvent(id="path_insert", hook="path_alias_insert")
  */
 final class PathInsertEvent extends AbstractPathEvent {
 

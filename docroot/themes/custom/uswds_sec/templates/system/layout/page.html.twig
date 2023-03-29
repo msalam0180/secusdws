@@ -12,9 +12,12 @@
  * - base_path: The base URL path of the Drupal installation. Will usually be
  *   "/" unless you have installed Drupal in a sub-directory.
  * - is_front: A flag indicating if the current page is the front page.
+ * - is_front_plus: A flag indicating if the current page is the front page or the layout builder page for the front page.
  * - logged_in: A flag indicating if the user is registered and signed in.
  * - is_admin: A flag indicating if the user has permission to access
  *   administration pages.
+ * - isUsingNodeDetailsLayout: There is a layout being used to create the right rail on node details pages, 
+ *                             this var checks to see if the node is using this layout
  *
  * Site identity:
  * - front_page: The URL of the front page. Use this instead of base_path when
@@ -26,39 +29,34 @@
  *   page's path (e.g. node/12345 and node/12345/revisions, but not
  *   comment/reply/12345).
  *
-
  *
  * @see template_preprocess_page()
  * @see html.html.twig
  */
 #}
 
-{# TODO: Need to move most vars into preprocess function #}
+{# Setup Page Layout #}
 {% set nodeType = node.type.entity.label %}
-{% set isNode = (node) ? true %}
-{% set isNotNode = (not node) ? true %}
 {% set isLandingPage = (nodeType == "Landing Page") %}
-{# when a node types switches over to the new layout, add it here #}
-{% set nodesTypesThatUseNodeDetailsLayout = ['Basic page'] %}
 
-{% if nodeType in nodesTypesThatUseNodeDetailsLayout %}
+{% if is_error_page %}
+  {% set layoutType = "layout-error-page" %}
+{% elseif isUsingNodeDetailsLayout %}
   {# Nodes that use the node details layout in display suite #}
   {% set layoutType = "layout-details" %}
-  {% set navType = "collapsible" %}
 {% elseif isLandingPage %}
   {# Nodes that use the heading banner layout (currently only landing pages) #}
   {% set layoutType = "layout-heading-banner" %}
-  {% set navType = "static" %}
 {% else %}
   {# All other pages on the site #}
   {% set layoutType = "layout-simple" %}
-  {% set navType = "collapsible" %}
 {% endif %}
 
 {# Header #}
 {% include '@uswds_sec/includes/header.html.twig' %}
 
-{% if page.tabs %}
+{# Only show Drupal tabs when logged in #}
+{% if logged_in and page.tabs %}
   {{ page.tabs }}
 {% endif %}
 
@@ -71,41 +69,45 @@
   </div>
 {% endif %}
 
-{# TODO: change has-expanded-sidenav to has-static-sidenav #}
-{# TODO: change has-collapsed-sidenav to has-collapsible-sidenav #}
-<main id="main-content" class="main-content {{ (navType == "static") and page.sidebar_first ? 'has-expanded-sidenav' }} {{ (navType == "collapsible") and page.sidebar_first ? 'has-collapsed-sidenav' }}">
-
+<main id="main-content" class="main-content {{ page.sidebar_first ? 'has-sidenav' }}">
   {# Sidebar First - Side navigation #}
-  {% if page.sidebar_first %}
+  {% if page.sidebar_first and not is_sidenav_hidden %}
     <div class="main-content__sidenav">
       {# Mobile side nav - same for all pages #}
       {% include '@uswds_sec/includes/left_menu_mobile.html.twig' %}
-      {# Desktop side nav collapsible #}
-      {% if (navType == "collapsible") and page.sidebar_first %}
-        {% include '@uswds_sec/includes/left_menu_collapsible.html.twig' %}
-      {% elseif (navType == "static") %}
-        {# Desktop side nav Static #}
-        {% include '@uswds_sec/includes/left_menu_static.html.twig' %}
-        {# <nav class="l-sidenav-aside" aria-label="Section navigation">
-          {{ page.sidebar_first }}
-        </nav> #}
-      {% endif %}
+      {# Desktop side nav Static #}
+      {% include '@uswds_sec/includes/left_menu_static.html.twig' %}
     </div>
   {% endif %}
 
   <div class="main-content__main page-layout-type--{{layoutType}}">
 
-    {% if layoutType == "layout-heading-banner" %}
+    {% if layoutType == "layout-error-page" %}
+      <div class="content-wrapper l-wrap--narrow">
+        {% if page.page_title_region %}
+          {{ page.page_title_region }}
+        {% endif %}
+        <div class="layout-simple-content layout-error-page">
+          {{ page.content }}
+        </div>
+      </div>
+
+    {% elseif layoutType == "layout-heading-banner" %}
       {% if page.page_title_region %}
-        {{ page.page_title_region }}
+        {% if is_front_plus == false  %}
+          {{ page.page_title_region }}
+        {% else %}
+          <div class="visually-hidden">
+            {{ page.page_title_region }}
+          </div>
+        {% endif %}
       {% endif %}
 
-      <div class="l-wrap">
+      <div class={{ is_front_plus ? '' : 'l-wrap' }}>
         {{ page.content }}
       </div>
 
     {% elseif layoutType == "layout-simple" %}
-      {{ drupal_block('system_breadcrumb_block') }}
       <div class="content-wrapper l-wrap">
         {% if page.page_title_region %}
           {{ page.page_title_region }}

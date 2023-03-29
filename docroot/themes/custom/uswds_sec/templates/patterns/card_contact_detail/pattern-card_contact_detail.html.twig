@@ -1,0 +1,41 @@
+{% if email %}
+  {% set email_arr = email | render | split('@') %}
+  <a class="card-contact__link" href="mailto:{{ email }}">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'mail'} %}
+    {{ email_arr[0] }}<wbr>@{{ email_arr[1] }}
+  </a>
+{% endif %}
+{% if phone %}
+  {# Strip common characters from phone number #}
+  {% set phone_clean = phone | first | render | replace({' ': '', '-': '', '(': '', ')': '', '+': '', '.': ''}) %}
+  <a class="card-contact__link" href="tel:1{{ phone_clean }}">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'phone'} %}
+    {{ phone }}
+  </a>
+{% endif %}
+{% if fax %}
+  {# Strip common characters from fax number #}
+  {% set fax_clean = fax | first | render | replace({' ': '', '-': '', '(': '', ')': '', '+': '', '.': ''}) %}
+  <a class="card-contact__link" href="fax:1{{ fax_clean }}">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'fax'} %}
+    {{ fax }}
+  </a>
+{% endif %}
+{% if custom_text %}
+  <div class="card-contact__link card-contact__custom_text">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': icon} %}
+    {{ custom_text }}
+  </div>
+{% endif %}
+{% if custom_link %}
+  <div class="card-contact__link">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': icon} %}
+    {{ custom_link }}
+  </div>
+{% endif %}
+{% if address %}
+  <div class="card-contact__link card-contact__address">
+    {% include '@uswds_sec/includes/icon.html.twig' with {'name': 'location_on'} %}
+    {{ address }}
+  </div>
+{% endif %}

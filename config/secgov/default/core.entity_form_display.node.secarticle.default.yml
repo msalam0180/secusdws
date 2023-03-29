@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.secarticle.field_division_office
     - field.field.node.secarticle.field_ext_pub_secarticle
     - field.field.node.secarticle.field_external_resource
+    - field.field.node.secarticle.field_gov_delivery_alert
     - field.field.node.secarticle.field_hide_publish_date
     - field.field.node.secarticle.field_left_nav_override
     - field.field.node.secarticle.field_left_nav_secarticle
@@ -47,6 +48,7 @@ dependencies:
     - node.type.secarticle
   module:
     - datetime
+    - field_group
     - inline_entity_form
     - link
     - paragraphs
@@ -54,6 +56,23 @@ dependencies:
     - scheduler
     - text
     - workbench_moderation
+third_party_settings:
+  field_group:
+    group_add:
+      children:
+        - field_related_materials
+        - field_more_about_this_topic
+      label: Resources
+      region: content
+      parent_name: ''
+      weight: 47
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: DKzZjU_R9d-bO1hACqdlHEoR-QVEW10NF2ErApjIzSw
 id: node.secarticle.default
@@ -73,19 +92,19 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 36
+    weight: 34
     region: content
     settings: {  }
     third_party_settings: {  }
   field_accrual_periodicity:
     type: options_select
-    weight: 44
+    weight: 42
     region: content
     settings: {  }
     third_party_settings: {  }
   field_act:
     type: options_select
-    weight: 28
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -121,13 +140,13 @@ content:
     third_party_settings: {  }
   field_audience:
     type: options_select
-    weight: 27
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
   field_case_number:
     type: string_textfield
-    weight: 45
+    weight: 43
     region: content
     settings:
       size: 60
@@ -135,7 +154,7 @@ content:
     third_party_settings: {  }
   field_contact_email:
     type: email_default
-    weight: 43
+    weight: 41
     region: content
     settings:
       placeholder: ''
@@ -143,7 +162,7 @@ content:
     third_party_settings: {  }
   field_contact_name:
     type: string_textfield
-    weight: 42
+    weight: 40
     region: content
     settings:
       size: 60
@@ -170,7 +189,7 @@ content:
     third_party_settings: {  }
   field_creator:
     type: entity_reference_autocomplete
-    weight: 40
+    weight: 38
     region: content
     settings:
       match_operator: CONTAINS
@@ -210,13 +229,13 @@ content:
     third_party_settings: {  }
   field_division_office:
     type: options_select
-    weight: 25
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
   field_ext_pub_secarticle:
     type: options_select
-    weight: 31
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -228,6 +247,18 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  field_gov_delivery_alert:
+    type: entity_reference_paragraphs
+    weight: 48
+    region: content
+    settings:
+      title: 'Gov Delivery'
+      title_plural: 'Gov Delivery Sign Up Forms'
+      edit_mode: closed
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
   field_hide_publish_date:
     type: boolean_checkbox
     weight: 10
@@ -237,7 +268,7 @@ content:
     third_party_settings: {  }
   field_left_nav_override:
     type: options_select
-    weight: 30
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -267,7 +298,7 @@ content:
     third_party_settings: {  }
   field_media_image_upload:
     type: entity_reference_autocomplete
-    weight: 41
+    weight: 39
     region: content
     settings:
       match_operator: CONTAINS
@@ -277,7 +308,7 @@ content:
     third_party_settings: {  }
   field_more_about_this_topic:
     type: link_default
-    weight: 23
+    weight: 53
     region: content
     settings:
       placeholder_url: ''
@@ -285,7 +316,7 @@ content:
     third_party_settings: {  }
   field_organization:
     type: string_textfield
-    weight: 47
+    weight: 45
     region: content
     settings:
       size: 60
@@ -293,13 +324,13 @@ content:
     third_party_settings: {  }
   field_person:
     type: options_select
-    weight: 26
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_primary_division_office:
     type: options_select
-    weight: 24
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -311,13 +342,13 @@ content:
     third_party_settings: {  }
   field_regulation:
     type: options_select
-    weight: 29
+    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }
   field_related_materials:
     type: link_default
-    weight: 22
+    weight: 52
     region: content
     settings:
       placeholder_url: ''
@@ -333,7 +364,7 @@ content:
     third_party_settings: {  }
   field_requestor:
     type: string_textfield
-    weight: 46
+    weight: 44
     region: content
     settings:
       size: 60
@@ -341,7 +372,7 @@ content:
     third_party_settings: {  }
   field_sec_content_approver:
     type: entity_reference_autocomplete
-    weight: 38
+    weight: 36
     region: content
     settings:
       match_operator: CONTAINS
@@ -379,22 +410,35 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  group_add:
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
-    weight: 32
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 34
+    weight: 32
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 39
+    weight: 37
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -405,7 +449,7 @@ content:
     third_party_settings: {  }
   scheduling_options:
     type: inline_entity_form_complex
-    weight: 48
+    weight: 49
     region: content
     settings:
       form_mode: default
@@ -421,9 +465,14 @@ content:
       collapsed: false
       revision: false
     third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 33
+    weight: 31
     region: content
     settings:
       display_label: true
@@ -438,7 +487,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 35
+    weight: 33
     region: content
     settings:
       match_operator: CONTAINS
@@ -448,12 +497,12 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 37
+    weight: 35
     region: content
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 49
+    weight: 46
     region: content
     settings: {  }
     third_party_settings: {  }

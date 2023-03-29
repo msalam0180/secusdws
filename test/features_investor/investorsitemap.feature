@@ -92,8 +92,8 @@ Scenario: Edit Article And Check Sitemap On Investor
     And I click on the element with css selector "#edit-regenerate-submit"
     And I wait 5 seconds
     And I visit "/sitemap.xml"
-    And I wait 3 seconds
   Then I should see the link "http://investor.lndo.site/investor-edit-behat-article"
+    And I should not see the link "http://investor.lndo.site/investor-behat-article"
   When I click "http://investor.lndo.site/investor-edit-behat-article"
     And I wait 1 seconds
   Then I should see the text "Editing Investor http://www.finra.org"
@@ -104,9 +104,7 @@ Scenario: Delete Content And Check Sitemap On Investor
     And "page" content:
       | title                     | body                                    | status | nid    | moderation_state |
       | Delete Test Page Investor | Behat Display Title http://www.SEC.gov/ | 1      | 999885 | published        |
-    And I am on "/admin/config/search/simplesitemap"
-    And I click on the element with css selector "#edit-regenerate-submit"
-    And I wait 5 seconds
+    And I run cron
   When I visit "/sitemap.xml"
     And I wait 3 seconds
   Then I should see the link "http://investor.lndo.site/node/999885"
@@ -142,7 +140,7 @@ Scenario: Unpublish Content And Check Sitemap On Investor
     And I click "Edit" in the "Investor Behat Test" row
     And I select "Published" from "edit-moderation-state-0-state"
     And I press the "Save" button
-    And I run cron
+    And I run drush "simple-sitemap:generate"
     And I visit "/sitemap.xml"
     And I wait 2 seconds
   Then I should see the link "http://investor.lndo.site/investor-behat-test"
@@ -150,8 +148,8 @@ Scenario: Unpublish Content And Check Sitemap On Investor
     And I click "Edit" in the "Investor Behat Test Article" row
     And I select "unpublished" from "edit-moderation-state-0-state"
     And I press the "Save" button
-    And I should see the text "Article Investor Behat Test has been updated."
-    And I run cron
+  Then I should see the text "Article Investor Behat Test has been updated."
+  When I run drush "simple-sitemap:generate"
     And I visit "/sitemap.xml"
     And I wait 2 seconds
   Then I should not see the link "http://investor.lndo.site/investor-behat-test"
@@ -163,22 +161,18 @@ Scenario: Generate Taxonomy Terms Sitemap
   When I am on "/node/add/glossary_term"
     And I fill in "Title" with "Behat Test Glossary Page Review"
     And I type "Investor Glossary Title" in the "Body" WYSIWYG editor
-    And I fill in "Glossary Category" with "#'s (5)"
-    And I wait 1 seconds
+    And I select the first autocomplete option for "#'s" on the "Glossary Category" field
     And I select "published" from "edit-moderation-state-0-state"
     And I press "edit-submit"
   Then I should see the text "Glossary Term Behat Test Glossary Page Review has been created."
   #Indexing Taxonomy as it is not default for Investor
   When I am on "/admin/structure/taxonomy/manage/glossary_term_categories"
     And I click on the element with css selector "#edit-simple-sitemap"
-    And I click on the element with css selector "#edit-default"
-    And I click on the element with css selector "#edit-index-default-taxonomy-term-settings-1"
-    And I wait 1 seconds
+    And I click on the element with css selector "#edit-simple-sitemap-default"
+    And I click on the element with css selector "#edit-simple-sitemap-default-index-1"
     And I press the "edit-submit" button
-    And I should see the text "Updated vocabulary Glossary Term Categories."
-    And I am on "/admin/config/search/simplesitemap"
-    And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+  Then I should see the text "Updated vocabulary Glossary Term Categories."
+  When I run cron
     And I visit "/sitemap.xml"
     And I wait 3 seconds
   Then I should see the link "http://investor.lndo.site/glossary-term-categories/s"
@@ -189,12 +183,11 @@ Scenario: Generate Taxonomy Terms Sitemap
     And I should see the text "Investor Glossary Title"
   When I am on "/admin/structure/taxonomy/manage/glossary_term_categories"
     And I click on the element with css selector "#edit-simple-sitemap"
-    And I click on the element with css selector "#edit-default"
-    And I click on the element with css selector "#edit-index-default-taxonomy-term-settings-0"
-    And I wait 1 seconds
+    And I click on the element with css selector "#edit-simple-sitemap-default"
+    And I click on the element with css selector "#edit-simple-sitemap-default-index-0"
     And I press the "edit-submit" button
-    And I should see the text "Updated vocabulary Glossary Term Categories."
-    And I am on "/admin/config/search/simplesitemap"
+  Then I should see the text "Updated vocabulary Glossary Term Categories."
+  When I am on "/admin/config/search/simplesitemap"
     And I click on the element with css selector "#edit-regenerate-submit"
     And I wait 10 seconds
     And I visit "/sitemap.xml"

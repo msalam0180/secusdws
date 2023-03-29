@@ -1,0 +1,10 @@
+uuid: f6ef5719-0edf-4dbc-abde-b50fbdb200a3
+langcode: en
+status: true
+dependencies: {  }
+id: email
+label: Email
+icon_uuid: null
+icon_default: null
+description: 'Email for the Contact Card.'
+behavior_plugins: {  }

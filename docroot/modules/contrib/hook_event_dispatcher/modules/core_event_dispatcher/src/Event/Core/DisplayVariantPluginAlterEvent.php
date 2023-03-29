@@ -7,6 +7,11 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class DisplayVariantPluginAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "display_variant_plugin_alter",
+ *   alter = "display_variant_plugin"
+ * )
  */
 class DisplayVariantPluginAlterEvent extends PluginDefinitionAlterEventBase {
 

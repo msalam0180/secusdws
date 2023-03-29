@@ -22,15 +22,12 @@
   }
 
   &-wrap {
-    // Default content-well wrapper used by landing pages
     max-width: rem($layout-max-width);
 
-    // Default page template content well
     &--narrow {
       max-width: rem($layout-max-width-narrow);
     }
 
-    // Wide content well, used by homepage hero and card strata
     &--wide {
       max-width: rem($layout-max-width-wide);
     }
@@ -64,20 +61,6 @@
         display: none;
       }
     }
-
-    // 1. Make full width
-    &-desktop {
-      left: 0;
-      margin-left: -50vw;// [1]
-      margin-right: -50vw;// [1]
-      padding-top: rem($layout-sidenav-top-offset);
-      // position: sticky;
-      width: 100vw;// [1]
-
-      @include max-width($layout-sidenav-bp - 1px) {
-        display: none;
-      }
-    }
   }
 
   // Sidenav layout (used on landing pages)
@@ -94,19 +77,19 @@
     }
   }
 
-  // Right sidebar layout (used on default template)
+  // Right rail layout (used on default template)
   // TODO: We’re currently using the exisitng column classes from the old site
   //       but ideally these will be refactored to be consistent on the new site.
   &-sidebar {
-    @include layout-sidebar-wrap;
+    @include layout-rightrail-wrap;
 
     // Main content
     &-main {
-      @include layout-sidebar-main;
+      @include layout-rightrail-main;
     }
 
     &-aside {
-      @include layout-sidebar-aside;
+      @include layout-rightrail-aside;
     }
   }
 

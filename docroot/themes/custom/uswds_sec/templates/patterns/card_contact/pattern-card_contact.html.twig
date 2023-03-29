@@ -1,0 +1,30 @@
+{% set heading_level = heading_level|default(3) %}
+<div class="card-contact">
+  {%  if (img_src | length > 1) or ((img_src is iterable) and (img_src | first | length > 3)) %}
+    <div class="card-contact__image">
+      {%- if link %}
+        {# Note: Link is same as person’s name so hide from screen readers and prevent tabbing #}
+        <a class="card-contact__image__link" href="{{ link }}" aria-hidden="true" tabindex="-1">
+      {% endif -%}
+      {# FIXME: Add “srcset” with 1x and 2x files, or multiple sizes if thats not possible #}
+      {# Note: Alt text is redundant in person cards #}
+      {# <img src="{{ img_src }}" sizes="147px" alt=""/> #}
+      {% if link %}
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+  <h{{ heading_level }} class="card-contact__name">
+    {% if link | render | length > 0 %}
+      <a class="card-contact__name__link usa-link" href="{{ link }}">
+    {% endif %}
+    {{- name -}}
+    {% if link | render | length > 0%}
+      </a>
+    {% endif %}
+  </h{{ heading_level }}>
+  {% if description | render | length > 0 %}
+    <p class="card-contact__text">{{ description }}</p>
+  {% endif %}
+  {{ contact_details }}
+</div>

@@ -6,6 +6,8 @@ use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Class FormBaserAlterEvent.
+ *
+ * @HookEvent(id="form_base_alter", alter="form")
  */
 class FormBaseAlterEvent extends AbstractFormEvent {
 
@@ -28,17 +30,20 @@ class FormBaseAlterEvent extends AbstractFormEvent {
    * @param string $formId
    *   String representing the name of the form itself. Typically this is the
    *   name of the function that generated the form.
-   * @param string $baseFormId
-   *   The base form id.
    */
   public function __construct(
     array &$form,
     FormStateInterface $formState,
-    string $formId,
-    string $baseFormId
+    string $formId
   ) {
     parent::__construct($form, $formState, $formId);
-    $this->baseFormId = $baseFormId;
+    $buildInfo = $formState->getBuildInfo();
+    $this->baseFormId = $buildInfo['base_form_id'] ?? NULL;
+
+    if (!$this->baseFormId) {
+      // @phpstan-ignore-next-line
+      $this->stopPropagation();
+    }
   }
 
   /**

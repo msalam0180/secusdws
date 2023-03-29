@@ -7,12 +7,23 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\hook_event_dispatcher\Event\AccessEventInterface;
 use Drupal\hook_event_dispatcher\Event\AccessEventTrait;
+use Drupal\hook_event_dispatcher\Event\EventFactoryInterface;
+use Drupal\hook_event_dispatcher\Event\EventFactoryTrait;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityCreateAccessEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_create_access",
+ *   hook = "entity_create_access"
+ * )
  */
-class EntityCreateAccessEvent extends Event implements EventInterface, AccessEventInterface {
+final class EntityCreateAccessEvent extends Event implements EventInterface, EventFactoryInterface, AccessEventInterface, HookReturnInterface {
+
+  use EventFactoryTrait;
+  use AccessEventTrait;
 
   /**
    * An associative array of additional context values.
@@ -27,8 +38,6 @@ class EntityCreateAccessEvent extends Event implements EventInterface, AccessEve
    * @var string|null
    */
   protected $entityBundle;
-
-  use AccessEventTrait;
 
   /**
    * EntityCreateAccessEvent constructor.
@@ -64,6 +73,13 @@ class EntityCreateAccessEvent extends Event implements EventInterface, AccessEve
    */
   public function getDispatcherType(): string {
     return EntityHookEvents::ENTITY_CREATE_ACCESS;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getAccessResult();
   }
 
 }

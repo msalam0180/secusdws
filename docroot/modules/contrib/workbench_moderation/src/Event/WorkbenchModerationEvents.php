@@ -2,6 +2,9 @@
 
 namespace Drupal\workbench_moderation\Event;
 
+/**
+ * Defines a class for moderation events.
+ */
 final class WorkbenchModerationEvents {
 
   /**

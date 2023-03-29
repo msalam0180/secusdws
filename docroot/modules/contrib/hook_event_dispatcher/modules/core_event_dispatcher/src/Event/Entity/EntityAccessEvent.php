@@ -8,11 +8,17 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\hook_event_dispatcher\Event\AccessEventInterface;
 use Drupal\hook_event_dispatcher\Event\AccessEventTrait;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityAccessEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_access",
+ *   hook = "entity_access"
+ * )
  */
-class EntityAccessEvent extends AbstractEntityEvent implements AccessEventInterface {
+class EntityAccessEvent extends AbstractEntityEvent implements AccessEventInterface, HookReturnInterface {
 
   use AccessEventTrait;
 
@@ -39,6 +45,13 @@ class EntityAccessEvent extends AbstractEntityEvent implements AccessEventInterf
    */
   public function getDispatcherType(): string {
     return EntityHookEvents::ENTITY_ACCESS;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getAccessResult();
   }
 
 }

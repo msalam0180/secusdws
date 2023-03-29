@@ -6,6 +6,8 @@ use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsPostExecuteEvent.
+ *
+ * @HookEvent(id="views_post_execute", hook="views_post_execute")
  */
 class ViewsPostExecuteEvent extends AbstractViewsEvent {
 

@@ -257,4 +257,5 @@ hidden:
   field_parent_rule: true
   field_primary_division_office: true
   field_release_file_number: true
+  langcode: true
   search_api_excerpt: true

@@ -7,6 +7,11 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 /**
  * Class WidgetFormAlterEvent.
  *
+ * @HookEvent(
+ *   id = "widget_form_alter",
+ *   alter = "field_widget_form"
+ * )
+ *
  * @deprecated in hook_event_dispatcher:3.0.0-rc1 and is removed from
  *   hook_event_dispatcher:4.0.0. Use WidgetSingleElementFormAlterEvent instead.
  *

@@ -113,8 +113,7 @@ class ModerationInformation implements ModerationInformationInterface {
   public function isBundleForModeratableEntity(EntityInterface $entity) {
     $type = $entity->getEntityType();
 
-    return
-      $type instanceof ConfigEntityTypeInterface
+    return $type instanceof ConfigEntityTypeInterface
       && ($bundle_of = $type->get('bundle_of'))
       && $this->entityTypeManager->getDefinition($bundle_of)->isRevisionable()
       && $this->currentUser->hasPermission('administer moderation states');
@@ -160,6 +159,7 @@ class ModerationInformation implements ModerationInformationInterface {
     if ($storage = $this->entityTypeManager->getStorage($entity_type_id)) {
       $revision_ids = $storage->getQuery()
         ->allRevisions()
+        ->accessCheck(FALSE)
         ->condition($this->entityTypeManager->getDefinition($entity_type_id)->getKey('id'), $entity_id)
         ->sort($this->entityTypeManager->getDefinition($entity_type_id)->getKey('revision'), 'DESC')
         ->range(0, 1)
@@ -177,6 +177,7 @@ class ModerationInformation implements ModerationInformationInterface {
   public function getDefaultRevisionId($entity_type_id, $entity_id) {
     if ($storage = $this->entityTypeManager->getStorage($entity_type_id)) {
       $revision_ids = $storage->getQuery()
+        ->accessCheck(FALSE)
         ->condition($this->entityTypeManager->getDefinition($entity_type_id)->getKey('id'), $entity_id)
         ->sort($this->entityTypeManager->getDefinition($entity_type_id)->getKey('revision'), 'DESC')
         ->range(0, 1)
@@ -212,5 +213,5 @@ class ModerationInformation implements ModerationInformationInterface {
       && $entity->moderation_state->entity
       && $entity->moderation_state->entity->isPublishedState();
   }
-}
 
+}

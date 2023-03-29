@@ -53,13 +53,13 @@ process:
         - litigationreleasesreleases
         - litigationreleasesseealsofiles
         - opinionsordersreleases
-        - opinionsordersseealsofils
+        - opinionsordersseealsofiles
         - stopordersreleases
         - stopordersseealsofiles
         - tradingsuspensionfiles
         - tradingsuspensionseealso
       no_stub: true
-      source: related_rules
+      source: url
     - plugin: skip_on_value
       method: row
       not_equals: true
@@ -72,22 +72,6 @@ process:
   name: title
 
   field_display_title: title
-
-  skip_already_migrated:
-    -
-      plugin: migration_lookup
-      source: url
-      migration:
-        - apreleases
-        - aljorderreleases
-        - opinionsordersreleases
-      no_stub: true
-    -
-      plugin: skip_on_value
-      method: row
-      not_equals: true
-      value: NULL
-      message: 'Skipping a previously imported release'
 
   field_primary_division_office:
     plugin: default_value

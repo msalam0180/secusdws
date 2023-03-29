@@ -6,14 +6,12 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsSelectWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\workbench_moderation\Entity\ModerationStateTransition;
 use Drupal\workbench_moderation\ModerationInformation;
 use Drupal\workbench_moderation\StateTransitionValidation;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,6 +51,8 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
   protected $moderationStateStorage;
 
   /**
+   * Moderation information.
+   *
    * @var \Drupal\workbench_moderation\ModerationInformation
    */
   protected $moderationInformation;
@@ -65,11 +65,15 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
   protected $entityTypeManager;
 
   /**
+   * Entity storage interface.
+   *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $moderationStateTransitionStorage;
 
   /**
+   * State transition validator.
+   *
    * @var \Drupal\workbench_moderation\StateTransitionValidation
    */
   protected $validator;
@@ -89,10 +93,16 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
    *   Third party settings.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   Current user service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    * @param \Drupal\Core\Entity\EntityStorageInterface $moderation_state_storage
    *   Moderation state storage.
    * @param \Drupal\Core\Entity\EntityStorageInterface $moderation_state_transition_storage
    *   Moderation state transition storage.
+   * @param \Drupal\workbench_moderation\ModerationInformation $moderation_information
+   *   Moderation information.
+   * @param \Drupal\workbench_moderation\StateTransitionValidation $validator
+   *   State transition validator.
    */
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, AccountInterface $current_user, EntityTypeManagerInterface $entity_type_manager, EntityStorageInterface $moderation_state_storage, EntityStorageInterface $moderation_state_transition_storage, ModerationInformation $moderation_information, StateTransitionValidation $validator) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
@@ -128,7 +138,7 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    /** @var ContentEntityInterface $entity */
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $items->getEntity();
 
     /* @var \Drupal\Core\Config\Entity\ConfigEntityInterface $bundle_entity */
@@ -148,7 +158,7 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
     $transitions = $this->validator->getValidTransitions($entity, $this->currentUser);
 
     $target_states = [];
-    /** @var ModerationStateTransition $transition */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationStateTransition $transition */
     foreach ($transitions as $transition) {
       $target_states[$transition->getToState()] = $transition->label();
     }
@@ -191,7 +201,8 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
    */
   public static function processActions($element, FormStateInterface $form_state, array &$form) {
 
-    // We'll steal most of the button configuration from the default submit button.
+    // We'll steal most of the button configuration from the
+    // default submit button.
     // However, NodeForm also hides that button for admins (as it adds its own,
     // too), so we have to restore it.
     $default_button = $form['actions']['submit'];
@@ -213,7 +224,6 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
       $button['#value'] = $translatable
         ? t('Save and @transition (this translation)', ['@transition' => $label])
         : t('Save and @transition', ['@transition' => $label]);
-
 
       $form['actions']['moderation_state_' . $id] = $button + $default_button;
     }
@@ -245,7 +255,7 @@ class ModerationStateWidget extends OptionsSelectWidget implements ContainerFact
     $field_name = $this->fieldDefinition->getName();
 
     // Extract the values from $form_state->getValues().
-    $path = array_merge($form['#parents'], array($field_name));
+    $path = array_merge($form['#parents'], [$field_name]);
     $key_exists = NULL;
     // Convert the field value into expected array format.
     $values = $form_state->getValues();

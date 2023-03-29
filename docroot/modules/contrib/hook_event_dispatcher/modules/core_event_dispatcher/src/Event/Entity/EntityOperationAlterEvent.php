@@ -9,6 +9,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityOperationAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_operation_alter",
+ *   alter = "entity_operation"
+ * )
  */
 class EntityOperationAlterEvent extends Event implements EventInterface {
 

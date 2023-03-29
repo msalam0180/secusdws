@@ -1,0 +1,24 @@
+uuid: 3c563271-1874-4f39-92cf-bdab24288135
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email_list_id
+    - paragraphs.paragraphs_type.gov_delivery_alert
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.gov_delivery_alert.field_email_list_id
+field_name: field_email_list_id
+entity_type: paragraph
+bundle: gov_delivery_alert
+label: 'Email List ID'
+description: 'GovDelivery list ID '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

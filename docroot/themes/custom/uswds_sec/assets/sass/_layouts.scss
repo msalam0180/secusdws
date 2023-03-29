@@ -1,46 +1,75 @@
 // TODO: clean up file and split out as needed
-.main-content.has-expanded-sidenav {
-  display: block;
-    @include min-width($layout-sidenav-bp) {
-    display: flex;
-  }
-}
+.main-content {
+  background-color: $bg-default;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: rem($layout-max-width-global);
 
-.main-content__main{
-  flex-grow: 1;
+  @include min-width($layout-max-width-global) {
+    border-left: 1px solid $border-gray;
+    border-right: 1px solid $border-gray;
+
+    // No borders on homepage
+    .path-frontpage & {
+      border-left: 0;
+      border-right: 0;
+    }
+  }
+
+  &__main {
+    @include default-page-bottom;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: rem($layout-max-width);
+
+    // Pages with right rail
+    &.page-layout-type--layout-details {
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    // Custom max-width on homepage
+    .path-frontpage & {
+      max-width: rem($layout-max-width-wide);
+    }
+  }
+
+  &.has-sidenav {
+    @include layout-sidenav-wrap;
+  }
+
+  &__sidenav {
+    @include layout-sidenav-aside;
+  }
+
+  &__main {
+    @include layout-sidenav-main;
+  }
 }
 
 // node-details-layout
 .node-details-layout {
-  @include layout-sidebar-wrap;
-}
+  @include layout-rightrail-wrap;
 
-.node-details-layout__main-region {
-  @include layout-sidebar-main;
-
-  .block-system-breadcrumb-block {
-    padding-bottom: rem(37px);
-    padding-left: rem(37px);
+  &__main-region {
+    @include layout-rightrail-main;
   }
-}
 
-.node-details-layout__sidebar-region {
-  @include layout-sidebar-aside;
+  &__rightrail-region {
+    @include layout-rightrail-aside;
 
-  .field__label {
-    font-weight: bold;
+    .field__label {
+      font-weight: bold;
+    }
   }
 }
 
 // layout-simple
-.page-layout-type--layout-simple {
-  .layout-simple-content {
-    @include default-page-bottom;
-  }
-
-  .block-system-breadcrumb-block {
-    padding-top: rem(37px);
-    padding-bottom: rem(37px);
-    padding-left: rem(37px);
+.page-layout-type--layout-simple,
+.page-layout-type--layout-error-page {
+  @include default-padding;
+  .content-wrapper {
+    @include default-page-top;
   }
 }

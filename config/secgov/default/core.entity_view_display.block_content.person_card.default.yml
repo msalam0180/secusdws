@@ -48,4 +48,5 @@ hidden:
   field_show_email: true
   field_show_phone: true
   field_show_photo: true
+  langcode: true
   search_api_excerpt: true

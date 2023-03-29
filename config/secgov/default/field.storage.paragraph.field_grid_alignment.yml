@@ -1,0 +1,27 @@
+uuid: 1ad9a0bc-b612-419e-8172-962ee470eb77
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_grid_alignment
+field_name: field_grid_alignment
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Stretch to Fit'
+      label: 'Stretch to Fit'
+    -
+      value: 'Align to Grid'
+      label: 'Align to Grid'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

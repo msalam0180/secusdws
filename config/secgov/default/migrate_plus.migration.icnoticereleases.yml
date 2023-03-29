@@ -18,6 +18,9 @@ source:
     - notice_url
   fields:
     -
+      name: id
+      label: id
+    -
       name: category
       label: Category
     -
@@ -89,7 +92,7 @@ process:
         - icnoticereleases
         - icseealso
       no_stub: true
-      source: related_rules
+      source: notice_url
     -
       plugin: skip_on_value
       method: row

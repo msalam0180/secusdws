@@ -207,3 +207,61 @@ Feature: Test Person Content Type
       And I should see the text "Enforcement Manual"
       And I should see the text "Public Alerts"
       And I should see the text "Federal Court Actions"
+
+  @api @javascript
+  Scenario: Email and Phone field validations on Person Content
+    Given I am logged in as a user with the "sitebuilder" role
+      And "division_office" terms:
+      | name                    |
+      | The Rebel Alliance-Luke |
+      And "landing_page" content:
+      | title                                | moderation_state |
+      | BEHAT Person Card Group Landing Page | published        |
+      And "secperson" content:
+      | title            | field_first_name_secperson | field_last_name_secperson | field_primary_division_office | body                                                                                                                                               | field_enable_biography_page | status | moderation_state |
+      | Luke Skywalker   | Luke                       | Skywalker                 | The Rebel Alliance-Luke       | A young adult raised by his aunt and uncle on Tatooine, who dreams of something more than his current life and learns about the Force and the Jedi | 1                           | 1      | published        |
+    # Edit Person page to add additional details
+    When I am on "/biography/luke-skywalker/edit"
+      And I press "Add Position History"
+      And I select "Other" from "Position Category"
+      And I fill in "Jedi" for "Position Title"
+      And I fill in the following:
+        | field_position_history_paragraph[0][subform][field_from][0][value][date] | 01-01-1999 |
+      And I check "Current Position"
+      And I attach the file "behat-luke.png" to "Photo"
+      And I wait for ajax to finish
+      And I fill in "Alternative text" with "Luke"
+      # Email field validation tests
+      And I fill in "Email" with "abcd.com"
+      And I publish it
+    Then I should not see the heading "Luke Skywalker"
+      And I should not see the text "Person Luke Skywalker has been updated."
+    When I fill in "Email" with "abcd@100"
+      And I publish it
+    Then I should not see the heading "Luke Skywalker"
+      And I should not see the text "Person Luke Skywalker has been updated."
+    When I fill in "Email" with "1000@com"
+      And I publish it
+      And I scroll to the top
+    Then I should see the text "This value is not a valid email address."
+      And I fill in "Email" with "skyrunner1000@testing.com"
+      # Phone field validation tests
+    When I fill in "Phone" with "1-888-234-1234"
+      And I publish it
+      And I am not logged in
+      And I am on "/biography/luke-skywalker"
+    Then I should see the text "188-823-4123" in the "uswds_person_image_area" region
+    When I am logged in as a user with the "sitebuilder" role
+      And I am on "/biography/luke-skywalker/edit"
+      And I fill in "Phone" with "(703) 122-9898"
+      And I publish it
+      And I am not logged in
+      And I am on "/biography/luke-skywalker"
+    Then I should see the text "703-122-9898" in the "uswds_person_image_area" region
+    When I am logged in as a user with the "sitebuilder" role
+      And I am on "/biography/luke-skywalker/edit"
+      And I fill in "Phone" with "1234567890123456789"
+      And I publish it
+      And I am not logged in
+      And I am on "/biography/luke-skywalker"
+    Then I should see the text "123-567-9084" in the "uswds_person_image_area" region

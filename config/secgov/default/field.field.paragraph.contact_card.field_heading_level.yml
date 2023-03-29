@@ -1,0 +1,27 @@
+uuid: 4aea8928-5357-46dc-a2c6-f3b897a57ec0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_heading_level
+    - paragraphs.paragraphs_type.contact_card
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.contact_card.field_heading_level
+field_name: field_heading_level
+entity_type: paragraph
+bundle: contact_card
+label: 'Heading Level'
+description: 'Heading levels are used to determine the hierarchy of pages for assistive technologies.'
+required: false
+translatable: true
+default_value:
+  -
+    value: '2'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

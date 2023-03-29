@@ -32,8 +32,8 @@ class InlineEditingDisabler {
    */
   public function entityViewAlter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
     if ($this->moderationInfo->isModeratableEntity($entity) && !$this->moderationInfo->isLatestRevision($entity)) {
-      // Hide quickedit, because its super confusing for the user to not edit the
-      // live revision.
+      // Hide quickedit, because its super confusing for the user to not edit
+      // the live revision.
       unset($build['#attributes']['data-quickedit-entity-id']);
     }
   }

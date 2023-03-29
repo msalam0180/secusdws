@@ -5,6 +5,7 @@ namespace Drupal\Tests\workbench_access\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\system\Entity\Menu;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
@@ -17,10 +18,11 @@ use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
  */
 class NodeMenuTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
-  use NodeCreationTrait;
   use ContentTypeCreationTrait;
+  use NodeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access menu.
@@ -71,7 +73,7 @@ class NodeMenuTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
     $this->installConfig(['filter', 'node', 'workbench_access', 'system']);

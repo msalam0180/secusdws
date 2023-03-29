@@ -106,7 +106,7 @@ class Taxonomy extends AccessControlHierarchyBase {
             'parents' => [],
             'weight' => 0,
             'description' => $vocabulary->label(),
-            'path' => $vocabulary->toUrl('overview-form')->toString(),
+            'path' => $vocabulary->toUrl('overview-form')->toString(TRUE)->getGeneratedUrl(),
           ];
           // @TODO: It is possible that this will return a filtered set, if
           // term_access is applied to the query.
@@ -153,7 +153,7 @@ class Taxonomy extends AccessControlHierarchyBase {
         'parents' => $this->convertParents($term, $id),
         'weight' => $term->weight,
         'description' => $term->description__value,
-        'path' => Url::fromUri('entity:taxonomy_term/' . $term->tid)->toString(),
+        'path' => Url::fromUri('entity:taxonomy_term/' . $term->tid)->toString(TRUE)->getGeneratedUrl(),
       ];
       foreach ($tree[$id][$term->tid]['parents'] as $key) {
         if (!empty($tree[$id][$key]['parents'])) {
@@ -222,7 +222,7 @@ class Taxonomy extends AccessControlHierarchyBase {
       // @see \Drupal\workbench_access\Plugin\EntityReferenceSelection\TaxonomyHierarchySelection
       else {
         foreach ($element['widget'] as $key => $item) {
-          if (is_array($item) && isset($item['target_id']['#type']) && $item['target_id']['#type'] == 'entity_autocomplete') {
+          if (is_array($item) && isset($item['target_id']['#type']) && $item['target_id']['#type'] === 'entity_autocomplete') {
             $element['widget'][$key]['target_id']['#selection_handler'] = 'workbench_access:taxonomy_term:' . $scheme->id();
             $element['widget'][$key]['target_id']['#validate_reference'] = TRUE;
             // Hide elements that cannot be edited.
@@ -275,17 +275,21 @@ class Taxonomy extends AccessControlHierarchyBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getApplicableFields($entity_type, $bundle) {
-    return array_filter($this->configuration['fields'], function ($field) use ($entity_type, $bundle) {
-      $field += [
-        'entity_type' => NULL,
-        'bundle' => NULL,
-        'field' => '',
-      ];
-      return $field['entity_type'] === $entity_type && $field['bundle'] === $bundle;
-    });
+    if (is_array($this->configuration['fields'])) {
+      return array_filter($this->configuration['fields'], function ($field) use ($entity_type, $bundle) {
+        $field += [
+          'entity_type' => NULL,
+          'bundle' => NULL,
+          'field' => '',
+        ];
+        return $field['entity_type'] === $entity_type && $field['bundle'] === $bundle;
+      });
+    }
+
+    return NULL;
   }
 
   /**
@@ -353,11 +357,12 @@ class Taxonomy extends AccessControlHierarchyBase {
     ];
     $entity_reference_fields = $this->entityFieldManager->getFieldMapByFieldType('entity_reference');
     $taxonomy_fields = [];
+    $validate = [];
 
     foreach ($entity_reference_fields as $entity_type_id => $fields) {
       foreach ($fields as $field_name => $details) {
         // Parent fields on taxonomy terms would create infinite loops. Deny.
-        if ($entity_type_id == 'taxonomy_term' && $field_name == 'parent') {
+        if ($entity_type_id === 'taxonomy_term' && $field_name === 'parent') {
           continue;
         }
         foreach ($details['bundles'] as $bundle) {
@@ -366,7 +371,7 @@ class Taxonomy extends AccessControlHierarchyBase {
             $handler_settings = $field_definitions[$field_name]->getSetting('handler_settings');
             // Must refer to a proper target. Target bundles referring to
             // themselves would create an infinite loop. Deny.
-            if ($entity_type_id == 'taxonomy_term' && in_array($bundle, $this->configuration['vocabularies'], TRUE)) {
+            if ($entity_type_id === 'taxonomy_term' && in_array($bundle, $this->configuration['vocabularies'], TRUE)) {
               continue;
             }
             // Must have a proper target.
@@ -412,7 +417,10 @@ class Taxonomy extends AccessControlHierarchyBase {
       '#options' => $taxonomy_fields,
       '#default_value' => array_combine($default_value, $default_value),
     ];
-    $form['validate'] = ['#type' => 'value', '#value' => $validate];
+    if ($validate) {
+      $form['validate'] = ['#type' => 'value', '#value' => $validate];
+    }
+
     return $form;
   }
 
@@ -432,10 +440,17 @@ class Taxonomy extends AccessControlHierarchyBase {
               $error = FALSE;
             }
           }
-         if ($error) {
+          if ($error) {
             $form_field = $form['fields']['#options'][$field];
-            list($entity_type, $bundle, $field_name) = explode(':', $field);
-            $form_state->setErrorByName('scheme_settings][fields][' . $field, $this->t('The field %field on %type entities of type %bundle is not in the selected vocabularies.', ['%field' => $form_field['field'], '%type' => $entity_type, '%bundle' => $form_field['bundle']]));
+            [$entity_type, $bundle, $field_name] = explode(':', $field);
+            $form_state->setErrorByName('scheme_settings][fields][' . $field,
+              $this->t('The field %field on %type entities of type %bundle is not in the selected vocabularies.',
+              [
+            '%field' => $form_field['field'],
+               '%type' => $entity_type,
+               '%bundle' => $form_field['bundle']
+              ])
+            );
           }
         }
       }
@@ -454,7 +469,7 @@ class Taxonomy extends AccessControlHierarchyBase {
     unset($settings['validate']);
     $settings['vocabularies'] = array_values(array_filter($settings['vocabularies']));
     $settings['fields'] = array_values(array_map(function ($item) {
-      list($entity_type, $bundle, $field_name) = explode(':', $item);
+      [$entity_type, $bundle, $field_name] = explode(':', $item);
       return [
         'entity_type' => $entity_type,
         'bundle' => $bundle,
@@ -530,7 +545,7 @@ class Taxonomy extends AccessControlHierarchyBase {
    * @TODO: Refactor
    */
   public function getViewsJoin($entity_type, $key, $alias = NULL) {
-    if ($entity_type == 'user') {
+    if ($entity_type === 'user') {
       $configuration['taxonomy'] = [
         'table' => 'section_association__user_id',
         'field' => 'user_id_target_id',

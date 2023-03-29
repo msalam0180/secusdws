@@ -1,11 +1,18 @@
+{#
+/**
+ * @file
+ *
+ *  Important!
+ *  The content type label (i.e. "Article") needed to be set in the
+ *  nodesTypesThatUseNodeDetailsLayout variable under page.html.twig,
+ *  this is when a node type switches over to the new layout.
+ *
+ * /
+#}
 {% if content %}
-  <div {{ attributes.addClass('node-details-layout', (content.sidebar) ? "has-sidebar") }}>
+  <div {{ attributes.addClass('node-details-layout', (content.rightrail|render|length) ? "has-rightrail") }}>
     {% if content.main %}
-      {# breadcrumbs #}
       <div {{ region_attributes.main.addClass('node-details-layout__main-region') }}>
-      
-        {{ drupal_block('system_breadcrumb_block') }}
-
         <div class="content-wrapper">
           {# page title #}
           {{ drupal_block('page_title_block', {label_display: false }) }}
@@ -13,9 +20,9 @@
         </div>
       </div>
     {% endif %}
-    {% if content.sidebar %}
-      <div {{ region_attributes.sidebar.addClass('node-details-layout__sidebar-region') }}>
-        {{ content.sidebar }}
+    {% if content.rightrail|render|length %}
+      <div {{ region_attributes.rightrail.addClass('node-details-layout__rightrail-region') }}>
+        {{ content.rightrail }}
       </div>
     {% endif %}
   </div>

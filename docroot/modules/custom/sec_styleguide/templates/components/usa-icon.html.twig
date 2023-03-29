@@ -3,6 +3,12 @@
 {% set component_details = module_path ~ '/templates/component_details.html.twig' %}
 {% include component_details %}
 
+<p>To insert an icon in Drupal, click the desired icon button then copy and paste the HTML below. This will only work in fields that support markup, e.g. wysiwyg fields.</p>
+
+<pre contenteditable><code>&lt;svg class=&quot;usa-icon&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
+  &lt;use xlink:href=&quot;/themes/custom/uswds_sec/dist/img/sprite.svg#<span class="icon-name">icon_name</span>&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code></pre>
+
 <form class="usa-form clearfix" onsubmit="return false">
   <div class="grid-row grid-gap margin-bottom-5" style="align-items: flex-end;">
 
@@ -23,7 +29,7 @@
 
 <p style="margin-bottom: 1em; margin-top: 1em;">
   <span id="icon-count">{{ icon_yml.items|length }} icons.</span>
-  Click an icon to copy its code snippet.
+  Click an icon to copy its name.
 </p>
 
 {# Note: Set “data-filter” to the CSS selector for the component’s title element #}
@@ -47,18 +53,21 @@
 
 <script>
   function copyHTML(el) {
-    code = el.querySelector("svg").outerHTML;
-    messagePlaceholder = el.nextElementSibling;
-    oldCopyNotice = document.getElementById("icon-copy-notice");
+    var icon_name = el.querySelector(".icons__button__name").textContent.trim();
+    var icon_name_el = document.querySelector(".icon-name");
+    var messagePlaceholder = el.nextElementSibling;
+    var oldCopyNotice = document.getElementById("icon-copy-notice");
     if (oldCopyNotice) {
       oldCopyNotice.remove();
     }
-    message = document.createElement("span");
+    var message = document.createElement("span");
     message.setAttribute("id", "icon-copy-notice");
     message.setAttribute("aria-live", "assertive");
     message.innerHTML = "Copied to clipboard!";
     /* Copy the text inside the text field */
-    navigator.clipboard.writeText(code);
+    navigator.clipboard.writeText(icon_name);
     messagePlaceholder.append(message);
+    /* Update HTML snippet */
+    icon_name_el.textContent = icon_name;
   }
 </script>

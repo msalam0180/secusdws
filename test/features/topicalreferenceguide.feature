@@ -16,7 +16,8 @@ Scenario: Create Topical Reference Guide Link
     And I select "Investment Management" from "Primary Division/Office"
     And I publish it
   Then I should be on "/news/media-gallery"
-  When I visit "/divisions/investment/topical-reference-guide"
+  When I am not logged in
+    And I visit "/divisions/investment/topical-reference-guide"
   Then I should see the heading "Topical Reference Guide"
     And I should see the link "TRG TEST: Link to News Media Gallery"
     And I should see the text "Forms" in the "TRG TEST: Link to News Media Gallery" row
@@ -24,19 +25,19 @@ Scenario: Create Topical Reference Guide Link
 @api @javascript
 Scenario: View the IM Topical Reference Guide List Page
   Given "tags" terms:
-    | name      |
-    | behat     |
-    | wdio      |
-    | jira      |
-    | rocket    |
+      | name   |
+      | behat  |
+      | wdio   |
+      | jira   |
+      | rocket |
     And "link" content:
-      | title             | field_url                                | field_topics            | field_subtopic         | field_primary_division_office   | status  | moderation_state  | field_publish_date    | field_tags |
-      | TRG TEST Link 1   | SEC Link - https://www.sec.gov           | Accounting and Auditing | Forms                  | Investment Management           | 1       | published         | 2018-09-11 12:00:00   | behat      |
-      | TRG TEST Link 2   | Google Link - https://www.google.com     | Cybersecurity           | Resources              | Investment Management           | 1       | published         | 2018-07-11 16:00:00   | jira       |
-      | TRG TEST Link 3   | Apple Link - https://www.apple.com       | Anti-Money Laundering   | Rulemaking             | Investment Management           | 0       | draft             | 2018-05-11 08:00:00   |            |
-      | TRG TEST Link 4   | IBM Link - https://www.ibm.com           | Accounting and Auditing | Exemptive Applications | Investment Management           | 1       | published         | 2019-09-09 08:00:00   | rocket     |
-      | TRG TEST Link 5   | Facebook Link - https://www.facebook.com | Cybersecurity           | Resources              | Investment Management           | 1       | published         | 2017-08-12 16:00:00   |            |
-      | TRG TEST Link 6   | Netflix Link - https://www.netflix.com   | Cybersecurity           | Rulemaking             | Investment Management           | 1       | published         | 2016-04-19 16:00:00   | wdio       |
+      | title           | field_url                                | field_topics            | field_subtopic         | field_primary_division_office | status | moderation_state | field_publish_date  | field_tags |
+      | TRG TEST Link 1 | SEC Link - https://www.sec.gov           | Accounting and Auditing | Forms                  | Investment Management         | 1      | published        | 2018-09-11 12:00:00 | behat      |
+      | TRG TEST Link 2 | Google Link - https://www.google.com     | Cybersecurity           | Resources              | Investment Management         | 1      | published        | 2018-07-11 16:00:00 | jira       |
+      | TRG TEST Link 3 | Apple Link - https://www.apple.com       | Anti-Money Laundering   | Rulemaking             | Investment Management         | 0      | draft            | 2018-05-11 08:00:00 |            |
+      | TRG TEST Link 4 | IBM Link - https://www.ibm.com           | Accounting and Auditing | Exemptive Applications | Investment Management         | 1      | published        | 2019-09-09 08:00:00 | rocket     |
+      | TRG TEST Link 5 | Facebook Link - https://www.facebook.com | Cybersecurity           | Resources              | Investment Management         | 1      | published        | 2017-08-12 16:00:00 |            |
+      | TRG TEST Link 6 | Netflix Link - https://www.netflix.com   | Cybersecurity           | Rulemaking             | Investment Management         | 1      | published        | 2016-04-19 16:00:00 | wdio       |
   When I am on "/divisions/investment/topical-reference-guide"
   Then I should see the heading "Investment Management"
     #list view should display link to link content with field_url title

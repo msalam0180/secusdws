@@ -77,7 +77,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set rule_release_title = content.field_display_title|field_value ? content.field_display_title|field_value : label|field_value %}
+{% set rule_release_title = (content.field_display_title|field_value and label|field_value|length < 256 ) ? content.field_display_title|field_value : label|field_value %}
 
 {{ attach_library('classy/node') }}
 <div{{ attributes.addClass(classes) }}>

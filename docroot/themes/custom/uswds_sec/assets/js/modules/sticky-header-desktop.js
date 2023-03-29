@@ -7,6 +7,11 @@
 //------------------------------------------------------------------------
 export default class StickyHeader {
   constructor() {
+    // Don’t run if logged into Drupal
+    if (window.drupalSettings && window.drupalSettings.user?.uid !== 0) {
+      return;
+    }
+
     this.header = document.querySelector(".header");
     this.headerWatcherEl = document.querySelector(".sticky-header-watcher");
     this.mediaQueryList = window.matchMedia("(min-width: 1024px)");

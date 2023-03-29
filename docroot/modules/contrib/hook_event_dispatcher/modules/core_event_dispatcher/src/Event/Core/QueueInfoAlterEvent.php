@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class QueueInfoAlterEvent.
+ *
+ * @HookEvent(id="queue_info_alter", alter="queue_info")
  */
 class QueueInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

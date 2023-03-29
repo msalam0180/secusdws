@@ -34,6 +34,46 @@ source:
     delimiter: ','
     staticFileType: 'Administrative Proceedings Release'
 process:
+  _skip:
+    -
+      plugin: migration_lookup
+      migration:
+        - aljinitialreleases
+        - aljinitialseealsofiles
+        - aljorderapreleases
+        - aljorderreleases
+        - aljorderseealsofiles
+        - apreleases
+        - apseealsofiles
+        - litigationreleasesreleases
+        - litigationreleasesseealsofiles
+        - opinionsordersreleases
+        - opinionsordersseealsofiles
+        - stopordersreleases
+        - stopordersseealsofiles
+        - tradingsuspensionfiles
+        - tradingsuspensionseealso
+        - conceptreleases
+        - conceptseealso
+        - finalreleases
+        - finalseealso
+        - interim_finalreleases
+        - interim_finalseealso
+        - interpretivereleases
+        - interpretiveseealso
+        - otherreleases
+        - otherseealso
+        - proposedreleases
+        - proposedseealso
+        - sroreleases
+        - sroseealso
+      no_stub: true
+      source: releaseurl
+    -
+      plugin: skip_on_value
+      method: row
+      not_equals: true
+      value: null
   status:
     plugin: default_value
     default_value: 1

@@ -169,7 +169,7 @@ class AccessToken extends ContentEntityBase implements AccessTokenInterface {
         'weight' => -4,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'hidden',
+        'region' => 'hidden',
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', TRUE);

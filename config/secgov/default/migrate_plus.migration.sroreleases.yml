@@ -73,7 +73,7 @@ process:
         - tradingsuspensionfiles
         - tradingsuspensionseealso
       no_stub: true
-      source: related_rules
+      source: releaseurl
     -
       plugin: skip_on_value
       method: row

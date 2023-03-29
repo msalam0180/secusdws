@@ -12,12 +12,12 @@ use Drupal\views\Views;
  *
  * @group workbench_moderation
  */
-class ViewsDataTest extends ViewsKernelTestBase {
+class ViewsDataIntegrationTest extends ViewsKernelTestBase {
 
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'workbench_moderation_test_views',
     'node',
     'workbench_moderation',
@@ -26,7 +26,7 @@ class ViewsDataTest extends ViewsKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp($import_test_views = TRUE) {
+  protected function setUp($import_test_views = TRUE): void {
     parent::setUp($import_test_views);
 
     $this->installEntitySchema('node');
@@ -35,6 +35,9 @@ class ViewsDataTest extends ViewsKernelTestBase {
     $this->installConfig('workbench_moderation_test_views');
   }
 
+  /**
+   * Test views data.
+   */
   public function testViewsData() {
     $node_type = NodeType::create([
       'type' => 'page',
@@ -72,7 +75,14 @@ class ViewsDataTest extends ViewsKernelTestBase {
         'moderation_state' => 'published',
       ],
     ];
-    $this->assertIdenticalResultset($view, $expected_result, ['title' => 'title', 'nid' => 'nid', 'workbench_revision_tracker_revision_id' => 'revision_id', 'moderation_state_revision' => 'moderation_state_revision', 'moderation_state' => 'moderation_state']);
+    $this->assertIdenticalResultset($view, $expected_result,
+    [
+      'title' => 'title',
+      'nid' => 'nid',
+      'workbench_revision_tracker_revision_id' => 'revision_id',
+      'moderation_state_revision' => 'moderation_state_revision',
+      'moderation_state' => 'moderation_state',
+    ]);
   }
 
 }

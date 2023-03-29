@@ -79,9 +79,9 @@ class ModerationStateTransition extends ConfigEntityBase implements ModerationSt
   protected $weight;
 
   /**
-   * Moderation state config prefix
+   * Moderation state config prefix.
    *
-   * @var string.
+   * @var string
    */
   protected $moderationStateConfigPrefix;
 

@@ -1,0 +1,59 @@
+uuid: 55b2c4cb-0df4-4ad4-851e-0d005ca73eed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.gov_delivery_alert.field_email_list_id
+    - field.field.paragraph.gov_delivery_alert.field_heading_level
+    - field.field.paragraph.gov_delivery_alert.field_title
+    - paragraphs.paragraphs_type.gov_delivery_alert
+  module:
+    - ds
+    - options
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_email_alerts
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      headline:
+        - field_title
+      list_id:
+        - field_email_list_id
+      heading_level:
+        - field_heading_level
+id: paragraph.gov_delivery_alert.default
+targetEntityType: paragraph
+bundle: gov_delivery_alert
+mode: default
+content:
+  field_email_list_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: list_id
+  field_heading_level:
+    type: list_key
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: heading_level
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: headline
+hidden:
+  search_api_excerpt: true

@@ -15,6 +15,13 @@ class AddSchemeFormTest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Admin user.
    *
    * @var \Drupal\user\UserInterface
@@ -39,7 +46,7 @@ class AddSchemeFormTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->setUpVocabulary();
     $this->admin = $this->setUpAdminUser(['administer workbench access']);

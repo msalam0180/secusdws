@@ -3,13 +3,31 @@
 // https://designsystem.digital.gov/components/banner/
 // https://github.com/uswds/uswds/blob/develop/packages/usa-banner/src/styles/_usa-banner.scss
 //------------------------------------------------------------------------
-.usa-banner {
-  // position: relative;
-  // z-index: $z-header + 1;// over mobile nav
+@use "uswds-settings" as usa;
+@use "../vars/layout-vars" as *;
+@use "../functions/rem" as *;
 
-  // It’s unclear why but USWDS removed the right padding
-  // which can cause the text to touch the viewport edge.
+.usa-banner {
+  &__header {
+    // Use the header padding amount so content aligns
+    @include usa.at-media("tablet") {
+      padding-left: $layout-header-padding-horz;
+      padding-right: $layout-header-padding-horz;
+    }
+  }
+
+  // USWDS removed the right padding in mobile for some reason,
+  // which can cause the text to touch the viewport edge at
+  // certain widths, so we’re adding it back.
+  // https://github.com/uswds/uswds/blob/30c61f34288bc706961b12b536fdc57537026385/packages/usa-banner/src/styles/_usa-banner.scss#L133
   &__inner {
     padding-right: 1rem;
+
+    // Update max-width and remove padding (set at parent level)
+    @include usa.at-media("tablet") {
+      max-width: rem($layout-max-width-global) !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
   }
 }

@@ -3,11 +3,11 @@ ul.entity-moderation-form {
   display: -webkit-flex; /* Safari */
   display: flex;
   -webkit-flex-wrap: wrap; /* Safari */
-  flex-wrap:         wrap;
+  flex-wrap: wrap;
   -webkit-justify-content: space-around; /* Safari */
-  justify-content:         space-around;
+  justify-content: space-around;
   -webkit-align-items: flex-end; /* Safari */
-  align-items:         flex-end;
+  align-items: flex-end;
   border-bottom: 1px solid gray;
 }
 

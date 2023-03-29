@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.accordion
     - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.card_group
+    - paragraphs.paragraphs_type.contact_cards
     - paragraphs.paragraphs_type.horizontal_card
     - paragraphs.paragraphs_type.image
     - paragraphs.paragraphs_type.lead_paragraph
@@ -37,6 +38,7 @@ settings:
       accordion: accordion
       alert: alert
       card_group: card_group
+      contact_cards: contact_cards
       horizontal_card: horizontal_card
       image: image
       lead_paragraph: lead_paragraph
@@ -46,45 +48,72 @@ settings:
     negate: 0
     target_bundles_drag_drop:
       accordion:
-        weight: -26
+        weight: -46
         enabled: true
       accordion_section:
-        weight: -20
+        weight: -38
+        enabled: false
+      address:
+        weight: -29
         enabled: false
       alert:
-        weight: -25
+        weight: -45
         enabled: true
       card:
-        weight: -24
+        weight: -44
         enabled: false
       card_group:
-        weight: -22
+        weight: -42
         enabled: true
-      horizontal_card:
-        weight: -21
+      contact_card:
+        weight: -40
+        enabled: false
+      contact_cards:
+        weight: -41
         enabled: true
-      image:
-        weight: -18
-        enabled: true
-      lead_paragraph:
-        weight: -17
-        enabled: true
-      position_history:
+      email:
+        weight: -28
+        enabled: false
+      fax_number:
         weight: -27
         enabled: false
+      gov_delivery_alert:
+        weight: -32
+        enabled: false
+      horizontal_card:
+        weight: -39
+        enabled: true
+      image:
+        weight: -36
+        enabled: true
+      lead_paragraph:
+        weight: -35
+        enabled: true
+      link_with_icon:
+        weight: -26
+        enabled: false
+      phone_number:
+        weight: -25
+        enabled: false
+      position_history:
+        weight: -47
+        enabled: false
+      quick_link:
+        weight: -30
+        enabled: false
       related_document_s_:
-        weight: -23
+        weight: -43
         enabled: false
       subpage_card:
-        weight: -19
+        weight: -37
         enabled: false
       subpage_card_group:
-        weight: -16
+        weight: -34
         enabled: true
       text:
-        weight: -15
+        weight: -33
         enabled: true
       video:
-        weight: 26
+        weight: -31
         enabled: true
 field_type: entity_reference_revisions

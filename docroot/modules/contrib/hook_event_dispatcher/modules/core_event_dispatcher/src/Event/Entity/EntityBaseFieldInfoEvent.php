@@ -5,12 +5,22 @@ namespace Drupal\core_event_dispatcher\Event\Entity;
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\hook_event_dispatcher\Event\EventFactoryInterface;
+use Drupal\hook_event_dispatcher\Event\EventFactoryTrait;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityBaseFieldInfoEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_base_field_info",
+ *   hook = "entity_base_field_info"
+ * )
  */
-class EntityBaseFieldInfoEvent extends Event implements EventInterface {
+final class EntityBaseFieldInfoEvent extends Event implements EventInterface, EventFactoryInterface, HookReturnInterface {
+
+  use EventFactoryTrait;
 
   /**
    * The entity type.
@@ -71,6 +81,13 @@ class EntityBaseFieldInfoEvent extends Event implements EventInterface {
    */
   public function setFields(array $fields): void {
     $this->fields = $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getFields();
   }
 
 }

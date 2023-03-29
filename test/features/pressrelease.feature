@@ -20,7 +20,8 @@ Feature: Create and View Press Releases
       And I select "Agency-Wide" from "Primary Division/Office"
   	  And I publish it
     Then I should see the heading "My New Press Release"
-    When I visit "/news/pressreleases"
+    When I am not logged in
+      And I visit "/news/pressreleases"
     Then I should see the link "My New Press Release"
       And I should see the text "2021-123" in the "My New Press Release" row
 

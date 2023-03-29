@@ -81,15 +81,15 @@ Scenario Outline: Check Environment Indicator
   Given I am logged in as a user with the "<role>" role
   When I visit "/"
   Then I should see the text "LOCAL LNDO" in the "env_indicator" region
-    And I should see the "div" element with the "style" attribute set to "cursor:  pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
+    And I should see the "div" element with the "style" attribute set to "cursor: pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
   When I click on the element with css selector "#environment-indicator"
-  Then I should see the link "Open in: Prod" in the "env_indicator" region
-    And I should see the link "Open in: Train" in the "env_indicator" region
+  Then I should see the link "Open on Prod" in the "env_indicator" region
+    And I should see the link "Open on Train" in the "env_indicator" region
   When I visit "/admin/content"
   Then I should see the text "LOCAL LNDO" in the "env_indicator" region
-    And I should see the "div" element with the "style" attribute set to "cursor:  pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
-    And the hyperlink "Open in: Prod" should match the Drupal url "https://dcm.investor.gov/admin/content"
-    And the hyperlink "Open in: Train" should match the Drupal url "https://dcmtrain.investor.gov/admin/content"
+    And I should see the "div" element with the "style" attribute set to "cursor: pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
+    And the hyperlink "Open on Prod" should match the Drupal url "https://dcm.investor.gov/admin/content"
+    And the hyperlink "Open on Train" should match the Drupal url "https://dcmtrain.investor.gov/admin/content"
 
   Examples:
     | role             |

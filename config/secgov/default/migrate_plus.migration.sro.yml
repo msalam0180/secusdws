@@ -47,7 +47,7 @@ process:
     plugin: default_value
     default_value: regulation
   title: title
-  field_display_title: title
+  field_display_title: short_title
   body_text:
     -
       plugin: skip_on_contains

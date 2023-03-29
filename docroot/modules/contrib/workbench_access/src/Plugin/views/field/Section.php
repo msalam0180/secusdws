@@ -84,7 +84,7 @@ class Section extends PrerenderList implements MultiItemsFieldHandlerInterface {
   /**
    * {@inheritdoc}
    */
-  public function render_item($count, $item) {
+  public function render_item($count, $item) { // phpcs:ignore
     return $item['value'];
   }
 

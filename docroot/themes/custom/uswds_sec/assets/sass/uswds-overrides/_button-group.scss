@@ -1,0 +1,19 @@
+//------------------------------------------------------------------------
+// Button group overrides
+// https://designsystem.digital.gov/components/button-group/
+//------------------------------------------------------------------------
+.usa-button-group {
+  $selector: &;
+  --button-col-gap: #{rem(22px)};
+  --button-row-gap: #{rem(22px)};
+
+  // Don’t apply to “segmented” groups with no space between buttons
+  &:where(:not(.usa-button-group--segmented)) {
+    margin-left: calc(var(--button-col-gap) / -2);
+    margin-right: calc(var(--button-col-gap) / -2);
+
+    #{$selector}__item {
+      margin: calc(var(--button-row-gap) / 2) calc(var(--button-col-gap) / 2);
+    }
+  }
+}

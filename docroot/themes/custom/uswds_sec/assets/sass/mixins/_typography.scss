@@ -19,6 +19,13 @@
   font-weight: bold;
   line-height: 1.2;
 
+  .has-sidebar & {
+    @include scale(font-size, (
+      $layout-sidenav-bp: 32px,
+      $layout-sidenav-bp-wide: 36px
+    ), $initial: false);
+  }
+
   @include min-width(640px) {
     line-height: 1.1;
   }

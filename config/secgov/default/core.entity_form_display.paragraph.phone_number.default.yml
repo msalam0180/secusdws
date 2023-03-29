@@ -1,0 +1,32 @@
+uuid: 4a527077-1d77-451f-beea-ce8be14c9e44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_number.field_phone_number
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - mask
+    - telephone
+id: paragraph.phone_number.default
+targetEntityType: paragraph
+bundle: phone_number
+mode: default
+content:
+  field_phone_number:
+    type: telephone_default
+    weight: 0
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings:
+      mask:
+        value: 000-000-0000
+        clearifnotmatch: '1'
+        selectonfocus: '1'
+        translation_help:
+          table: ''
+        reverse: 0
+hidden:
+  created: true
+  status: true

@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class LayoutAlterEvent.
+ *
+ * @HookEvent(id="layout_alter", alter="layout")
  */
 class LayoutAlterEvent extends PluginDefinitionAlterEventBase {
 

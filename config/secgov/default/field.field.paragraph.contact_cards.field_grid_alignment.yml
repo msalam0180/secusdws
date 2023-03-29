@@ -1,0 +1,27 @@
+uuid: 6ab00179-63bb-46fb-8df5-c846ace1d4aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_grid_alignment
+    - paragraphs.paragraphs_type.contact_cards
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.contact_cards.field_grid_alignment
+field_name: field_grid_alignment
+entity_type: paragraph
+bundle: contact_cards
+label: 'Grid Alignment'
+description: 'Controls the width of the cards in the last row.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Align to Grid'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

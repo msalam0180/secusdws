@@ -16,6 +16,13 @@ class NodeFormMenuTest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * {@inheritdoc}
    */
   public static $modules = [
@@ -46,7 +53,7 @@ class NodeFormMenuTest extends BrowserTestBase {
       ]
     ];
 
-    $node_type = $this->createContentType($node_type_values);
+    $this->createContentType($node_type_values);
     $scheme = $this->setUpMenuScheme(['page'], ['main', 'account']);
 
     $user_storage = $this->container->get('workbench_access.user_section_storage');
@@ -75,6 +82,12 @@ class NodeFormMenuTest extends BrowserTestBase {
       'menu_name' => 'main',
     ]);
     $base_link->save();
+    $deny_link = MenuLinkContent::create([
+      'title' => 'Link 4',
+      'link' => [['uri' => 'route:<front>']],
+      'menu_name' => 'main',
+    ]);
+    $deny_link->save();
     $user_link = MenuLinkContent::create([
       'title' => 'User link 1',
       'link' => [['uri' => 'route:<front>']],
@@ -177,7 +190,8 @@ class NodeFormMenuTest extends BrowserTestBase {
     $edit['title[0][value]'] = 'Test node';
     $edit['menu[title]'] = 'Test node';
     $edit['menu[menu_parent]'] = 'main:' . $base_link->getPluginId();
-    $this->drupalPostForm('node/add/page', $edit, 'Save');
+    $this->drupalGet('node/add/page');
+    $this->submitForm($edit, 'Save');
 
     $this->drupalGet('node/1/edit');
     $web_assert->optionExists('menu[menu_parent]', 'main:');
@@ -186,6 +200,35 @@ class NodeFormMenuTest extends BrowserTestBase {
     $web_assert->optionExists('menu[menu_parent]', $super_staff_link->label());
     // May not declare self as parent.
     $web_assert->optionNotExists('menu[menu_parent]', 'Test node');
+
+    // Explicit test for menu default value not being available.
+    // https://www.drupal.org/project/workbench_access/issues/2988119.
+
+    // Set the default value to a menu item this user cannot access.
+    $node_type_config = $this->config('node.type.page');
+    $node_type_config->set('third_party_settings.menu_ui.parent', 'main:' . $deny_link->getPluginId());
+    $node_type_config->save();
+
+    // Remove user from the main section.
+    // Add the user to the root menu section.
+    $user_storage->removeUser($scheme, $editor, ['main']);
+
+    $expected3 = [
+      'account',
+      $base_link->getPluginId(),
+      $staff_link->getPluginId(),
+      $super_staff_link->getPluginId(),
+    ];
+    $existing3 = $user_storage->getUserSections($scheme, $editor);
+    $this->assertEquals(sort($expected3), sort($existing3));
+
+    $this->drupalGet('node/add/page');
+    $web_assert->optionNotExists('menu[menu_parent]', 'main:');
+    $web_assert->optionExists('menu[menu_parent]', $base_link->label());
+    $web_assert->optionExists('menu[menu_parent]', $staff_link->label());
+    $web_assert->optionExists('menu[menu_parent]', $super_staff_link->label());
+    $web_assert->optionNotExists('menu[menu_parent]', $deny_link->label());
+    $web_assert->responseContains('selected="selected">-- ' . $staff_link->label() . '</option>');
   }
 
 }

@@ -4,17 +4,20 @@
 //------------------------------------------------------------------------
 // Note: Footer has “bg-navy bg-gradient-overlay” classes (see page.html.twig)
 .usa-footer {
-  // Note: Footer uses USWDS grid for layout
+  // Note: We’re using a custom grid since it has 5 columns, which don’t divide
+  //       nicely using USWDS’ 12-col grid (SEC requested the 5th column).
   // https://designsystem.digital.gov/utilities/layout-grid/#responsive-variants
-  // Breakopints are configured in uswds_sec/assets/sass/_uswds-settings.scss
-  // TODO: Figure out how to reference these breakpoints from USWDS directly
-  $bp-2-col: 640px;
+  $bp-2-col: 400px;
+  $bp-logo: 640px;
+  $bp-4-col: 800px;
   $bp-full: 1024px;
+  $bp-end-scale: 1366px;
   $max-width: 1326px;// footer uses a custom max-width
+  $sitemap-col-gap: 36px;
   @include scale(padding-top, ($bp-2-col: 38px, $bp-full: 60px));
   padding-bottom: rem(72px);
 
-  @include max-width($bp-2-col - 1px) {
+  @include max-width($bp-full - 1px) {
     text-align: center;
   }
 
@@ -37,13 +40,54 @@
     }
   }
 
+  &__logo {
+    margin-bottom: 0;
+    margin-top: 0;
+
+    @include max-width($bp-logo - 1px) {
+      margin-top: rem(44px);
+    }
+
+    &--mobile {
+      @include min-width($bp-logo) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      @include max-width($bp-logo - 1px) {
+        display: none;
+      }
+    }
+
+    &-link {
+      display: block;
+    }// end link
+
+    &-img {
+      max-width: rem(276px);
+      width: 100%;
+
+      @include max-width($bp-logo - 1px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
   &__nav {
     // Note: Duplicate the selector to increase specificity in order to
-    //       override the USWDS styles wihtout resorting to !important.
+    //       override the USWDS styles without using “!important”
     &#{&} {
       border-bottom: 0;
       margin-left: auto;
       margin-right: auto;
+      max-width: none;
+      padding: 0;
+    }
+
+    @include min-width($bp-full) {
+      flex-grow: 1;
     }
   }
 
@@ -70,44 +114,130 @@
 
   &__primary {
     &-section {
-      background-color: transparent;
+      background-color: transparent;// USWDS override
+      margin-top: rem(40px);
+
+      @include min-width($bp-full) {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
-    &-content {
+    &-list {
       border-top: 0;
 
-      @include max-width($bp-full - 1px) {
-        margin-top: rem(34px);
+      @include mq((min-width: $bp-2-col, max-width: $bp-4-col - 1px)) {
+        display: grid;
+        gap: rem($sitemap-col-gap);
+        grid-template-columns: 1fr 1fr;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: rem(460px);
+        text-align: left;
+      }
 
-        :where(.region-footer-menu .grid-row > *:first-child) & {
-          margin-top: 0;
+      @include min-width($bp-4-col) {
+        display: flex;
+        justify-content: space-between;
+        margin-left: rem(-$sitemap-col-gap);
+        text-align: left;
+      }
+    }
+
+    &-item {
+      @include max-width($bp-2-col - 1px) {
+        &:not(:first-child) {
+          margin-top: rem(36px);
         }
+      }
+
+      @include min-width($bp-4-col) {
+        margin-left: rem($sitemap-col-gap);
+        max-width: 25%;
       }
     }
 
     &-heading {
+      line-height: 1.2;
       margin-bottom: rem(10px);
     }
+  }
 
-    // Note: This is the column heading in the nav section, currently a static h4
-    &-link {
+  // This class is added to <li> in nav section
+  &__secondary {
+    $secondary-selector: &;
+
+    &-list {
+      background-color: transparent;
       color: inherit;
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    &-item {
+      &:not(:first-child) {
+        margin-top: rem(10px);
+      }
+    }
+
+    &-link {
+      margin-left: 0;// USWDS override
+    }
+
+    // USWDS overrides
+    &-section {
+      background-color: transparent;
+      color: inherit;
+      padding-bottom: 0;
+      padding-top: 0;
+
+      @include max-width($bp-full - 1px) {
+        margin-top: rem(33px);
+      }
+
+      @include min-width($bp-logo) {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      @include min-width($bp-full) {
+        margin-top: rem(36px);
+      }
     }
   }
 
   // Email sign-up form
   .usa-sign-up {
-    margin-top: rem(35px);
+    max-width: rem(340px);
     padding-bottom: 0;
     padding-top: 0;
 
-    @include max-width($bp-2-col) {
+    @include max-width($bp-2-col - 1px) {
+      margin-top: rem(35px);
+    }
+
+    @include max-width($bp-full - 1px) {
       margin-left: auto;
       margin-right: auto;
-      max-width: rem(340px);
+      width: 76%;
+    }
+
+    @include mq((min-width: $bp-2-col, max-width: $bp-full - 1px)) {
+      margin-top: rem(50px);
+    }
+
+    @include min-width($bp-full) {
+      margin-left: rem($sitemap-col-gap);
+      width: 30%;
+    }
+
+    @include min-width(1200px) {
+      margin-left: 8%;
     }
 
     &__heading {
+      @include scale(font-size, ($bp-full: 18px, $bp-end-scale: 22px), $initial: false);
       font-size: rem(16px);
       line-height: 1.2;
 
@@ -117,118 +247,57 @@
     }
 
     .usa-button {
-      // --theme-button-bg-color: #{$button-blue-dark};
-      // --theme-button-color: currentColor;
-      // --theme-button-hover-bg-color: #{$button-blue-darker};
+      --theme-button-bg-color: #{$button-blue-dark};
+      --theme-button-color: #fff;
+      --theme-button-hover-bg-color: #{$button-blue-darker};
       margin-top: rem(36px);
       width: auto;
     }
   }
 
-  // This class is added to <li> in nav section
-  &__secondary {
-    &-section {
-      background-color: transparent;
-      color: inherit;
-      padding-bottom: 0;
-      padding-top: 0;
-
-      @include max-width($bp-2-col - 1px) {
-        margin-top: rem(30px);
-      }
-
-      @include min-width($bp-2-col) {
-        margin-top: rem(60px);
-      }
-
-      @include min-width($bp-full) {
-        margin-top: rem(38px);
-      }
-
-      .grid-row {
-        @include min-width($bp-2-col) {
-          align-items: center;
-        }
-      }
-    }
-
-    &-link {
-      margin-left: 0;
-
-      &:not(:first-child) {
-        padding-top: rem(16px);
-      }
-    }
-  }
-
-  &__logo {
-    margin-bottom: 0;
+  // Wrapper around social links
+  &__social {
+    align-items: center;
+    display: flex;
     margin-top: 0;
 
-    @include max-width($bp-2-col - 1px) {
-      margin-bottom: rem(40px);
-      margin-top: rem(44px);
-    }
-
-    &--mobile {
-      @include min-width($bp-2-col) {
-        display: none;
-      }
-    }
-
-    &--desktop {
-      @include max-width($bp-2-col - 1px) {
-        display: none;
-      }
-    }
-
-    &-img {
-      max-width: rem(276px);
-
-      @include max-width($bp-2-col - 1px) {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  }
-
-  &__contact-links {
-    margin-top: 0;
-
-    @include max-width($bp-2-col - 1px) {
-      width: 100%;
-    }
-  }
-
-  &__social-links {
-    padding-bottom: 0;
-
-    @include max-width($bp-2-col - 1px) {
+    @include max-width($bp-logo - 1px) {
       justify-content: space-evenly;
     }
-  }
 
-  .usa-social-link {
-    $link-size: 44px;
-    background-color: transparent;
-    height: rem($link-size);
-    transition: background-color 180ms ease;
-    width: rem($link-size);
-
-    &:hover,
-    &:focus,
-    &:active {
-      background-color: rgba(#fff, 0.2);
+    @include max-width($bp-2-col - 1px) {
+      width: 100%;
     }
 
-    // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
-    // Note: Since we can’t get each individual icon’s viewBox dimensions
-    //       in the template, the size of the SVG element won’t match the
-    //       use element, so the styles may not match Figma _exactly_.
-    .usa-icon {
-      height: 100%;
-      max-height: rem($link-size);
-      width: 100%;
+    &-item {
+      &:not(:first-child) {
+        @include scale(margin-left, ($bp-logo: 5px, 720px: 12px), $initial: false);
+      }
+    }// end item
+
+    .usa-social-link {
+      $link-size: 44px;
+      background-color: transparent;
+      display: block;
+      height: rem($link-size);
+      transition: background-color 180ms ease;
+      width: rem($link-size);
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: rgba(#fff, 0.2);
+      }
+
+      // Note: “.usa-icon” includes “height: 1em; width: 1em;” from USWDS
+      // Note: Since we can’t get each individual icon’s viewBox dimensions
+      //       in the template, the size of the SVG element won’t match the
+      //       use element, so the styles may not match Figma _exactly_.
+      .usa-icon {
+        height: 100%;
+        max-height: rem($link-size);
+        width: 100%;
+      }
     }
   }
 }

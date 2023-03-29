@@ -10,13 +10,13 @@ Scenario: View the Forms List Page
       | name       | field_media_file       | status |
       | Behat File | behat-file_corpfin.pdf | 1      |
     And "secarticle" content:
-    | title        | field_display_title                      | changed   | status | field_list_page_det_secarticle | field_article_type_secarticle | field_primary_division_office | field_release_number | field_audience                | field_act                       | field_publish_date  | field_date          | field_media_file_upload |
-    | Bahat Form 1 | Field Trip Form Behat Test 1             | +1 month  | 1      | SEC9999                        | Forms                         | Agency-Wide                   | A-BNB                | Investment Advisers           | Dodd-Frank Act of 2010          |                     |                     | Behat File              |
-    | Bahat Form 2 | Vacation Request Form Behat Test 2       | -3 month  | 0      | SEC8888                        | Forms                         | Agency-Wide                   | VZ987                | Clearing Agencies             | Investment Advisers Act of 1940 |                     |                     |                         |
-    | Bahat Form 3 | Driver License Renewal Form Behat Test 3 | +8 month  | 1      | SEC7777                        | Forms                         | Agency-Wide                   | 007                  | Broker-Dealers                | Investment Company Act of 1940  |                     |                     |                         |
-    | Bahat Form 4 | Passport Renewal Form Behat Test 4       | +11 month | 1      | SEC6666                        | Forms                         | Agency-Wide                   | ABC                  | Self-Regulatory Organizations | JOBS Act of 2012                |                     |                     |                         |
-    | Bahat From 5 | Building Entry Form Behat Test 5         | +90 day   | 1      | SEC5555                        | Forms                         | Agency-Wide                   | 123-KO               | Auditors                      | Securities Act of 1933          | 2018-11-05T17:00:00 | 2019-11-05T17:00:00 |                         |
-    | Bahat Form 6 | Visitor Parking Form Behat Test 6        | +2 year   | 1      | SEC4444                        | Forms                         | Agency-Wide                   | TKO-123              | Public Companies              | Securities Exchange Act of 1934 | 2018-12-10T17:00:00 | 2019-12-10T17:00:00 |                         |
+      | title        | field_display_title                      | changed   | status | field_list_page_det_secarticle | field_article_type_secarticle | field_primary_division_office | field_release_number | field_audience                | field_act                       | field_publish_date  | field_date          | field_media_file_upload |
+      | Bahat Form 1 | Field Trip Form Behat Test 1             | +1 month  | 1      | SEC9999                        | Forms                         | Agency-Wide                   | A-BNB                | Investment Advisers           | Dodd-Frank Act of 2010          |                     |                     | Behat File              |
+      | Bahat Form 2 | Vacation Request Form Behat Test 2       | -3 month  | 0      | SEC8888                        | Forms                         | Agency-Wide                   | VZ987                | Clearing Agencies             | Investment Advisers Act of 1940 |                     |                     |                         |
+      | Bahat Form 3 | Driver License Renewal Form Behat Test 3 | +8 month  | 1      | SEC7777                        | Forms                         | Agency-Wide                   | 007                  | Broker-Dealers                | Investment Company Act of 1940  |                     |                     |                         |
+      | Bahat Form 4 | Passport Renewal Form Behat Test 4       | +11 month | 1      | SEC6666                        | Forms                         | Agency-Wide                   | ABC                  | Self-Regulatory Organizations | JOBS Act of 2012                |                     |                     |                         |
+      | Bahat From 5 | Building Entry Form Behat Test 5         | +90 day   | 1      | SEC5555                        | Forms                         | Agency-Wide                   | 123-KO               | Auditors                      | Securities Act of 1933          | 2018-11-05T17:00:00 | 2019-11-05T17:00:00 |                         |
+      | Bahat Form 6 | Visitor Parking Form Behat Test 6        | +2 year   | 1      | SEC4444                        | Forms                         | Agency-Wide                   | TKO-123              | Public Companies              | Securities Exchange Act of 1934 | 2018-12-10T17:00:00 | 2019-12-10T17:00:00 |                         |
   When I visit "/forms"
   Then I should see the heading "Forms List"
     #list view should display description link to forms with display title as text
@@ -252,8 +252,8 @@ Scenario: Filter Forms List Page by Keyword
 @api @javascript
 Scenario: Verify PDF file opens when the link is clicked from the list view for forms
   Given I create "media" of type "static_file":
-      | name            | field_display_title  | field_media_file | field_description_abstract | status |
-      | Behat Test File | static file          | behat-form1.pdf  | This is description abs    | 1      |
+      | name            | field_display_title | field_media_file | field_description_abstract | status |
+      | Behat Test File | static file         | behat-form1.pdf  | This is description abs    | 1      |
     And "secarticle" content:
       | title                                                                          | field_display_title                                                            | field_list_page_det_secarticle | field_publish_date  | field_date          | status | field_article_type_secarticle | field_primary_division_office | field_release_number | field_audience | field_act              |
       | Verify PDF file having article type as forms and Corporate Finance as Division | Verify PDF file having article type as forms and Corporate Finance as Division | Some random text               | 2019-06-17T17:00:00 | 2019-06-18T17:01:00 | 1      | Forms                         | Corporation Finance           | 123-KO               | Auditors       | Securities Act of 1933 |
@@ -262,10 +262,10 @@ Scenario: Verify PDF file opens when the link is clicked from the list view for 
     And I click "Edit" in the "Verify PDF file having article type as forms and Corporate Finance as Division" row
     And I wait 2 seconds
     And I select the first autocomplete option for "Behat Test File" on the "Use existing media" field
-    And I wait for AJAX to finish
     And I publish it
-  When I am on "/forms"
-    And I should see the text "Verify PDF file having article type as forms and Corporate Finance as Division"
-    And I click "Verify PDF file having article type as forms and Corporate Finance as Division"
+    And I am not logged in
+    And I am on "/forms"
+  Then I should see the text "Verify PDF file having article type as forms and Corporate Finance as Division"
+  When I click "Verify PDF file having article type as forms and Corporate Finance as Division"
     And I wait 2 seconds
-    Then I should be on "/files/behat-form1.pdf"
+  Then I should be on "/files/behat-form1.pdf"

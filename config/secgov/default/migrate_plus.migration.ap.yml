@@ -114,7 +114,7 @@ process:
       - litigationreleasesreleases
       - litigationreleasesseealsofiles
       - opinionsordersreleases
-      - opinionsordersseealsofils
+      - opinionsordersseealsofiles
       - stopordersreleases
       - stopordersseealsofiles
       - tradingsuspensionfiles
@@ -133,6 +133,7 @@ process:
           plugin: migration_lookup
           source: url
           migration:
+            - apseealsolinks
             - conceptreleases
             - conceptseealso
             - finalreleases
@@ -157,12 +158,11 @@ process:
             - litigationreleasesreleases
             - litigationreleasesseealsofiles
             - opinionsordersreleases
-            - opinionsordersseealsofils
+            - opinionsordersseealsofiles
             - stopordersreleases
             - stopordersseealsofiles
             - tradingsuspensionfiles
             - tradingsuspensionseealso
-            - apseealsolinks
   filename:
     plugin: end
     source: releaseurl

@@ -1,13 +1,8 @@
 <?php
-/**
- * @file
- * Contains Drupal\workbench_moderation\Entity\Handler\BlockContentCustomizations.
- */
 
 namespace Drupal\workbench_moderation\Entity\Handler;
 
 use Drupal\Core\Form\FormStateInterface;
-
 
 /**
  * Customizations for block content entities.

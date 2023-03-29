@@ -2,16 +2,9 @@
   display: grid;
   align-items: end;
   gap: 0 12px;
-  grid-template-columns: [first] auto [second] 110px;
+  grid-template-columns: [first] auto [second] 100px;
+  grid-column: span 2;
 
-}
-@media (max-width: 500px) {
-  .form-item .inline-form > * {
-    grid-column: span 2;
-  }
-  .form-item .inline-form .usa-button {
-    border-radius: 0 0 0.25rem;
-  }
 }
 
 .opened .form-item .inline-form > * {
@@ -83,10 +76,4 @@
     left: 0 !important;
     top: 0 !important;
     right: auto !important;
-    width: 100%;
-}
-
-.edgar-search-container .smart-search-container table {
-  max-width: 100%;
-  width: 100%;
 }

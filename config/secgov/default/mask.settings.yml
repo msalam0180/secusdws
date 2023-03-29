@@ -1,27 +1,40 @@
 _core:
   default_config_hash: UAFeZSZzOJR59C4HdYtIVctXen9PKGq1NpClqRJbbT4
-use_cdn: true
-plugin_path: ''
+use_cdn: false
+plugin_path: 'public://jquery.mask.min.js'
 translation:
   0:
     pattern: \d
+    fallback: ''
     description: 'A number'
+    optional: false
+    recursive: false
     locked: true
   9:
     pattern: \d
+    fallback: ''
     description: 'Optional number'
     optional: true
+    recursive: false
     locked: true
   '#':
     pattern: \d
+    fallback: ''
     description: 'Repeating number'
+    optional: false
     recursive: true
     locked: true
   A:
     pattern: '[a-zA-Z0-9]'
+    fallback: ''
     description: 'A letter or a number'
+    optional: false
+    recursive: false
     locked: true
   S:
     pattern: '[a-zA-Z]'
+    fallback: ''
     description: 'A letter'
+    optional: false
+    recursive: false
     locked: true

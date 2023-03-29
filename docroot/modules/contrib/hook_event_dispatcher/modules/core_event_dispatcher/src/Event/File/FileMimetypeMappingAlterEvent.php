@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class FileMimetypeMappingAlterEvent.
+ *
+ * @HookEvent(id="file_mimetype_mapping_alter", alter="file_mimetype_mapping")
  */
 class FileMimetypeMappingAlterEvent extends Event implements EventInterface {
 

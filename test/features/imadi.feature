@@ -43,6 +43,7 @@ Feature: Test IM Disclosure and Accounting Information Articles
       And I fill in "Display Title" with "Expanded Use of Draft Registration Statement Review Procedures for Business Development Companies"
       And I fill in "Primary Division/Office" with "48"
       And I publish it
+      And I am not logged in
       And I visit "/investment/accounting-and-disclosure-information"
     Then I should see the link "Expanded Use of Draft Registration Statement Review Procedures for Business Development Companies"
 
@@ -58,6 +59,7 @@ Feature: Test IM Disclosure and Accounting Information Articles
       And I fill in "URL" with "https://www.sec.gov/investment/im-guidance-2014-08.pdf" in the externalresource region
       And I fill in "Link text" with "Behat - Link to AWS content - External Resource" in the externalresource region
       And I publish it
+      And I am not logged in
       And I visit "/investment/accounting-and-disclosure-information"
     Then I should see the link "Behat - Link to AWS content (display)"
       And I should not see the link "Behat - Link to AWS content - External Resource"
@@ -77,6 +79,7 @@ Feature: Test IM Disclosure and Accounting Information Articles
       And I fill in "URL*" with "www.sec.gov/investment/im-guidance-2014-08.pdf"
       And I click "OK"
       And I publish it
+      And I am not logged in
       And I visit "/investment/accounting-and-disclosure-information"
     Then I should see the link "Behat - Link to AWS content (display)"
       And I should see the link "Behat - Link to AWS content - List Page Details"
@@ -92,14 +95,18 @@ Feature: Test IM Disclosure and Accounting Information Articles
       And I type "list page detail field should show if abstract field is not present" in the "List Page Details" WYSIWYG editor
       And I select "Investment Management" from "Primary Division/Office"
       And I publish it
+      And I am not logged in
       And I am on "/investment/accounting-and-disclosure-information"
     Then I should see the link "OSSS-12336 display title field should show in the list view"
       And I should see the text "list page detail field should show if abstract field is not present"
-    When I am on "/admin/content/"
+    When I am logged in as a user with the "Content Approver" role
+      And I am on "/admin/content/"
       And I click "Edit" in the "OSSS-12336 display title field should show in the list view" row
       And I fill in "Description/Abstract" with "abstract field should be visible if the list page detail is not filled or filled"
       And I publish it
+      And I am not logged in
       And I am on "/investment/accounting-and-disclosure-information"
+      And I reload the page
     Then I should see the link "OSSS-12336 display title field should show in the list view"
       And I should see the text "abstract field should be visible if the list page detail is not filled or filled"
       And I should see the text "Accounting" in the "OSSS-12336 display title field should show in the list view" row

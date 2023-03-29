@@ -6,4 +6,5 @@ drupal.access_unpublished.admin:
   js:
     js/access_unpublished.admin.js: {}
   dependencies:
-      - core/jquery.once
+    - core/jquery
+    - core/once

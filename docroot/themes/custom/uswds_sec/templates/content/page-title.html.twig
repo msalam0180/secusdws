@@ -10,10 +10,17 @@
  * - title: The page title, for use in the actual content.
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
+ * - show_above_title - should show_above_title area show on this page?
+ * - show_breadcrumbs - should breadcrumbs show on this page?
+ * - show_page_category - should page_category show on this page?
+ * - page_category_text - the text of the page category
+ * - page_category_path - the path of the page category
+ * - show_calendar_button - the path of the page category
  */
 #}
+
 {% if title %}
-  {# Landing page full-bleed title with optional image #}
+  {# Landing page banner style title with optional image #}
   {% if content_type == "landing_page" %}
     {# TODO: Integrate color options (blue, gray, navy, red, teal, yellow, white) #}
     {{ pattern('page_header', {
@@ -23,37 +30,47 @@
       img_src: field_featured_graphic,
     }) }}
   {% else %}
-  {# Default page title #}
+    {# Default page title #}
+
+    {% if show_breadcrumbs -%}
+      {{ drupal_block('system_breadcrumb_block') }}
+    {%- endif %}
+    
     <div class="page-title">
 
-      {# TODO: Find out what “title_prefix” is used for #}
       {% if title_prefix -%}
         <div class="page-title__prefix">
           {{ title_prefix }}
         </div>
       {%- endif %}
 
-      <div class="page-title__above-title">
-        {# FIXME: Integrate using taxonomy term/content type label #}
-        <p class="page-title__label">
-          {# TODO: Determine which labels should be linked, if any #}
-          <a href="#FIXME">Placeholder Category</a>
-          {# TODO: what if there is no label? #}
-        </p>
+      {% if show_above_title -%}
+        <div class="page-title__above-title">
+          {% if show_page_category -%}
+            <div class="page-title___page-category">
+              {% if page_category_path -%}
+                <a href="{{page_category_path}}">{{page_category_text}}</a>
+              {%- else -%}
+                <span>{{page_category_text}}</span>
+              {%- endif %}
+            </div>
+          {%- endif %}
 
-        <div class="page-title__buttons">
-          {# Copy link button #}
-          {% include '@uswds_sec/includes/copy-link-button.html.twig' %}
-
-          {# TODO: Add to calendar button #}
+          <div class="page-title__buttons">
+            {# Copy link button #}
+            {% include '@uswds_sec/includes/copy-link-button.html.twig' %}
+            {# Add to calendar button #}
+            {% if field_add_to_calendar -%}
+              {{field_add_to_calendar}}
+            {%- endif %}
+          </div>
         </div>
-      </div>
+      {%- endif %}
 
       <h1{{ title_attributes.addClass('page-title__heading').removeClass('uswds-page-title') }}>
         {{ title }}
       </h1>
 
-      {# TODO: Find out what “title_suffix” is used for #}
       {% if title_suffix -%}
         <div class="page-title__suffix">
           {{ title_suffix }}

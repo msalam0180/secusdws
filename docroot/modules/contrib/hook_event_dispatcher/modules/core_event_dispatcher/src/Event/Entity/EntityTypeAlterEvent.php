@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class EntityTypeBuildEvent.
+ *
+ * @HookEvent(id="entity_type_alter", alter="entity_type")
  */
 class EntityTypeAlterEvent extends PluginDefinitionAlterEventBase {
 

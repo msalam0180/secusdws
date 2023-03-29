@@ -1,0 +1,27 @@
+uuid: 58228bfd-2ffc-49ad-ab44-680c1f1aff31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link_without_text
+    - paragraphs.paragraphs_type.contact_card
+  module:
+    - field_config_cardinality
+    - link
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.contact_card.field_link_without_text
+field_name: field_link_without_text
+entity_type: paragraph
+bundle: contact_card
+label: 'Heading Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 17
+field_type: link

@@ -3,7 +3,6 @@
 namespace Drupal\workbench_access;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
-use Drupal\workbench_access\SectionAssociationStorageInterface;
 
 /**
  * Defines section association storage.

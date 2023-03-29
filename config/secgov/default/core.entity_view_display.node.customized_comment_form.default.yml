@@ -37,6 +37,7 @@ hidden:
   field_file_number: true
   field_rule_path: true
   field_ruling: true
+  langcode: true
   links: true
   search_api_excerpt: true
   workbench_moderation_control: true

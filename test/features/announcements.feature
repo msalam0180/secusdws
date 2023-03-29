@@ -18,26 +18,26 @@ Scenario: Verify PDF file opens when the link is clicked from the list view for 
   When I am logged in as a user with the "administrator" role
     And I visit "/investment/announcement/pdf-having-article-type-announcement-and-division-investment-management/edit"
     And I select the first autocomplete option for "Behat Test File 1" on the "Use existing media" field
-    And I wait for ajax to finish
     And I publish it
-  When I am on "/im/announcements"
-    And I should see the link "DT Announcement and Division as Investment Management"
-    And I click "DT Announcement and Division as Investment Management"
+    And I am on "/im/announcements"
+  Then I should see the link "DT Announcement and Division as Investment Management"
+  When I click "DT Announcement and Division as Investment Management"
   Then I should be on "/files/behat-file_im_ann.pdf"
   When I am logged in as a user with the "content_approver" role
     And I visit "/exams/announcement/pdf-having-article-type-announcement-and-compliance-inspections-and-examinations/edit"
     And I select the first autocomplete option for "Behat Test File 2" on the "Use existing media" field
-    And I wait for ajax to finish
     And I publish it
-  When I am on "/exams/announcements"
-    And I should see the link "DT announcement and Compliance Inspections and Examinations as Division"
-    And I click "DT announcement and Compliance Inspections and Examinations as Division"
+    And I am not logged in
+    And I am on "/exams/announcements"
+  Then I should see the link "DT announcement and Compliance Inspections and Examinations as Division"
+  When I click "DT announcement and Compliance Inspections and Examinations as Division"
   Then I should be on "/files/behat-file_ocie_ann.pdf"
+  When I am logged in as a user with the "content_approver" role
     And I visit "/structureddata/announcement/pdf-having-article-type-announcement-and-division-structured-disclosure/edit"
     And I select the first autocomplete option for "Behat Test File 3" on the "Use existing media" field
-    And I wait for ajax to finish
     And I publish it
-  When I am on "/structureddata/news"
-    And I should see the link "DT Announcement and division as Structured Disclosure"
-    And I click "DT Announcement and division as Structured Disclosure"
+    And I am not logged in
+    And I am on "/structureddata/news"
+  Then I should see the link "DT Announcement and division as Structured Disclosure"
+  When I click "DT Announcement and division as Structured Disclosure"
   Then I should be on "/files/behat-file_st_news.pdf"

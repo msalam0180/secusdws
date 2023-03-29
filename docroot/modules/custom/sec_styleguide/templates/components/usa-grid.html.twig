@@ -42,50 +42,23 @@
 {{ pattern('accordion', {
   unique_id: 'example_1',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_grid_1|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '1',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_grid_1|e}</code></pre>"
+    }),
   ]
 }) }}
 
 <p>2-col in mobile, 3-col in tablet</p>
 
-{% set example_grid_4 = '<div class="grid-row">
+{% set example_grid_2 = '<div class="grid-row">
   <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
   <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
   <div class="grid-col-6 tablet:grid-col-4">.col-6 .tablet:grid-col-4</div>
-</div>' %}
-
-<div class="docs-grid-example">
-  {{ example_grid_4|raw }}
-</div>
-
-{{ pattern('accordion', {
-  unique_id: 'example_4',
-  style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_grid_4|e}</code></pre>",
-      expanded: 'false',
-    }
-  ]
-}) }}
-
-
-<h2>4-Col Grid</h2>
-<p>2-col in tablet, 4-col in desktop</p>
-
-{% set example_grid_2 = '<div class="grid-container">
-  <div class="grid-row">
-    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
-    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
-    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
-    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
-  </div>
 </div>' %}
 
 <div class="docs-grid-example">
@@ -95,21 +68,27 @@
 {{ pattern('accordion', {
   unique_id: 'example_2',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_grid_2|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '2',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_grid_2|e}</code></pre>"
+    }),
   ]
 }) }}
 
+<h2>4-Col Grid</h2>
+<p>2-col in tablet, 4-col in desktop</p>
 
-<h2>Custom Columns</h2>
-
-{% set example_grid_3 = '<div class="grid-row">
-  <div class="tablet:grid-col-4">.tablet:grid-col-4</div>
-  <div class="tablet:grid-col-8">.tablet:grid-col-8</div>
+{% set example_grid_3 = '<div class="grid-container">
+  <div class="grid-row">
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+    <div class="tablet:grid-col-6 desktop:grid-col">.tablet:grid-col-6<br>.desktop:grid-col</div>
+  </div>
 </div>' %}
 
 <div class="docs-grid-example">
@@ -119,12 +98,38 @@
 {{ pattern('accordion', {
   unique_id: 'example_3',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_grid_3|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '3',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_grid_3|e}</code></pre>"
+    }),
   ]
 }) }}
 
+<h2>Custom Columns</h2>
+
+{% set example_grid_4 = '<div class="grid-row">
+  <div class="tablet:grid-col-4">.tablet:grid-col-4</div>
+  <div class="tablet:grid-col-8">.tablet:grid-col-8</div>
+</div>' %}
+
+<div class="docs-grid-example">
+  {{ example_grid_4|raw }}
+</div>
+
+{{ pattern('accordion', {
+  unique_id: 'example_4',
+  style: 'bordered',
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '4',
+      expanded: 'false',
+      heading: 'Code',
+      body: "<pre><code>#{example_grid_4|e}</code></pre>"
+    }),
+  ]
+}) }}

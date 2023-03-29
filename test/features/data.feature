@@ -197,8 +197,8 @@ Scenario: Verify PDF file opens when the link is clicked from the list view for 
   When I am logged in as a user with the "content_approver" role
     And I visit "/corpfin/data/verify-pdf-file-having-article-type-data-and-corpfin-division/edit"
     And I select the first autocomplete option for "Behat Test File" on the "Use existing media" field
-    And I wait for ajax to finish
     And I publish it
+    And I am not logged in
     And I am on "/data"
   Then I should see the link "Verify PDF file having article type as Data and Corporate Finance as Division"
   When I click "Verify PDF file having article type as Data and Corporate Finance as Division"

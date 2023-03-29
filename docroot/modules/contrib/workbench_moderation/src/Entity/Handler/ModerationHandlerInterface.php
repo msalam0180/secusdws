@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Contains Drupal\workbench_moderation\Entity\Handler\EntityCustomizationInterface.
- */
 
 namespace Drupal\workbench_moderation\Entity\Handler;
-
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -21,6 +16,8 @@ use Drupal\Core\Form\FormStateInterface;
 interface ModerationHandlerInterface {
 
   /**
+   * Work to be done before saving en entity.
+   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to modify.
    * @param bool $default_revision
@@ -40,9 +37,8 @@ interface ModerationHandlerInterface {
    * The most common use case is to force revisions on for this bundle if
    * moderation is enabled. That, sadly, does not have a common API in core.
    *
-   * @param \Drupal\Core\Config\Entity\ConfigEntityTypeInterface $bundle
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $bundle
    *   The bundle definition that is being saved.
-   * @return mixed
    */
   public function onBundleModerationConfigurationFormSubmit(ConfigEntityInterface $bundle);
 

@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityCreateEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_create",
+ *   hook = "entity_create"
+ * )
  */
 class EntityCreateEvent extends AbstractEntityEvent {
 

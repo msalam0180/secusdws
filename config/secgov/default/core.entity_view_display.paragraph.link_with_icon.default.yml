@@ -1,0 +1,53 @@
+uuid: ebb0cc0f-36ba-4e71-a23d-dd6547967fc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.link_with_icon.field_contact_card_custom_link
+    - field.field.paragraph.link_with_icon.field_icon
+    - paragraphs.paragraphs_type.link_with_icon
+  module:
+    - ds
+    - link
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_contact_detail
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      custom_link:
+        - field_contact_card_custom_link
+      icon:
+        - field_icon
+id: paragraph.link_with_icon.default
+targetEntityType: paragraph
+bundle: link_with_icon
+mode: default
+content:
+  field_contact_card_custom_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: custom_link
+  field_icon:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: icon
+hidden:
+  search_api_excerpt: true

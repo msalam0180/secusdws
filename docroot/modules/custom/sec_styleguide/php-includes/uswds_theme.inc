@@ -176,15 +176,15 @@ function sec_styleguide_theme() {
       ],
     ],
 
-    # 'usa_step_indicator' => [
-    #   'render element' => 'children',
-    #   'template' => 'components/usa-step-indicator',
-    #   'variables' => [
-    #     'title' => 'USA Step Indicator',
-    #     'component_yml' => '',
-    #     'module_path' => '',
-    #   ],
-    # ],
+    'usa_step_indicator' => [
+      'render element' => 'children',
+      'template' => 'components/usa-step-indicator',
+      'variables' => [
+        'title' => 'USA Step Indicator',
+        'component_yml' => '',
+        'module_path' => '',
+      ],
+    ],
 
     # 'usa_summary_box' => [
     #   'render element' => 'children',

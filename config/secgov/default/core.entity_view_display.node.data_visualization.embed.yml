@@ -57,6 +57,8 @@ hidden:
   field_publish_date: true
   field_sec_content_approver: true
   field_tags: true
+  langcode: true
   links: true
   scheduling_options: true
+  search_api_excerpt: true
   workbench_moderation_control: true

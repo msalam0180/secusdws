@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\ThemeHookEvents;
 
 /**
  * Class ThemeSuggestionsAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "theme_suggestions_alter",
+ *   alter = "theme_suggestions"
+ * )
  */
 class ThemeSuggestionsAlterEvent extends AbstractThemeSuggestionsEvent {
 

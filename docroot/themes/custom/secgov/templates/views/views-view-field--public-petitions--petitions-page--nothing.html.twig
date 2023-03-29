@@ -23,14 +23,14 @@
 {% set rule_node = row._entity %}
 {% set regulation_node = row._relationship_entities.field_related_rule %}
 {% if regulation_node %}
-  {% set node_title = regulation_node.field_display_title.isEmpty() ? regulation_node.label : regulation_node.field_display_title.value %}
+  {% set node_title = (regulation_node.field_display_title.isEmpty() or regulation_node.label|length > 256) ? regulation_node.label : regulation_node.field_display_title.value %}
 {% elseif rule_node %}
-  {% set node_title = (rule_node.field_display_title.isEmpty() ? rule_node.label : rule_node.field_display_title.value ) %}
+  {% set node_title = (rule_node.field_display_title.isEmpty() or rule_node.label|length > 256) ? rule_node.label : rule_node.field_display_title.value  %}
 {% endif %}
 {% if regulation_node and not regulation_node.field_release_file.isEmpty() %}
   <a href="{{ file_url(regulation_node.field_release_file.entity.field_media_file.entity.uri.value) }}">{{ node_title }}</a><br>
 {% else %}
-{{ node_title }}<br>
+  <a href="{{ path('entity.node.canonical', {'node': rule_node.id}) }}">{{ node_title }}</a><br>
 {% endif %}
 {% if not rule_node.field_comments_due_date.isEmpty() %}
 Comments Due: {{ rule_node.field_comments_due_date.value|date("F j, Y") }}<br>
@@ -65,4 +65,7 @@ Comments Due: {{ rule_node.field_comments_notice.value | check_markup(rule_node.
 {% if regulation_node is defined and not regulation_node.field_submitted_by.isEmpty() %}
  {% set submitted_by = {'#type': 'processed_text', '#text': regulation_node.field_submitted_by.value, '#format': regulation_node.field_submitted_by.format} %}
  <div><strong>Submitted By:</strong> {{ submitted_by }}</div>
+{% endif %}
+{% if not regulation_node.field_notes.isEmpty() %}
+  <p>Note: {{ regulation_node.field_notes.value|raw }}</p>
 {% endif %}

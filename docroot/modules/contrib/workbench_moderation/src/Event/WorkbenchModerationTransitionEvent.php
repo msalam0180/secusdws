@@ -2,10 +2,12 @@
 
 namespace Drupal\workbench_moderation\Event;
 
+use Symfony\Contracts\EventDispatcher\Event;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
+ * Defines a class for transition events.
+ *
  * @see \Drupal\workbench_moderation\ModerationStateEvents
  */
 class WorkbenchModerationTransitionEvent extends Event {
@@ -18,11 +20,15 @@ class WorkbenchModerationTransitionEvent extends Event {
   protected $entity;
 
   /**
+   * The state before the transition.
+   *
    * @var string
    */
   protected $stateBefore;
 
   /**
+   * The state after the transition.
+   *
    * @var string
    */
   protected $stateAfter;
@@ -47,20 +53,27 @@ class WorkbenchModerationTransitionEvent extends Event {
    * Returns the changed entity.
    *
    * @return \Drupal\Core\Entity\ContentEntityInterface
+   *   returns entity.
    */
   public function getEntity() {
     return $this->entity;
   }
 
   /**
+   * Returns state before the transition.
+   *
    * @return string
+   *   Return state before.
    */
   public function getStateBefore() {
     return $this->stateBefore;
   }
 
   /**
+   * Returns state after the transition.
+   *
    * @return string
+   *   Return state after.
    */
   public function getStateAfter() {
     return $this->stateAfter;

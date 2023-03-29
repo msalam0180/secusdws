@@ -3,14 +3,14 @@
  * Provides admin utilities.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, once) {
 
   'use strict';
 
   Drupal.behaviors.accessUnpublishedClipboardCopy = {
     attach: function (context) {
 
-      $('a[data-unpublished-access-url]', context).once('accessUnpublishedClipboardCopy').on('click', function (event) {
+      $(once('accessUnpublishedClipboardCopy', 'a[data-unpublished-access-url]', context)).on('click', function (event) {
         /* Copy url to clipboard */
         var url = this.getAttribute('data-unpublished-access-url');
         // Create a fake element and position outside viewport.
@@ -29,4 +29,4 @@
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

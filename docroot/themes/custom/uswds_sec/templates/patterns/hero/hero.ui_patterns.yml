@@ -1,0 +1,46 @@
+hero:
+  label: Homepage Hero
+  description: Hero block for the home page.
+  fields:
+    hero_headline:
+      type: text
+      label: Hero Headline
+      description: The hero heading of the card
+      preview: We make markets work better.
+    hero_body:
+      type: text
+      label: Body
+      description: The body of the hero block
+      preview: We make markets work better.
+    quick_links_headline:
+      type: text
+      label: Quick Links Headline
+      description: The quick links headline
+      preview: Quick Links
+    quick_links_body:
+      type: text
+      label: Quick Links Body
+      description: The quick links body
+      preview: We work together to make a positive impact on America's economy, our capital markets, and people's lives.
+    quick_links:
+      type: "render"
+      label: Quick Links
+      description: Quick Link Icons
+      preview:
+        - type: "pattern"
+          id: "button_icon"
+          fields:
+            label: "About the SEC"
+            url: http://example.com
+            icon: park
+    hero_button:
+      type: "render"
+      label: Button
+      description: Button below the hero text
+      preview:
+        - type: "pattern"
+          id: "button"
+          variant: "default"
+          fields:
+            label: "About the SEC"
+            url: http://example.com

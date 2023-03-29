@@ -7,19 +7,24 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityUpdateEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_update",
+ *   hook = "entity_update"
+ * )
  */
 class EntityUpdateEvent extends AbstractEntityEvent {
 
   /**
    * Get the original Entity.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   The original entity.
    *
    * @see hook_entity_update()
    */
-  public function getOriginalEntity(): EntityInterface {
-    return $this->entity->original;
+  public function getOriginalEntity(): ?EntityInterface {
+    return $this->entity->original ?? NULL;
   }
 
   /**

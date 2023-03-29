@@ -2,7 +2,6 @@
 
 namespace Drupal\workbench_moderation;
 
-
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Cache\MemoryCache\MemoryCacheInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -13,6 +12,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Define class for moderation state transitions.
+ */
 class ModerationStateTransitionStorage extends ConfigEntityStorage implements EntityHandlerInterface {
 
   /**

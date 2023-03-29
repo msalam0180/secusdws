@@ -7,8 +7,8 @@ namespace Drupal\core_context_test\Plugin\Block;
  *   id = "context_block_optional",
  *   admin_label = @Translation("Optional context block"),
  *   context_definitions = {
- *     "value" = @ContextDefinition("any", required = FALSE),
- *     "letter" = @ContextDefinition("string", required = FALSE),
+ *     "value" = @ContextDefinition("any", required = FALSE, default_value = ""),
+ *     "letter" = @ContextDefinition("string", required = FALSE, default_value = ""),
  *   },
  * )
  */

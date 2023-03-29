@@ -61,13 +61,20 @@ class AccessUnpublishedForm implements ContainerInjectionInterface {
    * Alter the entity form to add access unpublished elements.
    */
   public function formAlter(&$form, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    if (!$form_object instanceof EntityForm) {
+      return;
+    }
 
-    if (!$form_state->getFormObject() instanceof EntityForm) {
+    // Determines if the given form operation is add or edit. Prevents the
+    // access unpublished form from being displayed on other random entity
+    // forms, for example, the delete form.
+    if (!in_array($form_object->getOperation(), ['edit', 'default'], TRUE)) {
       return;
     }
 
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    $entity = $form_state->getFormObject()->getEntity();
+    $entity = $form_object->getEntity();
 
     if (AccessUnpublished::applicableEntityType($entity->getEntityType()) && !$entity->isPublished() && !$entity->isNew()) {
 

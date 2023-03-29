@@ -61,13 +61,13 @@ process:
         - litigationreleasesreleases
         - litigationreleasesseealsofiles
         - opinionsordersreleases
-        - opinionsordersseealsofils
+        - opinionsordersseealsofiles
         - stopordersreleases
         - stopordersseealsofiles
         - tradingsuspensionfiles
         - tradingsuspensionseealso
       no_stub: true
-      source: related_rules
+      source: url
     -
       plugin: skip_on_value
       method: row

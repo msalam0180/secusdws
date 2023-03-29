@@ -5,7 +5,6 @@ namespace Drupal\workbench_moderation;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\workbench_moderation\Entity\ModerationState;
 use Drupal\workbench_moderation\Entity\ModerationStateTransition;
 
 /**
@@ -14,6 +13,8 @@ use Drupal\workbench_moderation\Entity\ModerationStateTransition;
 class StateTransitionValidation {
 
   /**
+   * The entity type manager service.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
@@ -82,7 +83,7 @@ class StateTransitionValidation {
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The account that wants to perform a transition.
    *
-   * @return ModerationState[]
+   * @return \Drupal\workbench_moderation\Entity\ModerationState[]
    *   Returns an array of States to which the specified user may transition the
    *   entity.
    */
@@ -91,7 +92,7 @@ class StateTransitionValidation {
 
     $states_for_bundle = $bundle->getThirdPartySetting('workbench_moderation', 'allowed_moderation_states', []);
 
-    /** @var ModerationState $state */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationState $state */
     $state = $entity->moderation_state->entity;
     $current_state_id = $state->id();
 
@@ -100,7 +101,7 @@ class StateTransitionValidation {
 
     $destinations = array_intersect($states_for_bundle, $destinations);
 
-    $permitted_destinations = array_filter($destinations, function($state_name) use ($current_state_id, $user) {
+    $permitted_destinations = array_filter($destinations, function ($state_name) use ($current_state_id, $user) {
       return $this->userMayTransition($current_state_id, $state_name, $user);
     });
 
@@ -115,17 +116,15 @@ class StateTransitionValidation {
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The account that wants to perform a transition.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   * @param \Drupal\Core\Session\AccountInterface $user
-   *
-   * @return ModerationStateTransition[]
+   * @return \Drupal\workbench_moderation\Entity\ModerationStateTransition[]
+   *   Returns an array of moderation state transitions.
    */
   public function getValidTransitions(ContentEntityInterface $entity, AccountInterface $user) {
     $bundle = $this->loadBundleEntity($entity->getEntityType()->getBundleEntityType(), $entity->bundle());
 
-    /** @var ModerationState $current_state */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationState $current_state */
     $current_state = $entity->moderation_state->entity;
-    $current_state_id = $current_state ? $current_state->id(): $bundle->getThirdPartySetting('workbench_moderation', 'default_moderation_state');
+    $current_state_id = $current_state ? $current_state->id() : $bundle->getThirdPartySetting('workbench_moderation', 'default_moderation_state');
 
     // Determine the states that are legal on this bundle.
     $legal_bundle_states = $bundle->getThirdPartySetting('workbench_moderation', 'allowed_moderation_states', []);
@@ -133,7 +132,7 @@ class StateTransitionValidation {
     // Legal transitions include those that are possible from the current state,
     // filtered by those whose target is legal on this bundle and that the
     // user has access to execute.
-    $transitions = array_filter($this->getTransitionsFrom($current_state_id), function(ModerationStateTransition $transition) use ($legal_bundle_states, $user) {
+    $transitions = array_filter($this->getTransitionsFrom($current_state_id), function (ModerationStateTransition $transition) use ($legal_bundle_states, $user) {
       return in_array($transition->getToState(), $legal_bundle_states)
         && $user->hasPermission('use ' . $transition->id() . ' transition');
     });
@@ -150,7 +149,8 @@ class StateTransitionValidation {
    * @param string $state_name
    *   The machine name of the state from which we are transitioning.
    *
-   * @return ModerationStateTransition[]
+   * @return \Drupal\workbench_moderation\Entity\ModerationStateTransition[]
+   *   Returns array.
    */
   protected function getTransitionsFrom($state_name) {
     $result = $this->transitionStateQuery()
@@ -192,8 +192,9 @@ class StateTransitionValidation {
    * @param string $to
    *   The name of the "to" state.
    *
-   * @return ModerationStateTransition|null
-   *   A transition object, or NULL if there is no such transition in the system.
+   * @return \Drupal\workbench_moderation\Entity\ModerationStateTransition|null
+   *   A transition object, or NULL if there is no such transition in
+   *   the system.
    */
   protected function getTransitionFromStates($from, $to) {
     $from = $this->transitionStateQuery()
@@ -229,6 +230,7 @@ class StateTransitionValidation {
   }
 
   /**
+   * Generates an entity query for transition states.
    *
    * @return \Drupal\Core\Entity\Query\QueryInterface
    *   A transition state query.
@@ -241,6 +243,7 @@ class StateTransitionValidation {
    * Returns the transition entity storage service.
    *
    * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   Returns Storage handler for transition entities.
    */
   protected function transitionStorage() {
     return $this->entityTypeManager->getStorage('moderation_state_transition');
@@ -250,6 +253,7 @@ class StateTransitionValidation {
    * Returns the state entity storage service.
    *
    * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   Returns storage handler for moderation states.
    */
   protected function stateStorage() {
     return $this->entityTypeManager->getStorage('moderation_state');
@@ -264,10 +268,12 @@ class StateTransitionValidation {
    *   The bundle ID.
    *
    * @return \Drupal\Core\Config\Entity\ConfigEntityInterface|null
+   *   Returns the bundle entity of a given entity type.
    */
   protected function loadBundleEntity($bundle_entity_type_id, $bundle_id) {
     if ($bundle_entity_type_id) {
       return $this->entityTypeManager->getStorage($bundle_entity_type_id)->load($bundle_id);
     }
   }
+
 }

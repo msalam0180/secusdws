@@ -40,27 +40,27 @@ class ModerationStateStatesTest extends ModerationStateTestBase {
   public function testStateAdministration() {
     $this->drupalLogin($this->adminUser);
     $this->drupalGet('admin/structure/workbench-moderation');
-    $this->assertLink('Moderation states');
-    $this->assertLink('Moderation state transitions');
+    $this->assertSession()->linkExists('Moderation states');
+    $this->assertSession()->linkExists('Moderation state transitions');
     $this->clickLink('Moderation states');
-    $this->assertLink('Add Moderation state');
+    $this->assertSession()->linkExists('Add Moderation state');
     $this->assertSession()->pageTextContains('Draft');
     // Edit the draft.
     $this->clickLink('Edit', 1);
-    $this->assertFieldByName('label', 'Draft');
-    $this->assertNoFieldChecked('edit-published');
-    $this->drupalPostForm(NULL, [
+    $this->assertSession()->fieldValueEquals('label', 'Draft');
+    $this->assertSession()->checkboxNotChecked('edit-published');
+    $this->submitForm([
       'label' => 'Drafty',
     ], t('Save'));
     $this->assertSession()->pageTextContains('Saved the Drafty Moderation state.');
     $this->drupalGet('admin/structure/workbench-moderation/states/draft');
-    $this->assertFieldByName('label', 'Drafty');
-    $this->drupalPostForm(NULL, [
+    $this->assertSession()->fieldValueEquals('label', 'Drafty');
+    $this->submitForm([
       'label' => 'Draft',
     ], t('Save'));
     $this->assertSession()->pageTextContains('Saved the Draft Moderation state.');
     $this->clickLink(t('Add Moderation state'));
-    $this->drupalPostForm(NULL, [
+    $this->submitForm([
       'label' => 'Expired',
       'id' => 'expired',
     ], t('Save'));
@@ -68,7 +68,7 @@ class ModerationStateStatesTest extends ModerationStateTestBase {
     $this->drupalGet('admin/structure/workbench-moderation/states/expired');
     $this->clickLink('Delete');
     $this->assertSession()->pageTextContains('Are you sure you want to delete Expired?');
-    $this->drupalPostForm(NULL, [], t('Delete'));
+    $this->submitForm([], t('Delete'));
     $this->assertSession()->pageTextContains('Moderation state Expired deleted');
   }
 

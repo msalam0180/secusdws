@@ -2,12 +2,13 @@
 
 namespace Drupal\Tests\workbench_access\Kernel;
 
-use Drupal\filter\Entity\FilterFormat;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\Tests\UiHelperTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\workbench_access\Entity\AccessScheme;
-use Drupal\workbench_access\WorkbenchAccessManagerInterface;
 
 /**
  * Tests workbench_access integration with entity_test.
@@ -16,8 +17,10 @@ use Drupal\workbench_access\WorkbenchAccessManagerInterface;
  */
 class FilterAccessTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
+  use ContentTypeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Scheme.
@@ -66,7 +69,7 @@ class FilterAccessTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installConfig(['filter', 'entity_test', 'workbench_access']);

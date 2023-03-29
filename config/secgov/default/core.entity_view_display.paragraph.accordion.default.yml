@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.accordion.field_accoridion_section
     - field.field.paragraph.accordion.field_heading_level
     - field.field.paragraph.accordion.field_multiselectable
+    - field.field.paragraph.accordion.field_variants
     - paragraphs.paragraphs_type.accordion
   module:
     - ds
@@ -25,6 +26,8 @@ third_party_settings:
     regions:
       is_multiselectable:
         - field_multiselectable
+      variants:
+        - field_variants
       heading_level:
         - field_heading_level
       accordion_sections:
@@ -41,14 +44,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: accordion_sections
   field_heading_level:
     type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: heading_level
   field_multiselectable:
     type: boolean
@@ -62,5 +65,12 @@ content:
         handler: ''
     weight: 0
     region: is_multiselectable
+  field_variants:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: variants
 hidden:
   search_api_excerpt: true

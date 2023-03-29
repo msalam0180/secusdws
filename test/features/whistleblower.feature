@@ -6,15 +6,15 @@ Feature: Whistleblower List Pages
 Background:
 
   Given "secarticle" content:
-    | title            | field_display_title | body                                         | field_list_page_det_secarticle | field_publish_date  | field_date          | status | field_release_number | field_article_type_secarticle | field_primary_division_office |
-    | Whistleblower 1  | Whistleblower 1     | Apple http://www.apple.com homepage          | fruits                         | 2019-12-05T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-100             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 2  | Whistleblower 2     | Amazon http://www.amazon.com homepage        | everything                     | 2019-10-26T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-200             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 3  | Whistleblower 3     | Boeing http://www.boeing.com homepage        | planes                         | 2014-09-19T17:00:00 | 2019-06-18T17:01:00 | 1      | 2014-300             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 4  | Whistleblower 4     | Google http://www.google.com homepage        | ads                            | 2016-02-20T17:00:00 | 2019-06-18T17:01:00 | 1      | 2016-400             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 5  | Whistleblower 5     | IBM http://www.ibm.com homepage              | consulting                     | 2015-03-01T17:00:00 | 2019-06-18T17:01:00 | 1      | 2015-500             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 6  | Whistleblower 6     | Microsoft http://www.microsoft.com homepage  | software                       | 2018-04-17T17:00:00 | 2019-06-18T17:01:00 | 1      | 2018-600             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 7  | Whistleblower 7     | Tesla http://www.tesla.com homepage          | cars                           | 2017-06-30T17:00:00 | 2019-06-18T17:01:00 | 1      | 2017-700             | Award Claim                   | Whistleblower                 |
-    | Whistleblower 8  | Whistleblower 8     | Twitter http://www.twitter.com homepage      | tweets                         | 2019-06-17T17:00:00 | 2019-06-18T17:01:00 | 0      | 2019-800             | Award Claim                   | Whistleblower                 |
+    | title           | field_display_title | body                                        | field_list_page_det_secarticle | field_publish_date  | field_date          | status | field_release_number | field_article_type_secarticle | field_primary_division_office |
+    | Whistleblower 1 | Whistleblower 1     | Apple http://www.apple.com homepage         | fruits                         | 2019-12-05T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-100             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 2 | Whistleblower 2     | Amazon http://www.amazon.com homepage       | everything                     | 2019-10-26T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-200             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 3 | Whistleblower 3     | Boeing http://www.boeing.com homepage       | planes                         | 2014-09-19T17:00:00 | 2019-06-18T17:01:00 | 1      | 2014-300             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 4 | Whistleblower 4     | Google http://www.google.com homepage       | ads                            | 2016-02-20T17:00:00 | 2019-06-18T17:01:00 | 1      | 2016-400             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 5 | Whistleblower 5     | IBM http://www.ibm.com homepage             | consulting                     | 2015-03-01T17:00:00 | 2019-06-18T17:01:00 | 1      | 2015-500             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 6 | Whistleblower 6     | Microsoft http://www.microsoft.com homepage | software                       | 2018-04-17T17:00:00 | 2019-06-18T17:01:00 | 1      | 2018-600             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 7 | Whistleblower 7     | Tesla http://www.tesla.com homepage         | cars                           | 2017-06-30T17:00:00 | 2019-06-18T17:01:00 | 1      | 2017-700             | Award Claim                   | Whistleblower                 |
+    | Whistleblower 8 | Whistleblower 8     | Twitter http://www.twitter.com homepage     | tweets                         | 2019-06-17T17:00:00 | 2019-06-18T17:01:00 | 0      | 2019-800             | Award Claim                   | Whistleblower                 |
 
 @api @javascript
 Scenario: Default Sorting On Whistleblower Covered Actions List Page
@@ -160,15 +160,15 @@ Scenario: Whistleblower List Page Notice No. Sorting
 @api @javascript
 Scenario: View the Whistleblower Final Orders List Page
   Given "secarticle" content:
-      | title                      | field_display_title              | body                                         | field_list_page_det_secarticle | field_publish_date  | field_date          | status | field_release_number | field_article_type_secarticle | field_primary_division_office | field_tags   |
-      | Whistleblower Fin Order 1  | Dinner Orders (pdf)              | Apple http://www.apple.com homepage          | fruits                         | 2019-12-05T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-100             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 2  | Lunch Orders (pdf)               | Amazon http://www.amazon.com homepage        | everything                     | 2019-10-26T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-200             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 3  | Breakfast Orders (docx)          | Boeing http://www.boeing.com homepage        | planes                         | 2015-03-19T17:00:00 | 2019-06-18T17:01:00 | 1      | 2014-300             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 4  | Brunch Orders (xls)              | Google http://www.google.com homepage        | ads                            | 2016-02-20T17:00:00 | 2019-06-18T17:01:00 | 1      | 2016-400             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 5  | Midnight Snack Orders (doc)      | IBM http://www.ibm.com homepage              | consulting                     | 2015-03-01T17:00:00 | 2019-06-18T17:01:00 | 1      | 2015-500             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 6  | Afternoon Tea Time Orders (xlsx) | Microsoft http://www.microsoft.com homepage  | software                       | 2018-04-17T17:00:00 | 2019-06-18T17:01:00 | 1      | 2018-600             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 7  | Early Dinner Orders (txt)        | Tesla http://www.tesla.com homepage          | cars                           | 2017-06-30T17:00:00 | 2019-06-18T17:01:00 | 1      | 2017-700             | Award Claim                   | Whistleblower                 | final orders |
-      | Whistleblower Fin Order 8  | No Order                         | Twitter http://www.twitter.com homepage      | tweets                         | 2019-06-17T17:00:00 | 2019-06-18T17:01:00 | 0      | 2019-800             | Award Claim                   | Whistleblower                 | final orders |
+      | title                     | field_display_title              | body                                        | field_list_page_det_secarticle | field_publish_date  | field_date          | status | field_release_number | field_article_type_secarticle | field_primary_division_office | field_tags   | field_file_upload |
+      | Whistleblower Fin Order 1 | Dinner Orders (pdf)              | Apple http://www.apple.com homepage         | fruits                         | 2019-12-05T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-100             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 2 | Lunch Orders (pdf)               | Amazon http://www.amazon.com homepage       | everything                     | 2019-10-26T17:00:00 | 2019-06-18T17:01:00 | 1      | 2019-200             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 3 | Breakfast Orders (docx)          | Boeing http://www.boeing.com homepage       | planes                         | 2015-03-19T17:00:00 | 2019-06-18T17:01:00 | 1      | 2014-300             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 4 | Brunch Orders (xls)              | Google http://www.google.com homepage       | ads                            | 2016-02-20T17:00:00 | 2019-06-18T17:01:00 | 1      | 2016-400             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 5 | Midnight Snack Orders (doc)      | IBM http://www.ibm.com homepage             | consulting                     | 2015-03-01T17:00:00 | 2019-06-18T17:01:00 | 1      | 2015-500             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 6 | Afternoon Tea Time Orders (xlsx) | Microsoft http://www.microsoft.com homepage | software                       | 2018-04-17T17:00:00 | 2019-06-18T17:01:00 | 1      | 2018-600             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 7 | Early Dinner Orders (txt)        | Tesla http://www.tesla.com homepage         | cars                           | 2017-06-30T17:00:00 | 2019-06-18T17:01:00 | 1      | 2017-700             | Award Claim                   | Whistleblower                 | final orders |                   |
+      | Whistleblower Fin Order 8 | No Order                         | Twitter http://www.twitter.com homepage     | tweets                         | 2019-06-17T17:00:00 | 2019-06-18T17:01:00 | 0      | 2019-800             | Award Claim                   | Whistleblower                 | final orders |                   |
     And I create "media" of type "static_file":
       | name            | field_media_file           | status |
       | Behat final pdf | behat-file-final_order.pdf | 1      |
@@ -219,6 +219,7 @@ Scenario: View the Whistleblower Final Orders List Page
     And I select the first autocomplete option for "Behat im ppt" on the "Use existing media" field
     And I wait for ajax to finish
     And I press "Save and Create New Draft"
+  When I am not logged in
     And I am on "/whistleblower/final-orders"
   Then I should see the text "1 to 7 of 7 items"
     And I should see the link "Dinner Orders (pdf)"
@@ -454,8 +455,8 @@ Scenario: Validate Display Title On Whistleblower Final Orders of The Commission
     | name       | field_media_file       | status |
     | BehatFile1 | behat-file_fanswer.pdf | 1      |
     And "news" content:
-    | field_news_type_news  | field_primary_division_office | moderation_state | title        | status | field_display_title     | field_publish_date  | field_release_number | field_tags          | field_media_file_upload |
-    | Press Release         | Agency-wide                   | published        | First WB PR  | 1      | First WB Press Release  | 2018-09-11 12:00:00 | 2018-12              | final orders        | BehatFile1              |
+      | field_news_type_news | field_primary_division_office | moderation_state | title       | status | field_display_title    | field_publish_date  | field_release_number | field_tags   | field_media_file_upload |
+      | Press Release        | Agency-wide                   | published        | First WB PR | 1      | First WB Press Release | 2018-09-11 12:00:00 | 2018-12              | final orders | BehatFile1              |
   When I am on "/news/press-release/first-wb-pr"
   Then I should see the heading "Press Release"
     And I should see the heading "First WB Press Release"

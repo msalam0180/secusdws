@@ -6,9 +6,9 @@ Feature: Screenshots for Feature
       | name             | field_media_image  | mid     |
       | BEHAT Image Test | behat-gold-pig.png | 8272109 |
       And I create "media" of type "video":
-      | field_media_video_file | field_video_origin | field_video                                 | mid    | field_caption | field_transcript |
-      | BEHAT Bird Image       | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
-      | BEHAT Dog Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313 | Dog caption   |                  |
+      | name             | field_video_origin | field_video                                 | mid    | field_caption | field_transcript |
+      | BEHAT Bird Image | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
+      | BEHAT Dog Image  | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313 | Dog caption   |                  |
       And "article" content:
       | title                  | body                                               | status | moderation_state | nid | field_show_featured_content |
       | Investor Behat Article | Investor Behat Display Title http://www.finra.org/ | 1      | published        | 5   | 1                           |

@@ -13,6 +13,8 @@ namespace Drupal\field_event_dispatcher\Event\Field;
  * @see \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementTypeFormAlterEvent
  *
  * @phpstan-ignore-next-line
+ *
+ * @HookEvent(id="widget_type_form_alter", alter="widget_type_form")
  */
 class WidgetTypeFormAlterEvent extends WidgetFormAlterEvent {
 

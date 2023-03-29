@@ -1,12 +1,19 @@
 // Drupal block admin buttons
-.block-local-tasks-block {
+.region-tabs {
   $bp-hide: 620px;
   border-bottom: 1px solid $border-gray-light;
+  border-top: 1px solid $border-gray-light;
   background-color: $button-gray-lighter;
-
+  
   @include max-width($bp-hide - 1px) {
     display: none !important;
   }
+}
+
+.block-local-tasks-block {
+  max-width: rem($layout-max-width-global);
+  margin-left: auto;
+  margin-right: auto;
 
   .usa-button {
     font-size: rem(12px);

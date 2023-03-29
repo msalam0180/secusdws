@@ -1,0 +1,10 @@
+uuid: d8be2f7f-29ca-4734-80b4-29a957918e25
+langcode: en
+status: true
+dependencies: {  }
+id: contact_card
+label: 'Contact Card'
+icon_uuid: null
+icon_default: null
+description: 'Contact Card is used to display a title, link, and at least one of the following fields: address, phone, fax, email, and text. '
+behavior_plugins: {  }

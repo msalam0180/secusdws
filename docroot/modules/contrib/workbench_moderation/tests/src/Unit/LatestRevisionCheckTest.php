@@ -2,17 +2,15 @@
 
 namespace Drupal\Tests\workbench_moderation\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Access\AccessResultForbidden;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatch;
 use Drupal\node\Entity\Node;
 use Drupal\Tests\UnitTestCase;
 use Drupal\workbench_moderation\Access\LatestRevisionCheck;
 use Drupal\workbench_moderation\ModerationInformation;
-use Drupal\workbench_moderation\ModerationInformationInterface;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -21,10 +19,9 @@ use Symfony\Component\Routing\Route;
  */
 class LatestRevisionCheckTest extends UnitTestCase {
 
+  use ProphecyTrait;
   /**
    * Test the access check of the LatestRevisionCheck service.
-   *
-   * @dataProvider accessSituationProvider
    *
    * @param string $entity_class
    *   The class of the entity to mock.
@@ -35,16 +32,18 @@ class LatestRevisionCheckTest extends UnitTestCase {
    * @param string $result_class
    *   The AccessResult class that should result. One of AccessResultAllowed,
    *   AccessResultForbidden, AccessResultNeutral.
+   *
+   * @dataProvider accessSituationProvider
    */
   public function testLatestAccessPermissions($entity_class, $entity_type, $has_forward, $result_class) {
 
-    /** @var EntityInterface $entity */
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->prophesize($entity_class);
     $entity->getCacheContexts()->willReturn([]);
     $entity->getCacheTags()->willReturn([]);
     $entity->getCacheMaxAge()->willReturn(0);
 
-    /** @var ModerationInformationInterface $mod_info */
+    /** @var \Drupal\workbench_moderation\ModerationInformationInterface $mod_info */
     $mod_info = $this->prophesize(ModerationInformation::class);
     $mod_info->hasForwardRevision($entity->reveal())->willReturn($has_forward);
 
@@ -57,7 +56,7 @@ class LatestRevisionCheckTest extends UnitTestCase {
 
     $lrc = new LatestRevisionCheck($mod_info->reveal());
 
-    /** @var AccessResult $result */
+    /** @var \Drupal\Core\Access\AccessResult $result */
     $result = $lrc->access($route->reveal(), $route_match->reveal());
 
     $this->assertInstanceOf($result_class, $result);
@@ -68,13 +67,19 @@ class LatestRevisionCheckTest extends UnitTestCase {
    * Data provider for testLastAccessPermissions().
    *
    * @return array
+   *   Array with node access and block content access.
    */
   public function accessSituationProvider() {
     return [
       [Node::class, 'node', TRUE, AccessResultAllowed::class],
       [Node::class, 'node', FALSE, AccessResultForbidden::class],
       [BlockContent::class, 'block_content', TRUE, AccessResultAllowed::class],
-      [BlockContent::class, 'block_content', FALSE, AccessResultForbidden::class],
+      [BlockContent::class,
+        'block_content',
+        FALSE,
+        AccessResultForbidden::class,
+      ],
     ];
   }
+
 }

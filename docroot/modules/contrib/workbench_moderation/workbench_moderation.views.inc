@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Provide views data for workbench_moderation.module.
+ */
+
+/**
  * Implements hook_views_data().
  */
 function workbench_moderation_views_data() {

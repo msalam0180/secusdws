@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_browser\Plugin\EntityBrowser\FieldWidgetDisplay;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -72,11 +73,28 @@ class RenderedEntity extends FieldWidgetDisplayBase implements ContainerFactoryP
    * {@inheritdoc}
    */
   public function view(EntityInterface $entity) {
+    if (!$entity->access('view')) {
+      $parameters = [
+        '@label' => $entity->getEntityType()->getSingularLabel(),
+        '@id' => $entity->id(),
+        '@title' => $entity->label(),
+      ];
+      $restricted_access_label = $entity->access('view label')
+       ?  new FormattableMarkup('@label @id (@title)', $parameters)
+       :  new FormattableMarkup('@label @id', $parameters);
+      return ['#markup' => $restricted_access_label];
+    }
+
     $build = $this->entityTypeManager->getViewBuilder($this->configuration['entity_type'])
       ->view($entity, $this->configuration['view_mode']);
 
     $build['#entity_browser_suppress_contextual'] = TRUE;
-    $build['#cache']['keys'][] = 'entity_browser';
+
+    // If the entity is render cached, add another cache key to differentiate
+    // it from other places using the same view mode.
+    if (!empty($build['#cache']['keys'])) {
+      $build['#cache']['keys'][] = 'entity_browser';
+    }
 
     return $build;
   }

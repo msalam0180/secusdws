@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.secarticle.field_division_office
     - field.field.node.secarticle.field_ext_pub_secarticle
     - field.field.node.secarticle.field_external_resource
+    - field.field.node.secarticle.field_gov_delivery_alert
     - field.field.node.secarticle.field_hide_publish_date
     - field.field.node.secarticle.field_left_nav_override
     - field.field.node.secarticle.field_left_nav_secarticle
@@ -579,6 +580,7 @@ hidden:
   field_division_office: true
   field_ext_pub_secarticle: true
   field_external_resource: true
+  field_gov_delivery_alert: true
   field_left_nav_secarticle: true
   field_list_page_det_secarticle: true
   field_market_statistics_category: true
@@ -592,6 +594,7 @@ hidden:
   field_sec_content_approver: true
   field_speaker_position_override: true
   field_tags: true
+  langcode: true
   links: true
   scheduling_options: true
   search_api_excerpt: true

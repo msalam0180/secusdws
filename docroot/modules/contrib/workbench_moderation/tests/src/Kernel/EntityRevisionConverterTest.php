@@ -15,12 +15,22 @@ use Drupal\Tests\user\Traits\UserCreationTrait;
 class EntityRevisionConverterTest extends KernelTestBase {
 
   use UserCreationTrait;
-  public static $modules = ['user', 'entity_test', 'system', 'workbench_moderation', 'node'];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected static $modules = [
+    'user',
+    'entity_test',
+    'system',
+    'workbench_moderation',
+    'node',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('entity_test');
@@ -31,6 +41,9 @@ class EntityRevisionConverterTest extends KernelTestBase {
     \Drupal::service('router.builder')->rebuild();
   }
 
+  /**
+   * Test converting non-revisionable entity type.
+   */
   public function testConvertNonRevisionableEntityType() {
     $entity_test = EntityTest::create([
       'name' => 'test',
@@ -46,6 +59,9 @@ class EntityRevisionConverterTest extends KernelTestBase {
     $this->assertEquals($entity_test->getRevisionId(), $result['entity_test']->getRevisionId());
   }
 
+  /**
+   * Test converting revisionable entity type.
+   */
   public function testConvertWithRevisionableEntityType() {
     $node_type = NodeType::create([
       'type' => 'article',
@@ -56,7 +72,7 @@ class EntityRevisionConverterTest extends KernelTestBase {
     $revision_ids = [];
     $node = Node::create([
       'title' => 'test',
-      'type' => 'article'
+      'type' => 'article',
     ]);
     $node->save();
 

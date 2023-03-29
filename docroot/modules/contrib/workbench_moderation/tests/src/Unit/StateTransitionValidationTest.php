@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\workbench_moderation\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -17,10 +18,12 @@ use Prophecy\Argument;
  */
 class StateTransitionValidationTest extends UnitTestCase {
 
+  use ProphecyTrait;
   /**
    * Builds a mock storage object for Transitions.
    *
-   * @return EntityStorageInterface
+   * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   Returns an entity storage config.
    */
   protected function setupTransitionStorage() {
     $entity_storage = $this->prophesize(EntityStorageInterface::class);
@@ -33,7 +36,7 @@ class StateTransitionValidationTest extends UnitTestCase {
         return $list;
       }
 
-      $return = array_map(function($key) use ($list) {
+      $return = array_map(function ($key) use ($list) {
         return $list[$key];
       }, $keys);
 
@@ -45,7 +48,8 @@ class StateTransitionValidationTest extends UnitTestCase {
   /**
    * Builds an array of mocked Transition objects.
    *
-   * @return ModerationStateTransitionInterface[]
+   * @return \Drupal\workbench_moderation\ModerationStateTransitionInterface[]
+   *   Returns a list.
    */
   protected function setupTransitionEntityList() {
     $transition = $this->prophesize(ModerationStateTransitionInterface::class);
@@ -96,7 +100,8 @@ class StateTransitionValidationTest extends UnitTestCase {
   /**
    * Builds a mock storage object for States.
    *
-   * @return EntityStorageInterface
+   * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   Returns an entity storage config.
    */
   protected function setupStateStorage() {
     $entity_storage = $this->prophesize(EntityStorageInterface::class);
@@ -130,7 +135,8 @@ class StateTransitionValidationTest extends UnitTestCase {
   /**
    * Builds a mocked Entity Type Manager.
    *
-   * @return EntityTypeManagerInterface
+   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+   *   Returns an entity type manager.
    */
   protected function setupEntityTypeManager() {
     $entityTypeManager = $this->prophesize(EntityTypeManagerInterface::class);
@@ -203,6 +209,7 @@ class StateTransitionValidationTest extends UnitTestCase {
    * Data provider for the user transition test.
    *
    * @return array
+   *   Returns an array.
    */
   public function userTransitionsProvider() {
     // The user has the right permission, so let it through.
@@ -212,10 +219,14 @@ class StateTransitionValidationTest extends UnitTestCase {
     $ret[] = ['draft', 'draft', 'use draft__draft transition', FALSE, FALSE];
 
     // The user has some other permission that doesn't matter.
-    $ret[] = ['draft', 'draft', 'use draft__needs_review transition', TRUE, FALSE];
+    $ret[] = ['draft', 'draft', 'use draft__needs_review transition',
+      TRUE, FALSE,
+    ];
 
     // The user has permission, but the transition isn't allowed anyway.
-    $ret[] = ['published', 'needs_review', 'use published__needs_review transition', TRUE, FALSE];
+    $ret[] = ['published', 'needs_review', 'use published__needs_review transition',
+      TRUE, FALSE,
+    ];
 
     return $ret;
   }
@@ -229,8 +240,9 @@ class StateTransitionValidationTest extends UnitTestCase {
  * method that uses it.
  */
 class Validator extends StateTransitionValidation {
+
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   protected function getTransitionFromStates($from, $to) {
     if ($from == 'draft' && $to == 'draft') {

@@ -77,3 +77,5 @@ hidden:
   field_related_documents: true
   field_state_idd: true
   field_suffix: true
+  langcode: true
+  search_api_excerpt: true

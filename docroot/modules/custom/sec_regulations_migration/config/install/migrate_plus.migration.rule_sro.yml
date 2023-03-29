@@ -34,17 +34,6 @@ source:
     delimiter: "/"
     division_office: "Trading and Markets"
 process:
-  _skip:
-    - plugin: migration_lookup
-      migration:
-        - rule_sro
-      no_stub: true
-      source: related_rules
-    - plugin: skip_on_value
-      method: row
-      not_equals: true
-      value: NULL
-
   status:
     plugin: default_value
     default_value: 1
@@ -55,7 +44,7 @@ process:
 
   title: title
 
-  field_display_title: title
+  field_display_title: short_title
 
   body_text:
     -

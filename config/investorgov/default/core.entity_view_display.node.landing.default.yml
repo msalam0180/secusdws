@@ -73,8 +73,8 @@ third_party_settings:
         - layout_threecol_section
         - layout_fourcol_section
         - flowinggrid
-      blacklisted_blocks: {  }
-      whitelisted_blocks:
+      denylisted_blocks: {  }
+      allowlisted_blocks:
         'Chaos Tools': {  }
         'Custom block types':
           - feature_block

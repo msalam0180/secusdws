@@ -412,7 +412,7 @@ display:
             field_publish_date: field_publish_date
             field_file_number: field_file_number
             nothing: nothing
-          default: '-1'
+          default: field_publish_date
           info:
             field_release_number:
               align: ''
@@ -421,7 +421,7 @@ display:
               responsive: ''
             field_publish_date:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false

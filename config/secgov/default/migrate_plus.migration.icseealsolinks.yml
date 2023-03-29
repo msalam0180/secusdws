@@ -20,6 +20,9 @@ source:
     - id
   fields:
     -
+      name: id
+      label: id
+    -
       name: category
       label: Category
     -

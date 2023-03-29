@@ -10,6 +10,21 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\mask\Helper\ElementHelper;
 use Drupal\mask\Mask;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mask_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the mask module.
+    case 'help.page.mask':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module uses the jQuery Mask Plugin to enable adding masks to input fields. By masking the user input, the provided values are restricted to only the allowed formats. Examples of data that should be masked include phone numbers, ZIP codes and IP addresses.') . '</p>';
+      return $output;
+  }
+}
 
 /**
  * Implements hook_element_info_alter().

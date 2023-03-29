@@ -17,6 +17,13 @@ class MenuSchemeUITest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Admin user.
    *
    * @var \Drupal\user\UserInterface
@@ -41,7 +48,7 @@ class MenuSchemeUITest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->createContentType(['type' => 'page']);
     $this->createContentType(['type' => 'article']);
@@ -54,7 +61,7 @@ class MenuSchemeUITest extends BrowserTestBase {
    */
   public function testSchemeUi() {
     $this->assertThatUnprivilegedUsersCannotAccessAdminPages();
-    $scheme = $this->assertCreatingAnAccessSchemeAsAdmin('menu');
+    $scheme = $this->assertCreatingAnAccessSchemeAsAdmin('menu', $this->admin);
     $this->assertAdminCanSelectMenus($scheme);
     $this->assertAdminCanAddNodeTypes($scheme);
     $this->assertSectionsOperation($scheme);

@@ -1,11 +1,13 @@
 //------------------------------------------------------------------------
 // Callout Component
 //------------------------------------------------------------------------
-
 .callout {
   --bg-color: #{$callout-gray};
   --bg-color-border: #{$callout-gray-light};
   --border-width: 1px;
+  @include scale(padding, (375px: 20px, 580px: 35px));
+  background-color: var(--bg-color);
+  border: var(--border-width) solid var(--bg-color-border);
 
   // temporarily comment out until type of callout boxes are defined by designer or PO
   // &--default-outline {
@@ -13,7 +15,7 @@
   //   --bg-color-border: #{$callout-gray-light};
   //   --border-width: 3px;
   // }
-  
+
   // &--alternate {
   //   --bg-color: #{$callout-yellow};
   //   --bg-color-border: #{$callout-yellow-light};
@@ -25,8 +27,4 @@
   //   --bg-color-border: #{$callout-yellow-light};
   //   --border-width: 3px;
   // }
-  
-  padding: 35px;
-  background-color: var(--bg-color);
-  border: var(--border-width) solid var(--bg-color-border);
 }

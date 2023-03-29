@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityTypeBuildEvent.
+ *
+ * @HookEvent(id="entity_type_build", hook="entity_type_build")
  */
 class EntityTypeBuildEvent extends Event implements EventInterface {
 

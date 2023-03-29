@@ -18,6 +18,9 @@
     //       homepage hero is the only place with a light component inside a dark one
     //       and it uses our custom “usa-button--icon” styles which aren’t affected.
     [class*="bg-"] & {
+      --theme-button-bg-color: #{$button-blue-dark};
+      --theme-button-color: #fff;
+      --theme-button-hover-bg-color: #{$button-blue-darker};
       --theme-text-color: #{$c-default};
       color: var(--theme-text-color) !important;
     }

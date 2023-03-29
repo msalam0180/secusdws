@@ -30,7 +30,7 @@
     {% if sro_node %}
       {% if sro_organization_breadcrumb_items is defined %}
         {% for sro_organization_breadcrumb_item in sro_organization_breadcrumb_items %}
-          {{ sro_organization_breadcrumb_items }}
+          <div class="sro-organization-label">{{ sro_organization_breadcrumb_item }}</div>
         {% endfor %}
       {% endif %}
     {% endif %}

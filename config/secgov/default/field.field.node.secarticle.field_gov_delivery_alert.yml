@@ -1,0 +1,77 @@
+uuid: 8f2a042a-826b-412c-812f-647ed6f0ed37
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gov_delivery_alert
+    - node.type.secarticle
+    - paragraphs.paragraphs_type.gov_delivery_alert
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: node.secarticle.field_gov_delivery_alert
+field_name: field_gov_delivery_alert
+entity_type: node
+bundle: secarticle
+label: 'Gov Delivery Alert'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      gov_delivery_alert: gov_delivery_alert
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 16
+        enabled: false
+      accordion_section:
+        weight: 17
+        enabled: false
+      alert:
+        weight: 18
+        enabled: false
+      card:
+        weight: 19
+        enabled: false
+      card_group:
+        weight: 20
+        enabled: false
+      gov_delivery_alert:
+        weight: 21
+        enabled: true
+      horizontal_card:
+        weight: 22
+        enabled: false
+      image:
+        weight: 23
+        enabled: false
+      lead_paragraph:
+        weight: 24
+        enabled: false
+      position_history:
+        weight: 25
+        enabled: false
+      related_document_s_:
+        weight: 26
+        enabled: false
+      subpage_card:
+        weight: 27
+        enabled: false
+      subpage_card_group:
+        weight: 28
+        enabled: false
+      text:
+        weight: 29
+        enabled: false
+      video:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions

@@ -125,6 +125,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 4
@@ -157,6 +164,11 @@ content:
       allow_duplicate: false
       collapsible: false
       collapsed: false
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield

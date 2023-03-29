@@ -12,7 +12,6 @@ use Drupal\Tests\BrowserTestBase;
  * @group workbench_moderation
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
- *
  */
 class LatestRevisionViewsFilterTest extends BrowserTestBase {
 
@@ -24,7 +23,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'workbench_moderation_test_views',
     'workbench_moderation',
     'node',
@@ -36,7 +35,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
   ];
 
   /**
-   *
+   * Test nids view showing are correct or not.
    */
   public function testViewShowsCorrectNids() {
     $node_type = $this->createNodeType('Test', 'test');
@@ -50,7 +49,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
     $this->drupalLogin($editor1);
 
     // Make a pre-moderation node.
-    /** @var Node $node_0 */
+    /** @var \Drupal\node\Entity\Node $node_0 */
     $node_0 = Node::create([
       'type' => 'test',
       'title' => 'Node 0 - Rev 1',
@@ -59,13 +58,12 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
     $node_0->save();
 
     // Now enable moderation for subsequent nodes.
-
     $node_type->setThirdPartySetting('workbench_moderation', 'enabled', TRUE);
     $node_type->save();
 
     // Make a node that is only ever in Draft.
 
-    /** @var Node $node_1 */
+    /** @var \Drupal\node\Entity\Node $node_1 */
     $node_1 = Node::create([
       'type' => 'test',
       'title' => 'Node 1 - Rev 1',
@@ -76,7 +74,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
 
     // Make a node that is in Draft, then Published.
 
-    /** @var Node $node_2 */
+    /** @var \Drupal\node\Entity\Node $node_2 */
     $node_2 = Node::create([
       'type' => 'test',
       'title' => 'Node 2 - Rev 1',
@@ -91,7 +89,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
 
     // Make a node that is in Draft, then Published, then Draft.
 
-    /** @var Node $node_3 */
+    /** @var \Drupal\node\Entity\Node $node_3 */
     $node_3 = Node::create([
       'type' => 'test',
       'title' => 'Node 3 - Rev 1',
@@ -108,9 +106,7 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
     $node_3->moderation_state->target_id = 'draft';
     $node_3->save();
 
-
     // Now show the View, and confirm that only the correct titles are showing.
-
     $this->drupalGet('/latest');
     $page = $this->getSession()->getPage();
     $this->assertEquals(200, $this->getSession()->getStatusCode());
@@ -132,11 +128,11 @@ class LatestRevisionViewsFilterTest extends BrowserTestBase {
    * @param string $machine_name
    *   The machine name of the type to create.
    *
-   * @return NodeType
+   * @return \Drupal\node\Entity\NodeType
    *   The node type just created.
    */
   protected function createNodeType($label, $machine_name) {
-    /** @var NodeType $node_type */
+    /** @var \Drupal\node\Entity\NodeType $node_type */
     $node_type = NodeType::create([
       'type' => $machine_name,
       'label' => $label,

@@ -4,6 +4,7 @@ namespace Drupal\Tests\workbench_access\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
@@ -16,10 +17,11 @@ use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
  */
 class FlushTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
-  use NodeCreationTrait;
   use ContentTypeCreationTrait;
+  use NodeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -53,7 +55,7 @@ class FlushTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
     $this->installConfig(['filter', 'node', 'workbench_access']);

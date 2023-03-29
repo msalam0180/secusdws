@@ -53,10 +53,6 @@ function sec_custom_blocks_theme() {
     'sec_mission_block' => array(
       'variables' => array('title' => NULL, 'description' => NULL),
       'template' => 'block--sec-mission-block',
-    ),
-    'digitalgov_global_search' => array(
-      'variables' => array('title' => NULL, 'description' => NULL),
-      'template' => 'block--digitalgov-global-search',
-    ),
+    )
   );
 }

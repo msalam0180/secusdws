@@ -5,7 +5,7 @@ global-css:
       css/print.css: {}
       css/layout.css: {}
       css/contextual.css: {}
-      css/smartSearch.css: {}
+      digitalgov-css/smartSearch.css: {}
 
 panel-layouts-toptwocolnestedcols:
   css:
@@ -41,6 +41,7 @@ global-js-header:
     # js/third-party/jquery-ui.min.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.once
     - jquery_ui_accordion/accordion
     - jquery_ui_tabs/tabs
 global-js:
@@ -58,6 +59,7 @@ global-js:
     js/smartSearch.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.once
     - jquery_ui_accordion/accordion
     - jquery_ui_tabs/tabs
     - core/drupalSettings

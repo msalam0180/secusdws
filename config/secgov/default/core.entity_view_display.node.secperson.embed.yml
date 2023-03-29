@@ -351,6 +351,7 @@ hidden:
   field_left_nav_person: true
   field_phone_secperson: true
   field_position_history_paragraph: true
+  langcode: true
   layout_builder__layout: true
   layout_selection: true
   panelizer: true

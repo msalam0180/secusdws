@@ -12,6 +12,8 @@ button:
       label: Outline
     big:
       label: Big
+    small:
+      label: Small
     disabled:
       label: Disabled
     unstyled:

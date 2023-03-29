@@ -1,0 +1,24 @@
+uuid: e7b8d5b1-9768-46a9-91c3-9d7dc54f6d72
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email
+    - paragraphs.paragraphs_type.email
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.email.field_email
+field_name: field_email
+entity_type: paragraph
+bundle: email
+label: Email
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

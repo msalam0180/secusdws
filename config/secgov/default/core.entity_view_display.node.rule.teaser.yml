@@ -56,4 +56,5 @@ hidden:
   field_show_submit_comments: true
   field_sro_organization: true
   field_submit_comments: true
+  langcode: true
   search_api_excerpt: true

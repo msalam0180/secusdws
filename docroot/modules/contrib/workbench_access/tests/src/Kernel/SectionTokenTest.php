@@ -7,11 +7,11 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\system\Entity\Menu;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
-use Drupal\workbench_access\Entity\AccessScheme;
 use Drupal\workbench_access\WorkbenchAccessManagerInterface;
 
 /**
@@ -23,6 +23,7 @@ class SectionTokenTest extends KernelTestBase {
 
   use ContentTypeCreationTrait;
   use NodeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
   use WorkbenchAccessTestTrait;
 
@@ -82,7 +83,7 @@ class SectionTokenTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installConfig(['filter', 'node', 'workbench_access', 'system']);
     $this->installEntitySchema('taxonomy_term');
@@ -231,7 +232,8 @@ class SectionTokenTest extends KernelTestBase {
     $node5 = $this->createNode([
       'type' => 'page',
       'title' => 'bar',
-      'field_workbench_access' => $term->id(),]
+      'field_workbench_access' => $term->id(),
+    ]
     );
     _menu_ui_node_save($node5, [
       'title' => 'Test another menu link',

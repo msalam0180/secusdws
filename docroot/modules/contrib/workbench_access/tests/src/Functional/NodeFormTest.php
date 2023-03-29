@@ -18,6 +18,13 @@ class NodeFormTest extends BrowserTestBase {
   use WorkbenchAccessTestTrait;
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * {@inheritdoc}
    */
   public static $modules = [
@@ -37,7 +44,7 @@ class NodeFormTest extends BrowserTestBase {
     $node_type = $this->createContentType(['type' => 'page']);
     $vocab = $this->setUpVocabulary();
     $field = $this->setUpTaxonomyFieldForEntityType('node', $node_type->id(), $vocab->id());
-    $this->assertEqual($field->getDefaultValueLiteral(), []);
+    $this->assertEquals($field->getDefaultValueLiteral(), []);
     $scheme = $this->setUpTaxonomyScheme($node_type, $vocab);
     $user_storage = \Drupal::service('workbench_access.user_section_storage');
     $role_storage = \Drupal::service('workbench_access.role_section_storage');
@@ -97,10 +104,13 @@ class NodeFormTest extends BrowserTestBase {
 
     // Try to save something that doesn't exist.
     $this->submitForm([$field_name => 'garbage', 'title[0][value]' => 'Foo'], 'Save');
-    $web_assert->pageTextContains('There are no entities matching "garbage".');
+    $web_assert->pageTextContains('There are no taxonomy terms matching "garbage".');
 
     // Try to force an invalid selection.
-    $this->submitForm([$field_name => $super_staff_term->label() . ' (' . $super_staff_term->id() . ')', 'title[0][value]' => 'Foo'], 'Save');
+    $this->submitForm([
+      $field_name => $super_staff_term->label() . ' (' . $super_staff_term->id() . ')',
+      'title[0][value]' => 'Foo'
+    ], 'Save');
     $web_assert->pageTextContains('The referenced entity (taxonomy_term: 2) does not exist.');
 
     // Add the super staff role and check both options exist.
@@ -108,10 +118,13 @@ class NodeFormTest extends BrowserTestBase {
     $editor->save();
 
     // Save a valid selection.
-    $this->submitForm([$field_name => $super_staff_term->label() . ' (' . $super_staff_term->id() . ')', 'title[0][value]' => 'Foo'], 'Save');
+    $this->submitForm([
+      $field_name => $super_staff_term->label() . ' (' . $super_staff_term->id() . ')',
+      'title[0][value]' => 'Foo'
+    ], 'Save');
     $web_assert->pageTextNotContains('The referenced entity (taxonomy_term: 2) does not exist.');
 
-    // Reset the form
+    // Reset the form.
     $this->setFieldType('node', 'page');
 
     // Test the select widget.

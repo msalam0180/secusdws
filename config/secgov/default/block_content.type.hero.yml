@@ -1,0 +1,8 @@
+uuid: aa6973e5-de53-4e2a-93d0-ad566f3d814c
+langcode: en
+status: true
+dependencies: {  }
+id: hero
+label: 'Homepage Hero'
+revision: 1
+description: 'Hero block for the homepage.'

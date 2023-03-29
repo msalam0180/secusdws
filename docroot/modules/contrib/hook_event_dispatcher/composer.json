@@ -12,6 +12,7 @@
         "drupal/core": "^9.3"
     },
     "require-dev": {
+        "drupal/coder": "<=8.3.13",
         "drupal/eck": "^1.0@alpha",
         "drupal/paragraphs": "^1.10",
         "drupal/webform": "^6.0",

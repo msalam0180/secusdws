@@ -2,12 +2,15 @@
 
 namespace Drupal\views_event_dispatcher\Event\Views;
 
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsQuerySubstitutionEvent.
+ *
+ * @HookEvent(id="views_query_substitutions", hook="views_query_substitutions")
  */
-final class ViewsQuerySubstitutionsEvent extends AbstractViewsEvent {
+final class ViewsQuerySubstitutionsEvent extends AbstractViewsEvent implements HookReturnInterface {
 
   /**
    * Views query substitutions.
@@ -49,6 +52,13 @@ final class ViewsQuerySubstitutionsEvent extends AbstractViewsEvent {
    */
   public function getDispatcherType(): string {
     return ViewsHookEvents::VIEWS_QUERY_SUBSTITUTIONS;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function &getReturnValue() {
+    return $this->getSubstitutions();
   }
 
 }

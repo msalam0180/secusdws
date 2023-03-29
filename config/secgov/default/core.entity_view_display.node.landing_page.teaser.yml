@@ -101,6 +101,7 @@ hidden:
   field_sec_content_approver: true
   field_tags: true
   field_topic: true
+  langcode: true
   layout_builder__layout: true
   layout_selection: true
   scheduling_options: true

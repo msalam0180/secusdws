@@ -1,0 +1,53 @@
+//------------------------------------------------------------------------
+// “Add to Calendar” button
+//
+// <span class="addtocalendar" data-calendars="Outlook" data-secure="auto">
+//   <a class="atcb-link">
+//     <em class="placeholder">Add to Calendar</em>
+//   </a>
+// </span>
+//------------------------------------------------------------------------
+// Note: “.addtocalendar” has reset styles from the module using !important
+//       so apply button styles to the <a> tag.
+.addtocalendar {
+  $bp-show-full-text: 640px;
+  --theme-button-bg-color: #{$button-gray-lighter};
+  --theme-button-color: #{$c-black};
+  --theme-button-hover-bg-color: #{$button-gray-med-light};
+
+  // Button relies on JS to function
+  .no-js & {
+    display: none;
+  }
+
+  .atcb-link {
+    @include usa-button;
+    align-items: center;
+    background-image: svg-url('calendar', (fill: $c-blue));
+    //background-image: url('/themes/custom/uswds_sec/dist/img/usa-icons/calendar_today.svg');
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    background-size: 26px auto;
+    display: flex;
+    font-family: $body-copy-font;
+    font-size: rem(16px);
+    font-weight: normal;
+    line-height: 1;
+    padding: rem(12.5px 14px 12.5px 42px);
+    text-transform: none;
+    white-space: nowrap;
+    width: fit-content;// otherwise “flex” will cause it to be 100% wide
+  }
+
+  // Button text is wrapped in <em class="placeholder">
+  .placeholder {
+    display: block;
+    font-style: normal;
+
+    @include max-width($bp-show-full-text - 1px) {
+      overflow: hidden;
+      white-space: nowrap;
+      width: em(30px, 16px);
+    }
+  }
+}

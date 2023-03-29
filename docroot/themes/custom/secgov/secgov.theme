@@ -74,6 +74,16 @@ function secgov_preprocess_html(&$variables) {
     }
   }
 
+  if (isset($variables['node_type']) && $variables['node_type'] === "rule") {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node instanceof \Drupal\node\NodeInterface) {
+      if ($node->hasField('field_sro_organization') && !$node->get('field_sro_organization')->isEmpty()) {
+        // Apply SRO classes
+        $variables['attributes']['class'][] = 'path-sro';
+      }
+    }
+  }
+
   // When attaching webform to a node content type, attach also the class "path-webform" that is use by webform.
   if (isset($variables['node_type']) && $variables['node_type'] === "customized_comment_form") {
     $node = \Drupal::routeMatch()->getParameter('node');
@@ -304,36 +314,6 @@ function secgov_page_attachments_alter(array &$page) {
 }
 
 /**
- * Implements hook_views_pre_render().
- */
-function secgov_views_pre_render(ViewExecutable $view) {
-  $view_display = $view->current_display;
-  // Add view display name here to remove any duplicate node.
-  $view_displays = [
-    'sro_national_security_exchanges_page',
-    'sro_universal_page',
-    'individual_sro_page'
-  ];
-  if (in_array($view_display, $view_displays)) {
-      $nids = []; // array of nodes to prevent duplicates
-      $resultNoDoubleNodes = []; // manipulated results
-      // check each node of the result array on it's nid
-      foreach($view->result as $key => $result) {
-        $nid = $result->nid;
-        if (!in_array($nid, $nids)) { // if this node isn't a duplicate
-          // add it to the manipulated results
-          $resultNoDoubleNodes[] = $view->result[$key];
-          // Add this nid as in results to prevent duplicates from now on
-          $nids[$key] = $nid;
-        };
-      }
-      unset($view->result);
-      // replace the old results with the results without duplicates
-      $view->result = $resultNoDoubleNodes;
-  }
-}
-
-/**
  * template_preprocess_views_view_field()
  */
 
@@ -412,7 +392,7 @@ function secgov_preprocess_views_view_field(&$variables) {
   if ($view == 'sro_rules' && $field_id == "nothing") {
     $sro_nid = $variables['row']->field_related_rule_node_field_data_nid;
     $sro_node = \Drupal::service('entity_type.manager')->getStorage('node')->load($sro_nid);
-    $variables['sro_title'] = $sro_node->get('field_display_title')->isEmpty() ? $sro_node->getTitle() : $sro_node->field_display_title->value;
+    $variables['sro_title'] = ($sro_node->get('field_display_title')->isEmpty() ||  strlen($sro_node->getTitle()) > 256 ) ? $sro_node->getTitle() : $sro_node->field_display_title->value;
     $variables['sro_node'] = $sro_node;
     $other_release_no = explode(",", $variables['output']);
     array_shift($other_release_no);
@@ -1166,6 +1146,18 @@ function secgov_form_views_exposed_form_alter(array &$form, FormStateInterface $
             }
           }
         }
+      }
+    }
+  }
+
+  if ($form['#id'] == "views-exposed-form-investment-company-act-notices-and-orders-investment-company-act-notice-order-page") {
+    foreach ($form['field_rule_type_target_id']['#options'] as $key => $option) {
+      $allowed_terms = [
+        "Investment Company Act Notice",
+        "Investment Company Act Order",
+      ];
+      if (is_string($option) && !in_array($option, $allowed_terms)) {
+        unset($form['field_rule_type_target_id']['#options'][$key]);
       }
     }
   }

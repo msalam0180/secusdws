@@ -1,8 +1,11 @@
 <?php
+
 /**
  * @file
  * Contains install/update hooks for moderation_state.
  */
+
+use Drupal\Core\Entity\ContentEntityTypeInterface;
 
 /**
  * Implements hook_install().
@@ -27,7 +30,7 @@ function workbench_moderation_install() {
   // here to filter out such broken entities.
   // @todo Remove when the underlying bug is fixed.
   // @see https://www.drupal.org/node/2674446
-  $revisionable_entity_defintions = array_filter($revisionable_entity_defintions, function(\Drupal\Core\Entity\ContentEntityTypeInterface $type) use ($field_manager) {
+  $revisionable_entity_defintions = array_filter($revisionable_entity_defintions, function (ContentEntityTypeInterface $type) use ($field_manager) {
     return !empty($field_manager->getFieldStorageDefinitions($type->id())['moderation_state']);
   });
 

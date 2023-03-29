@@ -8,6 +8,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class CronEvent.
+ *
+ * @HookEvent(
+ *   id = "cron",
+ *   hook = "cron"
+ * )
  */
 final class CronEvent extends Event implements EventInterface {
 

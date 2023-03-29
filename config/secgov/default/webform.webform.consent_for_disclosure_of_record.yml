@@ -63,17 +63,34 @@ elements: |-
       '#title': 'Name of Recipient (Person or Entity) to Whom Disclosure is Authorized:'
       '#title_display': inline
       '#required': true
-    mailing_address:
-      '#type': webform_address
+    mailing_address_of_recipient:
+      '#type': fieldset
       '#title': 'Mailing Address of Recipient'
-      '#title_display': before
       '#required': true
-      '#address__title': 'Street Address 1'
-      '#address__required': true
-      '#address_2__title': 'Street Address 2'
-      '#city__required': true
-      '#state_province__required': true
-      '#country__placeholder': 'United States'
+      street_address_1:
+        '#type': textfield
+        '#title': 'Street Address 1'
+        '#required': true
+      street_address_2:
+        '#type': textfield
+        '#title': 'Street Address 2'
+      city_town:
+        '#type': textfield
+        '#title': City/Town
+        '#required': true
+      state:
+        '#type': select
+        '#title': State
+        '#options': state_names
+        '#required': true
+      zip_postal_code:
+        '#type': textfield
+        '#title': 'ZIP/Postal Code'
+      country:
+        '#type': select
+        '#title': Country
+        '#options': country_names
+        '#required': true
     email_address_of_recipient:
       '#type': email
       '#title': 'Email Address of Recipient'
@@ -321,7 +338,32 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'Webform submission from [webform_submission:webform:title]'
-      body: "Submitted on [webform_submission:created]<br />\r\nSubmitted values are:<br />\r\n<strong>Legal Name</strong><br />\r\n[webform_submission:values:legal_name]<br />\r\n<strong>SEC Request No</strong><br />\r\n[webform_submission:values:sec_request_no]\r\n<h3>Recipient Information</h3>\r\n<strong>Name of Recipient (Person or Entity) to Whom Disclosure is Authorized:</strong><br />\r\n[webform_submission:values:authorized_recipient]<br />\r\n<strong>Mailing Address of Recipient</strong><br />\r\n[webform_submission:values:mailing_address]<br />\r\n<strong>Email Address of Recipient</strong><br />\r\n[webform_submission:values:email_address_of_recipient]<br />\r\n<br />\r\n[webform_submission:values:perjury_statement]\r\n<h3>Electronic Signature</h3>\r\n<strong>Signature</strong><br />\r\n[webform_submission:values:signature]<br />\r\n<strong>Date</strong><br />\r\n[webform_submission:created]"
+      body: |-
+        Submitted on [webform_submission:created]<br />
+        Submitted values are:<br />
+        <strong>Legal Name</strong><br />
+        [webform_submission:values:legal_name]<br />
+        <strong>SEC Request No</strong><br />
+        [webform_submission:values:sec_request_no]
+        <h3>Recipient Information</h3>
+        <strong>Name of Recipient (Person or Entity) to Whom Disclosure is Authorized:</strong><br />
+        [webform_submission:values:authorized_recipient]<br />
+        <strong>Mailing Address of Recipient</strong><br />
+        [webform_submission:values:street_address_1]<br />
+        [webform_submission:values:street_address_2]<br />
+        [webform_submission:values:city_town]<br />
+        [webform_submission:values:state]<br />
+        [webform_submission:values:zip_postal_code]<br />
+        [webform_submission:values:country]<br />
+        <strong>Email Address of Recipient</strong><br />
+        [webform_submission:values:email_address_of_recipient]<br />
+        <br />
+        [webform_submission:values:perjury_statement]
+        <h3>Electronic Signature</h3>
+        <strong>Signature</strong><br />
+        [webform_submission:values:signature]<br />
+        <strong>Date</strong><br />
+        [webform_submission:created]
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: false

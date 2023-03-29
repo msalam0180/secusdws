@@ -7,6 +7,7 @@ use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\core_event_dispatcher\TokenHookEvents;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 use UnexpectedValueException;
 use function is_string;
 
@@ -14,8 +15,10 @@ use function is_string;
  * Class TokensProvideEvent.
  *
  * @see hook_tokens
+ *
+ * @HookEvent(id="tokens_replacement", hook="tokens")
  */
-final class TokensReplacementEvent extends Event implements EventInterface {
+final class TokensReplacementEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * An associative array of replacement values.
@@ -250,6 +253,13 @@ final class TokensReplacementEvent extends Event implements EventInterface {
    */
   public function forToken(string $type, string $token): bool {
     return $this->type === $type && isset($this->tokens[$token]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getReplacementValues();
   }
 
 }

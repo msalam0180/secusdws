@@ -103,7 +103,10 @@ class WorkbenchAccessBlock extends BlockBase implements ContainerFactoryPluginIn
    * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account) {
-    return AccessResult::allowedIfHasPermissions($account, ['administer workbench access', 'view workbench access information'], 'OR');
+    return AccessResult::allowedIfHasPermissions($account, [
+      'administer workbench access',
+      'view workbench access information'
+    ], 'OR');
   }
 
 }

@@ -12,7 +12,7 @@ migration_tags:
 migration_group: aws
 label: 'Import of Opinions and Adjudicatory Orders See Also Links in AWS content'
 source:
-  plugin: csv
+  plugin: see_also_links
   path: 'public://migration/opinions_orders.csv'
   header_offset: 0
   ids:
@@ -36,22 +36,9 @@ process:
   status:
     plugin: default_value
     default_value: 1
-  name: id
-  see_also:
-    plugin: see_also_links
-    source: respondents
-  field_media_entity_link/uri:
-    -
-      plugin: skip_on_empty
-      source: '@see_also/1'
-      method: row
-    -
-      plugin: skip_on_contains
-      source: '@see_also/1'
-      method: row
-      contains:
-        - 'public://'
-  field_media_entity_link/title: '@see_also/0'
+  name: title
+  field_media_entity_link/uri: url
+  field_media_entity_link/title: title
   created:
     plugin: format_date
     source: date

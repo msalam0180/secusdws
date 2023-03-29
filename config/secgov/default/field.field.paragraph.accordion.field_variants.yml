@@ -1,0 +1,27 @@
+uuid: f5285b52-360f-4566-9d37-9a395d7d4981
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_variants
+    - paragraphs.paragraphs_type.accordion
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.accordion.field_variants
+field_name: field_variants
+entity_type: paragraph
+bundle: accordion
+label: Variants
+description: 'Selects the background color for the accordion section.'
+required: true
+translatable: false
+default_value:
+  -
+    value: One
+default_value_callback: ''
+settings: {  }
+field_type: list_string

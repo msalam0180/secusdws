@@ -9,6 +9,11 @@ use Drupal\user_event_dispatcher\UserHookEvents;
 
 /**
  * Class UserLogoutEvent.
+ *
+ * @HookEvent(
+ *   id = "user_logout",
+ *   hook = "user_logout"
+ * )
  */
 final class UserLogoutEvent extends Event implements EventInterface {
 

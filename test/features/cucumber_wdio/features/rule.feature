@@ -13,7 +13,7 @@ Feature: Rule-Rule Release Details View Page
       And I hide "body > a.back-to-top"
     Then I take full page screenshot
 
-  @rule_accordion @wdio
+  @rule_view_with_accordion @wdio
   Scenario: Rule-Rule Release Details accordion Page
     Given I set my screensize to desktop
     When I visit "/rules/rule-parent-b"

@@ -14,8 +14,8 @@ Scenario: Users with Individual Defendant role can create static file
   Given I am logged in as a user with the "bad_actors" role
   When I visit "/media/add/static_file"
     And I fill in the following:
-      | Title 			    | Static test file 1    |
-      | Display Title   | This is Display Title |
+      | Title         | Static test file 1    |
+      | Display Title | This is Display Title |
     And I attach the file "behat-file-im.pdf" to "File Upload"
     And I wait for ajax to finish
     And I select "Chief Operating Officer" from "Primary Division/Office"
@@ -35,13 +35,13 @@ Scenario: Users with Individual Defendant role can create static file
 Scenario: Individual Defendant role can edit static file
   Given I am logged in as a user with the "bad_actors" role
     And I create "media" of type "static_file":
-      | name            | field_display_title  | field_description_abstract | status |
-      | Behat Test File | aaaTest static file  | This is description abs    | 1      |
+      | name            | field_display_title | field_description_abstract | status |
+      | Behat Test File | aaaTest static file | This is description abs    | 1      |
   When I visit "/admin/content/media"
     And I click "Edit" in the "Behat Test File" row
     And I fill in the following:
-      | Title 			      | aaa Static test file 1    |
-      | Display Title     | aaa This is Display Title |
+      | Title         | aaa Static test file 1    |
+      | Display Title | aaa This is Display Title |
     And I attach the file "behat-file-im.pdf" to "File Upload"
     And I wait for ajax to finish
     And I select "Credit Ratings" from "Primary Division/Office"
@@ -55,8 +55,8 @@ Scenario: Individual Defendant role can edit static file
 @api
 Scenario Outline: Users Can Delete Static File Media
   Given I create "media" of type "static_file":
-    | name            | field_display_title  | field_description_abstract | status |
-    | BEHAT Test File | aaaTest static file  | This is description abs    | 1      |
+      | name            | field_display_title | field_description_abstract | status |
+      | BEHAT Test File | aaaTest static file | This is description abs    | 1      |
     And I am logged in as a user with the "<role>" role
   When I visit "/admin/content/media"
     And I click "Edit" in the "BEHAT Test File" row
@@ -136,8 +136,8 @@ Scenario Outline: Content Approver And Admin Can Publish Static File
   Given I am logged in as a user with the "<role>" role
   When I am on "/media/add/static_file"
     And I fill in the following:
-      | Title 			      | BEHAT Static File   |
-      | Display Title     | behat display title |
+      | Title         | BEHAT Static File   |
+      | Display Title | behat display title |
     And I attach the file "<file>" to "File Upload"
     And I wait for ajax to finish
     And I select "office of justice" from "Primary Division/Office"
@@ -166,8 +166,8 @@ Scenario Outline: Edit Static File
   When I am on "/admin/content/media"
     And I click "Edit" in the "BEHAT Static File" row
     And I fill in the following:
-      | Title 			      | Updated Static Test File |
-      | Display Title     | updated display title    |
+      | Title         | Updated Static Test File |
+      | Display Title | updated display title    |
     And I attach the file "<file>" to "File Upload"
     And I wait for ajax to finish
     And I select "behat" from "Primary Division/Office"
@@ -187,8 +187,8 @@ Scenario: Static File Content Creation As Admin
   Given I am logged in as a user with the "administrator" role
   When I visit "/node/add/file"
     And I fill in the following:
-      | Title 			      | BEHAT Static File               |
-      | Display Title     | behat static file display title |
+      | Title         | BEHAT Static File               |
+      | Display Title | behat static file display title |
     And I attach the file "behat-file-im.pdf" to "File Upload"
     And I wait for ajax to finish
     And I select "office of justice" from "Primary Division/Office"
@@ -265,8 +265,8 @@ Scenario: Deleted Static File Media Should Not Be Accessible From LinkIt Referen
 @api @javascript
 Scenario Outline: Replaced Static File Media Should Be Updated Immediately
   Given I create "media" of type "static_file":
-    | name                       | field_display_title | field_media_file  | field_description_abstract | status |
-    | Behat Replace Static File  | published media     | behat-file-im.txt | This is description abs    | 1      |
+    | name                      | field_display_title | field_media_file  | field_description_abstract | status |
+    | Behat Replace Static File | published media     | behat-file-im.txt | This is description abs    | 1      |
   When I am on "/files/behat-file-im.txt"
   Then I should see the text "this is a txt file"
   When I am logged in as a user with the "content_approver" role
@@ -332,7 +332,7 @@ Scenario Outline: Replaced Static File Media Should Be Updated From LinkIt Refer
   When I am on "/files/behat-file-im.txt"
   Then I should see the text "<expected_text>"
 
-    Examples:
-      | checkbox_action  | filename               | filename_displayed_as  | expected_text                              |
-      | check            | behat-file-updated.txt | behat-file-im.txt      | this is an updated version of the txt file |
-      | uncheck          | behat-file-updated.txt | behat-file-updated.txt | Not Found                                  |
+  Examples:
+    | checkbox_action | filename               | filename_displayed_as  | expected_text                              |
+    | check           | behat-file-updated.txt | behat-file-im.txt      | this is an updated version of the txt file |
+    | uncheck         | behat-file-updated.txt | behat-file-updated.txt | Not Found                                  |

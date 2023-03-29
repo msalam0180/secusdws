@@ -2,10 +2,29 @@
 // Tag overrides
 // https://designsystem.digital.gov/components/tag/
 //------------------------------------------------------------------------
+// 1. !important is required to override the USWDS collection tag styles
+// https://github.com/uswds/uswds/blob/develop/packages/usa-collection/src/styles/_usa-collection.scss#L62
+// 2. USWDS tags are inline but we need to set them to inline-block
+//    for bottom/top padding and min-width to work correctly.
 .usa-tag {
+  --tag-bg-color: #{$button-gray-light};
+  --tag-text-color: #{$c-default};
   $row-gap: 8px;
+  background-color: var(--tag-bg-color) !important;// [1]
   border-radius: 0;
+  color: var(--tag-text-color);
+  display: inline-block;// [2]
+  font-size: rem(14px);
+  line-height: 1;
+  margin-right: 0;
   min-width: rem(50px);
+  padding: rem(4px 8px);
   text-align: center;
   text-transform: none;
+
+  // We have to redefine the variant styles since the custom
+  // default styles above are overriding the USWDS styles.
+  &--big {
+    font-size: rem(16px);
+  }
 }

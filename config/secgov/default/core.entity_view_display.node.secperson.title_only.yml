@@ -238,6 +238,7 @@ hidden:
   field_sec_content_approver: true
   field_speaker_combined: true
   field_tags: true
+  langcode: true
   layout_builder__layout: true
   layout_selection: true
   links: true

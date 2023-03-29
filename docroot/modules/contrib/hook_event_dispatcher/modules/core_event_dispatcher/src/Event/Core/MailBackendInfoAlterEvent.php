@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class MailBackendInfoAlterEvent.
+ *
+ * @HookEvent(id="mail_backend_info_alter", alter="mail_backend_info")
  */
 class MailBackendInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

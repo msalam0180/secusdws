@@ -5,7 +5,9 @@ namespace Drupal\Tests\workbench_access\Kernel;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\NodeType;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
 use Drupal\workbench_access\Plugin\views\field\Section;
 
@@ -16,8 +18,10 @@ use Drupal\workbench_access\Plugin\views\field\Section;
  */
 class ConfigDependenciesTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
   use ContentTypeCreationTrait;
+  use UiHelperTrait;
+  use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -58,7 +62,7 @@ class ConfigDependenciesTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
     $this->installConfig(['filter', 'node', 'workbench_access', 'system']);
@@ -79,7 +83,10 @@ class ConfigDependenciesTest extends KernelTestBase {
     ];
     $this->scheme->getAccessScheme()->setConfiguration($configuration);
     $this->scheme->save();
-    $this->menuScheme = $this->setUpMenuScheme([$node_type->id(), $node_type2->id()], ['main'], 'menu_scheme');
+    $this->menuScheme = $this->setUpMenuScheme([
+      $node_type->id(),
+      $node_type2->id()
+    ], ['main'], 'menu_scheme');
   }
 
   /**

@@ -4,8 +4,8 @@ Feature: Screenshots for Gallery
   Background:
     Given I create "media" of type "video":
       | name             | field_video_origin | field_video                                 | mid    | field_caption | field_transcript |
-      | BEHAT Bird Image | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
-      | BEHAT Cat Video  | YouTube or Vimeo   | https://www.youtube.com/watch?v=QIobikJiTuU | 312129 | Cat caption   | Transcript       |
+      | BEHAT Bird Image | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
+      | BEHAT Cat Video  | youtubevimeo       | https://www.youtube.com/watch?v=QIobikJiTuU | 312129 | Cat caption   | Transcript       |
 
   @api @javascript @ui @wdio
   Scenario: Create Gallery with Supported Media

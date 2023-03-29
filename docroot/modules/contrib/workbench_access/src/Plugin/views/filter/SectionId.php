@@ -82,7 +82,10 @@ class SectionId extends ManyToOne {
     $form['output_format'] = [
       '#type' => 'select',
       '#title' => $this->t('Output format'),
-      '#options' => ['label' => $this->t('Section label'), 'id' => $this->t('Section id')],
+      '#options' => [
+        'label' => $this->t('Section label'),
+        'id' => $this->t('Section id')
+      ],
       '#default_value' => $this->options['output_format'],
     ];
   }
@@ -108,7 +111,7 @@ class SectionId extends ManyToOne {
       $tree = $scheme->getAccessScheme()->getTree();
       foreach ($tree as $items) {
         foreach ($items as $id => $item) {
-          $text = ($this->options['output_format'] == 'label') ? $item['label'] : $id;
+          $text = ($this->options['output_format'] === 'label') ? $item['label'] : $id;
           $options[$id] = str_repeat('-', $item['depth']) . ' ' . $text;
         }
       }
@@ -138,6 +141,24 @@ class SectionId extends ManyToOne {
       ],
     ];
     return $operators;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    $contexts = parent::getCacheContexts();
+    $contexts[] = 'user';
+    return $contexts;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $tags = parent::getCacheTags();
+    $tags[] = 'workbench_access_view';
+    return $tags;
   }
 
 }

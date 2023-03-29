@@ -2,9 +2,7 @@
 
 namespace Drupal\workbench_moderation;
 
-use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormInterface;
@@ -23,6 +21,7 @@ interface ModerationInformationInterface {
    *   The bundle ID.
    *
    * @return \Drupal\Core\Config\Entity\ConfigEntityInterface|null
+   *   Returns entity or null.
    */
   public function loadBundleEntity($bundle_entity_type_id, $bundle_id);
 
@@ -62,12 +61,12 @@ interface ModerationInformationInterface {
   public function isModeratableBundle(EntityTypeInterface $entity_type, $bundle);
 
   /**
-   * Filters an entity list to just bundle definitions for revisionable entities.
+   * Filters an entity list to bundle definitions for revisionable entities.
    *
-   * @param EntityTypeInterface[] $entity_types
+   * @param \Drupal\Core\Entity\EntityTypeInterface[] $entity_types
    *   The master entity type list filter.
    *
-   * @return ConfigEntityTypeInterface[]
+   * @return \Drupal\Core\Config\Entity\ConfigEntityTypeInterface[]
    *   An array of only the config entities we want to modify.
    */
   public function selectRevisionableEntityTypes(array $entity_types);
@@ -77,10 +76,10 @@ interface ModerationInformationInterface {
    *
    * An entity type is moderatable only if it is both revisionable and bundable.
    *
-   * @param EntityTypeInterface[] $entity_types
+   * @param \Drupal\Core\Entity\EntityTypeInterface[] $entity_types
    *   The master entity type list filter.
    *
-   * @return ContentEntityTypeInterface[]
+   * @return \Drupal\Core\Entity\ContentEntityTypeInterface[]
    *   An array of only the content entity definitions we want to modify.
    */
   public function selectRevisionableEntities(array $entity_types);
@@ -175,7 +174,7 @@ interface ModerationInformationInterface {
   /**
    * Determines if an entity is a latest revision.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   A revisionable Content entity.
    *
    * @return bool
@@ -201,11 +200,12 @@ interface ModerationInformationInterface {
    * A "live" entity revision is one whose latest revision is also the default,
    * and whose moderation state, if any, is a published state.
    *
-   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to check.
+   *
    * @return bool
    *   TRUE if the specified entity is a live revision, FALSE otherwise.
    */
   public function isLiveRevision(ContentEntityInterface $entity);
+
 }

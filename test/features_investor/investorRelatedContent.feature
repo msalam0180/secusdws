@@ -9,12 +9,12 @@ Background:
       | name             | field_media_image  | mid     |
       | BEHAT Image Test | behat-gold-pig.png | 8272102 |
     And I create "media" of type "video":
-      | field_media_video_file | field_video_origin | field_video                                 | mid     | field_caption  | field_transcript |
-      | BEHAT Rabbit Video     | Upload             | https://www.youtube.com/watch?v=fsSOMSTsM0o | 8272105 | Rabbit caption |                  |
-      | BEHAT Bird Image       | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312  | Bird caption   | Transcript       |
-      | BEHAT Rabbit Image     | Upload             | https://www.youtube.com/watch?v=fsSOMSTsM0o | 221313  | Rabbit caption |                  |
-      | BEHAT Cat Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=QIobikJiTuU | 312123  |                |                  |
-      | BEHAT Dog Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313  | Dog caption    |                  |
+      | name               | field_video_origin | field_video                                 | mid     | field_caption  | field_transcript | field_media_video_file |
+      | BEHAT Rabbit Video | upload             |                                             | 8272105 | Rabbit caption |                  | behat-sample.mp4       |
+      | BEHAT Bird Image   | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312  | Bird caption   | Transcript       |                        |
+      | BEHAT Rabbit Image | upload             |                                             | 221313  | Rabbit caption |                  | behat-sample.mp4       |
+      | BEHAT Cat Image    | youtubevimeo       | https://www.youtube.com/watch?v=QIobikJiTuU | 312123  |                |                  |                        |
+      | BEHAT Dog Image    | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313  | Dog caption    |                  |                        |
 
 @api @javascript @investor
 Scenario: Create Article With Related Content Block

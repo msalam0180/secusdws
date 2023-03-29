@@ -60,7 +60,7 @@ process:
 
   title: title
 
-  field_display_title: title
+  field_display_title: short_title
 
   body_text:
     -

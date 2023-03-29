@@ -2,7 +2,8 @@
 
 // Form
 .usa-form,
-.usa-form-group {
+.usa-form-group,
+.usa-table {
   @include usa.at-media("mobile-lg") {
     max-width: usa.units("tablet");
   }
@@ -41,7 +42,7 @@
   label {
     display: inline-block;
   }
-  
+
   .usa-form-group {
     margin-top: 0px;
   }
@@ -127,9 +128,8 @@
   float: right;
 }
 .tabledrag-toggle-weight {
-  @extend .usa-button;
+  @include usa-button;
 }
-
 
 .field--widget-entity-reference-autocomplete {
   margin-top: usa.units(3);
@@ -157,4 +157,150 @@
 // Views Exposed forms
 .views-exposed-form {
   width: 100%;
+}
+
+// Dropdown button  
+
+.js .dropbutton-multiple {
+  // Todo - Apply hover background cover - it's transparent for now to prevent the right 
+  // border from disappearing on hover for the multi field drop down
+  $button-hover-color: transparent;
+  margin-bottom: 1rem;
+
+  &.open {
+    .dropbutton-action {
+      &:last-child, &:first-child {
+        a, button, input, .button {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  .dropbutton-toggle {
+    button {
+      display: block;
+    }:hover {
+      background: unset;
+    }:focus {
+      background: unset;
+      outline: 0.25rem solid $element-focus;
+      outline-offset: 0;
+    }
+  }
+
+  .dropbutton-wrapper {
+    cursor: pointer;
+    width: rem(18rem);
+  }
+
+  ul {
+    border-right: rem(1px) solid $border-gray-modal;
+    margin-right: rem(4px);
+  }
+
+  input {
+    width: 14.6rem;
+  }
+
+  .dropbutton-widget {
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    position: relative;
+    margin: 0.5rem 0;
+
+    li {
+      input {
+        margin-left: 0.5rem;
+
+        &:hover {
+          background-image: none;
+        }
+        &:focus {
+          background: $button-hover-color;
+          outline-offset: 0.25rem;
+          border-radius: 0;
+        }
+      }
+
+      button:focus {
+        padding: 0;
+      }
+    }
+
+    .dropbutton-action {
+      a, input, button {
+        padding: 10px 15px;
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        &:hover {
+          background: $button-hover-color;
+        }
+        &:focus {
+          background: $button-hover-color;
+          outline-offset: -0.25rem;
+          outline: 0.25rem solid $element-focus;
+        }
+      }
+    }
+    
+    .dropbutton-toggle {
+      button {
+        border-radius: 0;
+        &:hover {
+          background: $button-hover-color;
+        }
+        &:focus {
+          outline: 0.25rem solid $element-focus;
+          outline-offset: 0;
+        }
+      }
+    }
+
+  }
+
+  margin-top: 1.25rem;
+  margin-right: -0.75rem;
+  width: 19rem;
+}
+
+
+// paragraphs
+.field--widget-paragraphs {
+  .field-multiple-table {
+    margin-bottom: 0;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  .paragraphs-add-wrapper {
+    margin-top: 0.5rem;
+  }
+
+  .paragraphs-dropbutton-wrapper {
+    padding-bottom: rem(10px);
+  }
+} 
+
+// Todo - right border disappears on multi field dropdown with this padding. 
+.ui-widget button {
+  padding: .75rem 1.25rem;
+  border: none;
+  font-weight: 700;
+}
+
+// Multiple field with drag ond drop
+table .draggable .field-multiple-drag + td {
+  padding: 10px 20px;
+}
+
+// hide the 'none' option in the heading level dropdown for only contact the contact card.
+.paragraph-type--contact-cards {
+  option[value="_none"] {
+    display: none;
+  }
 }

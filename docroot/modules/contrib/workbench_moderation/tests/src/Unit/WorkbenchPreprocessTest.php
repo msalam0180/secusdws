@@ -2,11 +2,11 @@
 
 namespace Drupal\Tests\workbench_moderation\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
 use Drupal\workbench_moderation\WorkbenchPreprocess;
 use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\node\Entity\Node;
-
 
 /**
  * Class WorkbenchPreprocessTest.
@@ -16,6 +16,7 @@ use Drupal\node\Entity\Node;
  */
 class WorkbenchPreprocessTest extends UnitTestCase {
 
+  use ProphecyTrait;
   /**
    * @covers ::isLatestVersionPage
    * @dataProvider routeNodeProvider
@@ -26,21 +27,33 @@ class WorkbenchPreprocessTest extends UnitTestCase {
     $this->assertEquals($result, $workbench_preprocess->isLatestVersionPage($node), $message);
   }
 
+  /**
+   * Route node provider.
+   */
   public function routeNodeProvider() {
     return [
-      ['entity.node.cannonical', 1, 1, FALSE, 'Not on the latest version tab route.'],
-      ['entity.node.latest_version', 1, 1, TRUE, 'On the latest version tab route, with the route node.'],
-      ['entity.node.latest_version', 1, 2, FALSE, 'On the latest version tab route, with a different node.'],
+      ['entity.node.cannonical', 1, 1, FALSE,
+        'Not on the latest version tab route.',
+      ],
+      ['entity.node.latest_version', 1, 1, TRUE,
+        'On the latest version tab route, with the route node.',
+      ],
+      ['entity.node.latest_version', 1, 2, FALSE,
+        'On the latest version tab route, with a different node.',
+      ],
     ];
   }
 
   /**
    * Mock the current route matching object.
    *
-   * @param string $route
+   * @param string $routeName
+   *   Route.
    * @param int $nid
+   *   Node id.
    *
-   * @return CurrentRouteMatch
+   * @return \Drupal\Core\Routing\CurrentRouteMatch
+   *   Returns cuurent route.
    */
   protected function setupCurrentRouteMatch($routeName, $nid) {
     $route_match = $this->prophesize(CurrentRouteMatch::class);
@@ -54,7 +67,10 @@ class WorkbenchPreprocessTest extends UnitTestCase {
    * Mock a node object.
    *
    * @param int $nid
-   * @return Node
+   *   Node id.
+   *
+   * @return \Drupal\node\Entity\Node
+   *   Returns node.
    */
   protected function setupNode($nid) {
     $node = $this->prophesize(Node::class);
@@ -62,4 +78,5 @@ class WorkbenchPreprocessTest extends UnitTestCase {
 
     return $node->reveal();
   }
+
 }

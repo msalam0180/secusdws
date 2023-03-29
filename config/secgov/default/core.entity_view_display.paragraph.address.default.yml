@@ -1,0 +1,37 @@
+uuid: 031a268e-8c4f-4c3d-a264-75647ef390f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.address.field_address
+    - paragraphs.paragraphs_type.address
+  module:
+    - address
+    - ds
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_contact_detail
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      address:
+        - field_address
+id: paragraph.address.default
+targetEntityType: paragraph
+bundle: address
+mode: default
+content:
+  field_address:
+    type: address_plain
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: address
+hidden:
+  search_api_excerpt: true

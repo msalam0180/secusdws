@@ -48,8 +48,10 @@
   //       Use :where() to keep specificity low (Safari 14+)
   //       https://caniuse.com/mdn-css_selectors_where
   a:where(.usa-link, :not([class])) {
-    // Adds support for SEC CSS vars
+    // Apply our custom link mixins to support color theme CSS vars
+    // and automatically add external link and download icons.
     @include link-underline;
+    @include link-add-icons;
   }
 
   // USWDS sets max-width on certain elements. We need to remove this

@@ -4,6 +4,8 @@ namespace Drupal\core_event_dispatcher\Event\Form;
 
 /**
  * Class FormIdAlterEvent.
+ *
+ * @HookEvent(id="form_id_alter", alter="form")
  */
 class FormIdAlterEvent extends AbstractFormEvent {
 

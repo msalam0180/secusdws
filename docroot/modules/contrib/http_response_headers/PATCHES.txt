@@ -9,3 +9,7 @@ Drupal issue: https://www.drupal.org/project/http_response_headers/issues/319330
 Source: docroot/modules/contrib/patches/http_response_headers-3193304.patch
 
 
+Drupal issue: https://www.drupal.org/project/http_response_headers/issues/3316677
+Source: docroot/modules/contrib/patches/3316677-4.patch
+
+

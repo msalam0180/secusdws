@@ -8,12 +8,15 @@ use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 use Drupal\jsonapi_event_dispatcher\JsonApiHookEvents;
 
 /**
  * Class JsonapiEntityFilterAccessEvent.
+ *
+ * @HookEvent(id="json_api_entity_filter_access", hook="jsonapi_entity_filter_access")
  */
-class JsonApiEntityFilterAccessEvent extends Event implements EventInterface {
+class JsonApiEntityFilterAccessEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * The entity type of the entity to be filtered upon.
@@ -95,6 +98,13 @@ class JsonApiEntityFilterAccessEvent extends Event implements EventInterface {
    */
   public function getDispatcherType(): string {
     return JsonApiHookEvents::JSONAPI_ENTITY_FILTER_ACCESS;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getAccessResults();
   }
 
 }

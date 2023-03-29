@@ -7,6 +7,8 @@ use Drupal\webform_event_dispatcher\WebformHookEvents;
 
 /**
  * Class WebformElementInfoAlterEvent.
+ *
+ * @HookEvent(id="webform_element_info_alter", alter="webform_element_info")
  */
 class WebformElementInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

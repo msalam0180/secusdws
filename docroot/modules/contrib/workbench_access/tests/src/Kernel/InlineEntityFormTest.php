@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
@@ -22,10 +23,11 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class InlineEntityFormTest extends KernelTestBase implements FormInterface {
 
-  use WorkbenchAccessTestTrait;
-  use NodeCreationTrait;
   use ContentTypeCreationTrait;
+  use NodeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -40,6 +42,13 @@ class InlineEntityFormTest extends KernelTestBase implements FormInterface {
    * @var \Drupal\workbench_access\Entity\AccessSchemeInterface
    */
   protected $scheme;
+
+  /**
+   * Entity access control handler.
+   *
+   * @var \Drupal\Core\Entity\EntityAccessControlHandlerInterface
+   */
+  protected $accessHandler;
 
   /**
    * Modules to enable.
@@ -63,7 +72,7 @@ class InlineEntityFormTest extends KernelTestBase implements FormInterface {
   /**
    * Sets up the tZest.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
     $this->installConfig(['filter', 'node', 'workbench_access', 'system']);

@@ -1,0 +1,8 @@
+uuid: c7f32214-ad67-41e8-bd00-a310b57f27dc
+langcode: en
+status: true
+dependencies: {  }
+id: card_with_icon
+label: 'Call to Action'
+revision: 1
+description: 'Custom card with icon and CTA'

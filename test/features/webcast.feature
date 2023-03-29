@@ -107,7 +107,7 @@ Feature: Create and Associate Webcasts
   	   | event detail page | meeting 		      | 1	     | webcast title | now				          | +3 hours			           | published        |
     When I am on "/news/upcoming-events/"
     Then I should see the text "Happening now"
-      And I should see the link "webcast display title"
+      And I should not see the link "webcast display title"
       And I should not see the text "This is the body field"
     When I am on the homepage
     Then I should see the text "Happening Now"
@@ -174,9 +174,10 @@ Feature: Create and Associate Webcasts
       | title                        | field_display_title | field_event_type | status | field_webcast | field_sec_event_date | field_sec_event_end_date | moderation_state |
       | Webcast links point to event | event display title | meeting          | 1      | webcast title | now                  | +5 hours                 | published        |
     When I visit "/news/upcoming-events/"
-    Then I should see the link "webcast display title"
-    When I click "webcast display title"
-    Then I should see the text "event display title"
+    Then I should not see the link "webcast display title"
+      And I should not see the text "Webcast:"
+    When I click "event display title" in the "upcoming_events_list" region
+    Then I should see the text "webcast display title"
 
   @api
   Scenario: Ability to hide the Live Webcast Player from block using source None

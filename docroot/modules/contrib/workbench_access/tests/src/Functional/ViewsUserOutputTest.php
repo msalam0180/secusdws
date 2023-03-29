@@ -18,6 +18,13 @@ use Drupal\workbench_access\Entity\AccessScheme;
 class ViewsUserOutputTest extends BrowserTestBase {
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Test terms.
    *
    * @var \Drupal\taxonomy\TermInterface[]
@@ -85,7 +92,7 @@ class ViewsUserOutputTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create some sections and some nodes in them.
     $sections = [
@@ -147,13 +154,13 @@ class ViewsUserOutputTest extends BrowserTestBase {
     foreach ($this->terms as $section => $term) {
       $row = $assert->elementExists('css', '.views-row:contains("' . $this->user->label() . '")');
       $assert->elementExists('css', '.views-row:contains("' . $section . '")', $row);
-      $this->assertNoLinkByHref('/taxonomy/term/' . $term->id());
+      $this->assertSession()->linkByHrefNotExists('/taxonomy/term/' . $term->id());
     }
     $this->drupalGet('user-sections-2');
     foreach ($this->terms as $section => $term) {
       $row = $assert->elementExists('css', '.views-row:contains("' . $this->user->label() . '")');
       $assert->elementExists('css', '.views-row:contains("' . $section . '")', $row);
-      $this->assertLinkByHref('/taxonomy/term/' . $term->id());
+      $this->assertSession()->linkByHrefExists('/taxonomy/term/' . $term->id());
     }
   }
 

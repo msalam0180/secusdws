@@ -195,10 +195,10 @@ Feature: Investor Alerts List Page
       And I click "Edit" in the "Verify PDF file having article type as Investor Alert and Bulletins" row
       And I wait 2 seconds
       And I select the first autocomplete option for "Behat Test File" on the "Use existing media" field
-      And I wait for AJAX to finish
       And I publish it
-    When I am on "/investor/alerts"
-      And I should see the text "Verify PDF file having article type as Investor Alert and Bulletins"
-      And I click "Verify PDF file having article type as Investor Alert and Bulletins"
+      And I am not logged in
+      And I am on "/investor/alerts"
+    Then I should see the text "Verify PDF file having article type as Investor Alert and Bulletins"
+    When I click "Verify PDF file having article type as Investor Alert and Bulletins"
       And I wait 2 seconds
     Then I should be on "/files/behat-file_invalert.pdf"

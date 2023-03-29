@@ -32,6 +32,7 @@ dependencies:
     - datetime
     - empty_fields
     - field_group
+    - file_download_link_media
     - fixed_text_link_formatter
     - layout_builder
     - text
@@ -40,6 +41,7 @@ third_party_settings:
   field_group:
     group_side_section:
       children:
+        - field_release_number
         - field_publish_date
         - field_federal_register_publish_d
         - field_document_citation
@@ -70,7 +72,7 @@ third_party_settings:
       label: Resources
       parent_name: group_side_section
       region: content
-      weight: 10
+      weight: 6
       format_type: html_element
       format_settings:
         classes: side-resources
@@ -133,7 +135,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_federal_register_publish_d:
     type: datetime_default
@@ -142,7 +144,7 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_federal_register_version:
     type: fixed_text_link
@@ -166,7 +168,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_publish_date:
     type: datetime_default
@@ -175,15 +177,29 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_release_file:
-    type: entity_reference_label
+    type: file_download_link_media
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
+      link_text: 'SEC Issued --rule_type-- --span--[file:extension]--span_end-- ([file:size])'
+      link_title: ''
+      new_tab: true
+      force_download: true
+      custom_classes: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
     weight: 7
+    region: content
+  field_release_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_rin:
     type: string
@@ -191,14 +207,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_see_also:
-    type: entity_reference_entity_view
+    type: entity_reference_label
     label: hidden
     settings:
-      view_mode: release_see_also_files
-      link: false
+      link: true
     third_party_settings:
       empty_fields:
         handler: ''
@@ -217,8 +232,8 @@ hidden:
   field_parent_rule: true
   field_primary_division_office: true
   field_release_file_number: true
-  field_release_number: true
   field_rule_type: true
   field_submitted_by: true
+  langcode: true
   links: true
   search_api_excerpt: true

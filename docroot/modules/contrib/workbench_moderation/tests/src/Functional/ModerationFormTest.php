@@ -12,10 +12,10 @@ class ModerationFormTest extends ModerationStateTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->drupalLogin($this->adminUser);
-    $this->createContentTypeFromUI('Moderated content', 'moderated_content', TRUE, [
+    $this->createContentTypeFromUi('Moderated content', 'moderated_content', TRUE, [
       'draft',
       'needs_review',
       'published',
@@ -34,8 +34,9 @@ class ModerationFormTest extends ModerationStateTestBase {
    * @see \Drupal\Tests\workbench_moderation\Functional\ModerationStateBlockTest::testCustomBlockModeration
    */
   public function testModerationForm() {
+    $this->drupalGet('node/add/moderated_content');
     // Create new moderated content in draft.
-    $this->drupalPostForm('node/add/moderated_content', [
+    $this->submitForm([
       'title[0][value]' => 'Some moderated content',
       'body[0][value]' => 'First version of the content.',
     ], t('Save and Create New Draft'));
@@ -51,15 +52,16 @@ class ModerationFormTest extends ModerationStateTestBase {
     // live revision.
     $this->drupalGet($canonical_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertField('edit-new-state', 'The node view page has a moderation form.');
+    $this->assertSession()->fieldExists('edit-new-state');
 
     // The latest version page should not show, because there is no forward
     // revision.
     $this->drupalGet($latest_version_path);
     $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet($edit_path);
 
     // Update the draft.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Second version of the content.',
     ], t('Save and Request Review'));
 
@@ -67,15 +69,16 @@ class ModerationFormTest extends ModerationStateTestBase {
     // live revision.
     $this->drupalGet($canonical_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertField('edit-new-state', 'The node view page has a moderation form.');
+    $this->assertSession()->fieldExists('edit-new-state');
 
     // The latest version page should not show, because there is still no
     // forward revision.
     $this->drupalGet($latest_version_path);
     $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet($edit_path);
 
     // Publish the draft.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Third version of the content.',
     ], t('Save and Publish'));
 
@@ -83,15 +86,16 @@ class ModerationFormTest extends ModerationStateTestBase {
     // live revision.
     $this->drupalGet($canonical_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertNoField('edit-new-state', 'The node view page has no moderation form.');
+    $this->assertSession()->fieldNotExists('edit-new-state');
 
     // The latest version page should not show, because there is still no
     // forward revision.
     $this->drupalGet($latest_version_path);
     $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet($edit_path);
 
     // Make a forward revision.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Fourth version of the content.',
     ], t('Save and Create New Draft'));
 
@@ -99,17 +103,18 @@ class ModerationFormTest extends ModerationStateTestBase {
     // live revision.
     $this->drupalGet($canonical_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertNoField('edit-new-state', 'The node view page has no moderation form.');
+    $this->assertSession()->fieldNotExists('edit-new-state');
 
     // The latest version page should show the moderation form and have "Draft"
     // status, because the forward revision is in "Draft".
     $this->drupalGet($latest_version_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertField('edit-new-state', 'The latest-version page has a moderation form.');
-    $this->assertSession()->pageTextContains('Draft', 'Correct status found on the latest-version page.');
+    $this->assertSession()->fieldExists('edit-new-state');
+    $this->assertSession()->pageTextContains('Draft');
+    $this->drupalGet($latest_version_path);
 
     // Submit the moderation form to change status to needs review.
-    $this->drupalPostForm($latest_version_path, [
+    $this->submitForm([
       'new_state' => 'needs_review',
     ], t('Apply'));
 
@@ -117,8 +122,8 @@ class ModerationFormTest extends ModerationStateTestBase {
     // Review" status, because the forward revision is in "Needs Review".
     $this->drupalGet($latest_version_path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertField('edit-new-state', 'The latest-version page has a moderation form.');
-    $this->assertSession()->pageTextContains('Needs Review', 'Correct status found on the latest-version page.');
+    $this->assertSession()->fieldExists('edit-new-state');
+    $this->assertSession()->pageTextContains('Needs Review');
   }
 
   /**
@@ -134,7 +139,8 @@ class ModerationFormTest extends ModerationStateTestBase {
     $another_user = $this->drupalCreateUser($this->permissions);
     $this->grantUserPermissionToCreateContentOfType($another_user, 'moderated_content');
     $this->drupalLogin($another_user);
-    $this->drupalPostForm(sprintf('node/%d/latest', $node->id()), [
+    $this->drupalGet(sprintf('node/%d/latest', $node->id()));
+    $this->submitForm([
       'new_state' => 'needs_review',
     ], t('Apply'));
 

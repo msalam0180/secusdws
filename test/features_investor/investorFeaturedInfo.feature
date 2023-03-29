@@ -42,7 +42,7 @@ Scenario: Update Feature Information
     And I am on "/"
     And I should see the text "Featured Information"
     And I click "Investor Local edited"
-    And I should see the text "High Yield Investment Programs"
+    And I should see the text "High-Yield Investment Programs"
 
 @api @javascript @investor
 Scenario: Enter text with link Feature Information
@@ -58,7 +58,7 @@ Scenario: Enter text with link Feature Information
     And I am on "/"
     And I should see the text "Featured Information"
     And I click "Link added using URL"
-    And I should see the text "High Yield Investment Programs"
+    And I should see the text "High-Yield Investment Programs"
 
 @api @investor
 Scenario: Glossary Page

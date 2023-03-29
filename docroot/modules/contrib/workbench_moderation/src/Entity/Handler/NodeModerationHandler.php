@@ -1,14 +1,8 @@
 <?php
-/**
- * @file
- * Contains Drupal\workbench_moderation\Entity\Handler\NodeCustomizations.
- */
 
 namespace Drupal\workbench_moderation\Entity\Handler;
 
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\Entity\Node;
 
 /**
  * Customizations for node entities.

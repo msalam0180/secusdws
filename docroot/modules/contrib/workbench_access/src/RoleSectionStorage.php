@@ -23,11 +23,11 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
   protected $state;
 
   /**
-   * Role storage.
+   * Entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $roleStorage;
+  protected $entityTypeManager;
 
   /**
    * Constructs a new RoleSectionStorage object.
@@ -40,7 +40,6 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
   public function __construct(StateInterface $state, EntityTypeManagerInterface $entityTypeManager) {
     $this->state = $state;
     $this->entityTypeManager = $entityTypeManager;
-    $this->roleStorage = $entityTypeManager->getStorage('user_role');
   }
 
   /**
@@ -111,7 +110,10 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
   public function getRoleSections(AccessSchemeInterface $scheme, AccountInterface $account = NULL) {
     $sections = [];
     if ($account) {
-      $results = $this->sectionStorage()->loadByProperties(['role_id' => $account->getRoles(), 'access_scheme' => $scheme->id()]);
+      $results = $this->sectionStorage()->loadByProperties([
+        'role_id' => $account->getRoles(),
+        'access_scheme' => $scheme->id()
+      ]);
       foreach ($results as $result) {
         $sections[] = $result->get('section_id')->value;
       }
@@ -124,7 +126,7 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
    */
   public function getPotentialRoles($id) {
     $list = [];
-    $roles = $this->roleStorage->loadMultiple();
+    $roles = $this->roleStorage()->loadMultiple();
     foreach ($roles as $rid => $role) {
       $list[$rid] = $role->label();
     }
@@ -136,7 +138,8 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
    */
   public function getPotentialRolesFiltered($id) {
     $list = [];
-    $roles = $this->roleStorage->loadMultiple();
+    /** @var \Drupal\user\RoleInterface $roles */
+    $roles = $this->roleStorage()->loadMultiple();
     foreach ($roles as $rid => $role) {
       if ($role->hasPermission('use workbench access')) {
         $list[$rid] = $role->label();
@@ -156,7 +159,7 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
       ->groupBy('role_id.target_id')->execute();
     $rids = array_column($query, 'role_id_target_id');
     if (!empty(current($rids))) {
-      $roles = $this->roleStorage->loadMultiple($rids);
+      $roles = $this->roleStorage()->loadMultiple($rids);
     }
     // @TODO: filter by permission?
     return array_keys($roles);
@@ -194,6 +197,20 @@ class RoleSectionStorage implements RoleSectionStorageInterface {
       }
       $this->removeRole($scheme, $role_id, $section_ids);
     }
+  }
+
+  /**
+   * Gets user_role storage handler.
+   *
+   * The entity build process takes place too early in the call stack so we
+   * end up with a stale reference to the user_role storage handler if we do
+   * this in the constructor.
+   *
+   * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   Role storage.
+   */
+  protected function roleStorage() {
+    return $this->entityTypeManager->getStorage('user_role');
   }
 
 }

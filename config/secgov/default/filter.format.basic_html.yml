@@ -96,12 +96,6 @@ filters:
       default_view_mode: default
       allowed_view_modes: {  }
       allowed_media_types: {  }
-  filter_sec_linkit_alter:
-    id: filter_sec_linkit_alter
-    provider: sec_linkit_alter
-    status: false
-    weight: -40
-    settings: {  }
   token_filter:
     id: token_filter
     provider: token_filter
@@ -114,4 +108,10 @@ filters:
     provider: video_embed_wysiwyg
     status: false
     weight: -38
+    settings: {  }
+  filter_sec_linkit_alter:
+    id: filter_sec_linkit_alter
+    provider: sec_linkit_alter
+    status: false
+    weight: -40
     settings: {  }

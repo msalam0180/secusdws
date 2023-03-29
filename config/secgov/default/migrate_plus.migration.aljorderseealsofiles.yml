@@ -22,6 +22,9 @@ source:
       name: id
       label: id
     -
+      name: filenum
+      label: 'File Number'
+    -
       name: releaseurl
       label: 'Release URL'
     -
@@ -61,13 +64,13 @@ process:
         - litigationreleasesreleases
         - litigationreleasesseealsofiles
         - opinionsordersreleases
-        - opinionsordersseealsofils
+        - opinionsordersseealsofiles
         - stopordersreleases
         - stopordersseealsofiles
         - tradingsuspensionfiles
         - tradingsuspensionseealso
       no_stub: true
-      source: related_rules
+      source: url
     -
       plugin: skip_on_value
       method: row
@@ -78,21 +81,6 @@ process:
     default_value: 1
   name: title
   field_display_title: title
-  skip_already_migrated:
-    -
-      plugin: migration_lookup
-      source: url
-      migration:
-        - apreleases
-        - aljorderreleases
-        - opinionsordersreleases
-      no_stub: true
-    -
-      plugin: skip_on_value
-      method: row
-      not_equals: true
-      value: null
-      message: 'Skipping a previously imported release'
   field_primary_division_office:
     plugin: default_value
     default_value: 39

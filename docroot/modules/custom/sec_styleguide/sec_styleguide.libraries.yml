@@ -1,7 +1,7 @@
 side_nav:
   version: VERSION
-  js:
-    assets/js/components-sidenav.js: { }
+  # js:
+  #   assets/js/components-sidenav.js: { }
   dependencies:
     - core/once
     - core/drupal.active-link

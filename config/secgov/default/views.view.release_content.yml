@@ -11,6 +11,7 @@ dependencies:
     - field.storage.node.field_respondents
     - field.storage.node.field_see_also
     - field.storage.node.field_submit_comments
+    - field.storage.taxonomy_term.field_respondents
     - node.type.release
     - system.menu.admin
     - taxonomy.vocabulary.release_type
@@ -275,16 +276,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_respondents:
-          id: field_respondents
-          table: node__field_respondents
+        field_respondents_1:
+          id: field_respondents_1
+          table: taxonomy_term__field_respondents
           field: field_respondents
-          relationship: none
+          relationship: field_release_file_number
           group_type: group
           admin_label: ''
           plugin_id: field
           label: Respondents
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -337,6 +338,117 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_respondents:
+          id: field_respondents
+          table: node__field_respondents
+          field: field_respondents
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Respondents/Subject
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: Respondents
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_respondents_1 ?: field_respondents  }} '
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
         field_release_file_number:
           id: field_release_file_number
           table: node__field_release_file_number
@@ -1392,7 +1504,16 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_release_file_number:
+          id: field_release_file_number
+          table: node__field_release_file_number
+          field: field_release_file_number
+          relationship: none
+          group_type: group
+          admin_label: 'field_release_file_number: Taxonomy term'
+          plugin_id: standard
+          required: false
       css_class: release-regulation-admin-views
       use_ajax: false
       header: {  }
@@ -1427,6 +1548,7 @@ display:
         - 'config:field.storage.node.field_respondents'
         - 'config:field.storage.node.field_see_also'
         - 'config:field.storage.node.field_submit_comments'
+        - 'config:field.storage.taxonomy_term.field_respondents'
   page_1:
     id: page_1
     display_title: Page
@@ -1463,3 +1585,4 @@ display:
         - 'config:field.storage.node.field_respondents'
         - 'config:field.storage.node.field_see_also'
         - 'config:field.storage.node.field_submit_comments'
+        - 'config:field.storage.taxonomy_term.field_respondents'

@@ -5,12 +5,20 @@
   {% endfor %}
 {% endif %}
 
+{% if wrapper == 'li' %}
+  <li {{ attributes.addClass(wrapperClass) }}>
+{% endif %}
+
 {% if url or attributes.href %}
-  {% set url = url ?: attributes.href %}
+  {% set url = url | render ?: attributes.href %}
   <a {{ attributes.addClass('usa-button usa-button--base usa-button--icon').setAttribute('href', url) }}>
     {% include '@uswds_sec/includes/icon.html.twig' with {'name': icon} %}
-    {{ label }}
+    {{- label -}}
   </a>
 {% else %}
-  <span{{ attributes.addClass('usa-button') }}>{{ label }}</span>
+  <span{{ attributes.addClass('usa-button') }}>{{- label -}}</span>
+{% endif %}
+
+{% if wrapper == 'li' %}
+  </li>
 {% endif %}

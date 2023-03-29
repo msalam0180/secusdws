@@ -601,6 +601,7 @@ third_party_settings:
       - Menus
       - 'Purge UI'
       - 'SEC Custom Blocks'
+      - 'SEC Styleguide'
       - System
       - Twitter
       - User
@@ -614,10 +615,24 @@ third_party_settings:
         - layout_onecol
         - layout_twocol_section
         - layout_threecol_section
-        - herolandingpage
+      restricted_categories:
+        - 'Chaos Tools'
+        - Devel
+        - Forms
+        - Help
+        - Menus
+        - 'Purge UI'
+        - 'SEC Styleguide'
+        - System
+        - User
+        - Webform
+        - Workbench
+        - 'Workbench Access'
+        - core
       blacklisted_blocks:
         'Inline blocks':
           - 'inline_block:card_with_sidebar'
+          - 'inline_block:hero'
         Views:
           - 'views_exposed_filter_block:acquia_search-page'
       whitelisted_blocks:
@@ -631,19 +646,6 @@ third_party_settings:
           - 'field_block:node:landing_page:field_right_2_box'
           - 'field_block:node:landing_page:field_right_3_box'
           - 'field_block:node:landing_page:field_right_4_box'
-      restricted_categories:
-        - 'Chaos Tools'
-        - Devel
-        - Forms
-        - Help
-        - Menus
-        - 'Purge UI'
-        - System
-        - User
-        - Webform
-        - Workbench
-        - 'Workbench Access'
-        - core
 _core:
   default_config_hash: BQXWS7oW4pFRAcYJ7wwpjCVSOe2iVw5knAtsxDBikKc
 id: node.landing_page.default
@@ -833,6 +835,7 @@ hidden:
   field_date: true
   field_featured_graphic: true
   field_publish_date: true
+  langcode: true
   layout_builder__layout: true
   layout_selection: true
   links: true

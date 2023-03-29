@@ -191,8 +191,10 @@ class EntityContext extends RawDrupalContext {
       $target_revision_id = [];
       foreach ($field_values as $value_or_key) {
         if ($field_type == 'image' || $field_type == 'file') {
-          $file = $this->createTestFile($value_or_key);
-          $value_id[] = $file->id();
+          if (!empty($value_or_key)) {
+            $file = $this->createTestFile($value_or_key);
+            $value_id[] = $file->id();
+          }
         }
         else {
           $entity_id = $this->getEntityIDByKey($value_or_key);

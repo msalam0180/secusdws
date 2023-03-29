@@ -9,7 +9,7 @@
   overflow: hidden;// for seal
   position: relative;// for seal
   margin-bottom: 40px; //TEMP spacing below
-  
+
   @include min-width($bp-row) {
     display: flex;
     justify-content: space-between;
@@ -28,26 +28,25 @@
 
   // Note: This element has the “l-padding” class
   &__content {
-    @include scale(padding-bottom, (375px: 40px, $bp-row: 50px));
-    @include scale(padding-top, (375px: 30px, $bp-row: 40px));
+    @include scale(padding-bottom padding-top, (375px: 30px, $bp-row: 40px));
     position: relative;
     z-index: 2;// above seal
 
     @include min-width($bp-row) {
       display: flex;
       flex-direction: column;
-      padding: rem(37px 42px 62px);// reset hoz padding from “l-padding”
+      padding: rem(50px 42px);// reset hoz padding from “l-padding”
       width: 100%;
+    }
+
+    @include min-width($layout-nav-bp) {
+      padding-bottom: rem(62px);
+      padding-top: rem(37px);
     }
   }
 
-  // SEC requested we hide the breadcrumbs in mobile layout
   .usa-breadcrumb {
     margin-bottom: rem(38px);
-
-    @include max-width($bp-row - 1px) {
-      display: none;
-    }
 
     @include min-width($bp-row) {
       // Since we’re using the default “.usa-breadcrumbs” class,

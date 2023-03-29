@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.secarticle.field_division_office
     - field.field.node.secarticle.field_ext_pub_secarticle
     - field.field.node.secarticle.field_external_resource
+    - field.field.node.secarticle.field_gov_delivery_alert
     - field.field.node.secarticle.field_hide_publish_date
     - field.field.node.secarticle.field_left_nav_override
     - field.field.node.secarticle.field_left_nav_secarticle
@@ -46,10 +47,11 @@ dependencies:
     - field.field.node.secarticle.scheduling_options
     - node.type.secarticle
   module:
-    - datetime
+    - ds
+    - empty_fields
     - entity_reference_revisions
+    - field_group
     - link
-    - options
     - panelizer
     - text
     - user
@@ -427,6 +429,45 @@ third_party_settings:
         builder: ipe
         storage_type: ''
         storage_id: ''
+  ds:
+    layout:
+      id: node_details_layout
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      main:
+        - workbench_moderation_control
+        - body
+        - field_content
+        - field_gov_delivery_alert
+      rightrail:
+        - group_additional_resources
+        - field_related_materials
+        - field_more_about_this_topic
+  field_group:
+    group_additional_resources:
+      children:
+        - field_related_materials
+        - field_more_about_this_topic
+      label: Resources
+      parent_name: ''
+      region: rightrail
+      weight: 41
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: article-resources
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 _core:
   default_config_hash: 7z4SloT87NKh2wrNPF5kTnfhRLpdeq3vS5Vp4EkzOMQ
 id: node.secarticle.default
@@ -439,39 +480,8 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
-    region: content
-  field_alternate_title_secarticle:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_article_sub_type_secart:
-    type: list_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_article_type_secarticle:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_case_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 20
-    region: content
+    weight: 28
+    region: main
   field_content:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -479,74 +489,19 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 11
-    region: content
-  field_creator:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  field_data_dictionary_notes:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 23
-    region: content
-  field_date:
-    type: datetime_default
+    weight: 29
+    region: main
+  field_gov_delivery_alert:
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
-      timezone_override: ''
-      format_type: ap_date
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_description_abstract:
-    type: basic_string
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_display_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_hide_publish_date:
-    type: boolean
-    label: hidden
-    settings:
-      format: true-false
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_left_nav_override:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_media_file_upload:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: embed
-      link: false
-    third_party_settings: {  }
-    weight: 13
-    region: content
+      view_mode: default
+      link: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 40
+    region: main
   field_more_about_this_topic:
     type: link
     label: hidden
@@ -554,28 +509,15 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_organization:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 22
-    region: content
-  field_publish_date:
-    type: datetime_default
-    label: hidden
-    settings:
-      timezone_override: ''
-      format_type: ap_date
-    third_party_settings: {  }
-    weight: 8
-    region: content
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      ds:
+        ds_limit: ''
+    weight: 43
+    region: rightrail
   field_related_materials:
     type: link
     label: hidden
@@ -586,73 +528,52 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 15
-    region: content
-  field_release_number:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_requestor:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 21
-    region: content
-  field_sec_content_approver:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 18
-    region: content
-  field_show_full_width_page:
-    type: boolean
-    label: hidden
-    settings:
-      format: true-false
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_top_right_column:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 16
-    region: content
+    weight: 42
+    region: rightrail
   workbench_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
-    region: content
+    weight: 18
+    region: main
 hidden:
   field_accrual_periodicity: true
   field_act: true
+  field_alternate_title_secarticle: true
+  field_article_sub_type_secart: true
+  field_article_type_secarticle: true
   field_associated_dataset: true
   field_audience: true
+  field_case_number: true
   field_contact_email: true
   field_contact_name: true
+  field_creator: true
+  field_data_dictionary_notes: true
+  field_date: true
+  field_description_abstract: true
+  field_display_title: true
   field_division_office: true
   field_ext_pub_secarticle: true
   field_external_resource: true
+  field_hide_publish_date: true
+  field_left_nav_override: true
   field_left_nav_secarticle: true
   field_list_page_det_secarticle: true
   field_market_statistics_category: true
+  field_media_file_upload: true
   field_media_image_upload: true
+  field_organization: true
   field_person: true
   field_primary_division_office: true
+  field_publish_date: true
   field_regulation: true
+  field_release_number: true
+  field_requestor: true
+  field_sec_content_approver: true
+  field_show_full_width_page: true
   field_speaker_position_override: true
   field_tags: true
+  field_top_right_column: true
+  langcode: true
   links: true
   scheduling_options: true
   search_api_excerpt: true

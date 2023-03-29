@@ -82,16 +82,109 @@
   {{ pattern_preview('subpage_card') }}
 </div>
 
-<h2>{{ 'Division Cards'|t }}</h2>
+<h2>{{ 'Contact Cards'|t }}</h2>
 
-<p class=>Division cards are used when creating a Landing page inside layout builder. After a card is added to the page, the user can choose what division's information will display in the card.</p>
+<p class=>Contact cards are used when creating a landing page inside layout builder. After a card is added to the page, the user can choose what contact's information will display in the card.</p>
 
-<div class="usa-card-group">
-  {{ pattern_preview('card_division') }}
-  {{ pattern_preview('card_division') }}
+<div class="usa-card-group" data-cols="1">
+  {{ pattern('card_contact', {
+    name: 'SEC Headquarters',
+    description: 'For inquiries related to lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    contact_details: [
+      pattern('card_contact_detail', {
+        address: "100 F Street, NE Washington, DC 20549" 
+      })
+    ]}) 
+  }}
 </div>
 
-<h2>{{ 'Card with Icon'|t }}</h2>
+<h2>{{ '2-up Contact Card Grid'|t }}</h2>
+
+<div class="usa-card-group" data-cols="2">
+  {{ pattern('card_contact', {
+    name: 'Office of the Public Affairs',
+    description: "Our office maintains SEC.gov and the agency's intranet, both with ultimate goal of keeping the SEC transparent, relatable, and accountable to taxpayers and employees alike.",
+    contact_details: [
+      pattern('card_contact_detail', {
+        email: "IMOCC@SEC.GOV" 
+      }),
+      pattern('card_contact_detail', {
+        phone: "202-551-4120" 
+      })
+    ]}) 
+  }}
+
+  {{ pattern('card_contact', {
+    name: 'Office of the Public Affairs with Link',
+    description: "Our office maintains SEC.gov and the agency's intranet, both with ultimate goal of keeping the SEC transparent, relatable, and accountable to taxpayers and employees alike.",
+    link: "/oasb/",
+    contact_details: [
+      pattern('card_contact_detail', {
+        email: "IMOCC@SEC.GOV" 
+      }),
+      pattern('card_contact_detail', {
+        phone: "202-551-4120" 
+      })
+    ]}) 
+  }}
+</div>
+
+<h2>{{ '3-up Contact Card Grid'|t }}</h2>
+
+<div class="usa-card-group" data-cols="3">
+  {{ pattern('card_contact', {
+    name: 'Division of Lorem Ipsum with Link',
+    description: "Our office maintains SEC.gov and the agency's intranet, both with ultimate goal of keeping the SEC transparent, relatable, and accountable to taxpayers and employees alike.",
+    link: '/oasb/',
+    contact_details: [
+      pattern('card_contact_detail', {
+        email: "IMOCC@SEC.GOV" 
+      }),
+      pattern('card_contact_detail', {
+        phone: "202-551-4120" 
+      }),
+      pattern('card_contact_detail', {
+        address: "100 F Street, NE Washington, DC 20549" 
+      })
+    ]}) 
+  }}
+
+  {{ pattern('card_contact', {
+    name: 'Office of the Public Affairs',
+    description: "Our office maintains SEC.gov and the agency's intranet, both with ultimate goal of keeping the SEC transparent, relatable, and accountable to taxpayers and employees alike.",
+    contact_details: [
+      pattern('card_contact_detail', {
+        email: "IMOCC@SEC.GOV" 
+      }),
+      pattern('card_contact_detail', {
+        fax: "202-551-4120" 
+      }),
+      pattern('card_contact_detail', {
+        icon: 'instagram',
+        custom_link: 'SEC-OPA'
+      })
+      
+    ]}) 
+  }}
+
+  {{ pattern('card_contact', {
+    name: 'Office of the Public Affairs',
+    description: "Our office maintains SEC.gov and the agency's intranet, both with ultimate goal of keeping the SEC transparent, relatable, and accountable to taxpayers and employees alike.",
+    contact_details: [
+      pattern('card_contact_detail', {
+        email: "IMOCC@SEC.GOV" 
+      }),
+      pattern('card_contact_detail', {
+        phone: "202-551-4120" 
+      }),
+      pattern('card_contact_detail', {
+        fax: "202-551-4120" 
+      })
+    ]}) 
+  }}
+</div>
+
+<h2>{{ 'Call to Action'|t }}</h2>
 <p>This is currently only used on the homepage.</p>
 
 {{ pattern_preview('card_icon') }}

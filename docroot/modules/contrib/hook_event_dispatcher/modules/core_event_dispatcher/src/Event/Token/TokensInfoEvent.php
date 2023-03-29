@@ -7,13 +7,19 @@ use Drupal\core_event_dispatcher\TokenHookEvents;
 use Drupal\core_event_dispatcher\ValueObject\Token;
 use Drupal\core_event_dispatcher\ValueObject\TokenType;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class TokensInfoEvent.
  *
+ * @HookEvent(
+ *   id = "token_info",
+ *   hook = "token_info"
+ * )
+ *
  * @see hook_token_info
  */
-final class TokensInfoEvent extends Event implements EventInterface {
+final class TokensInfoEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * Token types.
@@ -113,6 +119,16 @@ final class TokensInfoEvent extends Event implements EventInterface {
    */
   public function getDispatcherType(): string {
     return TokenHookEvents::TOKEN_INFO;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return [
+      'types' => $this->getTokenTypes(),
+      'tokens' => $this->getTokens(),
+    ];
   }
 
 }

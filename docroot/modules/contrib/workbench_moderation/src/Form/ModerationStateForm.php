@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\workbench_moderation\Form
  */
 class ModerationStateForm extends EntityForm {
+
   /**
    * {@inheritdoc}
    */
@@ -19,23 +20,23 @@ class ModerationStateForm extends EntityForm {
 
     /* @var \Drupal\workbench_moderation\ModerationStateInterface $moderation_state */
     $moderation_state = $this->entity;
-    $form['label'] = array(
+    $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
       '#default_value' => $moderation_state->label(),
       '#description' => $this->t("Label for the Moderation state."),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['id'] = array(
+    $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $moderation_state->id(),
-      '#machine_name' => array(
+      '#machine_name' => [
         'exists' => '\Drupal\workbench_moderation\Entity\ModerationState::load',
-      ),
+      ],
       '#disabled' => !$moderation_state->isNew(),
-    );
+    ];
 
     $form['published'] = [
       '#type' => 'checkbox',
@@ -52,8 +53,8 @@ class ModerationStateForm extends EntityForm {
       // @todo When these are added, the checkbox default value does not apply properly.
       // @see https://www.drupal.org/node/2645614
       // '#states' => [
-      //   'checked' => [':input[name="published"]' => ['checked' => TRUE]],
-      //   'disabled' => [':input[name="published"]' => ['checked' => TRUE]],
+      // 'checked' => [':input[name="published"]' => ['checked' => TRUE]],
+      // 'disabled' => [':input[name="published"]' => ['checked' => TRUE]],
       // ],
     ];
 

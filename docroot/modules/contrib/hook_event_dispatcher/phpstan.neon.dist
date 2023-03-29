@@ -7,3 +7,4 @@ parameters:
   excludePaths:
     analyseAndScan:
       - src/Generators
+      - src/ProxyClass

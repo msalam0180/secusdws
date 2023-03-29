@@ -1,0 +1,20 @@
+<p class="address" translate="no">
+  {% if address_line1 %}
+    {{ address_line1 }} 
+  {% endif %}
+  {% if address_line2 %}
+    {{ address_line2 }}
+  {% endif %}
+  {% if locality %}
+    {{ locality }}
+  {% endif %}
+  {% if locality.code %}
+    {{ locality.code }},
+  {% endif %}
+  {% if administrative_area.code %}
+    {{ administrative_area.code }},
+  {% endif %}
+  {% if postal_code %}
+    {{ postal_code }}
+  {% endif %}
+</p>

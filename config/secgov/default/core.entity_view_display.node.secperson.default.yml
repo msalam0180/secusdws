@@ -492,15 +492,6 @@ third_party_settings:
         - layout_onecol
         - layout_twocol_section
         - layout_threecol_section
-      blacklisted_blocks:
-        Views:
-          - 'views_exposed_filter_block:acquia_search-page'
-      whitelisted_blocks:
-        'Content fields':
-          - 'field_block:node:secperson:body'
-          - 'field_block:node:secperson:field_bottom_center_column_perso'
-          - 'field_block:node:secperson:field_position_history_paragraph'
-          - 'field_block:node:secperson:title'
       restricted_categories:
         - 'Chaos Tools'
         - Devel
@@ -515,6 +506,15 @@ third_party_settings:
         - Workbench
         - 'Workbench Access'
         - core
+      blacklisted_blocks:
+        Views:
+          - 'views_exposed_filter_block:acquia_search-page'
+      whitelisted_blocks:
+        'Content fields':
+          - 'field_block:node:secperson:body'
+          - 'field_block:node:secperson:field_bottom_center_column_perso'
+          - 'field_block:node:secperson:field_position_history_paragraph'
+          - 'field_block:node:secperson:title'
 id: node.secperson.default
 targetEntityType: node
 bundle: secperson
@@ -669,6 +669,7 @@ content:
     region: content
 hidden:
   field_left_nav_person: true
+  langcode: true
   layout_builder__layout: true
   layout_selection: true
   panelizer: true

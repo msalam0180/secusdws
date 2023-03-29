@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class PageTopEvent.
+ *
+ * @HookEvent(id="page_top", hook="page_top")
  */
 class PageTopEvent extends Event implements EventInterface {
 

@@ -2,8 +2,8 @@
 
 namespace Drupal\hook_event_dispatcher\Manager;
 
-use Drupal\hook_event_dispatcher\Event\EventInterface;
 use Drupal\Component\EventDispatcher\Event;
+use Drupal\hook_event_dispatcher\Event\EventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -12,14 +12,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * Wrapper class for the external dispatcher dependency. If this ever changes
  * we only have to change it once.
  */
-final class HookEventDispatcherManager implements HookEventDispatcherManagerInterface {
+class HookEventDispatcherManager implements HookEventDispatcherManagerInterface {
 
   /**
    * The event dispatcher.
    *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
    */
-  private $eventDispatcher;
+  protected $eventDispatcher;
 
   /**
    * EntityDispatcherManager constructor.
@@ -35,6 +35,13 @@ final class HookEventDispatcherManager implements HookEventDispatcherManagerInte
    * {@inheritdoc}
    */
   public function register(EventInterface $event): Event {
+    assert($event instanceof Event);
+    // @phpstan-ignore-next-line
+    if ($event->isPropagationStopped()) {
+      return $event;
+    }
+
+    /** @var \Drupal\Component\EventDispatcher\Event */
     return $this->eventDispatcher->dispatch($event, $event->getDispatcherType());
   }
 

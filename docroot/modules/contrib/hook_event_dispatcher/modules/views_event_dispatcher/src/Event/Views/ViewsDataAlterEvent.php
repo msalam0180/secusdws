@@ -8,6 +8,8 @@ use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsDataAlterEvent.
+ *
+ * @HookEvent(id="views_data_alter", alter="views_data")
  */
 final class ViewsDataAlterEvent extends Event implements EventInterface {
 

@@ -1,0 +1,37 @@
+// Sass map of all downloadable file types supported on the site.
+// This is used to generate the selector below ($file-download-selector)
+// which is used in the link-add-icons() mixin (see _link-mixins.scss).
+$download-file-types: (
+  'doc',
+  'docx',
+  'pdf',
+  'ppt',
+  'pptx',
+  'xls',
+  'xlsx',
+);
+
+// Generate a list of attribute selectors to match the filetype list above
+// E.g. [href*=".doc"], [href*=".docx"], [href*=".pdf"], …
+//
+// Note: We’re using `href*=` instead of `href$=` to account for
+//       external links with query params (e.g. /example.pdf?foo=bar)
+//       This _could_ result in false positives (see examples below)
+//       but they seem highly unlikely.
+//       - sec.gov/not-a-file?foo=bar.pdf
+//       - doc.sec.gov/not-a-file/
+$file-download-selector: '';
+
+// Note: Use @for loop so we can get the index
+@for $i from 1 through length($download-file-types) {
+  $file-ext: nth($download-file-types, $i);
+
+  // Add a comma before appending the next filetype selector
+  @if $i > 1 {
+    $file-download-selector: $file-download-selector + ', ';
+  }
+
+  $file-download-selector: $file-download-selector + '[href*=".#{$file-ext}"]';
+}
+
+$file-download-selector: unquote($file-download-selector);

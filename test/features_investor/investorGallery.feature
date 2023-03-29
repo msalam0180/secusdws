@@ -7,15 +7,15 @@ Feature: Gallery Slideshow
 Background:
 
   Given I create "media" of type "video":
-    | field_media_video_file | field_video_origin | field_video                                 | mid     | field_caption  | field_transcript |
-    | BEHAT Bird Image       | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312  | Bird caption   | Transcript       |
-    | BEHAT Rabbit Image     | YouTube or Vimeo   | https://www.youtube.com/watch?v=fsSOMSTsM0o | 221313  | Rabbit caption |                  |
-    | BEHAT Cat Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=QIobikJiTuU | 312123  |                |                  |
-    | BEHAT Dog Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313  | Dog caption    |                  |
+      | name               | field_video_origin | field_video                                 | mid    | field_caption  | field_transcript |
+      | BEHAT Bird Image   | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption   | Transcript       |
+      | BEHAT Rabbit Image | youtubevimeo       | https://www.youtube.com/watch?v=fsSOMSTsM0o | 221313 | Rabbit caption |                  |
+      | BEHAT Cat Image    | youtubevimeo       | https://www.youtube.com/watch?v=QIobikJiTuU | 312123 |                |                  |
+      | BEHAT Dog Image    | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313 | Dog caption    |                  |
     And I create "media" of type "image":
-      | name              | field_media_image      | mid    | field_caption  |
-      | Gold Pig Tail     | behat-gold-pig.png     | 111112 | Pig Caption    |
-      | Black Rabbit Tail | behat-black_rabbit.jpg | 111113 | Rabbit Caption |
+      | name              | field_media_image      | mid    | field_caption        |
+      | Gold Pig Tail     | behat-gold-pig.png     | 111112 | Pig Caption          |
+      | Black Rabbit Tail | behat-black_rabbit.jpg | 111113 | Black Rabbit Caption |
     And I create "media" of type "audio":
       | field_media_audio_file | mid    | field_caption | field_transcript   | field_thumbnail    |
       | behat-zgbh0016.mp3     | 111115 | sampleaudio   | Testforaddingaudio | behat-bird.gif     |
@@ -71,7 +71,7 @@ Scenario: Create a Gallery
     And I am logged in as a user with the "Authenticated user" role
     And I visit "/behat-test-title"
     And "BEHAT Rabbit Image" should precede "BEHAT Bird Image" for the query "//div[contains(@class, 'media-box-title')]"
-    And I click on the element with css selector "#grid > div:nth-child(6) > div > button"
+    And I click on the element with css selector "#grid > div:nth-child(2) > div > button"
     And I press "Previous (Left arrow key)"
   Then I should see the text "bird caption"
   When I press "Next (Right arrow key)"
@@ -107,8 +107,8 @@ Scenario Outline: Show Gallery Titles and Captions
     And I scroll to the bottom
   Then I should <vid_title_flag> the text "BEHAT Dog Image"
     And I should <vid_caption_flag> the text "Dog caption"
-  When I click on the element with css selector "#grid > div:nth-child(5) > div > button"
-  Then I should <vid_caption_flag> the text "Dog caption" in the "inv_video_dog_caption" region
+  When I click on the element with css selector "#grid > div:nth-child(3) > div > button"
+  Then I should <vid_caption_flag> the text "Dog caption" in the "in_video_caption" region
 
     Examples:
       | Action1 | Action2 | vid_title_flag | vid_caption_flag |

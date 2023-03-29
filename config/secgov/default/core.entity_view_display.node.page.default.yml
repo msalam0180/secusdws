@@ -10,10 +10,6 @@ dependencies:
     - field.field.node.page.scheduling_options
     - node.type.page
   module:
-    - addtocalendar
-    - datetime
-    - ds
-    - empty_fields
     - panelizer
     - text
     - user
@@ -21,20 +17,6 @@ third_party_settings:
   panelizer:
     enable: false
     custom: false
-  ds:
-    layout:
-      id: node_details_layout
-      library: null
-      disable_css: false
-      entity_classes: all_classes
-      settings:
-        label: ''
-    regions:
-      main:
-        - workbench_moderation_control
-        - body
-      sidebar:
-        - field_date
 _core:
   default_config_hash: oZ-7vpIJxjxL2up9B5KrJGD0lazQ9aN0P-fIPo6OrSU
 id: node.page.default
@@ -47,58 +29,18 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
-    region: main
-  field_date:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: month_year
-    third_party_settings:
-      addtocalendar:
-        addtocalendar_settings:
-          style: '0'
-          display_text: 'Add to Calendar'
-          atc_title:
-            field: token
-            tokenized: Title
-          atc_description:
-            field: token
-            tokenized: Description
-          atc_location:
-            field: token
-            tokenized: Location
-          atc_organizer:
-            field: token
-            tokenized: 'U.S. Securities and Exchange Commission'
-          atc_organizer_email:
-            field: token
-            tokenized: no-reply@sec.gov
-          atc_date_end:
-            field: token
-            tokenized: ''
-          atc_privacy: public
-          data_secure: auto
-          data_calendars:
-            iCalendar: 0
-            'Google Calendar': 0
-            Outlook: 0
-            'Outlook Online': 0
-            'Yahoo! Calendar': 0
-        addtocalendar_show: 0
-      empty_fields:
-        handler: ''
-    weight: 0
-    region: sidebar
+    weight: 1
+    region: content
   workbench_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
-    region: main
+    weight: 0
+    region: content
 hidden:
+  field_date: true
   field_left_nav_override: true
   field_tags: true
+  langcode: true
   links: true
   scheduling_options: true
   search_api_excerpt: true

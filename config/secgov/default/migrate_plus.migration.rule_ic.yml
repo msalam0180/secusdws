@@ -13,14 +13,16 @@ migration_group: regulations
 label: 'Import of SEC SRO Rules'
 source:
   plugin: federal_register
-  id_field: file_num
   title_field: investment_company
   id_prefix: 'Investment Company Act Release No. '
   path: 'public://migration/icreleases_category.csv'
   header_offset: 0
   ids:
-    - file_num
+    - id
   fields:
+    -
+      name: id
+      label: id
     -
       name: category
       label: Category
@@ -63,7 +65,7 @@ process:
     plugin: default_value
     default_value: rule
   title: title
-  field_display_title: title
+  field_display_title: short_title
   body_text:
     -
       plugin: skip_on_contains

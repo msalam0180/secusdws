@@ -6,6 +6,7 @@ use Drupal\KernelTests\KernelTestBase;
 
 /**
  * Tests moderation state field.
+ *
  * @group workbench_moderation
  */
 class ModerationStateFieldTest extends KernelTestBase {
@@ -13,12 +14,18 @@ class ModerationStateFieldTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['workbench_moderation', 'node', 'views', 'options', 'user'];
+  protected static $modules = [
+    'workbench_moderation',
+    'node',
+    'views',
+    'options',
+    'user',
+  ];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('node');
   }

@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class FiletransferInfoAlterEvent.
+ *
+ * @HookEvent(id="file_transfer_info_alter", alter="filetransfer_info")
  */
 class FileTransferInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

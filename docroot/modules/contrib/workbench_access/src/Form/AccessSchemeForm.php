@@ -115,10 +115,11 @@ class AccessSchemeForm extends EntityForm {
       $access_scheme->getAccessScheme()
         ->submitConfigurationForm($form['scheme_settings'], $subform_state);
     }
-    $access_scheme->save();
     \Drupal::messenger()->addMessage($this->t('Saved the %label Access scheme.', [
       '%label' => $access_scheme->label(),
     ]));
+
+    return $access_scheme->save();
   }
 
 }

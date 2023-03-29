@@ -118,7 +118,7 @@ process:
     entity_type: taxonomy_term
     ignore_case: true
   field_article_type_secarticle:
-    plugin: entity_lookup
+    plugin: entity_generate
     access_check: 0
     entity_type: node
     bundle: article_type

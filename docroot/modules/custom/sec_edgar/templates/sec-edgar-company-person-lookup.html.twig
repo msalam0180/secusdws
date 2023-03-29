@@ -1,9 +1,18 @@
 {{ attach_library('sec_edgar/edgar-company-person') }}
-{{ attach_library('sec_custom_blocks/digitalgov_global_search') }}
+{{ attach_library('sec_edgar/smart_search') }}
 
-{# if you are currently working on this locally and you need to see the popup for styling etc, change this var to true. #}
+{# During Development: if you are currently working on this locally 
+	and you need to see the popup for styling etc, change this var to true. 
+	this will show the popup all the time #}
 {# Do NOT commit this as true!! #}
 {% set in_example_dropdown_visible = false %} {# false #}
+{# To fake the popup locally using example data, 
+		open /docroot/modules/custom/sec_edgar/js/smartSearch.js
+		and change the line 
+		var hintsURL = 'https://efts.sec.gov/LATEST/search-index';
+		to
+		var hintsURL = 'https://sec.lndo.site/modules/custom/sec_edgar/templates/examples/dropdown_button.json';
+ #}
 
 {% set content %}
 <div class="edgar-search-container">
@@ -14,11 +23,11 @@
 		<div class="form-item edgar-searchbox">
 			<label class="usa-label" for="name-ticket-symbol">Search By</label>
 			<div class="inline-form">
-				<input id="edgar-company-person" class="form-text usa-input" name="company" type="text" value title="Company and Person Lookup" aria-autocomplete="list" aria-haspopup="true" aria-invalid="false" aria-required="true" placeholder="Name, ticker symbol, or CIK" size="30" maxlength="255" autocomplete="off">
+				<div class="search-input-wrapper"><input id="edgar-company-person" class="form-text usa-input" name="company" type="text" value title="Company and Person Lookup" aria-autocomplete="list" aria-haspopup="true" aria-invalid="false" aria-required="true" placeholder="Name, ticker symbol, or CIK" size="30" maxlength="255" autocomplete="off"></div>
 				<button class="collapsed-submit usa-button" type="submit">Submit</button>
         {# Example code in the pop-up #}
         {% if in_example_dropdown_visible == true %}
-          {% include '@sec_edgar/templates/examples/dropdown_test_example_code.html.twig' %}
+          {% include '@sec_edgar/templates/examples/dropdown_test_example_code_v2.html.twig' %}
         {% endif %}
 			</div>
 		</div>

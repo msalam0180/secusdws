@@ -1,0 +1,24 @@
+uuid: 6029e481-b364-4380-a83f-5caeff6ed2f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_icon
+    - paragraphs.paragraphs_type.text_with_icon
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.text_with_icon.field_icon
+field_name: field_icon
+entity_type: paragraph
+bundle: text_with_icon
+label: Icon
+description: 'Select an icon from the <a href="/sec-styleguide/usa-icon" target="_blank">style guide</a> and then paste the copied text here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

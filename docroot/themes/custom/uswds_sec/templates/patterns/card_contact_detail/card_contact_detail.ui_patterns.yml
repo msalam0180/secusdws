@@ -1,0 +1,39 @@
+card_contact_detail:
+  label: Contact Card Details
+  description: Contace details for the contact card
+  fields:
+    email:
+      type: text
+      label: Email
+      description: Optional email
+      preview: CommissionerLizarraga@sec.gov
+    phone:
+      type: text
+      label: phone
+      description: Optional phone number
+      preview: 202-555-1234
+    fax:
+      type: text
+      label: fax
+      description: Optional fax number
+      preview: 202-555-9876
+    custom_link:
+      type: text
+      label: Custom Link
+      description: Custom link
+      preview: Custom link
+    custom_text:
+      type: text
+      label: Custom Text
+      description: Custom text
+      preview: Custom text contact
+    icon:
+      type: text
+      label: Icon
+      description: Icon name from USWDS
+      preview: account_box
+    address:
+      type: text
+      label: Address
+      description: Address
+      preview: "100 F Street, NE Washington, DC 20549"

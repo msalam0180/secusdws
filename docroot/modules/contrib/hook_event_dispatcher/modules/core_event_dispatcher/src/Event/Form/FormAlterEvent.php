@@ -6,6 +6,8 @@ use Drupal\core_event_dispatcher\FormHookEvents;
 
 /**
  * Class FormAlterEvent.
+ *
+ * @HookEvent(id="form_alter", alter="form")
  */
 class FormAlterEvent extends AbstractFormEvent {
 

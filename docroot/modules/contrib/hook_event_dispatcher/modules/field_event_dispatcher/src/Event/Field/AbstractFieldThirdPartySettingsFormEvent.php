@@ -7,11 +7,12 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
 use Drupal\Component\EventDispatcher\Event;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class AbstractFieldThirdPartySettingsFormEvent.
  */
-abstract class AbstractFieldThirdPartySettingsFormEvent extends Event implements EventInterface {
+abstract class AbstractFieldThirdPartySettingsFormEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * The field definition.
@@ -102,6 +103,13 @@ abstract class AbstractFieldThirdPartySettingsFormEvent extends Event implements
         $moduleName => $newElements,
       ]
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getElements();
   }
 
 }

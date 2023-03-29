@@ -5,11 +5,14 @@ namespace Drupal\core_event_dispatcher\Event\File;
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\core_event_dispatcher\FileHookEvents;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class FileDownloadEvent.
+ *
+ * @HookEvent(id="file_download", hook="file_download")
  */
-class FileDownloadEvent extends Event implements EventInterface {
+class FileDownloadEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * Forbids the download if set to TRUE.
@@ -79,10 +82,27 @@ class FileDownloadEvent extends Event implements EventInterface {
   }
 
   /**
+   * Gets the URI from the file.
+   *
+   * @return string
+   *   The URI of the file.
+   */
+  public function getUri(): string {
+    return $this->uri;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDispatcherType(): string {
     return FileHookEvents::FILE_DOWNLOAD;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->isForbidden() ? -1 : $this->getHeaders();
   }
 
 }

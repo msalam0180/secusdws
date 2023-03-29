@@ -8,6 +8,8 @@ use Drupal\toolbar_event_dispatcher\ToolbarHookEvents;
 
 /**
  * Class ToolbarAlterEvent.
+ *
+ * @HookEvent(id="toolbar_alter", alter="toolbar")
  */
 class ToolbarAlterEvent extends Event implements EventInterface {
 

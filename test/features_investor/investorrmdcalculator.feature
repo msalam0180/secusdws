@@ -17,7 +17,7 @@ Scenario Outline: RMD Calculations
 
   Examples:
      | previousyear | age_at_year_end | withdrawal_factor | required_minimum_distribution |
-     | 5000000      | 72              | 27.4              | $182,481.75                   |
+     | 5000000      | 73              | 26.5              | $188,679.25                   |
      | 400000       | 83              | 17.7              | $22,598.87                    |
      | 350000       | 94              | 9.5               | $36,842.11                    |
      | 250000       | 105             | 4.6               | $54,347.83                    |
@@ -53,3 +53,8 @@ Scenario: RMD Calculation Required Fields and Reset
     And I scroll "#rmd-calculator-form" into view
   Then I should not see an "#rmd-calc-wrapper > div:nth-child(1) > div" element
     And I should not see the text "2 errors have been found:"
+
+@api
+Scenario: Verify Age at Year-End Drop Down List does not contain unwanted values
+  When I am on "/financial-tools-calculators/calculators/required-minimum-distribution-calculator"
+  Then the "select" element should not contain "72"

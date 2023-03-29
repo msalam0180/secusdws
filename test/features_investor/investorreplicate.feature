@@ -215,10 +215,10 @@ Scenario: Replicate Glossary Term Content
 @api @javascript @investor
 Scenario: Replicate Gallery Content
   Given I create "media" of type "video":
-    | field_media_video_file | field_video_origin | field_video                                 | mid    | field_caption | field_transcript |
-    | BEHAT Bird Image       | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
-    | BEHAT Cat Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=QIobikJiTuU | 312123 |               |                  |
-    | BEHAT Dog Image        | YouTube or Vimeo   | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313 | Dog caption   |                  |
+      | name             | field_video_origin | field_video                                 | mid    | field_caption | field_transcript |
+      | BEHAT Bird Image | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 112312 | Bird caption  | Transcript       |
+      | BEHAT Cat Image  | youtubevimeo       | https://www.youtube.com/watch?v=QIobikJiTuU | 312123 |               |                  |
+      | BEHAT Dog Image  | youtubevimeo       | https://www.youtube.com/watch?v=xf9BpXOtMcc | 412313 | Dog caption   |                  |
     And I create "media" of type "image":
       | name              | field_media_image      | mid    | field_caption  |
       | Black Rabbit Tail | behat-black_rabbit.jpg | 111113 | Rabbit Caption |

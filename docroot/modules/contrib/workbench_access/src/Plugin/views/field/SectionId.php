@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use Drupal\workbench_access\Entity\AccessSchemeInterface;
+use Drupal\workbench_access\Entity\SectionAssociationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,7 +26,10 @@ class SectionId extends FieldPluginBase {
     $form['output_format'] = [
       '#type' => 'select',
       '#title' => $this->t('Output format'),
-      '#options' => ['label' => $this->t('Section label'), 'id' => $this->t('Section id')],
+      '#options' => [
+        'label' => $this->t('Section label'),
+        'id' => $this->t('Section id')
+      ],
       '#default_value' => $this->options['output_format'],
     ];
     $form['make_link'] = [
@@ -65,24 +68,30 @@ class SectionId extends FieldPluginBase {
   public function render(ResultRow $values) {
     $value = '';
     if ($entity = $this->getEntity($values)) {
-      $scheme_id = $entity->getSchemeId();
-      $section_id = $entity->get('section_id')->value;
-      // @TODO: We need a helper method or service for this lookup.
-      $scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load($scheme_id)->getAccessScheme();
-      if ($section = $scheme->load($section_id)) {
-        if ($this->options['make_link'] && isset($section['path'])) {
-          // Sigh. THe views handlers expect URLs in different formats.
-          $this->options['alter']['url'] = Url::fromUserInput('/' . trim($section['path'], '/'));
-          $this->options['alter']['make_link'] = TRUE;
-        }
-        if ($this->options['output_format'] == 'label') {
-          $value = $this->sanitizeValue($section['label']);
-        }
-        else {
-          $value = $this->sanitizeValue($section_id);
+      if ($entity instanceof SectionAssociationInterface) {
+        $scheme_id = $entity->getSchemeId();
+        $section_id = $entity->get('section_id')->value;
+        // @TODO: We need a helper method or service for this lookup.
+        $scheme = \Drupal::entityTypeManager()
+          ->getStorage('access_scheme')
+          ->load($scheme_id)
+          ->getAccessScheme();
+        if ($section = $scheme->load($section_id)) {
+          if ($this->options['make_link'] && isset($section['path'])) {
+            // Sigh. THe views handlers expect URLs in different formats.
+            $this->options['alter']['url'] = Url::fromUserInput('/' . trim($section['path'], '/'));
+            $this->options['alter']['make_link'] = TRUE;
+          }
+          if ($this->options['output_format'] === 'label') {
+            $value = $this->sanitizeValue($section['label']);
+          }
+          else {
+            $value = $this->sanitizeValue($section_id);
+          }
         }
       }
     }
+
     return $value;
   }
 

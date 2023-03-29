@@ -26,6 +26,7 @@ class LayoutBuilderIntegrationTest extends BrowserTestBase {
   protected static $modules = [
     'core_context',
     'core_context_test',
+    'field_ui',
     'layout_builder',
     'node',
   ];
@@ -33,7 +34,7 @@ class LayoutBuilderIntegrationTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->drupalCreateContentType(['type' => 'page']);
@@ -60,7 +61,7 @@ class LayoutBuilderIntegrationTest extends BrowserTestBase {
    *   The sets of arguments to pass to ::test().
    */
   public function provider() {
-    return [
+    $scenarios = [
       'context values in third-party entity display settings' => [
         'block_configuration' => [
           'id' => 'context_block',
@@ -186,7 +187,14 @@ class LayoutBuilderIntegrationTest extends BrowserTestBase {
           ],
         ],
       ],
-      'context values in block plugin configuration' => [
+    ];
+    // If \Drupal\Component\Plugin\ContextAwarePluginBase exists, test passing
+    // context values in plugin configuration. Support was this was dropped in
+    // Drupal 10, so we can remove this entire block when Drupal 9 is no longer
+    // supported.
+    // @see https://www.drupal.org/node/3120980
+    if (class_exists('\Drupal\Component\Plugin\ContextAwarePluginBase')) {
+      $scenarios['context values in block plugin configuration'] = [
         'block_configuration' => [
           'id' => 'context_block',
           'context' => [
@@ -197,8 +205,9 @@ class LayoutBuilderIntegrationTest extends BrowserTestBase {
         'layout_overridable' => FALSE,
         'third_party_contexts' => [],
         'entity_values' => [],
-      ],
-    ];
+      ];
+    }
+    return $scenarios;
   }
 
   /**

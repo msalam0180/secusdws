@@ -290,8 +290,8 @@ function sec_releases_preprocess_field(&$variables) {
           if ($field_name == 'field_submit_comments'){
             $file_number = "";
             if (!empty($entity->field_file_number->entity)) {
-              $file_number = " on " . $entity->field_file_number->entity->label();       
-            }     
+              $file_number = " on " . $entity->field_file_number->entity->label();
+            }
             $variables['items'][$key]['content']['#title'] = "Submit A Comment" . $file_number;
           }
          }
@@ -398,7 +398,29 @@ function sec_releases_views_query_alter(ViewExecutable $view, QueryPluginBase $q
       'field' => 'rule_nfd.publish_date',
       'direction' => 'DESC',
     );
+  }
+  elseif ($view->id() == 'sro_rules' && $view->current_display == "sro_national_security_exchanges_page") {
+    $nse_name = "National Securities Exchanges";
+    $sro_vid = "sro_organization";
 
+    $nse_terms =  \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', $sro_vid)
+    ->condition('field_category.entity.name', $nse_name)
+    ->execute();
+
+    if (!empty($nse_terms)) {
+      $join_array = [
+        'table' => 'node__field_sro_organization',
+        'field' => 'entity_id',
+        'left_table' => 'node__field_related_rule',
+        'left_field' => 'entity_id',
+      ];
+      $join = \Drupal::service('plugin.manager.views.join')
+        ->createInstance('standard', $join_array);
+
+      $query->addRelationship('sr_sro', $join, 'node__field_related_rule');
+      $query->addWhere('AND','sr_sro.field_sro_organization_target_id', $nse_terms, 'IN');
+    }
   }
 }
 

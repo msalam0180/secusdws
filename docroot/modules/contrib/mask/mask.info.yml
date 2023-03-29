@@ -5,7 +5,7 @@ type: module
 core_version_requirement: ^9.2 || ^10
 configure: mask.settings
 
-# Information added by Drupal.org packaging script on 2023-01-21
-version: '2.0.0-alpha2'
+# Information added by Drupal.org packaging script on 2023-03-14
+version: '2.0.0-alpha3'
 project: 'mask'
-datestamp: 1674313634
+datestamp: 1678789643

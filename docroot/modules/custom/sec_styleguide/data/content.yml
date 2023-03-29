@@ -54,11 +54,11 @@ content_config:
 
   params:
     accordion:
-      - title: Default
+      - title: Variant One
         style: default
         id: acc_p1
         modifier: ""
-      - title: Gray
+      - title: Variant Two
         style: default
         color: gray
         id: acc_p2

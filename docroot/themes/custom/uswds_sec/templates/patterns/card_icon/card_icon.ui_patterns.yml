@@ -12,9 +12,9 @@ card_icon:
       label: Icon
       description: Icon name from USWDS
       preview: chat
-    description:
+    body:
       type: text
-      label: Description
+      label: Body
       description: Short description
       preview: Comment on proposed rules and other Commission initiatives
     footer:

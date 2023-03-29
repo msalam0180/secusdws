@@ -11,7 +11,9 @@ use Drupal\node\Entity\Node;
 class WorkbenchPreprocess {
 
   /**
-   * @var \Drupal\Core\Routing\CurrentRouteMatch $routeMatch
+   * Current route match.
+   *
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
    */
   protected $routeMatch;
 
@@ -44,7 +46,7 @@ class WorkbenchPreprocess {
    *   A node.
    *
    * @return bool
-   *  True if the current route is the latest version tab of the given node.
+   *   True if the current route is the latest version tab of the given node.
    */
   public function isLatestVersionPage(Node $node) {
     return $this->routeMatch->getRouteName() == 'entity.node.latest_version'

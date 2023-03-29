@@ -9,6 +9,11 @@ use Drupal\user_event_dispatcher\UserHookEvents;
 
 /**
  * Class UserFormatNameAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "user_format_name_alter",
+ *   alter = "user_format_name"
+ * )
  */
 final class UserFormatNameAlterEvent extends Event implements EventInterface {
 

@@ -1,0 +1,37 @@
+uuid: 671815ed-1f90-4506-853c-1b9b96313eb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_number.field_phone_number
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - ds
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_contact_detail
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      phone:
+        - field_phone_number
+id: paragraph.phone_number.default
+targetEntityType: paragraph
+bundle: phone_number
+mode: default
+content:
+  field_phone_number:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: phone
+hidden:
+  search_api_excerpt: true

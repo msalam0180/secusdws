@@ -23,7 +23,7 @@ class WorkbenchAccessTokens {
   use StringTranslationTrait;
 
   /**
-   * The core token service
+   * The core token service.
    *
    * @var \Drupal\Core\Utility\Token
    */
@@ -53,18 +53,16 @@ class WorkbenchAccessTokens {
   /**
    * Constructs a WorkbenchAccessTokens object.
    *
-   * '@token', '@entity_type.manager', '@workbench_access.user_section_storage', '@module_handler'
-   *
    * @param \Drupal\Core\Utility\Token $token_service
    *   The core token service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The core module handler.
    * @param \Drupal\workbench_access\UserSectionStorageInterface $user_section_storage
    *   The workbench access user section storage service.
    */
-  public function __construct(Token $token_service, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler,  UserSectionStorageInterface $user_section_storage) {
+  public function __construct(Token $token_service, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, UserSectionStorageInterface $user_section_storage) {
     $this->tokenService = $token_service;
     $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;

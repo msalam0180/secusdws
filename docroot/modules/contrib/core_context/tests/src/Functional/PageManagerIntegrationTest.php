@@ -7,7 +7,7 @@ use Drupal\Tests\BrowserTestBase;
 /**
  * @group core_context
  *
- * @requires page_manager
+ * @requires module page_manager
  */
 class PageManagerIntegrationTest extends BrowserTestBase {
 

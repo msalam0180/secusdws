@@ -6,6 +6,8 @@ use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsPreBuildEvent.
+ *
+ * @HookEvent(id="views_pre_build", hook="views_pre_build")
  */
 class ViewsPreBuildEvent extends AbstractViewsEvent {
 

@@ -983,3 +983,6 @@ if (file_exists('../acquia-files/nobackup/apikeys/wts_apikey.php')) {
 }
 
 $databases['migrate']['default'] = $databases['default']['default'];
+
+//add title length setting for nodes
+$settings['node_title_length_chars'] = 2048;

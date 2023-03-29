@@ -9,6 +9,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class WidgetSingleElementFormAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "widget_single_element_form_alter",
+ *   alter = "field_widget_single_element_form"
+ * )
  */
 class WidgetSingleElementFormAlterEvent extends Event implements EventInterface {
 

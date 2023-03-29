@@ -48,4 +48,5 @@ hidden:
   field_description: true
   field_page_title: true
   field_release_path: true
+  langcode: true
   search_api_excerpt: true

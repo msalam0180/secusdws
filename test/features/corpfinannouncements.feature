@@ -141,12 +141,11 @@ Feature: CorpFin Announcement List Page
     When I am logged in as a user with the "content_approver" role
       And I visit "/admin/content"
       And I click "Edit" in the "Verify PDF file having article type as announcement and Corporate Finance as Division" row
-      And I wait 2 seconds
       And I select the first autocomplete option for "Behat Test File" on the "Use existing media" field
-      And I wait 2 seconds
       And I publish it
-    When I am on "/corpfin/announcements"
-      And I should see the text "Verify PDF file having article type as announcement and Corporate Finance as Division"
-      And I click "Verify PDF file having article type as announcement and Corporate Finance as Division"
+      And I am not logged in
+      And I am on "/corpfin/announcements"
+    Then I should see the text "Verify PDF file having article type as announcement and Corporate Finance as Division"
+    When I click "Verify PDF file having article type as announcement and Corporate Finance as Division"
       And I wait 2 seconds
     Then I should be on "/files/behat-file_corpfin.pdf"

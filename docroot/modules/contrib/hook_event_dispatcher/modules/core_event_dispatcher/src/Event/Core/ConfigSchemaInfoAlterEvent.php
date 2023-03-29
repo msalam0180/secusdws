@@ -7,6 +7,11 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class ConfigSchemaInfoAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "config_schema_info_alter",
+ *   alter = "config_schema_info",
+ * )
  */
 class ConfigSchemaInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

@@ -30,7 +30,7 @@ class RmdCalculatorForm extends FormBase {
 
     // Build options array for age dropdown.
     $age_options = [];
-    for ($i = 72; $i <= 120; $i++) {
+    for ($i = 73; $i <= 120; $i++) {
       // See OSSS-17667
       switch ($i) {
         // Display option text value as 120+

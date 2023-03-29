@@ -9,7 +9,6 @@ dependencies:
     - field.storage.node.field_list_page_det_secarticle
     - field.storage.node.field_publish_date
     - node.type.secarticle
-    - user.role.authenticated
   module:
     - datetime
     - file
@@ -449,10 +448,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            authenticated: authenticated
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
@@ -729,7 +727,7 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_media_file'
         - 'config:field.storage.node.field_alternate_title_secarticle'
@@ -801,7 +799,7 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_media_file'
         - 'config:field.storage.node.field_alternate_title_secarticle'
@@ -954,7 +952,7 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_media_file'
         - 'config:field.storage.node.field_alternate_title_secarticle'

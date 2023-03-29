@@ -1,0 +1,25 @@
+uuid: 3539646a-7776-4201-a9cf-4d6f68291f69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_phone_number
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - field_config_cardinality
+    - telephone
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.phone_number.field_phone_number
+field_name: field_phone_number
+entity_type: paragraph
+bundle: phone_number
+label: 'Phone Number'
+description: 'ex. 212-123-4567'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

@@ -1,0 +1,10 @@
+uuid: 2fbf66de-c181-4d6a-bc6d-f9e1a05b7584
+langcode: en
+status: true
+dependencies: {  }
+id: address
+label: Address
+icon_uuid: null
+icon_default: null
+description: 'Address field for the Contact Card.'
+behavior_plugins: {  }

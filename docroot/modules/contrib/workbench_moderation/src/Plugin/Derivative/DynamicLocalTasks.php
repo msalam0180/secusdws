@@ -20,7 +20,7 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
   use StringTranslationTrait;
 
   /**
-   * The base plugin ID
+   * The base plugin ID.
    *
    * @var string
    */
@@ -68,12 +68,12 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
 
     foreach ($this->moderatableEntityTypeDefinitions() as $entity_type_id => $entity_type) {
       $this->derivatives["$entity_type_id.moderation_tab"] = [
-          'route_name' => "entity.$entity_type_id.moderation",
-          'title' => $this->t('Manage moderation'),
+        'route_name' => "entity.$entity_type_id.moderation",
+        'title' => $this->t('Manage moderation'),
           // @todo - are we sure they all have an edit_form?
-          'base_route' => "entity.$entity_type_id.edit_form",
-          'weight' => 30,
-        ] + $base_plugin_definition;
+        'base_route' => "entity.$entity_type_id.edit_form",
+        'weight' => 30,
+      ] + $base_plugin_definition;
     }
 
     $latest_version_entities = array_filter($this->moderatableEntityDefinitions(), function (EntityTypeInterface $type) {
@@ -82,11 +82,11 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
 
     foreach ($latest_version_entities as $entity_type_id => $entity_type) {
       $this->derivatives["$entity_type_id.latest_version_tab"] = [
-          'route_name' => "entity.$entity_type_id.latest_version",
-          'title' => $this->t('Latest version'),
-          'base_route' => "entity.$entity_type_id.canonical",
-          'weight' => 1,
-        ] + $base_plugin_definition;
+        'route_name' => "entity.$entity_type_id.latest_version",
+        'title' => $this->t('Latest version'),
+        'base_route' => "entity.$entity_type_id.canonical",
+        'weight' => 1,
+      ] + $base_plugin_definition;
     }
 
     return $this->derivatives;
@@ -95,7 +95,7 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
   /**
    * Returns an array of content entities that are potentially moderateable.
    *
-   * @return EntityTypeInterface[]
+   * @return \Drupal\Core\Entity\EntityTypeInterface[]
    *   An array of just those entities we care about.
    */
   protected function moderatableEntityDefinitions() {
@@ -107,9 +107,9 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
   }
 
   /**
-   * Returns an iterable of the config entities representing moderatable content.
+   * Returns an iterable of config entities representing moderatable content.
    *
-   * @return EntityTypeInterface[]
+   * @return \Drupal\Core\Entity\EntityTypeInterface[]
    *   An array of just those entity types we care about.
    */
   protected function moderatableEntityTypeDefinitions() {
@@ -121,4 +121,5 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
         && $entity_types[$bundle_of]->isRevisionable();
     });
   }
+
 }

@@ -3,14 +3,17 @@
 //------------------------------------------------------------------------
 .header {
   $selector: &;
-  $bp-medium: 740px;
-  $bp-wide: $layout-nav-bp;
+  $bp-medium: $layout-header-bp-medium;
+  $bp-wide: $layout-header-bp-wide;
+  $padding-horz: $layout-header-padding-horz;
   $header-wrap-padding: 9px 15px 9px 12px;// needs to be applied in two places
   $header-wrap-padding-medium: 16px 36px 16px 22px;// needs to be applied in two places
+  background-color: #fff;
 
   // Mobile sticky styling
   @include max-width($bp-wide - 1px) {
     @media (prefers-reduced-motion: no-preference) {
+      box-shadow: $card-box-shadow-desktop;
       left: 0;
       position: sticky;
       top: 0;
@@ -29,9 +32,15 @@
 
   // Desktop sticky header
   @include min-width($bp-wide) {
+    border-bottom: 1px solid $border-gray-dark;
 
     &.slide-down {
       @include slideDown;
+
+      // Don’t animate when logged into Drupal
+      .user-logged-in & {
+        animation: none;
+      }
     }
 
     // This is janky when scrolling up quickly
@@ -41,14 +50,20 @@
 
     &.is-stuck {
       box-shadow: $card-box-shadow-desktop;
+      left: 0;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: $z-header;
+
+      // Don’t stick when logged into Drupal to avoid issues
+      // with Drupal’s own sticky header.
+      .user-logged-in & {
+        position: static;
+      }
 
       @media (prefers-reduced-motion: no-preference) {
-        left: 0;
-        position: sticky;
-        top: 0;
         transition: transform 300ms ease-in-out;
-        width: 100%;
-        z-index: $z-header;
       }
     }
   }
@@ -72,11 +87,6 @@
     margin-left: auto;
     margin-right: auto;
     max-width: rem($layout-max-width-global);
-    //z-index: $z-nav + 1;// over mobile nav
-
-    // @include max-width($bp-wide - 1px) {
-    //   height: var(--header-height);
-    // }
 
     @include max-width($bp-medium - 1px) {
       padding: $header-wrap-padding;
@@ -87,14 +97,13 @@
     }
 
     @include min-width($bp-wide) {
-      // display: flex;
-      // flex-direction: column;
       display: grid;
       grid-template-columns: 367px auto;
       grid-template-rows: 2;
       grid-template-areas:
         "logo secondary"
         "nav nav";
+      max-width: rem($layout-max-width-global + ($padding-horz * 2));
       padding-top: 28px;
 
       .is-stuck & {
@@ -112,7 +121,7 @@
 
       @include min-width($bp-wide) {
         grid-area: logo;
-        padding-left: 28px;
+        padding-left: $padding-horz;
       }
     }
   }
@@ -265,13 +274,13 @@
   }
 
   &__search {
-    $horz-padding: 15px;
+    $horz-padding-mobile: 15px;
 
     @include max-width($bp-wide - 1px) {
       margin: 15px auto 35px;
-      max-width: rem(346px + ($horz-padding * 2));
-      padding-left: $horz-padding;
-      padding-right: $horz-padding;
+      max-width: rem(346px + ($horz-padding-mobile * 2));
+      padding-left: $horz-padding-mobile;
+      padding-right: $horz-padding-mobile;
       width: 100%;
     }
 
@@ -286,8 +295,17 @@
     }
 
     .search--group {
+      position: relative;// for smart search popup
+
       @include max-width($bp-wide - 1px) {
         width: 100%;
+      }
+    }
+
+    .search-input-wrapper {
+      flex-grow: 1;
+      input {
+        height: 100%;
       }
     }
 
@@ -303,6 +321,8 @@
       font-weight: bold;
       height: auto;// [3]
       padding: rem(15px 12px);
+      position: relative;
+      z-index: 2;// above smart search menu
 
       @include min-width($bp-wide) {
         padding-bottom: rem(10px);
@@ -328,25 +348,32 @@
   }
 
   &__nav-primary {
-    @include max-width($bp-wide - 1px) {
-      align-items: center;
-    }
+    align-items: center;
 
     @include min-width($bp-wide) {
-      align-items: center;
-      border-top: 1px solid $border-gray-medium;
       grid-area: nav;
       margin-top: 28px;
       order: 3;// move to bottom
-      padding-left: 16px;
-      padding-right: 28px;
+      padding-left: $padding-horz;
+      padding-right: $padding-horz;
 
       .is-stuck & {
         margin-top: rem(7px);
       }
+
+      // Full-width horz line
+      &:before {
+        border-top: 1px solid $border-gray-dark;
+        content: '';
+        left: 50%;
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        width: 100vw;
+      }
     }
 
-    // Wrapper around primary nav list
+    // Wrapper around primary nav list added by Drupal
     .region-primary-menu {
       @include max-width($bp-wide - 1px) {
         width: 100%;
@@ -435,8 +462,9 @@
       display: flex;
       flex-direction: column;
       grid-area: secondary;
-      padding-left: 28px;
-      padding-right: 28px;
+      padding-left: $padding-horz;
+      padding-right: $padding-horz;
+      z-index: $z-nav + 1;// allows smart search menu to overlap nav
 
       .is-stuck & {
         align-items: center;

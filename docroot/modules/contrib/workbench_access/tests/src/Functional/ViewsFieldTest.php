@@ -16,6 +16,13 @@ use Drupal\workbench_access\Entity\AccessScheme;
 class ViewsFieldTest extends BrowserTestBase {
 
   /**
+   * The default theme.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Test terms.
    *
    * @var \Drupal\taxonomy\TermInterface[]
@@ -74,7 +81,7 @@ class ViewsFieldTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create some sections and some nodes in them.
     $sections = [

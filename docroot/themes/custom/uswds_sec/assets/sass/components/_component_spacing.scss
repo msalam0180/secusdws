@@ -3,18 +3,27 @@
 //------------------------------------------------------------------------
 
 // Added temporary spacing between components for demo purposes
+// NOTE: Use :where() to keep specificity low so we can more
+//       easily override margins at the component level.
 
 // Layout builder blocks
-.layout__region--content .block {
-  margin: 20px 0;
+:where(.layout__region--content .block) {
+  margin-bottom: rem(20px);
+  margin-top: rem(20px);
 }
 
-// component block && Content paragraph field
+// Homepage hero wrapper
+.block--type-hero {
+  margin-bottom: 0;
+  margin-top: 0;
+}
 
-.field--name-field-text, // Custom Block: Component Block - Component paragraph field
-.field--name-field-content // Node: Content paragraph field
- {
+// Custom Block: Component Block - Component paragraph field
+.field--name-field-text,
+// Node: Content paragraph field
+.field--name-field-content {
   & > .field__item {
-    margin: 20px 0;
+    margin-bottom: rem(20px);
+    margin-top: rem(20px);
   }
 }

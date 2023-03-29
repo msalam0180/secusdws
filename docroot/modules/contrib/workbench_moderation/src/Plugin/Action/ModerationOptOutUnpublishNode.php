@@ -18,10 +18,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ModerationOptOutUnpublishNode extends UnpublishAction implements ContainerFactoryPluginInterface {
 
   /**
+   * Moderation information.
+   *
    * @var \Drupal\workbench_moderation\ModerationInformationInterface
    */
   protected $moderationInfo;
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ModerationInformationInterface $mod_info, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
     $this->moderationInfo = $mod_info;
@@ -31,11 +36,11 @@ class ModerationOptOutUnpublishNode extends UnpublishAction implements Container
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-   return new static(
+    return new static(
      $configuration, $plugin_id, $plugin_definition,
      $container->get('workbench_moderation.moderation_information'),
      $container->get('entity_type.manager')
-   );
+    );
   }
 
   /**
@@ -59,4 +64,5 @@ class ModerationOptOutUnpublishNode extends UnpublishAction implements Container
 
     return $return_as_object ? $result : $result->isAllowed();
   }
+
 }

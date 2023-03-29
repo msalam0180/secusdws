@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class MailAlterEvent.
+ *
+ * @HookEvent(id="mail_alter", alter="mail")
  */
 class MailAlterEvent extends Event implements EventInterface {
 

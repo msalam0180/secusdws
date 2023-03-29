@@ -1,0 +1,39 @@
+uuid: 897a4608-97ce-443c-a01d-5985e2cdd767
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.email.field_email
+    - paragraphs.paragraphs_type.email
+  module:
+    - ds
+    - empty_fields
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_contact_detail
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      email:
+        - field_email
+id: paragraph.email.default
+targetEntityType: paragraph
+bundle: email
+mode: default
+content:
+  field_email:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: email
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,27 @@
+uuid: cf49a0a8-9480-45b6-a279-4d4dfa1c4282
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_cards_per_row
+    - paragraphs.paragraphs_type.contact_cards
+  module:
+    - field_config_cardinality
+    - options
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.contact_cards.field_cards_per_row
+field_name: field_cards_per_row
+entity_type: paragraph
+bundle: contact_cards
+label: 'Cards per Row'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 3
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

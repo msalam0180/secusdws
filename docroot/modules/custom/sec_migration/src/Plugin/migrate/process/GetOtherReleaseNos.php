@@ -40,21 +40,26 @@ class GetOtherReleaseNos extends ProcessPluginBase {
     $returnArr[] = $id;
 
     //next we search using regular expressions for various formats of release numbers in source data
-    $regex = "/(?s)(Other Release Nos\.:?|Release No\.:?|Release Nos\.:?|Other Release No\.:?) (.+?) ?(?=Note|See|\)|Effective|Comments|Federal Register|Compliance|\(|File No|$)/i";
+    $regex = "/(?s)(Other Release Nos\.:?|Release No\.:?|Release Nos\.:?|Other Rel\. Nos?\.:?|Other Release No\.:?) (.+?) ?(?=Note|See|\)|Effective|Comments|Federal Register|Compliance|\(|File No|$)/i";
     preg_match_all($regex, $value, $matches);
+    
     if (!empty($matches) && !empty($matches[2])) {
       foreach ($matches[2] as $rn) {
-        $rn = rtrim($rn,";");
-        //if this is a delimited list of releases, add them all in
-        if (strpos($rn, ";")) {
-          $returnArr = array_merge($returnArr, explode(";", $rn));
-        } else if (strpos($rn, ",")) {
-          $returnArr = array_merge($returnArr, explode(",", $rn));
-        } else if (preg_match("/\w{1,4}-\d+/i", $rn)) {
-          array_push($returnArr, $rn);
+        //exclude Press Release numbers
+        if (!empty($rn) && !str_contains($value, "Press Release No. " . $rn)) {
+          $rn = rtrim($rn,";");
+          //if this is a delimited list of releases, add them all in
+          if (strpos($rn, ";")) {
+            $returnArr = array_merge($returnArr, explode(";", $rn));
+          } else if (strpos($rn, ",")) {
+            $returnArr = array_merge($returnArr, explode(",", $rn));
+          } else if (preg_match("/\w{1,4}-\d+/i", $rn)) {
+            array_push($returnArr, $rn);
+          }
         }
       }
     }
+
     //check if theres an AAER for this ID
     $aaer = \Drupal::database()->query('SELECT id FROM {aaer} WHERE respondents like :id', [':id' => "%$id%"])->fetchField();
     if (!empty($aaer)) {

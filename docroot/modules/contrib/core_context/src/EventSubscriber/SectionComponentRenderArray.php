@@ -86,6 +86,9 @@ final class SectionComponentRenderArray implements EventSubscriberInterface {
     // If the section storage is overriding another one, the contexts provided
     // by the override should be overlaid on top of the ones provided by the
     // underlying default.
+    if (is_null($section_storage)) {
+      return;
+    }
     $contexts = $this->getContextsFromSectionStorage($section_storage);
     while ($section_storage instanceof OverridesSectionStorageInterface) {
       $section_storage = $section_storage->getDefaultSectionStorage();

@@ -102,12 +102,6 @@ filters:
     weight: -46
     settings:
       title: true
-  filter_sec_linkit_alter:
-    id: filter_sec_linkit_alter
-    provider: sec_linkit_alter
-    status: false
-    weight: -42
-    settings: {  }
   media_embed:
     id: media_embed
     provider: media
@@ -117,3 +111,9 @@ filters:
       default_view_mode: full
       allowed_view_modes: {  }
       allowed_media_types: {  }
+  filter_sec_linkit_alter:
+    id: filter_sec_linkit_alter
+    provider: sec_linkit_alter
+    status: false
+    weight: -42
+    settings: {  }

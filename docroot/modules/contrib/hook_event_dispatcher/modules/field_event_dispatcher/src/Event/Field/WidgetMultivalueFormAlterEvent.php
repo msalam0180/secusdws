@@ -12,8 +12,10 @@ use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
  *
  * @see https://www.drupal.org/node/3180429
  * @see \Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent
+ *
+ * @HookEvent(id="widget_multivalue_form_alter", alter="widget_multivalue_form")
  */
-class WidgetMultivalueFormAlterEvent extends WidgetCompleteFormAlterEvent {
+final class WidgetMultivalueFormAlterEvent extends WidgetCompleteFormAlterEvent {
 
   /**
    * {@inheritdoc}

@@ -19,7 +19,7 @@ interface HookEventDispatcherManagerInterface {
    * @param \Drupal\hook_event_dispatcher\Event\EventInterface $event
    *   The event.
    *
-   * @return \Symfony\Component\EventDispatcher\Event
+   * @return \Drupal\Component\EventDispatcher\Event
    *   The event.
    */
   public function register(EventInterface $event): Event;

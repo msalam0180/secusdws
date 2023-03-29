@@ -4,6 +4,8 @@ namespace Drupal\webform_event_dispatcher\Event\WebformElement;
 
 /**
  * Class WebformElementTypeAlterEvent.
+ *
+ * @HookEvent(id="webform_element_type_alter", alter="webform_element")
  */
 class WebformElementTypeAlterEvent extends WebformElementAlterEvent {
 

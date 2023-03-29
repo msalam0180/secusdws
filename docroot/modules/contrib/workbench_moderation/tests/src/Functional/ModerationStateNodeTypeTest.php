@@ -14,12 +14,12 @@ class ModerationStateNodeTypeTest extends ModerationStateTestBase {
    */
   public function testNotModerated() {
     $this->drupalLogin($this->adminUser);
-    $this->createContentTypeFromUI('Not moderated', 'not_moderated');
+    $this->createContentTypeFromUi('Not moderated', 'not_moderated');
     $this->assertSession()->pageTextContains('The content type Not moderated has been added.');
     $this->grantUserPermissionToCreateContentOfType($this->adminUser, 'not_moderated');
     $this->drupalGet('node/add/not_moderated');
-    $this->assertRaw('Save as unpublished');
-    $this->drupalPostForm(NULL, [
+    $this->assertSession()->responseContains('Save as unpublished');
+    $this->submitForm([
       'title[0][value]' => 'Test',
     ], t('Save and publish'));
     $this->assertSession()->pageTextContains('Not moderated Test has been created.');
@@ -28,6 +28,7 @@ class ModerationStateNodeTypeTest extends ModerationStateTestBase {
   /**
    * Tests enabling moderation on an existing node-type, with content.
    */
+
   /**
    * A node type without moderation state enabled.
    */
@@ -35,22 +36,23 @@ class ModerationStateNodeTypeTest extends ModerationStateTestBase {
 
     // Create a node type that is not moderated.
     $this->drupalLogin($this->adminUser);
-    $this->createContentTypeFromUI('Not moderated', 'not_moderated');
+    $this->createContentTypeFromUi('Not moderated', 'not_moderated');
     $this->grantUserPermissionToCreateContentOfType($this->adminUser, 'not_moderated');
 
     // Create content.
     $this->drupalGet('node/add/not_moderated');
-    $this->drupalPostForm(NULL, [
+    $this->submitForm([
       'title[0][value]' => 'Test',
     ], t('Save and publish'));
     $this->assertSession()->pageTextContains('Not moderated Test has been created.');
 
     // Now enable moderation state.
-    $this->enableModerationThroughUI('not_moderated', ['draft', 'needs_review', 'published'], 'draft');
+    $this->enableModerationThroughUi('not_moderated',
+    ['draft', 'needs_review', 'published'], 'draft');
 
     // And make sure it works.
     $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
-      'title' => 'Test'
+      'title' => 'Test',
     ]);
     if (empty($nodes)) {
       $this->fail('Could not load node with title Test');
@@ -59,10 +61,11 @@ class ModerationStateNodeTypeTest extends ModerationStateTestBase {
     $node = reset($nodes);
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertLinkByHref('node/' . $node->id() . '/edit');
+    $this->assertSession()->linkByHrefExists('node/' . $node->id() . '/edit');
     $this->drupalGet('node/' . $node->id() . '/edit');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertRaw('Save and Create New Draft');
-    $this->assertNoRaw('Save and publish');
+    $this->assertSession()->responseContains('Save and Create New Draft');
+    $this->assertSession()->responseNotContains('Save and publish');
   }
+
 }

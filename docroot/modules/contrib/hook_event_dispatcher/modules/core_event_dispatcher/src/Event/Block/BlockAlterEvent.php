@@ -7,6 +7,11 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class BlockAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "block_alter",
+ *   alter = "block"
+ * )
  */
 class BlockAlterEvent extends PluginDefinitionAlterEventBase {
 

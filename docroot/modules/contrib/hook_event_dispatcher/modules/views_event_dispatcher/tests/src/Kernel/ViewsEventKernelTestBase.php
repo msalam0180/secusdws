@@ -28,7 +28,7 @@ abstract class ViewsEventKernelTestBase extends KernelTestBase {
    *
    * @throws \Exception
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->view = $this->container->get('entity_type.manager')

@@ -4,6 +4,8 @@ namespace Drupal\Tests\workbench_access\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
+use Drupal\Tests\UiHelperTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
 use Drupal\workbench_access\Entity\AccessScheme;
@@ -15,8 +17,10 @@ use Drupal\workbench_access\Entity\AccessScheme;
  */
 class SectionCacheTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
+  use ContentTypeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -62,7 +66,7 @@ class SectionCacheTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installConfig(['workbench_access']);
     $this->installEntitySchema('user');
@@ -109,7 +113,7 @@ class SectionCacheTest extends KernelTestBase {
 
     // Now fetch the sections for this user. Count should be 1.
     $sections = $this->userSectionStorage->getUserSections($this->scheme, $editor);
-    $this->assertTrue(count($sections) == 1);
+    $this->assertTrue(count($sections) === 1);
 
     // Create a new section.
     $term2 = Term::create([
@@ -123,12 +127,12 @@ class SectionCacheTest extends KernelTestBase {
 
     // Now fetch the sections for this user. Count should be 2.
     $sections = $this->userSectionStorage->getUserSections($this->scheme, $editor);
-    $this->assertTrue(count($sections) == 2);
+    $this->assertTrue(count($sections) === 2);
 
     // Now remove and test again.
     $this->userSectionStorage->removeUser($this->scheme, $editor, [$term2->id()]);
     $sections = $this->userSectionStorage->getUserSections($this->scheme, $editor);
-    $this->assertTrue(count($sections) == 1);
+    $this->assertTrue(count($sections) === 1);
 
     $this->assertEquals([$editor->id() => $editor->label()], $this->userSectionStorage->getEditors($this->scheme, $term->id()));
   }

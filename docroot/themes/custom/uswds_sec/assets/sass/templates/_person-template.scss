@@ -3,11 +3,11 @@
 //------------------------------------------------------------------------
 .node--type-secperson {
   .layout--twocol-section {
-    @include layout-sidebar-wrap;
+    @include layout-rightrail-wrap;
   }
 
   .layout__region--first {
-    @include layout-sidebar-main;
+    @include layout-rightrail-main;
 
     // NOTE: It would be better to add the .usa-prose class in the markup
     .text-formatted {
@@ -17,6 +17,6 @@
   }
 
   .layout__region--second {
-    @include layout-sidebar-aside;
+    @include layout-rightrail-aside;
   }
 }

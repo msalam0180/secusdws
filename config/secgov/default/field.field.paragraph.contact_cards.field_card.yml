@@ -1,0 +1,101 @@
+uuid: d07ad33e-1705-4595-909c-77e0601e5dd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_card
+    - paragraphs.paragraphs_type.contact_card
+    - paragraphs.paragraphs_type.contact_cards
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: paragraph.contact_cards.field_card
+field_name: field_card
+entity_type: paragraph
+bundle: contact_cards
+label: 'Contact Cards'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      contact_card: contact_card
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 24
+        enabled: false
+      accordion_section:
+        weight: 25
+        enabled: false
+      address:
+        weight: 26
+        enabled: false
+      alert:
+        weight: 27
+        enabled: false
+      card:
+        weight: 28
+        enabled: false
+      card_group:
+        weight: 29
+        enabled: false
+      contact_card:
+        weight: 30
+        enabled: true
+      contact_cards:
+        weight: 31
+        enabled: false
+      email:
+        weight: 32
+        enabled: false
+      fax_number:
+        weight: 33
+        enabled: false
+      gov_delivery_alert:
+        weight: 34
+        enabled: false
+      horizontal_card:
+        weight: 35
+        enabled: false
+      image:
+        weight: 36
+        enabled: false
+      lead_paragraph:
+        weight: 37
+        enabled: false
+      link_with_icon:
+        weight: 38
+        enabled: false
+      phone_number:
+        weight: 39
+        enabled: false
+      position_history:
+        weight: 40
+        enabled: false
+      quick_link:
+        weight: 41
+        enabled: false
+      related_document_s_:
+        weight: 42
+        enabled: false
+      subpage_card:
+        weight: 43
+        enabled: false
+      subpage_card_group:
+        weight: 44
+        enabled: false
+      text:
+        weight: 45
+        enabled: false
+      video:
+        weight: 46
+        enabled: false
+field_type: entity_reference_revisions

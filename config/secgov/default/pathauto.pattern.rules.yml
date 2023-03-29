@@ -7,7 +7,7 @@ dependencies:
 id: rules
 label: Rules
 type: 'canonical_entities:node'
-pattern: '/rules/[node:title]'
+pattern: '/rules/[node:field_related_rule:0:entity:field_publish_date:date:custom:Y]/[node:field_related_rule:0:entity:field_publish_date:date:custom:m]/[node:title]'
 selection_criteria:
   24b657e8-d97a-46ab-a8db-8e38d4e501fa:
     id: 'entity_bundle:node'

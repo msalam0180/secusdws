@@ -5,6 +5,7 @@ namespace Drupal\workbench_access;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -68,8 +69,11 @@ class FormAlterHelper implements ContainerInjectionInterface {
    */
   public function alterForm(array &$element, array &$complete_form, FormStateInterface &$form_state, ContentEntityInterface $entity) {
     $callback = FALSE;
-    if (empty($entity)) {
-      $entity = $form_state->getFormObject()->getEntity();
+    if (is_null($entity)) {
+      $form_object = $form_state->getFormObject();
+      if ($form_object instanceof EntityFormInterface) {
+        $entity = $form_object->getEntity();
+      }
     }
     /** @var \Drupal\workbench_access\Entity\AccessSchemeInterface $access_scheme */
     foreach ($this->entityTypeManager->getStorage('access_scheme')->loadMultiple() as $access_scheme) {

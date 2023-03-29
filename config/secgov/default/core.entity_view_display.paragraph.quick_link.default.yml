@@ -1,0 +1,70 @@
+uuid: 0000e051-0175-4722-a684-82822505989e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quick_link.field_document_url
+    - field.field.paragraph.quick_link.field_icon
+    - field.field.paragraph.quick_link.field_title
+    - paragraphs.paragraphs_type.quick_link
+  module:
+    - ds
+    - empty_fields
+    - link
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_button_icon
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+          settings:
+            wrapper: li
+            wrapperClass: home-hero__links__item
+    regions:
+      label:
+        - field_title
+      url:
+        - field_document_url
+      icon:
+        - field_icon
+id: paragraph.quick_link.default
+targetEntityType: paragraph
+bundle: quick_link
+mode: default
+content:
+  field_document_url:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: true
+      url_plain: true
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 1
+    region: url
+  field_icon:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: icon
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: label
+hidden:
+  search_api_excerpt: true

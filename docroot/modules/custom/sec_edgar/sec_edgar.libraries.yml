@@ -1,3 +1,17 @@
+tooltip:
+  js:
+    js/tooltip.js: {}
+edgar-plugin:
+  version: 1.x
+  css:
+    theme:
+      css/sec-edgar.plugin.css: {}
+  js:
+    js/sec-edgar.plugin.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - sec_edgar/tooltip
 edgar-company-person:
   css:
     theme:
@@ -6,3 +20,9 @@ edgar-company-person:
     js/sec-edgar-company-person-lookup.js: {}
   dependencies:
     - core/jquery
+smart_search:
+  js:
+    js/smartSearch.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/jquery.once
+    - sec_edgar/tooltip

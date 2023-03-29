@@ -68,4 +68,5 @@ content:
 hidden:
   body: true
   field_quick_links: true
+  langcode: true
   search_api_excerpt: true

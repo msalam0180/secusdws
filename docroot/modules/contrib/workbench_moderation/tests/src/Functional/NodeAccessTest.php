@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\workbench_moderation\Functional;
 
-use Drupal\node\NodeInterface;
-
 /**
  * Tests permission access control around nodes.
  *
@@ -14,13 +12,13 @@ class NodeAccessTest extends ModerationStateTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->drupalLogin($this->adminUser);
-    $this->createContentTypeFromUI('Moderated content', 'moderated_content', TRUE, [
+    $this->createContentTypeFromUi('Moderated content', 'moderated_content', TRUE, [
       'draft',
       'needs_review',
-      'published'
+      'published',
     ], 'draft');
     $this->grantUserPermissionToCreateContentOfType($this->adminUser, 'moderated_content');
   }
@@ -30,9 +28,10 @@ class NodeAccessTest extends ModerationStateTestBase {
    */
   public function testPageAccess() {
     $this->drupalLogin($this->adminUser);
+    $this->drupalGet('node/add/moderated_content');
 
     // Create a node to test with.
-    $this->drupalPostForm('node/add/moderated_content', [
+    $this->submitForm([
       'title[0][value]' => 'moderated content',
     ], t('Save and Create New Draft'));
     $nodes = \Drupal::entityTypeManager()
@@ -46,16 +45,18 @@ class NodeAccessTest extends ModerationStateTestBase {
       return;
     }
 
-    /** @var NodeInterface $node */
+    /** @var \Drupal\node\NodeInterface $node */
     $node = reset($nodes);
 
     $view_path = 'node/' . $node->id();
     $edit_path = 'node/' . $node->id() . '/edit';
     $latest_path = 'node/' . $node->id() . '/latest';
+    $this->drupalGet($edit_path);
 
     // Publish the node.
-    $this->drupalPostForm($edit_path, [], t('Save and Request Review'));
-    $this->drupalPostForm($edit_path, [], t('Save and Publish'));
+    $this->submitForm([], t('Save and Request Review'));
+    $this->drupalGet($edit_path);
+    $this->submitForm([], t('Save and Publish'));
 
     // Ensure access works correctly for anonymous users.
     $this->drupalLogout();
@@ -70,7 +71,8 @@ class NodeAccessTest extends ModerationStateTestBase {
 
     // Create a forward revision for the 'Latest revision' tab.
     $this->drupalLogin($this->adminUser);
-    $this->drupalPostForm($edit_path, [
+    $this->drupalGet($edit_path);
+    $this->submitForm([
       'title[0][value]' => 'moderated content revised',
     ], t('Save and Create New Draft'));
 
@@ -109,4 +111,5 @@ class NodeAccessTest extends ModerationStateTestBase {
     $this->drupalGet($view_path);
     $this->assertSession()->statusCodeEquals(200);
   }
+
 }

@@ -9,7 +9,10 @@ function sec_regulations_migration_sort_rules()
     $rulemakingTerms = ['Final', 'Interim Final', 'Proposed', 'Concept', 'Interpretive'];    
     foreach ($rulemakingTerms as $term_name) {
         $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-            ->loadByProperties(['name' => ($term_name)]);
+            ->loadByProperties([
+                'name' => ($term_name),
+                'vid' => 'rule_type'
+            ]);
         $termId = reset($term)->id();
 
         $entity_storage = \Drupal::entityTypeManager()->getStorage('node');

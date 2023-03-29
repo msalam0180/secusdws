@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class ThemesInstalledEvent.
+ *
+ * @HookEvent(id="themes_installed", hook="themes_installed")
  */
 class ThemesInstalledEvent extends Event implements EventInterface {
 

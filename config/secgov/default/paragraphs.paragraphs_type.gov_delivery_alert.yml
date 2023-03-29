@@ -1,0 +1,10 @@
+uuid: 854373f1-f6ea-4674-88b9-4d4b8ca8efb0
+langcode: en
+status: true
+dependencies: {  }
+id: gov_delivery_alert
+label: 'Gov Delivery'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

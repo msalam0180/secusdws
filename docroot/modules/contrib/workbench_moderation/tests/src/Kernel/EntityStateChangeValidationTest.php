@@ -6,7 +6,6 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\node\NodeInterface;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
@@ -20,7 +19,14 @@ class EntityStateChangeValidationTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['node', 'workbench_moderation', 'user', 'system', 'language', 'content_translation'];
+  protected static $modules = [
+    'node',
+    'workbench_moderation',
+    'user',
+    'system',
+    'language',
+    'content_translation',
+  ];
 
   /**
    * An admin user account.
@@ -32,7 +38,7 @@ class EntityStateChangeValidationTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installSchema('node', 'node_access');
@@ -95,7 +101,7 @@ class EntityStateChangeValidationTest extends KernelTestBase {
   }
 
   /**
-   * Verifies that content without prior moderation information can be moderated.
+   * Verifies if content without prior moderation information can be moderated.
    */
   public function testContent() {
     $this->setCurrentUser($this->adminUser);
@@ -104,7 +110,7 @@ class EntityStateChangeValidationTest extends KernelTestBase {
       'type' => 'example',
     ]);
     $node_type->save();
-    /** @var NodeInterface $node */
+    /** @var \Drupal\node\Entity\NodeInterface $node */
     $node = Node::create([
       'type' => 'example',
       'title' => 'Test title',
@@ -114,10 +120,11 @@ class EntityStateChangeValidationTest extends KernelTestBase {
     $nid = $node->id();
 
     // Enable moderation for our node type.
-    /** @var NodeType $node_type */
+    /** @var \Drupal\node\Entity\NodeType $node_type */
     $node_type = NodeType::load('example');
     $node_type->setThirdPartySetting('workbench_moderation', 'enabled', TRUE);
-    $node_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states', ['draft', 'needs_review', 'published']);
+    $node_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states',
+    ['draft', 'needs_review', 'published']);
     $node_type->setThirdPartySetting('workbench_moderation', 'default_moderation_state', 'draft');
     $node_type->save();
 
@@ -134,17 +141,17 @@ class EntityStateChangeValidationTest extends KernelTestBase {
   }
 
   /**
-   * Verifies that content without prior moderation information can be translated.
+   * Verifies content without prior moderation information can be translated.
    */
   public function testMultilingualContent() {
-    // Enable French
+    // Enable French.
     ConfigurableLanguage::createFromLangcode('fr')->save();
 
     $node_type = NodeType::create([
       'type' => 'example',
     ]);
     $node_type->save();
-    /** @var NodeInterface $node */
+    /** @var \Drupal\node\Entity\NodeInterface $node */
     $node = Node::create([
       'type' => 'example',
       'title' => 'Test title',
@@ -163,10 +170,11 @@ class EntityStateChangeValidationTest extends KernelTestBase {
     $node_fr->save();
 
     // Enable moderation for our node type.
-    /** @var NodeType $node_type */
+    /** @var \Drupal\node\Entity\NodeType $node_type */
     $node_type = NodeType::load('example');
     $node_type->setThirdPartySetting('workbench_moderation', 'enabled', TRUE);
-    $node_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states', ['draft', 'needs_review', 'published']);
+    $node_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states',
+    ['draft', 'needs_review', 'published']);
     $node_type->setThirdPartySetting('workbench_moderation', 'default_moderation_state', 'draft');
     $node_type->save();
 
@@ -174,17 +182,20 @@ class EntityStateChangeValidationTest extends KernelTestBase {
     $node = Node::load($nid);
     $node_fr = $node->getTranslation('fr');
 
-    /** @var NodeInterface $node_fr */
+    /** @var \Drupal\node\Entity\NodeInterface $node_fr */
     $node_fr->setTitle('Nouveau');
     $node_fr->save();
   }
 
   /**
+   * Test transistion access validation on new entity creation.
+   *
    * @dataProvider transitionAccessValidationTestCases
    */
   public function testTransitionAccessValidationNewEntity($permissions, $default_state, $target_state, $messages) {
     $this->setCurrentUser($this->createUser($permissions));
-    $this->createExampleModeratedContentType($default_state, ['draft', 'needs_review', 'published', 'archived']);
+    $this->createExampleModeratedContentType($default_state,
+    ['draft', 'needs_review', 'published', 'archived']);
 
     $node = Node::create([
       'type' => 'example',
@@ -201,11 +212,14 @@ class EntityStateChangeValidationTest extends KernelTestBase {
   }
 
   /**
+   * Test transition access validation on entity save.
+   *
    * @dataProvider transitionAccessValidationTestCases
    */
   public function testTransitionAccessValidationSavedEntity($permissions, $default_state, $target_state, $messages) {
     $this->setCurrentUser($this->createUser($permissions));
-    $this->createExampleModeratedContentType($default_state, ['draft', 'needs_review', 'published', 'archived']);
+    $this->createExampleModeratedContentType($default_state,
+    ['draft', 'needs_review', 'published', 'archived']);
 
     $node = Node::create([
       'type' => 'example',
@@ -287,7 +301,7 @@ class EntityStateChangeValidationTest extends KernelTestBase {
    * @param array $allowed_states
    *   The allowed states.
    */
-  protected function createExampleModeratedContentType($default_state, $allowed_states) {
+  protected function createExampleModeratedContentType($default_state, array $allowed_states) {
     $node_type = NodeType::create([
       'type' => 'example',
     ]);

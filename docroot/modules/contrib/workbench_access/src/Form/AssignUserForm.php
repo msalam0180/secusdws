@@ -7,6 +7,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\user\UserInterface;
 use Drupal\workbench_access\AccessControlHierarchyInterface;
 use Drupal\workbench_access\RoleSectionStorageInterface;
@@ -66,6 +67,13 @@ class AssignUserForm extends FormBase {
   protected $roleSectionStorage;
 
   /**
+   * The Drupal messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * Constructs the form object.
    *
    * @param \Drupal\workbench_access\WorkbenchAccessManagerInterface $manager
@@ -78,13 +86,16 @@ class AssignUserForm extends FormBase {
    *   The user section storage service.
    * @param \Drupal\workbench_access\RoleSectionStorageInterface $role_section_storage
    *   The role section storage service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The Drupal messenger service.
    */
-  public function __construct(WorkbenchAccessManagerInterface $manager, ConfigEntityStorageInterface $scheme_storage, SectionAssociationStorageInterface $section_storage, UserSectionStorageInterface $user_section_storage, RoleSectionStorageInterface $role_section_storage) {
+  public function __construct(WorkbenchAccessManagerInterface $manager, ConfigEntityStorageInterface $scheme_storage, SectionAssociationStorageInterface $section_storage, UserSectionStorageInterface $user_section_storage, RoleSectionStorageInterface $role_section_storage, MessengerInterface $messenger) {
     $this->manager = $manager;
     $this->schemeStorage = $scheme_storage;
     $this->sectionStorage = $section_storage;
     $this->userSectionStorage = $user_section_storage;
     $this->roleSectionStorage = $role_section_storage;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -96,9 +107,11 @@ class AssignUserForm extends FormBase {
       $container->get('entity_type.manager')->getStorage('access_scheme'),
       $container->get('entity_type.manager')->getStorage('section_association'),
       $container->get('workbench_access.user_section_storage'),
-      $container->get('workbench_access.role_section_storage')
+      $container->get('workbench_access.role_section_storage'),
+      $container->get('messenger')
     );
   }
+
   /**
    * Checks access to the form from the route.
    *
@@ -131,14 +144,15 @@ class AssignUserForm extends FormBase {
     $active_schemes = [];
 
     // Load all schemes.
+    /** @var \Drupal\workbench_access\Entity\AccessSchemeInterface $schemes */
     $schemes = $this->schemeStorage->loadMultiple();
     foreach ($schemes as $scheme) {
       $user_sections = $this->userSectionStorage->getUserSections($scheme, $user, FALSE);
-      $admin_sections = $this->userSectionStorage->getUserSections($scheme, $account, FALSE);
       $options = $this->getFormOptions($scheme);
       $role_sections = $this->roleSectionStorage->getRoleSections($scheme, $user);
+      $list = array_flip($role_sections);
       foreach ($options as $value => $label) {
-        if (in_array($value, $role_sections, TRUE)) {
+        if (isset($list[$value])) {
           $options[$value] = '<strong>' . $label . ' * </strong>';
         }
       }
@@ -198,18 +212,20 @@ class AssignUserForm extends FormBase {
     }
     foreach ($items as $item) {
       // Add sections.
-      $sections = array_filter($item['selections'], function($val) {
+      $sections = array_filter($item['selections'], function ($val) {
         return !empty($val);
       });
       $sections = array_keys($sections);
       $this->userSectionStorage->addUser($item['scheme'], $this->user, $sections);
 
       // Remove sections.
-      $remove_sections = array_keys(array_filter($item['selections'], function($val) {
+      $remove_sections = array_keys(array_filter($item['selections'], function ($val) {
         return empty($val);
       }));
       $this->userSectionStorage->removeUser($item['scheme'], $this->user, $remove_sections);
     }
+
+    $this->messenger()->addMessage($this->t('Section assignments updated successfully.'));
   }
 
   /**
@@ -253,12 +269,12 @@ class AssignUserForm extends FormBase {
     $children = [];
     foreach ($values as $id) {
       foreach ($tree as $key => $data) {
-        if ($id == $key) {
+        if ($id === $key) {
           $children += array_keys($data);
         }
         else {
           foreach ($data as $iid => $item) {
-            if ($iid == $id || in_array($id, $item['parents'])) {
+            if ($iid === $id || in_array($id, $item['parents'])) {
               $children[] = $iid;
             }
           }

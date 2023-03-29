@@ -25,13 +25,13 @@ Scenario: Create Content And Media On Sitemap
       | Data                          | Data-MarketStructure          | published        | Behat Simple Article Test | behat simple article test   | 1      | This is the body     | Corporation Finance           |
     And "landing_page" content:
       | title                          | field_display_title            | field_primary_division_office | field_left_1_box | status |
-      | Behat Simple Landing Page Test | behat simple landing page test | Credit Ratings                | Left 1           | 1      |
+      | Behat Simple Landing Page Test | behat simple landing page test | office of justice             | Left 1           | 1      |
     And "news" content:
       | field_news_type_news | field_primary_division_office | moderation_state | title                     | status | body                    | field_display_title       |
-      | Press Release        | Agency-wide                   | published        | Behat Simple PR News Test | 1      | This is the first body. | behat simple pr news test |
+      | Press Release        | behat                         | published        | Behat Simple PR News Test | 1      | This is the first body. | behat simple pr news test |
     And "file" content:
       | title                         | field_display_title           | field_primary_division_office | status |
-      | BEHAT Simple Static File Test | behat simple static file test | Credit Ratings                | 1      |
+      | BEHAT Simple Static File Test | behat simple static file test | office of justice             | 1      |
     And "video" content:
       | title                   | field_display_title     | field_video                                | body         | field_transcript     | status | moderation_state |
       | BEHAT Simple Video Test | behat simple video test | http://www.youtube.com/watch?v=xf9BpXOtMcc | man from SEC | man walking in video | 1      | published        |
@@ -50,7 +50,7 @@ Scenario: Create Content And Media On Sitemap
     And I am logged in as a user with the "administrator" role
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Testing Sitemap for Event Content
   Then I should see the link "http://sec.lndo.site/news/upcoming-events/behat-simple-event-test"
@@ -104,25 +104,25 @@ Scenario: Create Content And Media On Sitemap
 Scenario: Edit Article And Check Sitemap
   Given "secarticle" content:
     | field_article_type_secarticle | moderation_state | title                     | field_display_title       | status | body             | field_primary_division_office |
-    | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | This is the body | Corporation Finance           |
-    And I am logged in as a user with the "administrator" role
-  When I am on "/admin/config/search/simplesitemap"
+    | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | This is the body | behat                         |
+  When I am logged in as a user with the "administrator" role
+    And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
-    And I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I click "http://sec.lndo.site/about/forms/behat-simple-article-test"
+  Then I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I click "http://sec.lndo.site/forms/behat-simple-article-test"
   Then I should see the text "behat simple article test"
-  When I am on "/about/forms/behat-simple-article-test/edit"
+  When I am on "/forms/behat-simple-article-test/edit"
     And I fill in "Display Title" with "behat complex article test"
     And I type "new stuff " in the "Body" WYSIWYG editor
     And I publish it
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
-  Then I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I click "http://sec.lndo.site/about/forms/behat-simple-article-test"
+  Then I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I click "http://sec.lndo.site/forms/behat-simple-article-test"
   Then I should see the text "behat complex article test"
     And I should see the text "new stuff"
 
@@ -130,11 +130,11 @@ Scenario: Edit Article And Check Sitemap
 Scenario: Delete Content And Check Sitemap
   Given "news" content:
      | field_news_type_news          | field_primary_division_office | moderation_state | title                      | status | body                     | field_display_title        |
-     | Press Release                 | Agency-wide                   | published        | Behat Simple PR News Test  | 1      | This is the first body.  | behat simple pr news test  |
+     | Press Release                 | office of justice                   | published        | Behat Simple PR News Test  | 1      | This is the first body.  | behat simple pr news test  |
     And I am logged in as a user with the "administrator" role
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
     And I should see the link "http://sec.lndo.site/news/press-release/behat-simple-pr-news-test"
   When I click "http://sec.lndo.site/news/press-release/behat-simple-pr-news-test"
@@ -143,7 +143,7 @@ Scenario: Delete Content And Check Sitemap
     And I press "edit-submit"
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should not see the link "http://sec.lndo.site/news/press-release/behat-simple-pr-news-test"
 
@@ -157,7 +157,7 @@ Scenario: Unpublish Content And Check Sitemap
     And I am logged in as a user with the "administrator" role
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 15 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
     And I should see the link "http://sec.lndo.site/news/upcoming-events/behat-simple-event-test"
   When I am on "/admin/content"
@@ -168,7 +168,7 @@ Scenario: Unpublish Content And Check Sitemap
   Then I should see the text "Set Content as Unpublished was applied to 1 item."
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 15 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should not see the link "http://sec.lndo.site/news/upcoming-events/behat-simple-event-test"
 
@@ -187,7 +187,7 @@ Scenario: Unpublish PDF Static File Media On Sitemap
   When I am logged in as a user with the "administrator" role
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
     And I should see the link "http://sec.lndo.site/file/behat-simple-pdf-file-test"
     And I should see the link "http://sec.lndo.site/files/behat-file-lynx.pdf"
@@ -200,7 +200,7 @@ Scenario: Unpublish PDF Static File Media On Sitemap
   Then I should see the text "Unpublish media was applied to 1 item."
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should not see the link "http://sec.lndo.site/file/behat-simple-pdf-file-test"
     And I should not see the link "http://sec.lndo.site/files/behat-file-lynx.pdf"
@@ -222,7 +222,7 @@ Scenario: Common Static Files Media On Sitemap
   When I am logged in as a user with the "administrator" role
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate that unpublished media + attached file(s) should not be on sitemap
   Then I should not see the link "http://sec.lndo.site/file/behat-simple-doc-file-test"
@@ -262,7 +262,7 @@ Scenario: Common Static Files Media On Sitemap
   Then I should see the text "Publish media was applied to 10 items."
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate that published media + attached file(s) should be on sitemap
   Then I should see the link "http://sec.lndo.site/file/behat-simple-doc-file-test"
@@ -303,7 +303,7 @@ Scenario: Common Static Files Media On Sitemap
   Then I should see the text "Deleted 10 items."
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate deleted media + attached file(s) should not be on sitemap once media is deleted
   Then I should not see the link "http://sec.lndo.site/file/behat-simple-doc-file-test"
@@ -365,7 +365,7 @@ Scenario: Article Content With Uploaded File On Sitemap
   When I am logged in as a user with the "administrator" role
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate that unpublished node should not be on sitemap
   Then I should not see the link "http://sec.lndo.site/behat-simple-docx-file-test"
@@ -382,7 +382,7 @@ Scenario: Article Content With Uploaded File On Sitemap
   Then I should see the text "Set Content as Published was applied to 3 items."
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate that published node + media file(s) should be on sitemap
   Then I should see the link "http://sec.lndo.site/behat-simple-docx-file-test"
@@ -403,7 +403,7 @@ Scenario: Article Content With Uploaded File On Sitemap
   Then I should see the text "Deleted 3 content items."
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   # Validate deleted node should not be on sitemap once node is deleted
   Then I should not see the link "http://sec.lndo.site/behat-simple-docx-file-test"
@@ -418,7 +418,7 @@ Scenario Outline: Verify The Latest Version Of Static File On Sitemap After File
     And I am logged in as a user with the "Administrator" role
   When I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should see the link "http://sec.lndo.site/file/behat-replace-static-file"
     And I should see the link "http://sec.lndo.site/files/behat-file-im.txt"
@@ -432,7 +432,7 @@ Scenario Outline: Verify The Latest Version Of Static File On Sitemap After File
     And I press "Save"
     And I am on "/admin/config/search/simplesitemap"
     And I press "Rebuild queue & generate"
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should see the link "http://sec.lndo.site/file/behat-replace-static-file"
     And I should see the link "<file_link>"
@@ -442,9 +442,9 @@ Scenario Outline: Verify The Latest Version Of Static File On Sitemap After File
   Then I should see the text "<expected_text>"
 
     Examples:
-      | checkbox_action  | filename               | file_link                                              | expected_text                              |
-      | check            | behat-file-updated.txt | http://sec.lndo.site/files/behat-file-im.txt      | this is an updated version of the txt file |
-      | uncheck          | behat-file-updated.txt | http://sec.lndo.site/files/behat-file-updated.txt | Not Found                                  |
+      | checkbox_action | filename               | file_link                                         | expected_text                              |
+      | check           | behat-file-updated.txt | http://sec.lndo.site/files/behat-file-im.txt      | this is an updated version of the txt file |
+      | uncheck         | behat-file-updated.txt | http://sec.lndo.site/files/behat-file-updated.txt | Not Found                                  |
 
 @api @javascript @sitemaps
 Scenario: Verify The Latest Uploaded File On Article Is Showing Up In Sitemap
@@ -454,43 +454,43 @@ Scenario: Verify The Latest Uploaded File On Article Is Showing Up In Sitemap
     | Behat Test File 2 | behat-file-lynx.pdf | 1      |
     And "secarticle" content:
       | field_article_type_secarticle | moderation_state | title                     | field_display_title       | status | body             | field_primary_division_office |
-      | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | This is the body | Corporation Finance           |
+      | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | This is the body | behat                         |
   When I am logged in as a user with the "administrator" role
-    And I am on "/about/forms/behat-simple-article-test/edit"
+    And I am on "/forms/behat-simple-article-test/edit"
     And I select the first autocomplete option for "Behat Test File 1" on the "Use existing media" field
     And I wait for ajax to finish
     And I publish it
   Then I should see the link "behat-file-cat.pdf"
-  When I am on "admin/config/search/simplesitemap/settings"
+  When I am on "/admin/config/search/simplesitemap/settings"
     And I check "Regenerate all sitemaps after hitting"
     And I press the "Save configuration" button
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should see the link "http://sec.lndo.site/files/behat-file-cat.pdf"
-    And I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I am on "/about/forms/behat-simple-article-test/edit"
+    And I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I am on "/forms/behat-simple-article-test/edit"
     And I press the "Remove" button
     And I wait for ajax to finish
     And I select the first autocomplete option for "Behat Test File 2" on the "Use existing media" field
     And I wait for ajax to finish
     And I publish it
   Then I should see the link "behat-file-lynx.pdf"
-  When I am on "admin/config/search/simplesitemap/settings"
+  When I am on "/admin/config/search/simplesitemap/settings"
     And I check "Regenerate all sitemaps after hitting"
     And I press the "Save configuration" button
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
   Then I should see the link "http://sec.lndo.site/files/behat-file-lynx.pdf"
-    And I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I am on "/about/forms/behat-simple-article-test/revisions"
+    And I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I am on "/forms/behat-simple-article-test/revisions"
     And I click "Revert" in the "Anonymous" row
     And I press "Revert"
-    And I am on "admin/config/search/simplesitemap/settings"
+    And I am on "/admin/config/search/simplesitemap/settings"
     And I check "Regenerate all sitemaps after hitting"
     And I press the "Save configuration" button
-    And I wait 10 seconds
+    And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
-  Then I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
+  Then I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
   # Published media will be on sitemap
     And I should see the link "http://sec.lndo.site/files/behat-file-cat.pdf"
     And I should see the link "http://sec.lndo.site/files/behat-file-lynx.pdf"
@@ -499,25 +499,25 @@ Scenario: Verify The Latest Uploaded File On Article Is Showing Up In Sitemap
 Scenario: Override Sitemap As Sitebuilder
   Given "secarticle" content:
     | field_article_type_secarticle | moderation_state | title                     | field_display_title       | status | body                   | field_primary_division_office |
-    | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | For sitebuilder access | Corporation Finance           |
+    | Forms                         | published        | Behat Simple Article Test | behat simple article test | 1      | For sitebuilder access | office of justice             |
     And I am logged in as a user with the "sitebuilder" role
-  When I am on "/about/forms/behat-simple-article-test/edit"
+  When I am on "/forms/behat-simple-article-test/edit"
     And I press "Simple XML Sitemap"
-    And I select the radio button "Do not index this Article entity in variant Default"
+    And I select the radio button "Do not index this Article entity in sitemap Default"
     And I check the box "Regenerate all sitemaps after hitting Save"
     And I publish it
     And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
-  Then I should not see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I am on "/about/forms/behat-simple-article-test/edit"
+  Then I should not see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I am on "/forms/behat-simple-article-test/edit"
     And I press "Simple XML Sitemap"
-    And I click on the element with css selector "#edit-default"
-    And I select the radio button "Index this Article entity in variant Default (default)"
+    And I click on the element with css selector "#edit-simple-sitemap-default"
+    And I select the radio button "Index this Article entity in sitemap Default (default)"
     And I check the box "Regenerate all sitemaps after hitting Save"
     And I publish it
     And I wait 5 seconds
     And I visit "/sec-sitemap.xml"
-  Then I should see the link "http://sec.lndo.site/about/forms/behat-simple-article-test"
-  When I click "http://sec.lndo.site/about/forms/behat-simple-article-test"
+  Then I should see the link "http://sec.lndo.site/forms/behat-simple-article-test"
+  When I click "http://sec.lndo.site/forms/behat-simple-article-test"
   Then I should see the heading "behat simple article test"
     And I should see the text "For sitebuilder access"

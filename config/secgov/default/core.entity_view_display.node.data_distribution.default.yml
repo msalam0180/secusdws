@@ -78,4 +78,6 @@ hidden:
   field_access_url: true
   field_creator: true
   field_sec_content_approver: true
+  langcode: true
+  search_api_excerpt: true
   workbench_moderation_control: true

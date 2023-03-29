@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\workbench_moderation\Functional\ModerationStateAccessTest.
- */
 
 namespace Drupal\Tests\workbench_moderation\Functional;
 
@@ -31,7 +27,7 @@ class ModerationStateAccessTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'workbench_moderation_test_views',
     'workbench_moderation',
     'node',
@@ -56,7 +52,7 @@ class ModerationStateAccessTest extends BrowserTestBase {
     $editor1 = $this->drupalCreateUser($permissions);
     $this->drupalLogin($editor1);
 
-    /** @var Node $node_1 */
+    /** @var \Drupal\node\Entity\Node $node_1 */
     $node_1 = Node::create([
       'type' => $node_type_id,
       'title' => 'Draft node',
@@ -65,7 +61,7 @@ class ModerationStateAccessTest extends BrowserTestBase {
     $node_1->moderation_state->target_id = 'draft';
     $node_1->save();
 
-    /** @var Node $node_2 */
+    /** @var \Drupal\node\Entity\Node $node_2 */
     $node_2 = Node::create([
       'type' => $node_type_id,
       'title' => 'Review node',
@@ -74,7 +70,7 @@ class ModerationStateAccessTest extends BrowserTestBase {
     $node_2->moderation_state->target_id = 'needs_review';
     $node_2->save();
 
-    /** @var Node $node_3 */
+    /** @var \Drupal\node\Entity\Node $node_3 */
     $node_3 = Node::create([
       'type' => $node_type_id,
       'title' => 'Published node',

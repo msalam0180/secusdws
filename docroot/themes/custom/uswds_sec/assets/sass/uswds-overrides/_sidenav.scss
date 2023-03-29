@@ -20,10 +20,13 @@
   $divider-border: 1px solid $border-gray-dark;
   background-color: $bg-color;
   border-bottom: 0;
-  border-right: $divider-border;
   font-size: rem(15px);
   letter-spacing: rem(0.2px);
   line-height: 1.2;
+
+  @include mq((min-width: $layout-sidenav-bp, max-width: $layout-sidenav-bp-wide - 1px)) {
+    font-size: rem(14px);
+  }
 
   .no-js & {
     border-bottom: $divider-border;

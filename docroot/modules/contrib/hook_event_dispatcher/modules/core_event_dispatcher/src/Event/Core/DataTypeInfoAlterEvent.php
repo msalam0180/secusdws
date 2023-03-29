@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class DataTypeInfoAlterEvent.
+ *
+ * @HookEvent(id="data_type_info_alter", alter="data_type_info")
  */
 class DataTypeInfoAlterEvent extends Event implements EventInterface {
 

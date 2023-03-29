@@ -74,6 +74,7 @@ third_party_settings:
         - title
         - field_display_title
         - field_rule_type
+        - field_release_file_number
         - field_release_number
         - field_release_file
         - field_publish_date
@@ -179,7 +180,7 @@ content:
     third_party_settings: {  }
   field_document_citation:
     type: text_textarea
-    weight: 10
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -239,9 +240,19 @@ content:
       collapsed: false
       revision: false
     third_party_settings: {  }
+  field_release_file_number:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_release_number:
     type: string_textfield
-    weight: 4
+    weight: 5
     region: content
     settings:
       size: 60
@@ -281,7 +292,7 @@ content:
     third_party_settings: {  }
   field_see_also:
     type: inline_entity_form_complex
-    weight: 11
+    weight: 10
     region: content
     settings:
       form_mode: release_inline_entity_reference
@@ -316,6 +327,13 @@ content:
     settings: {  }
     third_party_settings:
       conditional_fields: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 6
@@ -332,6 +350,11 @@ content:
   publish_on:
     type: datetime_timestamp_no_default
     weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -385,4 +408,3 @@ hidden:
   field_comments_notice: true
   field_parent_rule: true
   field_primary_division_office: true
-  field_release_file_number: true

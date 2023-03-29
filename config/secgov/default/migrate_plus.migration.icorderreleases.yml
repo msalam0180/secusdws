@@ -18,6 +18,9 @@ source:
     - order_url
   fields:
     -
+      name: id
+      label: id
+    -
       name: category
       label: Category
     -
@@ -90,7 +93,7 @@ process:
         - icorderreleases
         - icseealso
       no_stub: true
-      source: related_rules
+      source: order_url
     -
       plugin: skip_on_value
       method: row

@@ -34,8 +34,8 @@ use Drupal\http_response_headers\ResponseHeaderInterface;
  *     "value",
  *   },
  *   links = {
- *     "edit-form" = "/admin/config/system/response-headers/{header}",
- *     "delete-form" = "/admin/config/system/response-headers/{header}/delete",
+ *     "edit-form" = "/admin/config/system/response-headers/{response_header}",
+ *     "delete-form" = "/admin/config/system/response-headers/{response_header}/delete",
  *   }
  * )
  */

@@ -15,12 +15,15 @@ source:
       name: id
       label: id
     1:
+      name: filenum
+      label: 'File Number'
+    2:
       name: releaseurl
       label: 'Release URL'
-    2:
+    3:
       name: date
       label: 'Date'
-    3:
+    4:
       name: respondents
       label: 'Respondents'
   constants:
@@ -54,13 +57,13 @@ process:
         - litigationreleasesreleases
         - litigationreleasesseealsofiles
         - opinionsordersreleases
-        - opinionsordersseealsofils
+        - opinionsordersseealsofiles
         - stopordersreleases
         - stopordersseealsofiles
         - tradingsuspensionfiles
         - tradingsuspensionseealso
       no_stub: true
-      source: related_rules
+      source: releaseurl
     - plugin: skip_on_value
       method: row
       not_equals: true
@@ -69,7 +72,7 @@ process:
   migrated_ap:
     -
       plugin: migration_lookup
-      source: id
+      source: filenum
       no_stub: true
       migration: apreleases
     -
@@ -84,28 +87,12 @@ process:
 
   fileurl: releaseurl
 
-  title: id
+  title: filenum
 
   field_display_title:
     plugin: end
     source: releaseurl
     delimiter: "/"
-
-  skip_already_migrated:
-    -
-      plugin: migration_lookup
-      source: releaseurl
-      migration:
-        - apreleases
-        - aljorderreleases
-        - opinionsordersreleases
-      no_stub: true
-    -
-      plugin: skip_on_value
-      method: row
-      not_equals: true
-      value: NULL
-      message: 'Skipping a previously imported release'
 
   internal_path:
     -

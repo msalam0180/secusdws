@@ -9,6 +9,10 @@ use Drupal\field_event_dispatcher\FieldHookEvents;
 
 /**
  * Class FieldWidgetThirdPartySettingsFormEvent.
+ *
+ * @HookEvent(
+ *   id="field_widget_third_party_settings_form"
+ * )
  */
 class FieldWidgetThirdPartySettingsFormEvent extends AbstractFieldThirdPartySettingsFormEvent {
 

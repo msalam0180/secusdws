@@ -1,0 +1,10 @@
+uuid: 7975b066-31a5-4f2a-89cc-4af4f229cd21
+langcode: en
+status: true
+dependencies: {  }
+id: quick_link
+label: 'Quick Link'
+icon_uuid: null
+icon_default: null
+description: 'Quick link displayed in the Hero block.'
+behavior_plugins: {  }

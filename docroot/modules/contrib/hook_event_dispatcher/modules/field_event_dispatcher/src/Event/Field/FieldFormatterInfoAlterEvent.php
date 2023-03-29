@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class FieldFormatterInfoAlterEvent.
+ *
+ * @HookEvent(id="field_formatter_info_alter", alter="field_formatter_info")
  */
 class FieldFormatterInfoAlterEvent extends Event implements EventInterface {
 

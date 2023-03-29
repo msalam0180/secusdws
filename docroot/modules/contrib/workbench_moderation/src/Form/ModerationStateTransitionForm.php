@@ -15,7 +15,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ModerationStateTransitionForm extends EntityForm {
 
   /**
-   * @var
+   * An entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
@@ -23,6 +25,7 @@ class ModerationStateTransitionForm extends EntityForm {
    * Constructs a new ModerationStateTransitionForm.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
@@ -95,7 +98,7 @@ class ModerationStateTransitionForm extends EntityForm {
     // the current value or the total number of transitions. That way we
     // never end up forcing a transition to change its weight needlessly.
     $num_transitions = $this->entityTypeManager->getStorage('moderation_state_transition')->getQuery()->count()->execute();
-    $delta = max(abs($moderation_state_transition->getWeight()), $num_transitions);
+    $delta = max(abs($moderation_state_transition->getWeight() ?? 0), $num_transitions);
 
     $form['weight'] = [
       '#type' => 'weight',

@@ -228,7 +228,7 @@ class Section extends ManyToOne {
 
       // Various ways to check for the absence of non-required input.
       if (empty($this->options['expose']['required'])) {
-        if (($this->operator == 'empty' || $this->operator == 'not empty') && $value === '') {
+        if (($this->operator === 'empty' || $this->operator === 'not empty') && $value === '') {
           $value = ' ';
         }
       }
@@ -254,7 +254,7 @@ class Section extends ManyToOne {
   public function query() {
     $helper = new ManyToOneHelper($this);
     // The 'All' selection must be filtered by user sections.
-    if (empty($this->value) || strtolower(current($this->value)) == 'all') {
+    if (empty($this->value) || strtolower(current($this->value)) === 'all') {
       if ($this->manager->userInAll($this->scheme)) {
         return;
       }
@@ -264,6 +264,7 @@ class Section extends ManyToOne {
       }
     }
     if (!empty($this->table)) {
+      // @phpstan-ignore-next-line
       $alias = $this->query->ensureTable($this->table);
       foreach ($this->scheme->getAccessScheme()->getViewsJoin($this->getEntityType(), $this->realField, $alias) as $configuration) {
         // Allow subquery JOINs, which Menu uses.
@@ -283,8 +284,8 @@ class Section extends ManyToOne {
         $values = $this->getChildren($values);
       }
       // @TODO: This is probably correct, because user data is stored with
-      // differerent context than entity field data.
-      if ($this->table == 'users') {
+      // different context than entity field data.
+      if ($this->table === 'users') {
         $new_values = [];
         $scheme = $this->scheme->getAccessScheme();
         foreach ($values as $id) {
@@ -301,7 +302,8 @@ class Section extends ManyToOne {
       }
       // Else add a failing where clause.
       else {
-        $this->query->addWhere($this->options['group'], '1 = 0');
+        // @phpstan-ignore-next-line
+        $this->query->addWhereExpression($this->options['group'], '1 = 0');
       }
     }
   }
@@ -319,6 +321,7 @@ class Section extends ManyToOne {
     $tree = $this->scheme->getAccessScheme()->getTree();
     $children = [];
     foreach ($values as $id) {
+      // Note that the comparisons here are mixed, and not ===.
       foreach ($tree as $key => $data) {
         if ($id == $key) {
           $children += array_keys($data);
@@ -333,6 +336,24 @@ class Section extends ManyToOne {
       }
     }
     return $children;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    $contexts = parent::getCacheContexts();
+    $contexts[] = 'user';
+    return $contexts;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $tags = parent::getCacheTags();
+    $tags[] = 'workbench_access_view';
+    return $tags;
   }
 
 }

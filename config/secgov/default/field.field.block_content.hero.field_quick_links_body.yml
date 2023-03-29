@@ -1,0 +1,29 @@
+uuid: 53f3297e-4659-445d-8280-d917eba50e4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_quick_links_body
+  module:
+    - allowed_formats
+    - field_config_cardinality
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - simple_text
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.hero.field_quick_links_body
+field_name: field_quick_links_body
+entity_type: block_content
+bundle: hero
+label: 'Quick Links Body'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -42,6 +42,9 @@ class SeeAlsoLinks extends ProcessPluginBase {
       if (strpos($returnArr[0], "(http")) {
         $split = explode("(", $matches[1]);
         $title = substr($split[0], 0, 255);
+        $title = trim($title);
+        $title = preg_replace("/^see also/i", "", $title);
+        $title = trim($title);
         $url = explode(")", $split[1])[0];
         $returnArr[0] = $title;
         $returnArr[1] = $url;

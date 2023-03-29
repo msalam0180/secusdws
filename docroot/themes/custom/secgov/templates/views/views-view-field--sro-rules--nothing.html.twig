@@ -20,6 +20,8 @@
  * @ingroup themeable
  */
 #}
+{% set regulation_node = node %}
+
 {{ sro_title }}<br>
 {% if not sro_node.field_comments_due_date.isEmpty() %}
 Comments Due: {{ sro_node.field_comments_due_date.value|date("F j, Y") }}<br>
@@ -29,19 +31,35 @@ Comments Due: {{ sro_node.field_comments_notice.value | check_markup(sro_node.fi
 {% endif %}
 {% if not sro_node.field_comments_received.isEmpty() %}
   {% set comment_received_url = sro_node.field_comments_received.0.url %}
-  {% set comment_received_title = sro_node.field_comments_received.title is empty ? "Comments received are available" : sro_node.field_comments_received.title %}
+  {% set comment_received_title = sro_node.field_comments_received.title is empty ? "View Comments Received" : sro_node.field_comments_received.title %}
   <a href="{{ comment_received_url }}">{{ comment_received_title }}</a><br>
 {% endif %}
-{% if not node.field_see_also.isEmpty() %}
-See Also -
-{% for see_also_item in node.field_see_also %}
-  <a href="{{ path('entity.node.canonical', {'node': see_also_item.target_id}) }}">{{ see_also_item.entity.label }}</a>{% if not loop.last %}, {% endif %}
-{% endfor %}
-<br>
+{% if regulation_node is defined and not regulation_node.field_related_rule.entity.field_see_also.isEmpty() %}
+  {% for see_also_item in regulation_node.field_see_also %}
+    {% if loop.first %}
+    See Also -
+    {% endif %}
+    {% if see_also_item.entity.bundle.target_id == "static_file" %}
+      {% set file_title = see_also_item.entity.field_link_text_override.value is empty ? see_also_item.entity.label : see_also_item.entity.field_link_text_override.value %}
+      <a href="{{ file_url(see_also_item.entity.field_media_file.entity.uri.value) }}">{{ file_title }}</a>{% if not loop.last %}, {% endif %}
+    {% elseif see_also_item.entity.bundle.target_id == "link" %}
+      <a href="{{ see_also_item.entity.field_media_entity_link.0.url }}" target="_blank">{{ see_also_item.entity.field_media_entity_link.title }}</a>{% if not loop.last %}, {% endif %}
+    {% endif %}
+    {% if loop.last %}
+    <br>
+    {% endif %}
+  {% endfor %}
 {% endif %}
 {% if sro_node.field_show_submit_comments.value and not sro_node.field_submit_comments.isEmpty() %}
   {{ drupal_field('field_submit_comments', 'node', sro_node.id) }}
 {% endif %}
 {% if other_release_no %}
   Other Release Nos: {{ other_release_no }}
+{% endif %}
+
+{% if not node.field_release_file_number.isEmpty() and node.field_release_file_number.value|length > 1 %}
+  <em><strong>Additional File Nos.:</strong></em>
+  {% for file_num in node.field_release_file_number %}
+    {{ file_num.entity.label }}{% if not loop.last %}, {% endif %}
+  {% endfor %}
 {% endif %}

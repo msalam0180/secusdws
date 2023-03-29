@@ -64,8 +64,8 @@ Scenario: View We Regulate Securities Markets featured content on the homepage
 @api
 Scenario: View We Enforce Federal Securities Laws featured content on the homepage
   Given "landing_page" content:
-    | title                                                     | field_tags                         | promote | field_display_title           | body                                           | field_description_abstract                                              | moderation_state | status |
-    | BEHAT We Enforce Federal Securities Laws Landing Page     | We Enforce Federal Securities Laws | 1       | BEHAT Whistleblower Awards    | BEHAT We Enforce Federal Securities Laws Body  | This is the We Enforce Federal Securities Laws description abstract     | published        | 1      |
+    | title                                                 | field_tags                         | promote | field_display_title        | body                                          | field_description_abstract                                          | moderation_state | status |
+    | BEHAT We Enforce Federal Securities Laws Landing Page | We Enforce Federal Securities Laws | 1       | BEHAT Whistleblower Awards | BEHAT We Enforce Federal Securities Laws Body | This is the We Enforce Federal Securities Laws description abstract | published        | 1      |
   When I visit "/"
   Then I should see 1 nodes in the "We Enforce Federal Securities Laws" block
     And I should see the text "BEHAT Whistleblower Awards" in the enforcefederalsecuritieslawsleft region

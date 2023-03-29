@@ -52,12 +52,14 @@
 {{ pattern('accordion', {
   unique_id: 'example_1',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_1|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '1',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_1|e}</code></pre>"
+    }),
   ]
 }) }}
 
@@ -80,11 +82,13 @@
 {{ pattern('accordion', {
   unique_id: 'example_2',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_2|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '2',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_2|e}</code></pre>"
+    }),
   ]
 }) }}

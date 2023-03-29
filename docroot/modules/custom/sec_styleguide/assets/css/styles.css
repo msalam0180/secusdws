@@ -64,3 +64,10 @@
   top: 100%;
   transform: translateY(6px);
 }
+
+.icon-name {
+  --bg-color: rgba(0 0 0 / 7%);
+  background-color: var(--bg-color);
+  border-radius: 3px;
+  outline: 2px solid var(--bg-color);
+}

@@ -5,6 +5,8 @@ namespace Drupal\Tests\workbench_access\Kernel;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\UiHelperTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
 use Drupal\workbench_access\Entity\AccessScheme;
@@ -17,8 +19,10 @@ use Drupal\workbench_access\WorkbenchAccessManagerInterface;
  */
 class EntityTestAccessTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
+  use ContentTypeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -66,7 +70,7 @@ class EntityTestAccessTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('entity_test');
     entity_test_create_bundle('access_controlled');

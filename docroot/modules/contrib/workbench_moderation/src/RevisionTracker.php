@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\workbench_moderation;
-
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
@@ -58,15 +56,15 @@ class RevisionTracker implements RevisionTrackerInterface {
   /**
    * Records the latest revision of a given entity.
    *
-   * @param $entity_type
+   * @param string $entity_type
    *   The machine name of the type of entity.
-   * @param $entity_id
+   * @param string $entity_id
    *   The Entity ID in question.
-   * @param $langcode
+   * @param string $langcode
    *   The langcode of the revision we're saving. Each language has its own
    *   effective tree of entity revisions, so in different languages
    *   different revisions will be "latest".
-   * @param $revision_id
+   * @param string $revision_id
    *   The revision ID that is now the latest revision.
    *
    * @return int

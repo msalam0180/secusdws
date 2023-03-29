@@ -1,0 +1,63 @@
+//------------------------------------------------------------------------
+// Use a mixin for the default button style so we can use it elsewhere
+//------------------------------------------------------------------------
+@use "uswds-settings" as usa;
+@use "../vars/color-vars" as *;
+@use "../vars/font-vars" as *;
+@use "../functions/rem" as *;
+@use "../mixins/font-smoothing" as *;
+
+@mixin usa-button() {
+  @include font-smoothing;// improves legibility for light text on dark bg
+  background-color: var(--theme-button-bg-color, $button-blue-dark);
+  border-radius: usa.radius(usa.$theme-button-border-radius);
+  font-family: $gotham-font-family;
+  font-size: rem(14px);
+  line-height: 1.15;
+  margin-right: 0;// override USWDS default
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease;
+
+  &,
+  &:visited {
+    color: var(--theme-button-color, #fff);
+  }
+
+  // Note: Include .usa-button--hover/focus/active classes for the component library
+  &:hover,
+  &:focus,
+  &:active,
+  &.usa-button--hover,
+  &.usa-button--focus,
+  &.usa-button--active {
+    background-color: var(--theme-button-hover-bg-color, $button-blue-darker);
+    color: var(--theme-button-color, #fff);
+  }
+
+  &:disabled,
+  &[aria-disabled=true],
+  &--disabled {
+    background-color: $button-gray !important ;
+    color: #fff !important;
+    cursor: not-allowed;
+
+    .usa-icon {
+      fill: currentColor;
+    }
+  }
+
+  // Automatically add external link icon
+  // Note: Use :where() to keep specificity low
+  &:where([href^="http"]):where(:not([href*="lndo.site"], [href*="//localhost"], [href*="sec.gov"])) {
+    @include usa.external-link();
+    padding-right: 1.25rem;// default usa-button value
+
+    &:after {
+      margin-left: 0.5ex;// ex equals font x-height
+      margin-top: 0;// override usa.external-link()
+      position: relative !important;// override usa.external-link()
+      top: rem(-1px);// visually center
+      vertical-align: middle;
+    }
+  }
+}

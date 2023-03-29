@@ -1,0 +1,10 @@
+uuid: 5d8c92ee-608f-4e7e-b674-0a3f46756c6b
+langcode: en
+status: true
+dependencies: {  }
+id: link_with_icon
+label: 'Custom Link'
+icon_uuid: null
+icon_default: null
+description: 'Custom link and icon for the Contact Card.'
+behavior_plugins: {  }

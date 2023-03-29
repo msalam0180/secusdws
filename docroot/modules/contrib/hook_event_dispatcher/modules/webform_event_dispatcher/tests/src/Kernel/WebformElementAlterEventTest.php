@@ -37,6 +37,8 @@ class WebformElementAlterEventTest extends KernelTestBase {
   /**
    * Test WebformElementAlterEvent.
    *
+   * @group legacy
+   *
    * @throws \Exception
    */
   public function testWebformElementAlterEvent(): void {

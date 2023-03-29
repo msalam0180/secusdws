@@ -1,0 +1,77 @@
+uuid: 4593f6cd-cada-4a83-a671-23a0904ca8c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_quick_links_ref
+    - paragraphs.paragraphs_type.quick_link
+  module:
+    - entity_reference_revisions
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '-1'
+id: block_content.hero.field_quick_links_ref
+field_name: field_quick_links_ref
+entity_type: block_content
+bundle: hero
+label: 'Quick Links'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      quick_link: quick_link
+    negate: 0
+    target_bundles_drag_drop:
+      accordion:
+        weight: 16
+        enabled: false
+      accordion_section:
+        weight: 17
+        enabled: false
+      alert:
+        weight: 18
+        enabled: false
+      card:
+        weight: 19
+        enabled: false
+      card_group:
+        weight: 20
+        enabled: false
+      horizontal_card:
+        weight: 21
+        enabled: false
+      image:
+        weight: 22
+        enabled: false
+      lead_paragraph:
+        weight: 23
+        enabled: false
+      position_history:
+        weight: 24
+        enabled: false
+      quick_link:
+        weight: 25
+        enabled: true
+      related_document_s_:
+        weight: 26
+        enabled: false
+      subpage_card:
+        weight: 27
+        enabled: false
+      subpage_card_group:
+        weight: 28
+        enabled: false
+      text:
+        weight: 29
+        enabled: false
+      video:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,12 +1,19 @@
-// CSS for content page
-.lead-paragraph {
-  font-weight: 300;
-  font-size: 26px;
-  line-height: 31px;
-}
+//------------------------------------------------------------------------
+// Lede text (a.k.a. intro)
+//------------------------------------------------------------------------
+@use "uswds-settings" as usa;
+@use "../../../assets/sass/functions/rem" as *;
+@use "../../../assets/sass/mixins/scale" as *;
 
-// CSS for Landing Page
-.node--type-landing-page .lead-paragraph {
-  font-size: 21px;
-  line-height: 25px;
+.lead-paragraph {
+  @include scale(font-size, (375px: 19px, 768px: 26px));
+  font-weight: usa.$theme-font-weight-light;
+  line-height: 1.25;
+
+  // Slightly smaller on landing pages
+  .node--type-landing-page & {
+    @include scale(font-size, (375px: 16px, 768px: 19px));
+    font-weight: normal;
+    line-height: 1.5;
+  }
 }

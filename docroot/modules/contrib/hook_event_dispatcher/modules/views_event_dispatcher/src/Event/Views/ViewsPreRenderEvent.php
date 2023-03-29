@@ -6,6 +6,8 @@ use Drupal\views_event_dispatcher\ViewsHookEvents;
 
 /**
  * Class ViewsPreRenderEvent.
+ *
+ * @HookEvent(id="views_pre_render", hook="views_pre_render")
  */
 class ViewsPreRenderEvent extends AbstractViewsEvent {
 

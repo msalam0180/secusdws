@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
+class ComposerStaticInita07880adae28992f559ab7ff5e29d2c5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -232,6 +232,7 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Collections\\' => 28,
@@ -263,6 +264,7 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         array (
             'Asm89\\Stack\\' => 12,
             'Akamai\\Open\\EdgeGrid\\' => 21,
+            'Acquia\\Hmac\\' => 12,
         ),
     );
 
@@ -816,6 +818,10 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
@@ -839,7 +845,7 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/event-manager/src',
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
             3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
         ),
@@ -907,6 +913,10 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         array (
             0 => __DIR__ . '/..' . '/akamai-open/edgegrid-auth/src',
             1 => __DIR__ . '/..' . '/patriziotomato/edgegrid-client/src',
+        ),
+        'Acquia\\Hmac\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/acquia/http-hmac-php/src',
         ),
     );
 
@@ -1614,7 +1624,7 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
         'TheSeer\\Tokenizer\\NamespaceUriException' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUriException.php',
@@ -1625,17 +1635,17 @@ class ComposerStaticInit76d345809798ec7d0568c4a5503669ec
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'geoPHP' => __DIR__ . '/..' . '/phayes/geophp/geoPHP.inc',
+        'geoPHP' => __DIR__ . '/..' . '/itamair/geophp/geoPHP.inc',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit76d345809798ec7d0568c4a5503669ec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit76d345809798ec7d0568c4a5503669ec::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit76d345809798ec7d0568c4a5503669ec::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit76d345809798ec7d0568c4a5503669ec::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit76d345809798ec7d0568c4a5503669ec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita07880adae28992f559ab7ff5e29d2c5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita07880adae28992f559ab7ff5e29d2c5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita07880adae28992f559ab7ff5e29d2c5::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInita07880adae28992f559ab7ff5e29d2c5::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInita07880adae28992f559ab7ff5e29d2c5::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -5,11 +5,14 @@ namespace Drupal\core_event_dispatcher\Event\Entity;
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityExtraFieldInfoEvent.
+ *
+ * @HookEvent(id="entity_extra_field_info", hook="entity_extra_field_info")
  */
-class EntityExtraFieldInfoEvent extends Event implements EventInterface {
+class EntityExtraFieldInfoEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * Field info.
@@ -96,6 +99,13 @@ class EntityExtraFieldInfoEvent extends Event implements EventInterface {
    */
   public function addFormFieldInfo(string $entityType, string $bundle, string $fieldName, array $info): void {
     $this->addFieldInfo($entityType, $bundle, $fieldName, $info, 'form');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getFieldInfo();
   }
 
 }

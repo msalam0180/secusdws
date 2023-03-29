@@ -39,6 +39,13 @@ class FileDownloadEventTest extends KernelTestBase {
   protected $controller;
 
   /**
+   * The generated file name.
+   *
+   * @var string
+   */
+  protected $filename;
+
+  /**
    * {@inheritdoc}
    *
    * @throws \Exception
@@ -79,9 +86,10 @@ class FileDownloadEventTest extends KernelTestBase {
    */
   public function testFileDownloadEventForbidden(): void {
     $this->listen(FileHookEvents::FILE_DOWNLOAD, 'onFileDownloadForbidden');
-
     $this->expectException(AccessDeniedHttpException::class);
-    $this->controller->download(Request::create('/dummy/example.txt', 'GET', ['file' => $this->generateTestFile()]), 'dummy-readonly');
+
+    $this->filename = $this->generateTestFile();
+    $this->controller->download(Request::create('/dummy/example.txt', 'GET', ['file' => $this->filename]), 'dummy-readonly');
   }
 
   /**
@@ -102,12 +110,12 @@ class FileDownloadEventTest extends KernelTestBase {
   public function testFileDownloadEvent(): void {
     $this->listen(FileHookEvents::FILE_DOWNLOAD, 'onFileDownload');
 
-    $filename = $this->generateTestFile();
-    $response = $this->controller->download(Request::create('/dummy/example.txt', 'GET', ['file' => $filename]), 'dummy-readonly');
+    $this->filename = $this->generateTestFile();
+    $response = $this->controller->download(Request::create('/dummy/example.txt', 'GET', ['file' => $this->filename]), 'dummy-readonly');
 
     $this->assertTrue($response->headers->has('x-foo'));
     $this->assertEquals('Bar', $response->headers->get('x-foo'));
-    $this->assertEquals($filename, $response->getFile()->getFilename());
+    $this->assertEquals($this->filename, $response->getFile()->getFilename());
   }
 
   /**
@@ -117,6 +125,7 @@ class FileDownloadEventTest extends KernelTestBase {
    *   The event.
    */
   public function onFileDownload(FileDownloadEvent $event): void {
+    $this->assertEquals('dummy-readonly://' . $this->filename, $event->getUri());
     $event->setHeader('x-foo', 'Bar');
   }
 

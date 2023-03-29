@@ -10,11 +10,17 @@ use Drupal\core_event_dispatcher\BlockHookEvents;
 use Drupal\hook_event_dispatcher\Event\AccessEventInterface;
 use Drupal\hook_event_dispatcher\Event\AccessEventTrait;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class BlockAccessEvent.
+ *
+ * @HookEvent(
+ *   id = "block_access",
+ *   hook = "block_access"
+ * )
  */
-class BlockAccessEvent extends Event implements EventInterface, AccessEventInterface {
+class BlockAccessEvent extends Event implements EventInterface, AccessEventInterface, HookReturnInterface {
 
   use AccessEventTrait;
 
@@ -50,6 +56,13 @@ class BlockAccessEvent extends Event implements EventInterface, AccessEventInter
    */
   public function getDispatcherType(): string {
     return BlockHookEvents::BLOCK_ACCESS;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getAccessResult();
   }
 
 }

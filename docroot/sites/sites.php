@@ -87,5 +87,6 @@ $sites = [
 
   // Local Development
   'sec.lndo.site' => 'secgov', // Local Dev
+  'local.sec.gov' => 'secgov', // Local Dev
   'investor.lndo.site' => 'investorgov', // Local Dev
 ];

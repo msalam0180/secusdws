@@ -48,11 +48,8 @@ process:
 
 
   title:
-    - plugin: get_respondent
-      source: details
-    - plugin: substr
-      start: 0
-      length: 255
+    plugin: get_respondent
+    source: details
 
   field_display_title: id
 

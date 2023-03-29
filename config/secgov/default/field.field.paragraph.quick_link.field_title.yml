@@ -1,0 +1,24 @@
+uuid: 0fd68539-6e6f-4024-8f21-ee5775698a8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.quick_link
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: paragraph.quick_link.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: quick_link
+label: Label
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

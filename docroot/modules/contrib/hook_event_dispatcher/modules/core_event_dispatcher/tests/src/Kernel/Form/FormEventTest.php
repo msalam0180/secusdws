@@ -37,8 +37,26 @@ class FormEventTest extends KernelTestBase {
     $this->listen([
       FormHookEvents::FORM_ALTER,
       'hook_event_dispatcher.form_test_form.alter',
-      'hook_event_dispatcher.form_base_test_base_form.alter',
-    ], 'onFormAlter', $this->exactly(3));
+    ], 'onFormAlter', $this->exactly(2));
+
+    $form = [
+      'test' => 'form',
+    ];
+
+    $formState = new FormState();
+    $formState->set('test', TRUE);
+
+    $this->container->get('form_builder')->prepareForm('test_form', $form, $formState);
+    $this->assertEquals('test_altered', $form['test']);
+  }
+
+  /**
+   * Test form base alter event.
+   *
+   * @throws \Exception
+   */
+  public function testFormBaseAlterEvent(): void {
+    $this->listen('hook_event_dispatcher.form_base_test_base_form.alter', 'onFormAlter');
 
     $form = [
       'test' => 'form',

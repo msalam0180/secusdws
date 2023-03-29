@@ -61,12 +61,14 @@
 {{ pattern('accordion', {
   unique_id: 'example_default',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_default|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '1',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_default|e}</code></pre>"
+    }),
   ]
 }) }}
 
@@ -125,15 +127,18 @@
 {{ pattern('accordion', {
   unique_id: 'example_borderless',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_borderless|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '2',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_borderless|e}</code></pre>"
+    }),
   ]
 }) }}
-{# 
+
+{#
 <h2 class="margin-top-7">Responsive stacked table</h2>
 
 {% set example_stacked = '<table class="usa-table usa-table--stacked">
@@ -194,14 +199,17 @@
 {{ pattern('accordion', {
   unique_id: 'example_stacked',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_stacked|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: 'stacked',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_stacked|e}</code></pre>"
+    }),
   ]
-}) }} #}
+}) }}
+#}
 
 <h2>Scrollable table</h2>
 
@@ -310,12 +318,14 @@
 {{ pattern('accordion', {
   unique_id: 'example_scroll',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_scroll|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '3',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_scroll|e}</code></pre>"
+    }),
   ]
 }) }}
 
@@ -426,12 +436,14 @@
 {{ pattern('accordion', {
   unique_id: 'example_compact',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_compact|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '4',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_compact|e}</code></pre>"
+    }),
   ]
 }) }}
 
@@ -516,11 +528,13 @@
 {{ pattern('accordion', {
   unique_id: 'example_sort',
   style: 'bordered',
-  items: [
-    {
-      heading: 'Code',
-      content: "<pre><code>#{example_sort|e}</code></pre>",
+  variants: 'Two',
+  'accordion_sections': [
+    pattern('accordion_section', {
+      manually_created_id: '5',
       expanded: 'false',
-    }
+      heading: 'Code',
+      body: "<pre><code>#{example_sort|e}</code></pre>"
+    }),
   ]
 }) }}

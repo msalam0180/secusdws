@@ -266,3 +266,22 @@ Scenario: Replaced Image Media Should Be Updated From Embed Referenced
   When I am on "/files/images/behat-cat.png"
   Then I should see the "img" element with the "src" attribute set to "http://sec.lndo.site/files/images/behat-cat.png" in the "image" region
     And the "title" element should contain "behat-cat.png (960×540)"
+
+@api @javascript
+Scenario: Image Media Thumbnail
+  Given I am logged in as a user with the "content_approver" role
+  When I visit "/media/add/image_media"
+    And I fill in "Title" with "My favorite SEC.gov Image"
+    And I attach the file "behat-test_shiba_snow.jpg" to "Image Upload"
+    And I wait 3 seconds
+    And I should see the link "behat-test_shiba_snow.jpg"
+    And the hyperlink "behat-test_shiba_snow.jpg" should match the Drupal url "/system/files/filefield_paths/behat-test_shiba_snow.jpg"
+    And I should see the "img" element with the "src" attribute set to "/system/files/styles/thumbnail/private/filefield_paths/behat-test_shiba_snow.jpg" in the "media_image_thumbnail" region
+    And I fill in "Caption" with "Shiba playing in snow"
+    And I fill in "Alternative text" with "snow shiba"
+    And I check the box "edit-status-value"
+    And I press "Save"
+  Then I should see the link "My favorite SEC.gov Image"
+  When I click "My favorite SEC.gov Image"
+  Then I should see the heading "My favorite SEC.gov Image"
+    And I should see the "img" element with the "src" attribute set to "/files/images/behat-test_shiba_snow.jpg" in the "contentarea" region

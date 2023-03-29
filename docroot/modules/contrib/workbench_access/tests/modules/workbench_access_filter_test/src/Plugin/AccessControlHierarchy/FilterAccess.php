@@ -27,6 +27,9 @@ class FilterAccess extends AccessControlHierarchyBase {
    */
   protected $filterPluginManager;
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     /** @var self $instance */
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
@@ -48,7 +51,7 @@ class FilterAccess extends AccessControlHierarchyBase {
     $weight = 1;
     foreach ($this->filterPluginManager->getDefinitions() as $id => $definition) {
       $tree['filter'][$id] = [
-        'label' => isset($definition['label']) ? $definition['label'] : $id,
+        'label' => $definition['label'] ?? $id,
         'depth' => 1,
         'parents' => ['filters'],
         'weight' => $weight++,

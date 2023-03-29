@@ -1,0 +1,10 @@
+uuid: da21abc1-df3f-4dd2-b7f1-328ff656f46b
+langcode: en
+status: true
+dependencies: {  }
+id: phone_number
+label: 'Phone Number'
+icon_uuid: null
+icon_default: null
+description: "Phone number for the Contact Card.\t"
+behavior_plugins: {  }

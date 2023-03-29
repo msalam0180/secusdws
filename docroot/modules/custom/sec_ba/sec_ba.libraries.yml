@@ -4,3 +4,4 @@ sec_ba:
     js/sec_ba.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.once

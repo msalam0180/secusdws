@@ -3,9 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.media.field_media_file
+    - field.storage.node.field_publish_date
+    - field.storage.node.field_release_number
     - node.type.rule
     - taxonomy.vocabulary.investment_company_act_category
+    - taxonomy.vocabulary.rule_type
   module:
+    - datetime
+    - file
+    - media
     - node
     - taxonomy
     - views_autocomplete_filters
@@ -157,6 +164,70 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+        field_publish_date:
+          id: field_publish_date
+          table: node__field_publish_date
+          field: field_publish_date
+          relationship: field_related_rule
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Date
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: ap_date
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         title:
           id: title
           table: node_field_data
@@ -222,18 +293,20 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing_1:
-          id: nothing_1
-          table: views
-          field: nothing
-          relationship: none
+        name_3:
+          id: name_3
+          table: taxonomy_term_field_data
+          field: name
+          relationship: field_rule_type
           group_type: group
           admin_label: ''
-          plugin_id: custom
-          label: Notice
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+          label: Type
           exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: ''
             make_link: false
             path: ''
@@ -270,19 +343,34 @@ display:
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: false
-        nothing_2:
-          id: nothing_2
-          table: views
-          field: nothing
-          relationship: none
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          convert_spaces: false
+        field_media_file:
+          id: field_media_file
+          table: media__field_media_file
+          field: field_media_file
+          relationship: field_release_file
           group_type: group
           admin_label: ''
-          plugin_id: custom
-          label: Order
-          exclude: false
+          plugin_id: field
+          label: 'File Upload'
+          exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: ''
             make_link: false
             path: ''
@@ -319,7 +407,83 @@ display:
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: file_url_plain
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_release_number:
+          id: field_release_number
+          table: node__field_release_number
+          field: field_release_number
+          relationship: field_related_rule
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Release Number'
+          exclude: false
+          alter:
+            alter_text: true
+            text: "{% if field_media_file is not empty %}\r\n<a href=\"{{ field_media_file  }}\" target=\"_blank\">{{ field_release_number }}</a>\r\n{% else %}\r\n{{ field_release_number }}\r\n{% endif %}"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         name:
           id: name
           table: taxonomy_term_field_data
@@ -664,8 +828,8 @@ display:
           entity_type: taxonomy_term
           entity_field: name
           plugin_id: views_autocomplete_filters_string
-          operator: '='
-          value: 'Investment Company Act Notice'
+          operator: regular_expression
+          value: '(Investment Company Act Notice|Investment Company Act Order)'
           group: 1
           exposed: false
           expose:
@@ -702,6 +866,66 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_rule_type_target_id:
+          id: field_rule_type_target_id
+          table: node__field_rule_type
+          field: field_rule_type_target_id
+          relationship: field_related_rule
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rule_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_rule_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rule_type_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              bad_actors: '0'
+              content_creator: '0'
+              content_approver: '0'
+              division_office_admin: '0'
+              anonymous: '0'
+              administrator: '0'
+              sitebuilder: '0'
+              webform: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: rule_type
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+          save_lineage: false
+          force_deepest: false
+          parent: null
+          level_labels: ''
+          hierarchy_depth: 0
+          required_depth: 0
+          none_label: '- Please select -'
       filter_groups:
         operator: AND
         groups:
@@ -713,20 +937,16 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            title: title
             name_1: name_1
-            nothing_1: nothing_1
-            nothing_2: nothing_2
+            name_2: name_2
+            field_publish_date: field_publish_date
+            title: title
+            name_3: name_3
+            field_media_file: field_media_file
+            field_release_number: field_release_number
             name: name
-          default: title
+          default: field_publish_date
           info:
-            title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             name_1:
               sortable: true
               default_sort_order: asc
@@ -734,12 +954,42 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            nothing_1:
+            name_2:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            nothing_2:
+            field_publish_date:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_3:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_media_file:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_release_number:
               align: ''
               separator: ''
               empty_column: false
@@ -804,6 +1054,15 @@ display:
           admin_label: 'field_investment_company_act_cat: Taxonomy term'
           plugin_id: standard
           required: false
+        field_release_file:
+          id: field_release_file
+          table: node__field_release_file
+          field: field_release_file
+          relationship: field_related_rule
+          group_type: group
+          admin_label: 'field_release_file: Media'
+          plugin_id: standard
+          required: false
       css_class: noRowGrouping
       header: {  }
       footer:
@@ -827,7 +1086,10 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.media.field_media_file'
+        - 'config:field.storage.node.field_publish_date'
+        - 'config:field.storage.node.field_release_number'
   investment_company_act_notice_order_page:
     id: investment_company_act_notice_order_page
     display_title: Page
@@ -845,4 +1107,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.media.field_media_file'
+        - 'config:field.storage.node.field_publish_date'
+        - 'config:field.storage.node.field_release_number'

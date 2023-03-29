@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\workbench_moderation\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\ContentEntityFormInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -19,10 +20,12 @@ use Drupal\workbench_moderation\ModerationInformation;
  */
 class ModerationInformationTest extends UnitTestCase {
 
+  use ProphecyTrait;
   /**
    * Builds a mock user.
    *
-   * @return AccountInterface
+   * @return \Drupal\Core\Session\AccountInterface
+   *   Returns account interface.
    */
   protected function getUser() {
     return $this->prophesize(AccountInterface::class)->reveal();
@@ -32,8 +35,10 @@ class ModerationInformationTest extends UnitTestCase {
    * Returns a mock Entity Type Manager.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_bundle_storage
+   *   Entity bundle storage.
    *
-   * @return EntityTypeManagerInterface
+   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+   *   Returns entity type manager.
    */
   protected function getEntityTypeManager(EntityStorageInterface $entity_bundle_storage) {
     $entity_type_manager = $this->prophesize(EntityTypeManagerInterface::class);
@@ -41,6 +46,9 @@ class ModerationInformationTest extends UnitTestCase {
     return $entity_type_manager->reveal();
   }
 
+  /**
+   * Setup moderation entity manager.
+   */
   public function setupModerationEntityManager($status) {
     $bundle = $this->prophesize(ConfigEntityInterface::class);
     $bundle->getThirdPartySetting('workbench_moderation', 'enabled', FALSE)->willReturn($status);
@@ -52,6 +60,8 @@ class ModerationInformationTest extends UnitTestCase {
   }
 
   /**
+   * Test moderatable entity.
+   *
    * @dataProvider providerBoolean
    * @covers ::isModeratableEntity
    */
@@ -88,6 +98,8 @@ class ModerationInformationTest extends UnitTestCase {
   }
 
   /**
+   * Test moderatable bundle.
+   *
    * @dataProvider providerBoolean
    * @covers ::isModeratableBundle
    */
@@ -103,6 +115,8 @@ class ModerationInformationTest extends UnitTestCase {
   }
 
   /**
+   * Test moderated entity form.
+   *
    * @dataProvider providerBoolean
    * @covers ::isModeratedEntityForm
    */
@@ -124,6 +138,9 @@ class ModerationInformationTest extends UnitTestCase {
     $this->assertEquals($status, $moderation_information->isModeratedEntityForm($form->reveal()));
   }
 
+  /**
+   * Test if moderated entity form is with non content entity form.
+   */
   public function testIsModeratedEntityFormWithNonContentEntityForm() {
     $form = $this->prophesize(EntityFormInterface::class);
     $moderation_information = new ModerationInformation($this->setupModerationEntityManager(TRUE), $this->getUser());
@@ -131,6 +148,9 @@ class ModerationInformationTest extends UnitTestCase {
     $this->assertFalse($moderation_information->isModeratedEntityForm($form->reveal()));
   }
 
+  /**
+   * Provides array with boolean values.
+   */
   public function providerBoolean() {
     return [
       [FALSE],

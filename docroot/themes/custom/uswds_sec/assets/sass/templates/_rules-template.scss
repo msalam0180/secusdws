@@ -3,14 +3,14 @@
 //------------------------------------------------------------------------
 .node--type-rule {
   .grid-container-two-col {
-    @include layout-sidebar-wrap;
+    @include layout-rightrail-wrap;
 
     &__section-main {
-      @include layout-sidebar-main;
+      @include layout-rightrail-main;
 
       // Breadcrumbs
       .block-system-breadcrumb-block {
-        @include min-width($layout-sidebar-bp) {
+        @include min-width($layout-rightrail-bp) {
           @include layout-fullwidth-sidebar;
           padding-left: rem(74px);
           padding-right: rem(15px);
@@ -34,7 +34,7 @@
     }
 
     &__side-section {
-      @include layout-sidebar-aside;
+      @include layout-rightrail-aside;
     }
   }
 }

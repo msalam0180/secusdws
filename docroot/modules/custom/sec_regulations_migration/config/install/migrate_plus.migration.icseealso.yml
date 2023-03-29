@@ -12,35 +12,38 @@ source:
   ids:
     - id
   fields:
-    #category,investment_company,file_num,file_num_url,notice_id,notice_url,notice_date,order_id,order_url,order_date
+    #id,category,investment_company,file_num,file_num_url,notice_id,notice_url,notice_date,order_id,order_url,order_date
     0:
+      name: id
+      label: id
+    1:
       name: category
       label: "Category"
-    1:
+    2:
       name: investment_company
       label: "Investment Company"
-    2:
+    3:
       name: file_num
       label: "File Number"
-    3:
+    4:
       name: file_num_url
       label: "File Number Url"
-    4:
+    5:
       name: notice_id
       label: "Notice ID"
-    5:
+    6:
       name: notice_url
       label: "Notice Url"
-    6:
+    7:
       name: notice_date
       label: "Notice Date"
-    7:
+    8:
       name: order_id
       label: "Order ID"
-    8:
+    9:
       name: order_url
       label: "Order Url"
-    9:
+    10:
       name: order_date
       label: "Order Date"
   constants:
@@ -82,7 +85,7 @@ process:
         - icreleases
         - icseealso
       no_stub: true
-      source: related_rules
+      source: url
     - plugin: skip_on_value
       method: row
       not_equals: true

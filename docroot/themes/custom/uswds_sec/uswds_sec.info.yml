@@ -15,6 +15,10 @@ libraries-override:
         assets/css/uswds.css: dist/css/uswds.css
     js:
       assets/js/uswds.min.js: dist/js/app.min.js
+  addtocalendar/base:
+    js:
+      '//addtocalendar.com/atc/1.5/atc.min.js': 'assets/js/lib/ics.js'
+      'js/addtocalendar.js': false
 
 # Remove CSS files:
 stylesheets-remove:

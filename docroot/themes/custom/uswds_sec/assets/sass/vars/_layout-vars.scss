@@ -1,40 +1,48 @@
 // -------------------------------------------------------------------------
 // Layout Vars
 //------------------------------------------------------------------------
+// Content well max widths
 $layout-max-width: 896px;// Landing page content well
-$layout-max-width-narrow: 664px;// Default body copy content well
-$layout-max-width-wide: 1108px;// Homepage hero, strata
-$layout-max-width-global: 1400px;// Global max-width
+$layout-max-width-narrow: 664px;// Basic page with right rail
+$layout-max-width-medium: 818px;// Basic page without right rail
+$layout-max-width-wide: 1108px;// Homepage
+$layout-max-width-global: 1400px;// Global site max-width
 
-// Horizontal padding used by l-padding helper class
+// Horizontal padding vars used by l-padding helper class
 $layout-padding-min: 26px;
 $layout-padding-max: 36px;
 $layout-padding-min-bp: 375px;
-$layout-padding-max-bp: 740px;
+$layout-padding-max-bp: 740px;// setting this > 1024px will require refactoring
 
-// Calculate when wrappers reach their max-width
+// Calculate breakpoint when wrappers reach their max-width
 $layout-max-width-bp: $layout-max-width + ($layout-padding-max * 2);
 $layout-max-width-narrow-bp: $layout-max-width-narrow + ($layout-padding-max * 2);
 $layout-max-width-wide-bp: $layout-max-width-wide + ($layout-padding-max * 2);
 
-// Text scaling breakpoint
+// Text scaling breakpoint (used by some heading styles)
 $layout-text-scale-end-bp: $layout-max-width-narrow-bp;
 
 // Navigation
 $layout-nav-bp: 1024px;// switch from mobile to desktop nav
 
+// Header
+$layout-header-bp-medium: 740px;
+$layout-header-bp-wide: $layout-nav-bp;
+$layout-header-padding-horz: 28px;// used in desktop layout
+
 // Side nav (exposed on landing pages, collapsed elsewhere)
 $layout-sidenav-bp: 1024px;// hidden in mobile
-$layout-sidenav-width: 260px;
+$layout-sidenav-bp-wide: 1100px;
+$layout-sidenav-width: 210px;
+$layout-sidenav-width-wide: 260px;// used by right rail
 $layout-sidenav-horz-padding: 42px;
-$layout-sidenav-top-offset: 28px;// for toggle buttons
 
-// Right sidebar (used on non-landing pages)
-$layout-sidebar-bp: $layout-sidenav-bp;// needs to stay in sync for mobile sidenav
-$layout-sidebar-width: 362px;
-$layout-sidebar-horz-padding: 42px;// doesn’t need to match $layout-sidenav-horz-padding
-$layout-sidebar-max-width-bp: $layout-max-width-narrow + ($layout-padding-max * 2) + $layout-sidebar-width;
-$layout-sidebar-border-width: 8px;// displayed in desktop on left viewport edge
+// Right rail (used on non-landing pages)
+$layout-rightrail-bp: $layout-sidenav-bp;// needs to stay in sync for mobile sidenav
+$layout-rightrail-width: $layout-sidenav-width-wide;// Formerly 362px (OSSS-23369)
+$layout-rightrail-main-horz-padding: 35px;
+$layout-rightrail-main-horz-padding-wide: 56px;
+$layout-rightrail-border-width: 8px;// displayed in desktop on left viewport edge
 
 // Cards
 $layout-card-bp: 640px;// for scaling text and changing box-shadow

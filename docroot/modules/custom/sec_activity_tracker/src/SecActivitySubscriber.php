@@ -135,7 +135,7 @@ class SecActivitySubscriber implements EventSubscriberInterface {
           'uid' => $uid,
           'nid' => $entity->id(),
           'name' => $user->getDisplayName(),
-          'title' => $title,
+          'title' => trim(iconv(mb_detect_encoding($title), "UTF-8", $title), 255),
           'type' => $entity->getType(),
           'role' => '',
           'action' => $action,

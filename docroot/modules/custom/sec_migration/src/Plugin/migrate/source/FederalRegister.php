@@ -6,7 +6,7 @@ use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * Extracts Submit Comments records
+ * Extracts Federal Register data from the Federal Register API
  *
  * @MigrateSource(
  *   id = "federal_register",
@@ -137,7 +137,7 @@ class FederalRegister extends CSV {
                 if (strpos($docket_id, "File Nos.") !== false) {
                   $hasMultipleFileNos = 1;
                 }
-                $fileNumber = trim(preg_replace('/^(.+)?(File Nos?\.?|and )/i', '', $fileNumber));
+                $fileNumber = trim(preg_replace('/^(.+)?(File Nos?\.?|and |File Number)/i', '', $fileNumber));
                 $allFileNumbers[] = $fileNumber;
               }
               $counter += 1;
@@ -145,7 +145,7 @@ class FederalRegister extends CSV {
             $hasMultipleReleaseNos = 0;
             $hasMultipleFileNos = 0;
             $new_row["release_number"] = $allReleaseNumbers;
-            $new_row["file_number"] = $allFileNumbers;
+            $new_row["file_number"] = $allFileNumbers;            
           } else {
             //no federal register data available for this item grab values from csv
             if (!empty($row[$titleField])) {
@@ -177,6 +177,7 @@ class FederalRegister extends CSV {
                 $dereg_title = preg_replace('/^(.*?)(of 1940:|ceased to be an investment company|, 811-\w{1,6})(.+)$/i', "$1$2", $details);
                 $new_row["title"] = $dereg_title;
               }
+
             }
 
           }
@@ -185,6 +186,13 @@ class FederalRegister extends CSV {
         //TODO add handling for exceptions
       }
 
+      //workaround for missing titles
+      if (isset($row[$titleField])) {
+        if (empty($new_row['title'])) {
+          $new_row["title"] = $row[$titleField];
+        }
+      }
+      
       //add any related rules by parsing for Proposed Rule and Final Rule in csv details
       if (isset($row[$titleField])) {
         $regex = "/\s([A-Z0-9]{1,4}-[^-\(,\s\.;]+)(\s?\()?/i";
@@ -200,6 +208,7 @@ class FederalRegister extends CSV {
       //remove unnecessary SRO titles from data
       if (preg_match('/^Self[-\s]Regulatory Organizations?/i', $new_row['title'] )) {
         $first_word = strtok($details, " ");
+        
         if ($first_word !== "Self-Regulatory") {
           $rest_of_title = end(explode(" $first_word", $new_row["title"]));
           $shortTitle = "$first_word$rest_of_title";
@@ -207,18 +216,49 @@ class FederalRegister extends CSV {
         }
         //handle titles that don't match details to fed register
         $new_row["title"] = str_replace("NoticeSelf-Regulatory", "Self-Regulatory", $new_row["title"]);
+        $new_row["title"] = str_replace("OrderSelf-Regulatory", "Self-Regulatory", $new_row["title"]);
 
+       
         //double check
         if (preg_match('/^Self[-\s]Regulatory Organizations?/i', $new_row["title"] )) {
-          $new_row["title"] = preg_replace("/^Self[-\s]Regulatory Organizations?[;|\.|,].+(Notice|Order|Correction|Designation|Declaration|Suspension|Solicitation|Request)(.+)?$/", '$1$2', $new_row['title']);
+          $new_row["title"] = preg_replace("/^Self[-\s]Regulatory Organizations?[;|\.|,|\s].+?(Notice|Order|Correction|Designation|Declaration|Suspension|Solicitation|Request)?(.+)?$/", '$1$2', $new_row['title']);
         }
 
       }
 
-      //fix any long titles
-      if (strlen($new_row["title"]) > 255) {
-        $new_row["title"] = substr($new_row["title"], 0, 255);
+      //if no file_number try to read from respondents/details
+      if (empty($new_row["file_number"])){
+        
+        if (isset($new_row["fileno"])) {
+          $new_row["file_number"] = $new_row["fileno"];
+        } else {
+          $respondents = "";
+          if (isset($new_row["respondents"])) {
+            $respondents = $new_row["respondents"];
+          } else if (isset($new_row["details"])) {
+            $respondents = $new_row["details"];
+          }
+          if (!empty($respondents)) {
+            $regex = "/(?s)File Nos?\.?:? (.+?(?= |,|;|\)|$))/";
+            preg_match($regex, $respondents, $matches);
+            if (isset($matches[1])) {
+              $new_row["file_number"] = $matches[1];              
+            }
+          }
+        }
+        
+      } else if (is_array($new_row["file_number"]) && is_string($new_row["file_number"][0]) && str_contains($new_row["file_number"][0], ", ")) {
+        $new_row["file_number"] = explode(",", $new_row["file_number"][0]);
+      } else if (is_string($new_row["file_number"]) && str_contains($new_row["file_number"], ", ")) {
+        $new_row["file_number"] = explode(",", $new_row["file_number"]);
       }
+      if (isset($new_row["file_number"]) && is_array($new_row["file_number"])) {
+        $new_row["file_number"] = array_map('trim', $new_row["file_number"]);
+      }
+      
+
+      $new_row["short_title"] = substr($new_row["title"], 0, 255);
+      
       yield ($new_row);
 
     }

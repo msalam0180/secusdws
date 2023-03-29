@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\workbench_moderation\ModerationStateAccessControlHandler.
- */
 
 namespace Drupal\workbench_moderation;
 
@@ -17,6 +13,7 @@ use Drupal\Core\Access\AccessResult;
  * @see \Drupal\workbench_moderation\Entity\ModerationState.
  */
 class ModerationStateAccessControlHandler extends EntityAccessControlHandler {
+
   /**
    * {@inheritdoc}
    */

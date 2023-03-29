@@ -19,6 +19,7 @@ class LayoutBuilderMediaTest extends BrowserTestBase {
    */
   protected static $modules = [
     'core_context',
+    'field_ui',
     'layout_builder',
     'media',
   ];

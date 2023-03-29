@@ -71,7 +71,7 @@ class Menu extends AccessControlHierarchyBase {
           'parents' => [],
           'weight' => 0,
           'description' => $menu->label(),
-          'path' => $menu->toUrl('edit-form')->toString(),
+          'path' => $menu->toUrl('edit-form')->toString(TRUE)->getGeneratedUrl(),
         ];
         $params = new MenuTreeParameters();
         $data = $this->menuTree->load($menu_id, $params);
@@ -105,7 +105,7 @@ class Menu extends AccessControlHierarchyBase {
         'parents' => [],
         'weight' => $link->link->getWeight(),
         'description' => $link->link->getDescription(),
-        'path' => $link->link->getUrlObject()->toString(),
+        'path' => $link->link->getUrlObject()->toString(TRUE)->getGeneratedUrl(),
       ];
       // Get the parents.
       if ($parent = $link->link->getParent()) {
@@ -128,10 +128,10 @@ class Menu extends AccessControlHierarchyBase {
    * Sorts the menu tree by weight.
    */
   protected function sortTree($a, $b) {
-    if ($a->link->getWeight() == $b->link->getWeight()) {
-      return $a->link->getTitle() > $b->link->getTitle();
+    if ($a->link->getWeight() === $b->link->getWeight()) {
+      return ($a->link->getTitle() > $b->link->getTitle()) ? 1 : 0;
     }
-    return $a->link->getWeight() > $b->link->getWeight();
+    return ($a->link->getWeight() > $b->link->getWeight()) ? 1 : 0;
   }
 
   /**
@@ -159,18 +159,24 @@ class Menu extends AccessControlHierarchyBase {
       $menu_parent = $menu . ':';
       // Remove unusable elements, except the existing parent.
       // Do not remove top-level menus, we check those separately.
-      if ((!empty($element['link']['menu_parent']['#default_value']) && $id != $menu_parent && $id != $element['link']['menu_parent']['#default_value']) && empty(WorkbenchAccessManager::checkTree($scheme, $sections, $user_sections))) {
+      if ((!empty($element['link']['menu_parent']['#default_value']) && $id != $menu_parent) && empty(WorkbenchAccessManager::checkTree($scheme, $sections, $user_sections))) {
         unset($element['link']['menu_parent']['#options'][$id]);
+        if ($id === $element['link']['menu_parent']['#default_value']) {
+          unset($element['link']['menu_parent']['#default_value']);
+        }
       }
       // Check for the root menu item.
       if (!isset($menu_check[$menu]) && isset($element['link']['menu_parent']['#options'][$menu . ':'])) {
         if (empty(WorkbenchAccessManager::checkTree($scheme, [$menu], $user_sections))) {
-          if (!empty($element['link']['menu_parent']['#default_value']) && $menu_parent != $element['link']['menu_parent']['#default_value']) {
-            unset($element['link']['menu_parent']['#options'][$menu . ':']);
-          }
+          unset($element['link']['menu_parent']['#options'][$menu . ':']);
         }
         $menu_check[$menu] = TRUE;
       }
+    }
+    // As long as there are menu options available, check that the default value
+    // is still in the options, if not then default to the root item.
+    if (!empty($element['link']['menu_parent']['#options']) && empty($element['link']['menu_parent']['#default_value'])) {
+      $element['link']['menu_parent']['#default_value'] = current(array_keys($element['link']['menu_parent']['#options']));
     }
   }
 
@@ -189,7 +195,7 @@ class Menu extends AccessControlHierarchyBase {
   /**
    * {@inheritdoc}
    */
-  public function disallowedOptions($field) {
+  public function disallowedOptions(array $field) {
     // On the menu form, we never remove an existing parent item, so there is
     // no concept of a disallowed option.
     return [];
@@ -201,7 +207,7 @@ class Menu extends AccessControlHierarchyBase {
    * @TODO: Refactor
    */
   public function getViewsJoin($entity_type, $key, $alias = NULL) {
-    if ($entity_type == 'user') {
+    if ($entity_type === 'user') {
       $configuration['menu'] = [
         'table' => 'section_association__user_id',
         'field' => 'user_id_target_id',

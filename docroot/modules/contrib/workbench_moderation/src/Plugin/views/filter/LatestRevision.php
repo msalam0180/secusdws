@@ -6,9 +6,7 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\views\Annotation\ViewsFilter;
 use Drupal\views\Plugin\views\filter\FilterPluginBase;
-use Drupal\views\Plugin\views\query\Sql;
 use Drupal\views\Plugin\ViewsHandlerManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,16 +20,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LatestRevision extends FilterPluginBase implements ContainerFactoryPluginInterface {
 
   /**
+   * An entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
+   * Views handler manager.
+   *
    * @var \Drupal\views\Plugin\ViewsHandlerManager
    */
   protected $joinHandler;
 
   /**
+   * Constructs a new LatestRevision.
+   *
    * @var \Drupal\Core\Database\Connection
    */
   protected $connection;
@@ -40,11 +44,17 @@ class LatestRevision extends FilterPluginBase implements ContainerFactoryPluginI
    * Constructs a new LatestRevision.
    *
    * @param array $configuration
+   *   Array for configurations.
    * @param string $plugin_id
+   *   Plugin Id.
    * @param mixed $plugin_definition
+   *   Plugin definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   An entity type manager.
    * @param \Drupal\views\Plugin\ViewsHandlerManager $join_handler
+   *   Handler for views.
    * @param \Drupal\Core\Database\Connection $connection
+   *   The database connection.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ViewsHandlerManager $join_handler, Connection $connection) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -68,17 +78,19 @@ class LatestRevision extends FilterPluginBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public function adminSummary() { }
+  public function adminSummary() {}
 
   /**
    * {@inheritdoc}
    */
-  protected function operatorForm(&$form, FormStateInterface $form_state) { }
+  protected function operatorForm(&$form, FormStateInterface $form_state) {}
 
   /**
    * {@inheritdoc}
    */
-  public function canExpose() { return FALSE; }
+  public function canExpose() {
+    return FALSE;
+  }
 
   /**
    * {@inheritdoc}
@@ -95,7 +107,7 @@ class LatestRevision extends FilterPluginBase implements ContainerFactoryPluginI
 
     $table = $this->ensureMyTable();
 
-    /** @var Sql $query */
+    /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query;
 
     $definition = $this->entityTypeManager->getDefinition($this->getEntityType());
@@ -118,4 +130,5 @@ class LatestRevision extends FilterPluginBase implements ContainerFactoryPluginI
 
     $query->ensureTable('workbench_revision_tracker', $this->relationship, $join);
   }
+
 }

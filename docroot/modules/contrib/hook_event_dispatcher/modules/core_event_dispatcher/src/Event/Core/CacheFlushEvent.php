@@ -8,6 +8,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class CacheFlushEvent.
+ *
+ * @HookEvent(
+ *   id = "cache_flush",
+ *   hook = "cache_flush"
+ * )
  */
 class CacheFlushEvent extends Event implements EventInterface {
 

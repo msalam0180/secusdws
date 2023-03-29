@@ -63,15 +63,15 @@ Feature: Global Items
     Given I am logged in as a user with the "<role>" role
     When I visit "/"
     Then I should see the text "LOCAL LNDO" in the "env_indicator" region
-      And I should see the "div" element with the "style" attribute set to "cursor:  pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
+      And I should see the "div" element with the "style" attribute set to "cursor: pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
     When I click on the element with css selector "#environment-indicator"
-    Then I should see the link "Open in: Prod" in the "env_indicator" region
-      And I should see the link "Open in: Train" in the "env_indicator" region
+    Then I should see the link "Open on Prod" in the "env_indicator" region
+      And I should see the link "Open on Train" in the "env_indicator" region
     When I visit "/admin/content/search"
     Then I should see the text "LOCAL LNDO" in the "env_indicator" region
-      And I should see the "div" element with the "style" attribute set to "cursor:  pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
-      And the hyperlink "Open in: Prod" should match the Drupal url "https://dcm.sec.gov/admin/content/search"
-      And the hyperlink "Open in: Train" should match the Drupal url "https://dcmtrain.sec.gov/admin/content/search"
+      And I should see the "div" element with the "style" attribute set to "cursor: pointer; background-color: #f9c642; color: #212121" in the "env_indicator" region
+      And the hyperlink "Open on Prod" should match the Drupal url "https://dcm.sec.gov/admin/content/search"
+      And the hyperlink "Open on Train" should match the Drupal url "https://dcmtrain.sec.gov/admin/content/search"
 
     Examples:
       | role                  |
@@ -239,13 +239,13 @@ Feature: Global Items
   @api @javascript
   Scenario Outline: Verify Email Share Icon Does Not Result In Maintenance Message
     Given I am viewing an "<content>" content:
-      | title                         | <title>          |
-      | field_display_title           | <dtitle>         |
-      | body                          | This is the body.|
-      | moderation_state              | published        |
-      | status                        | 1                |
-      | field_news_type_news          | <news_type>      |
-      | field_article_type_secarticle | <article_type>   |
+      | title                         | <title>           |
+      | field_display_title           | <dtitle>          |
+      | body                          | This is the body. |
+      | moderation_state              | published         |
+      | status                        | 1                 |
+      | field_news_type_news          | <news_type>       |
+      | field_article_type_secarticle | <article_type>    |
     When I click "Email" in the "addthis_region" region
     Then I should not see the text "Email a Friend Planned Maintenance"
 
@@ -260,6 +260,16 @@ Feature: Global Items
   @api
   Scenario: Validate Left Nav Values
     Given I am logged in as a user with the "sitebuilder" role
+      | content      | title                  | dtitle           | news_type     | article_type |
+      | secarticle   | BEHAT SEC Article      | SEC Article      |               | Other        |
+      | event        | BEHAT SEC Event        | SEC Event        |               |              |
+      | news         | BEHAT SEC News         | SEC News         | Press Release |              |
+      | landing_page | BEHAT SEC Landing Page | SEC Landing Page |               |              |
+      | secperson    | BEHAT SEC Person       |                  |               |              |
+
+@api
+Scenario: Validate Left Nav Values
+  Given I am logged in as a user with the "sitebuilder" role
     When I visit "/admin/appearance"
       #switching theme to uswdssec
       And I click on the element with css selector "#system-themes-page > div.system-themes-list.system-themes-list-installed.clearfix > div:nth-child(6) > div > ul > li:nth-child(3) > a"

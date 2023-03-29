@@ -29,18 +29,21 @@ class GetFileNumber extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $id = trim($row->getSourceProperty("id"));
 
-    //check if File No is in respondents text
-    $respondents = $row->getSourceProperty("respondents");
-
-    $regex = "/(?s)File Nos?\. (.+?(?= |,|;|\)|$))/";
-    preg_match_all($regex, $respondents, $matches);
-
-    if (!empty($matches[0])) {
-      return $matches[1];
+    $respondents = "";
+    //check if File No is in respondents/details column
+    if ($row->hasSourceProperty("respondents")) {
+      $respondents = $row->getSourceProperty("respondents");
+    } else if ($row->hasSourceProperty("details")) {
+      $respondents = $row->getSourceProperty("details");
     }
-
-
-
+    if (!empty($respondents)) {
+      $regex = "/(?s)File Nos?\.?:? (.+?(?= |,|;|\)|$))/";
+      preg_match($regex, $respondents, $matches);
+      if (isset($matches[1])) {
+        return $matches[1];
+      }
+    }
+    
     //check if we have a file we can parse
     if (empty($value) && !$this->isValidFileNumber($id)) {
       // Skip this item if there's no string value.
@@ -92,8 +95,8 @@ class GetFileNumber extends ProcessPluginBase {
         array_shift($lines);
 
         foreach ($lines as $line) {
-          if (strpos($line, "File No")) {
-            $fileNumber = strip_tags(trim(explode(".", $line)[1]));
+          if (str_contains($line, "File No")) {
+            $fileNumber = strip_tags(trim(explode("File No.", $line)[1]));
             break;
           }
         }
@@ -129,17 +132,9 @@ class GetFileNumber extends ProcessPluginBase {
   }
 
   public function isValidFileNumber($fileNumber) {
-    if (
-      str_starts_with($fileNumber, "3-")
-      || str_starts_with($fileNumber, "8-")
-      || str_starts_with($fileNumber, "24S")
-      || str_starts_with($fileNumber, "24NY")
-      || str_starts_with($fileNumber, "24W")
-    ) {
+    if (preg_match("/([A-Z,0-9]+?-[A-Z,0-9]+)($|\)|\s)/i", $fileNumber, $matches)) {
       return true;
     }
     return false;
-
-
   }
 }

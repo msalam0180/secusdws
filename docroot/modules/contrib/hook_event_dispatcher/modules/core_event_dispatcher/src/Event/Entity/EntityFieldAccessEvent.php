@@ -11,11 +11,14 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\hook_event_dispatcher\Event\AccessEventInterface;
 use Drupal\hook_event_dispatcher\Event\AccessEventTrait;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityInsertEvent.
+ *
+ * @HookEvent(id="entity_field_access", hook="entity_field_access")
  */
-class EntityFieldAccessEvent extends Event implements EventInterface, AccessEventInterface {
+class EntityFieldAccessEvent extends Event implements EventInterface, AccessEventInterface, HookReturnInterface {
 
   use AccessEventTrait;
 
@@ -83,6 +86,13 @@ class EntityFieldAccessEvent extends Event implements EventInterface, AccessEven
    */
   public function getItems(): FieldItemListInterface {
     return $this->items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getAccessResult();
   }
 
 }

@@ -16,7 +16,14 @@ use Symfony\Component\Validator\Constraint;
  */
 class ModerationState extends Constraint {
 
+  /**
+   * {@inheritdoc}
+   */
   public $message = 'Invalid state transition from %from to %to';
+
+  /**
+   * {@inheritdoc}
+   */
   public $accessDeniedMessage = 'You do not have access to transition from %from to %to';
 
 }

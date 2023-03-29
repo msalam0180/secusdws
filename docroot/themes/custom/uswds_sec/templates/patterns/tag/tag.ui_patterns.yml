@@ -1,0 +1,14 @@
+tag:
+  label: Tag
+  description: Tag
+  fields:
+    text:
+      type: text
+      label: Text
+      description: Tag text
+      preview: Example
+    style:
+      type: text
+      label: Style
+      description: Tag style, e.g. “big”
+      preview: default

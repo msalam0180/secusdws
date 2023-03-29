@@ -4,13 +4,16 @@ namespace Drupal\views_event_dispatcher\Event\Views;
 
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
 use function array_merge_recursive;
 
 /**
  * Class ViewsDataEvent.
+ *
+ * @HookEvent(id="views_data", hook="views_data")
  */
-final class ViewsDataEvent extends Event implements EventInterface {
+final class ViewsDataEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * New views data.
@@ -49,6 +52,13 @@ final class ViewsDataEvent extends Event implements EventInterface {
    */
   public function getDispatcherType(): string {
     return ViewsHookEvents::VIEWS_DATA;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getData();
   }
 
 }

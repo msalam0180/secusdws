@@ -3,16 +3,20 @@
 namespace Drupal\workbench_moderation\Access;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\workbench_moderation\ModerationInformationInterface;
 use Symfony\Component\Routing\Route;
 
+/**
+ * Define class for revision checks.
+ */
 class LatestRevisionCheck implements AccessInterface {
 
   /**
+   * Moderation information.
+   *
    * @var \Drupal\workbench_moderation\ModerationInformationInterface
    */
   protected $moderationInfo;
@@ -33,15 +37,15 @@ class LatestRevisionCheck implements AccessInterface {
    * This checker assumes the presence of an '_entity_access' requirement key
    * in the same form as used by EntityAccessCheck.
    *
-   * @see EntityAccessCheck.
-   *
    * @param \Symfony\Component\Routing\Route $route
    *   The route to check against.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   The parametrized route
+   *   The parametrized route.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
+   *
+   * @see EntityAccessCheck
    */
   public function access(Route $route, RouteMatchInterface $route_match) {
 
@@ -59,9 +63,9 @@ class LatestRevisionCheck implements AccessInterface {
    * @param \Symfony\Component\Routing\Route $route
    *   The route to check against.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   The parametrized route
+   *   The parametrized route.
    *
-   * @return ContentEntityInterface
+   * @return \Drupal\Core\Entity\ContentEntityInterface
    *   returns the Entity in question.
    *
    * @throws \Exception
@@ -79,4 +83,5 @@ class LatestRevisionCheck implements AccessInterface {
     }
     throw new \Exception(sprintf('%s is not a valid entity route. The LatestRevisionCheck access checker may only be used with a route that has a single entity parameter.', $route_match->getRouteName()));
   }
+
 }

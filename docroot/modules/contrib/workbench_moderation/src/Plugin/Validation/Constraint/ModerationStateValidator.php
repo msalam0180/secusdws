@@ -13,6 +13,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+/**
+ * Class for validating moderations states.
+ */
 class ModerationStateValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
   /**
@@ -23,6 +26,8 @@ class ModerationStateValidator extends ConstraintValidator implements ContainerI
   protected $validation;
 
   /**
+   * An entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   private $entityTypeManager;
@@ -60,6 +65,9 @@ class ModerationStateValidator extends ConstraintValidator implements ContainerI
     $this->currentUser = $account;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
@@ -108,6 +116,7 @@ class ModerationStateValidator extends ConstraintValidator implements ContainerI
    * that means it predates the presence of moderation states.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity we may be moderating.
    *
    * @return bool
    *   TRUE if this is the entity's first time being moderated, FALSE otherwise.

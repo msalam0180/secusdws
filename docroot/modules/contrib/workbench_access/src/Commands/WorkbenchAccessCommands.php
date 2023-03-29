@@ -65,7 +65,7 @@ class WorkbenchAccessCommands extends DrushCommands {
         }
       }
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       $this->logger()->warning(dt('The test vocabulary has already been created.'));
     }
     $this->logger()->success(dt('Workbench Access test vocabulary created.'));
@@ -87,4 +87,5 @@ class WorkbenchAccessCommands extends DrushCommands {
     }
     $this->logger()->success(dt('User and role assignments cleared.'));
   }
+
 }

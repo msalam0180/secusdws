@@ -9,6 +9,11 @@ use Drupal\user_event_dispatcher\UserHookEvents;
 
 /**
  * Class UserLoginEvent.
+ *
+ * @HookEvent(
+ *   id  = "user_login",
+ *   hook = "user_login"
+ * )
  */
 final class UserLoginEvent extends Event implements EventInterface {
 

@@ -1,0 +1,102 @@
+{#
+/**
+ * @file
+ * Override of system/menu.html.twig for the primary menu.
+ * Heavily inspired by  https://www.drupal.org/project/uswds_base.
+ *
+ * Available variables:
+ * - classes: A list of classes to apply to the top level <ul> element.
+ * - dropdown_classes: A list of classes to apply to the dropdown <ul> element.
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *
+ * @ingroup templates
+ *
+ * Define a custom macro that will render all menu trees.
+ */
+#}
+{% import _self as menus %}
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+{{ menus.menu_links(items, 0, megamenu, 0, NULL, NULL, attributes) }}
+
+{% macro menu_links(items, menu_level, megamenu, button_id, parent, region, attributes) %}
+  {% import _self as menus %}
+
+  {% if parent.url.getOption('attributes') %}
+    {% set link_attributes = create_attribute(parent.url.getOption('attributes')) %}
+  {% else %}
+    {% set link_attributes = create_attribute() %}
+  {% endif %}
+
+  {% set isMegaMenu = parent.attributes['is-mega-menu'] == 'true' %}
+
+  {% if items %}
+    {% if menu_level == 0 %}
+      {# Note: We’re adding role="list" is hide bullets accessibly (see _reset.scss) #}
+      <ul class="usa-nav__primary usa-accordion" role="list">
+    {% else %}
+      {% if menu_level == 1 %}
+        <div class="usa-nav__submenu{% if isMegaMenu %} is-megamenu{% endif %}"
+          data-level="{{ menu_level }}"
+          {% if menu_level == 1 %}id="basic-nav-section-{{ button_id }}"
+          {% endif %} {% if menu_level == 1 %}hidden=""{% endif %}>
+      {% endif %}
+
+      {% if parent.attributes['data-show-title'] == 'true' %} {# replace with custom attr field #}
+        <h3 class="usa-nav__submenu-heading">
+          {{ link(parent.title, parent.url, link_attributes) }}
+        </h3>
+      {% endif %}
+
+      {# Note: USWDS breaks from strict BEM class naming in the nav #}
+      <ul class="{{ menu_level == 1 ? 'usa-nav__submenu-list' : 'usa-nav__submenu-sublist' }}"
+        {% if menu_level == 1 and items|length >= 10 %}data-cols="2"{% endif %}
+        role="list">
+    {% endif %}
+
+    {% for item in items %}
+      {% set link_attributes = create_attribute() %}
+
+      {% if item.url.getOption('attributes') %}
+        {% set link_attributes = create_attribute(item.url.getOption('attributes')) %}
+      {% endif %}
+
+      {%
+        set classes = [
+          (menu_level == 0) ? 'usa-nav__primary-item': 'usa-nav__submenu-item',
+          item.below ? 'has-menu' : '',
+        ]
+      %}
+      <li {{item.attributes.addClass(classes)}}>
+        {% if menu_level == 0 and item.below %}
+          <button class="usa-accordion__button usa-nav__link {% if item.in_active_trail %}usa-current{% endif %}" aria-expanded="false" aria-controls="basic-nav-section-{{ loop.index }}">
+            <span>{{ item.title }}</span>
+          </button>
+        {% endif %}
+
+        {% if item.below and (isMegaMenu or menu_level == 0) %}
+          {{ menus.menu_links(item.below, menu_level + 1, megamenu, loop.index, item, NULL, attributes) }}
+        {% else %}
+          {{ link(item.title, item.url, { 'class':['footest-4']} ) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+
+  {% endif %}
+
+  {% if menu_level == 1 %}
+      </ul>
+    </div>
+  {% else %}
+    </ul>
+  {% endif %}
+
+{% endmacro %}

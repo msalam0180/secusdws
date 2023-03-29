@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class ThemeRegistryAlterEvent.
+ *
+ * @HookEvent(id="theme_registry_alter", alter="theme_registry")
  */
 class ThemeRegistryAlterEvent extends Event implements EventInterface {
 

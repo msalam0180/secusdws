@@ -1,0 +1,10 @@
+uuid: 846675aa-c78f-41d9-ab11-284ffaf66a0e
+langcode: en
+status: true
+dependencies: {  }
+id: fax_number
+label: 'Fax Number'
+icon_uuid: null
+icon_default: null
+description: 'Fax number for the Contact Card.'
+behavior_plugins: {  }

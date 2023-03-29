@@ -3,6 +3,7 @@
 namespace Drupal\Tests\workbench_access\Traits;
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Tests\field\Traits\EntityReferenceTestTrait;
@@ -13,6 +14,10 @@ use Drupal\workbench_access\WorkbenchAccessManagerInterface;
 
 /**
  * Contains helper classes for tests to set up various configuration.
+ *
+ * Note that this Trait does not load additional Traits called from
+ * BrowserTestBase. For Kernel tests, you will need to load those traits
+ * (such as Drupal\Tests\user\Traits\UserCreationTrait) directly.
  */
 trait WorkbenchAccessTestTrait {
 
@@ -37,8 +42,12 @@ trait WorkbenchAccessTestTrait {
    *   The vocabulary entity.
    */
   public function setUpVocabulary() {
-    $vocab = Vocabulary::create(['vid' => 'workbench_access', 'name' => 'Test Vocabulary']);
+    $vocab = Vocabulary::create([
+      'vid' => 'workbench_access',
+      'name' => 'Test Vocabulary'
+    ]);
     $vocab->save();
+
     return $vocab;
   }
 
@@ -57,10 +66,10 @@ trait WorkbenchAccessTestTrait {
    *   Field display title.
    * @param int $cardinality
    *   Indicates the number of values to save. -1 is unlimited.
-   * @param $field_type
-   *   The type of field widget to enable: options_select|options_buttons
+   * @param string $field_type
+   *   The type of field widget to enable: options_select|options_buttons.
    *
-   * @return field
+   * @return \Drupal\Core\Field\FieldConfigInterface|null
    *   The created field entity.
    */
   protected function setUpTaxonomyFieldForEntityType($entity_type_id, $bundle, $vocabulary_id, $field_name = WorkbenchAccessManagerInterface::FIELD_NAME, $title = 'Section', $cardinality = 1, $field_type = 'options_select') {
@@ -220,12 +229,17 @@ trait WorkbenchAccessTestTrait {
    *
    * @param string $scheme_id
    *   Scheme plugin ID.
+   * @param \Drupal\Core\Session\AccountInterface $admin_user
+   *   The existing admin user, if present, or FALSE.
    *
    * @return \Drupal\workbench_access\Entity\AccessSchemeInterface
    *   Created scheme.
    */
-  protected function assertCreatingAnAccessSchemeAsAdmin($scheme_id = 'taxonomy') {
-    $this->drupalLogin($this->admin);
+  protected function assertCreatingAnAccessSchemeAsAdmin($scheme_id = 'taxonomy', AccountInterface $admin_user = NULL) {
+    if (!$admin_user) {
+      $admin_user = $this->setUpAdminUser(['administer workbench access']);
+    }
+    $this->drupalLogin($admin_user);
     $this->drupalGet(Url::fromRoute('entity.access_scheme.collection'));
     $assert = $this->assertSession();
     $assert->statusCodeEquals(200);
@@ -240,9 +254,7 @@ trait WorkbenchAccessTestTrait {
     $scheme = $this->loadUnchangedScheme('editorial_section');
     $this->assertEquals('Section', $scheme->label());
     $this->assertEquals('Sections', $scheme->getPluralLabel());
-    $this->assertEquals($scheme->toUrl('edit-form')
-      ->setAbsolute()
-      ->toString(), $this->getSession()->getCurrentUrl());
+
     return $scheme;
   }
 
@@ -268,7 +280,7 @@ trait WorkbenchAccessTestTrait {
    *   Entity type ID.
    * @param string $bundle
    *   Bundle ID.
-   * @param $type
+   * @param string $type
    *   The field type to use.
    * @param string $field_name
    *   Field machine name.
@@ -278,6 +290,20 @@ trait WorkbenchAccessTestTrait {
     $form_display = EntityFormDisplay::load("$entity_type_id.$bundle.default");
     $form_display->setComponent($field_name, ['type' => $type]);
     $form_display->save();
+  }
+
+  /**
+   * Checks if we are using Drupal 8 or 9.
+   *
+   * @return bool
+   *   TRUE if Drupal 8, FALSE otherwise.
+   */
+  public function isDrupal8() {
+    $version = (int) substr(\Drupal::VERSION, 0, 1);
+    if ($version < 9) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
 }

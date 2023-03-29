@@ -15,17 +15,19 @@ Feature: Events with Webcasts
       And "event" content:
       # | field_sec_event_date | title                    | field_event_type | body                 | field_location:country_code | :address_line1 | :administrative_area | :locality   | :postal_code | field_sec_event_end_date | field_display_title      | field_webcast              | field_person | status | moderation_state |
       # | +1 week              | BEHAT Test Event Content | meeting          | Some text goes here. | US                          | 123 Main St.   | VA                   | Springfield | 22124        | +2 weeks                 | BEHAT Test Event Content | BEHAT Test Webcast Content | BEHATPerson  | 1      | published        |
-      | field_sec_event_date | title                    | field_event_type | body                 | field_sec_event_end_date | field_display_title      | field_webcast              | field_person | status | moderation_state |
-      | +1 week              | BEHAT Test Event Content | meeting          | Some text goes here. | +2 weeks                 | BEHAT Test Event Content | BEHAT Test Webcast Content | BEHATPerson  | 1      | published        |
+      | field_sec_event_date | title                    | field_event_type | body                 | field_sec_event_end_date | field_display_title      | field_webcast              | field_person | status | moderation_state | field_meeting_category | field_contact                                               |
+      | +1 week              | BEHAT Test Event Content | meeting          | Some text goes here. | +2 weeks                 | BEHAT Test Event Content | BEHAT Test Webcast Content | BEHATPerson  | 1      | published        | Open Meeting           | For further information please contact Jake from State Farm |
     When I visit "/news/upcoming-events"
     Then I should see the heading "SEC Meetings and Other Events"
       And I should see the link "BEHAT Test Event Content"
       And I should see the text "Some text goes here."
+      And I should see the text "For further information please contact Jake from State Farm"
       # And I should see the text "Location:"
       # And I should see the text "123 Main St."
       # And I should see the text "Springfield, VA 22124"
       # And I should see the text "United States"
       And I should see the link "View Event Details ›"
+      And I should not see the text "Webcast:"
 
   @api
   Scenario: View a webcast on the event detail page as external user
@@ -203,11 +205,18 @@ Feature: Events with Webcasts
       And I type "Please Join Us!" in the "Body" WYSIWYG editor
       And I select "SEC Meetings and Other Events" from "Event Type"
       And I select "Open Meeting" from "Meeting Category"
-      And I type "John Jackson" in the "Contact" WYSIWYG editor
+      And I type "For further information, please contact Mr. John Jackson." in the "Contact" WYSIWYG editor
       And I publish it
+      And I am not logged in
+      And I visit "/news/upcoming-events"
+    Then I should see the link "simple test event"
+      And I should see the text "Please Join Us!"
+      And I should see the text "For further information, please contact Mr. John Jackson."
+      And I should not see the "div.leaflet-pane.leaflet-map-pane" element in the "contentarea" region
+    When I click "View Event Details ›"
     Then I should see the heading "Simple Test Event"
       And I should see the text "Please Join Us!"
-      And I should see the text "John Jackson"
+      And I should see the text "For further information, please contact Mr. John Jackson."
       And I should not see the "div.leaflet-pane.leaflet-map-pane" element in the "contentarea" region
 
   @api @javascript

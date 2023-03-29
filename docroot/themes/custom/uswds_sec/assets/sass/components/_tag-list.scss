@@ -1,0 +1,19 @@
+//------------------------------------------------------------------------
+// Tag List
+//
+// Note: USWDS doesn’t include a tag list, only as part of collections
+//------------------------------------------------------------------------
+.tag-list {
+  $col-gap: rem(8px);
+  $row-gap: rem(8px);
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: rem(-$col-gap);
+  margin-top: rem(-$row-gap);
+
+  > .usa-tag {
+    margin-left: rem($col-gap);
+    margin-top: rem($row-gap);
+  }
+}

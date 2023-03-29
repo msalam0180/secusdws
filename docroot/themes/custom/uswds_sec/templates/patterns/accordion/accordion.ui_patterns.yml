@@ -12,11 +12,11 @@ accordion:
       label: Style
       description: Accordion style, e.g. “menu” style for mobile side nav
       preview: default
-    color:
+    variants:
       type: text
-      label: Color
-      description: Yellow (default) or gray
-      preview: yellow
+      label: Variants
+      description: Variants of the accordion section
+      preview: One
     heading_level:
       type: text
       label: Heading level

@@ -15,7 +15,7 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Create the "basic" block type.
@@ -51,14 +51,16 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
   public function testCustomBlockModeration() {
     $this->drupalLogin($this->rootUser);
 
-    // Enable moderation for custom blocks at admin/structure/block/block-content/manage/basic/moderation.
+    // Enable moderation for custom blocks at
+    // admin/structure/block/block-content/manage/basic/moderation.
     $edit = [
       'enable_moderation_state' => TRUE,
       'allowed_moderation_states_unpublished[draft]' => TRUE,
       'allowed_moderation_states_published[published]' => TRUE,
       'default_moderation_state' => 'draft',
     ];
-    $this->drupalPostForm('admin/structure/block/block-content/manage/basic/moderation', $edit, t('Save'));
+    $this->drupalGet('admin/structure/block/block-content/manage/basic/moderation');
+    $this->submitForm($edit, t('Save'));
     $this->assertSession()->pageTextContains(t('Your settings have been saved.'));
 
     // Create a custom block at block/add and save it as draft.
@@ -67,18 +69,20 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
       'info[0][value]' => 'Moderated block',
       'body[0][value]' => $body,
     ];
-    $this->drupalPostForm('block/add', $edit, t('Save and Create New Draft'));
+    $this->drupalGet('block/add');
+    $this->submitForm($edit, t('Save and Create New Draft'));
     $this->assertSession()->pageTextContains(t('basic Moderated block has been created.'));
 
     // Place the block in the Sidebar First region.
-    $instance = array(
+    $instance = [
       'id' => 'moderated_block',
       'settings[label]' => $edit['info[0][value]'],
       'region' => 'sidebar_first',
-    );
+    ];
     $block = BlockContent::load(1);
     $url = 'admin/structure/block/add/block_content:' . $block->uuid() . '/' . $this->config('system.theme')->get('default');
-    $this->drupalPostForm($url, $instance, t('Save block'));
+    $this->drupalGet($url);
+    $this->submitForm($instance, t('Save block'));
 
     // Navigate to home page and check that the block is visible. It should be
     // visible because it is the default revision.
@@ -90,7 +94,8 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
     $edit = [
       'body[0][value]' => $updated_body,
     ];
-    $this->drupalPostForm('block/' . $block->id(), $edit, t('Save and Create New Draft'));
+    $this->drupalGet('block/' . $block->id());
+    $this->submitForm($edit, t('Save and Create New Draft'));
     $this->assertSession()->pageTextContains(t('basic Moderated block has been updated.'));
 
     // Navigate to the home page and check that the block shows the updated
@@ -98,16 +103,18 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
     // revision is not a published moderation state.
     $this->drupalGet('');
     $this->assertSession()->pageTextContains($updated_body);
+    $this->drupalGet('block/' . $block->id());
 
     // Publish the block so we can create a forward revision.
-    $this->drupalPostForm('block/' . $block->id(), [], t('Save and Publish'));
+    $this->submitForm([], t('Save and Publish'));
 
     // Create a forward revision.
     $forward_revision_body = 'This is the forward revision body value';
     $edit = [
       'body[0][value]' => $forward_revision_body,
     ];
-    $this->drupalPostForm('block/' . $block->id(), $edit, t('Save and Create New Draft'));
+    $this->drupalGet('block/' . $block->id());
+    $this->submitForm($edit, t('Save and Create New Draft'));
     $this->assertSession()->pageTextContains(t('basic Moderated block has been updated.'));
 
     // Navigate to home page and check that the forward revision doesn't show,
@@ -119,7 +126,8 @@ class ModerationStateBlockTest extends ModerationStateTestBase {
     $edit = [
       'new_state' => 'published',
     ];
-    $this->drupalPostForm('block/' . $block->id() . '/latest', $edit, t('Apply'));
+    $this->drupalGet('block/' . $block->id() . '/latest');
+    $this->submitForm($edit, t('Apply'));
     $this->assertSession()->pageTextContains(t('The moderation state has been updated.'));
 
     // Navigate to home page and check that the forward revision is now the

@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\BlockHookEvents;
 
 /**
  * Class BlockViewAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "block_view_alter",
+ *   alter = "block_view"
+ * )
  */
 class BlockViewAlterEvent extends BlockViewBuilderAlterEventBase {
 

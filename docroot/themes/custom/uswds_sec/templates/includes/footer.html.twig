@@ -1,4 +1,5 @@
-<footer class="{{ footer_classes }} bg-navy bg-gradient-overlay l-padding" role="contentinfo" id="footer">
+{# Note: “footer_style” isn’t currently used but could be in the future if need be #}
+<footer class="{{ footer_classes }} bg-navy bg-gradient-overlay l-padding" id="footer">
   <div class="usa-footer__wrap">
     <div class="usa-footer__return-to-top">
       <a href="#">Return to top</a>
@@ -6,124 +7,107 @@
 
     {# Mobile Logo #}
     <div class="usa-footer__logo usa-footer__logo--mobile">
-      {% set path_to_logo = drupal_url(active_theme_path() ~ '/dist/img/logos/sec-logo-white') %}
-      <img class="usa-footer__logo-img"
-        src="{{ path_to_logo }}-1x.png"
-        srcset="{{ path_to_logo }}-1x.png 1x, {{ path_to_logo }}-2x.png 2x"
-        alt="U.S. Securities and Exchange Commission logo"/>
+      <a class="usa-footer__logo-link" href="/">
+        {# Use visually-hidden text instead of alt text since it can be more easily translated #}
+        <span class="visually-hidden">SEC homepage</span>
+        {% set path_to_logo = drupal_url(active_theme_path() ~ '/dist/img/logos/sec-logo-white') %}
+        <img class="usa-footer__logo-img"
+          src="{{ path_to_logo }}-1x.png"
+          srcset="{{ path_to_logo }}-1x.png 1x, {{ path_to_logo }}-2x.png 2x"
+          alt=""/>
+      </a>
     </div>
 
     {% if page.footer_menu or page.footer %}
       <div class="usa-footer__primary-section">
-        <div class="grid-container">
-          {# see https://www.drupal.org/project/drupal/issues/953034#comment-14192130 #}
-          {% if page.footer_menu|render|striptags('<img><video><audio><drupal-render-placeholder>')|trim %}
-            <div class="grid-row grid-gap">
-              <div class="tablet:grid-col-6 desktop:grid-col-9">
-                <nav class="usa-footer__nav" aria-label="Footer navigation">
-                  {# Menu code in uswds_sec/templates/system/menu/menu--footer_menu.html.twig #}
-                  {{ page.footer_menu }}
-                </nav>
-              </div>
-
-              <div class="tablet:grid-col-6 desktop:grid-col-3">
-                <div class="usa-sign-up">
-                  <h3 class="usa-sign-up__heading">Stay connected. Sign up for our newsletter.</h3>                           
-                    {{ pattern('govdelivery_form', {
-                      list_id: '?',
-                      form_id_prefix: 'footer_signup',
-                      class_prefix: 'footer_signup',
-                      label_text: 'Your email address',
-                      button_text: 'Sign Up',
-                      is_button_big: true,
-                      })
-                    }}
-                </div>
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
+        {# see https://www.drupal.org/project/drupal/issues/953034#comment-14192130 #}
+        {% if page.footer_menu|render|striptags('<img><video><audio><drupal-render-placeholder>')|trim %}
+          <nav class="usa-footer__nav" aria-label="Footer">
+            {# Menu code in uswds_sec/templates/system/menu/menu--footer_menu.html.twig #}
+            {{ page.footer_menu }}
+          </nav>
+          <div class="usa-sign-up">
+            <h3 class="usa-sign-up__heading">Stay connected. Sign up for our&nbsp;newsletter.</h3>
+              {{ pattern('govdelivery_form', {
+                list_id: '?',
+                form_id_prefix: 'footer_signup',
+                class_prefix: 'footer_signup',
+                label_text: 'Your email address',
+                button_text: 'Sign Up',
+              }) }}
+          </div>
+        {% endif %}
+      </div>{# end usa-footer__primary-section #}
     {% endif %}
 
     {% if footer_social %}
       <div class="usa-footer__secondary-section">
-        <div class="grid-container">
-          <div class="grid-row grid-gap">
-            {# Desktop Logo #}
-            <div class="usa-footer__logo usa-footer__logo--desktop grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
-                <div class="mobile-lg:grid-col-auto">
-                  {% set path_to_logo = drupal_url(active_theme_path() ~ '/dist/img/logos/sec-logo-white') %}
-                  <img class="usa-footer__logo-img"
-                    src="{{ path_to_logo }}-1x.png"
-                    srcset="{{ path_to_logo }}-1x.png 1x, {{ path_to_logo }}-2x.png 2x"
-                    alt="U.S. Securities and Exchange Commission logo"/>
-                </div>
-            </div>
-            {# Contact Links #}
-            <div class="usa-footer__contact-links mobile-lg:grid-col-6">
-              {% if facebook or twitter or youtube or rss %}
-                <div class="usa-footer__social-links grid-row grid-gap-1">
-                  {% if twitter %}
-                    <div class="grid-col-auto">
-                      <a class="usa-social-link add-circle-background usa-social-link--twitter" href="{{ twitter }}">
-                        <span class="u-visually-hidden">Twitter</span>
-                        {% include '@uswds_sec/includes/icon.html.twig' with {
-                          'name': 'twitter',
-                          'classes': 'usa-social-link__icon'
-                        } %}
-                      </a>
-                    </div>
-                  {% endif %}
-                  {% if facebook %}
-                    <div class="grid-col-auto">
-                      <a class="usa-social-link usa-social-link--facebook" href="{{ facebook }}">
-                        <span class="u-visually-hidden">Facebook</span>
-                        {% include '@uswds_sec/includes/icon.html.twig' with {
-                          'name': 'facebook',
-                          'classes': 'usa-social-link__icon'
-                        } %}
-                      </a>
-                    </div>
-                  {% endif %}
-                  {% if rss %}
-                    <div class="grid-col-auto">
-                      <a class="usa-social-link usa-social-link--rss" href="{{ rss }}">
-                        <span class="u-visually-hidden">RSS</span>
-                        {% include '@uswds_sec/includes/icon.html.twig' with {
-                          'name': 'rss_feed',
-                          'classes': 'usa-social-link__icon'
-                        } %}
-                      </a>
-                    </div>
-                  {% endif %}
-                  {% if youtube %}
-                    <div class="grid-col-auto">
-                      <a class="usa-social-link usa-social-link--youtube" href="{{ youtube }}">
-                        <span class="u-visually-hidden">YouTube</span>
-                        {% include '@uswds_sec/includes/icon.html.twig' with {
-                          'name': 'youtube',
-                          'classes': 'usa-social-link__icon'
-                        } %}
-                      </a>
-                    </div>
-                  {% endif %}
-                  {# Email Updates #}
-                  <div class="grid-col-auto">
-                    <a class="usa-social-link usa-social-link--youtube" href="https://public.govdelivery.com/accounts/USSEC/subscriber/new">
-                      <span class="u-visually-hidden">Email Updates</span>
-                      {% include '@uswds_sec/includes/icon.html.twig' with {
-                        'name': 'mail',
-                        'classes': 'usa-social-link__icon'
-                      } %}
-                    </a>
-                  </div>
-                </div>
-              {% endif %}
-            </div>
-          </div>
+        {# Desktop Logo #}
+        <div class="usa-footer__logo usa-footer__logo--desktop">
+          {% set path_to_logo = drupal_url(active_theme_path() ~ '/dist/img/logos/sec-logo-white') %}
+          <img class="usa-footer__logo-img"
+            src="{{ path_to_logo }}-1x.png"
+            srcset="{{ path_to_logo }}-1x.png 1x, {{ path_to_logo }}-2x.png 2x"
+            alt="U.S. Securities and Exchange Commission logo"/>
         </div>
-      </div>
+        {# Contact Links #}
+        <ul class="usa-footer__social" role="list">
+          {% if twitter %}
+            <li class="usa-footer__social-item">
+              <a class="usa-social-link usa-social-link--twitter" href="{{ twitter }}">
+                <span class="visually-hidden">Twitter</span>
+                {% include '@uswds_sec/includes/icon.html.twig' with {
+                  'name': 'twitter',
+                  'classes': 'usa-social-link__icon'
+                } %}
+              </a>
+            </li>
+          {% endif %}
+          {% if facebook %}
+            <li class="usa-footer__social-item">
+              <a class="usa-social-link usa-social-link--facebook" href="{{ facebook }}">
+                <span class="visually-hidden">Facebook</span>
+                {% include '@uswds_sec/includes/icon.html.twig' with {
+                  'name': 'facebook',
+                  'classes': 'usa-social-link__icon'
+                } %}
+              </a>
+            </li>
+          {% endif %}
+          {% if rss %}
+            <li class="usa-footer__social-item">
+              <a class="usa-social-link usa-social-link--rss" href="{{ rss }}">
+                <span class="visually-hidden">RSS</span>
+                {% include '@uswds_sec/includes/icon.html.twig' with {
+                  'name': 'rss_feed',
+                  'classes': 'usa-social-link__icon'
+                } %}
+              </a>
+            </li>
+          {% endif %}
+          {% if youtube %}
+            <li class="usa-footer__social-item">
+              <a class="usa-social-link usa-social-link--youtube" href="{{ youtube }}">
+                <span class="visually-hidden">YouTube</span>
+                {% include '@uswds_sec/includes/icon.html.twig' with {
+                  'name': 'youtube',
+                  'classes': 'usa-social-link__icon'
+                } %}
+              </a>
+            </li>
+          {% endif %}
+          {# Email Updates #}
+          <li class="usa-footer__social-item">
+            <a class="usa-social-link usa-social-link--youtube" href="https://public.govdelivery.com/accounts/USSEC/subscriber/new">
+              <span class="visually-hidden">Email Updates</span>
+              {% include '@uswds_sec/includes/icon.html.twig' with {
+                'name': 'mail',
+                'classes': 'usa-social-link__icon'
+              } %}
+            </a>
+          </li>
+        </ul>
+      </div>{# end usa-footer__secondary-section #}
     {% endif %}
   </div>
 </footer>

@@ -47,10 +47,13 @@
       position: relative;
       z-index: 2;// above image
     }
+
+    @include min-width($bp-row) {
+      flex-grow: 1;
+    }
   }
 
-  &__header {
-  }
+  &__header {}
 
   &__heading {
     @include scale(font-size, (375px: 22px, $bp-end-scale: 24px));

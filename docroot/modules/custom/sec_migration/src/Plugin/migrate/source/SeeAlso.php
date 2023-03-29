@@ -42,26 +42,42 @@ class SeeAlso extends CSV {
 
       //check if the structure includes post-url note
       if (preg_match("/ \( Note:.+\(.+\) , .+;?/i", $row[$source_field])) {
-        $respondentsSnippet = explode(" Note:", $row[$source_field])[1];
+        $seeAlsoSnippet = explode(" Note:", $row[$source_field])[1];
         $delim = ";";
-        if (!str_contains($respondentsSnippet, $delim)) $delim = ")";
-        $urls = explode($delim, $respondentsSnippet);
+        if (!str_contains($seeAlsoSnippet, $delim)) $delim = ")";
+        //if theres only one url here then parse the entire string otherwise split it
+        if (substr_count($seeAlsoSnippet,"://") > 1 ) {
+          $urls = explode($delim, $seeAlsoSnippet);
+        } else {
+          $urls = array($seeAlsoSnippet);
+        }
+        
         foreach ($urls as $url) {
+
           if (str_contains($url, 'http') || str_contains($url, 'public://') && !str_contains($url, "Comments received are available (")) {
-            $regex = "/(^.+)?\((http.+?)\)(.+$)?/i";
+            $regex = "/([\w\s.-]+)?\((http.+?|public:.+?)\)(.+$)?/i";
             preg_match($regex, $url, $matches);
+
             if (!empty($matches) && isset($matches[2])) {
               if (str_contains($matches[2], "http") || str_contains($matches[2], "public://")) {
-                $url = $matches[2];
-                $label = trim($matches[1] . " " . $matches[3]);
+                $postLabel = "";
+                if (isset($matches[3])) $postLabel = $matches[3];
+                $url = $matches[2];                
+                $label = trim($matches[1] . " " . $postLabel);
                 $label = preg_replace('/See also:? /i', '', $label);
+                $label = preg_replace('/\s+,\s/i', ', ', $label);
+                $label = rtrim($label, ")");
                 $invalidUrls = [
                   "acrobat.htm",
                   "cgi-bin/ruling-comments",
                   "sec.gov/comments",
                   "gpo.gov/fdsys",
                   "sec.gov/about/acrobat.htm",
+                  "sec.gov/news/press-release",
+                  "federalregister.gov",
                   ".htm#",
+                  ".html#",
+                  ".shtml#",
                   "goodbye.cgi?"
                 ];
                 $isInvalid = (str_replace($invalidUrls, '', $url) != $url);
@@ -80,10 +96,11 @@ class SeeAlso extends CSV {
         $delim = ")";
         $urls = explode($delim, $row[$source_field]);
         foreach ($urls as $url) {
-          
+
           if ((str_contains($url, 'http') || str_contains($url, 'public://')) && !str_contains($url, "Comments received are available (")) {
-            $regex = "/.+?(\( Note:?|PDF| \( PDF| ?;| ,| Appendix| Proposed|Additional Materials:|Finality|^ ?and|Final|Complaint:|\( Court|See also:?) ?(.*) \((http.+[^$]|public:.+[^$])/i";
+            $regex = "/.+?(\( Note:?|PDF| \( PDF| ?;| ?,| Appendix| Proposed|Additional Materials:|Finality|^ ?and|Final|Complaint:|\( Court|See also:?) ?([\w\s.-]+) \((http.+[^$]|public:.+[^$])/i";
             preg_match($regex, $url, $matches);
+
             if (!empty($matches)) {
 
               if (str_contains($matches[3], "http") || str_contains($matches[3], "public://")) {
@@ -96,8 +113,12 @@ class SeeAlso extends CSV {
                   "cgi-bin/ruling-comments",
                   "sec.gov/comments",
                   "gpo.gov/fdsys",
-                  "https://www.sec.gov/about/acrobat.htm",
+                  "sec.gov/about/acrobat.htm",
+                  "sec.gov/news/press-release",
+                  "federalregister.gov",
                   ".htm#",
+                  ".html#",
+                  ".shtml#",
                   "goodbye.cgi?"
                 ];
                

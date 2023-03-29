@@ -6,6 +6,8 @@ use Drupal\path_event_dispatcher\PathHookEvents;
 
 /**
  * Class UpdatePathEvent.
+ *
+ * @HookEvent(id="path_update", hook="path_alias_update")
  */
 final class PathUpdateEvent extends AbstractPathEvent {
 

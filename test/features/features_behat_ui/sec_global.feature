@@ -58,3 +58,10 @@ Scenario: View Assigned User Roles
     When  I am logged in as a user with the "sitebuilder" role
       And I visit "/admin/appearance"
     And I click on the element with css selector "#system-themes-page > div.system-themes-list.system-themes-list-installed.clearfix > div:nth-child(5) > div > ul > li:nth-child(3) > a"
+
+@ui @api @wdio
+ Scenario: Copy Link Integration
+    Given "secarticle" content:
+      | field_article_type_secarticle | title                   | field_display_title                       | body             | field_primary_division_office | moderation_state | status |
+      | Announcement                  | BEHAT Article Copy Link | BEHAT Article for Copy Link display title | This is the body | The Rebel Alliance-Luke       | published        | 1      |
+    Then I take a screenshot on "sec" using "globalnavigation.feature" file with "@copy_link" tag

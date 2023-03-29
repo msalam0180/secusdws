@@ -29,9 +29,9 @@
           </xsl:otherwise>
         </xsl:choose>
 
-        <!-- <div id="footer">
+        <div id="footer">
           <p>[generated-by]</p>
-        </div> -->
+        </div>
       </body>
     </html>
   </xsl:template>

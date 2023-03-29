@@ -6,5 +6,5 @@ node_details_layout:
   regions:
     main:
       label: Main region
-    sidebar:
-      label: Sidebar region
+    rightrail:
+      label: Rightrail region

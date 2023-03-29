@@ -39,6 +39,7 @@ class AccessUnpublishedTest extends WebDriverTestBase {
   protected static $userPermissions = [
     'create page content',
     'edit any page content',
+    'delete any page content',
     'access content',
     'access_unpublished node page',
     'delete token',
@@ -105,6 +106,12 @@ class AccessUnpublishedTest extends WebDriverTestBase {
 
     // Log-In and delete token -> check page can't be accessed.
     $this->drupalLogin($loggedInUser);
+
+    // Check that access unpublished form is not on the delete form.
+    $this->drupalGet($this->entity->toUrl('delete-form'));
+    $this->assertSession()->pageTextContains('Are you sure you want to delete the content item');
+    $this->assertSession()->elementNotExists('css', '[data-drupal-selector="access-token-list"]');
+
     $this->drupalGet($this->entity->toUrl('edit-form'));
     $page->clickLink('Temporary unpublished access');
     $page->find('css', '[data-drupal-selector="access-token-list"] li.dropbutton-toggle > button')->click();

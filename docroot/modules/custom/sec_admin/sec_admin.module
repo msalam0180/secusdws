@@ -67,17 +67,33 @@ function sec_admin_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       '#weight' => -21,
     ];
   }
+
+  if ($form_id == "node_rule_form" || $form_id == "node_rule_edit_form") {
+    $form["field_related_rule"]["widget"]["actions"]["bundle"] = array(
+      '#type' => 'hidden',
+      '#value' => 'regulation',
+    );
+  }
+
+  // Alter help text under Summary section of Body field for Event content type.
+  if (
+    $form_id == 'node_event_edit_form' ||
+    $form_id == 'node_event_form'
+  ) {
+    $form['body']['widget'][0]['summary']['#description'] = t('Enter the event summary that will display on the main event page.');
+  }
 }
 
-/**  
- * Implements hook_field_widget_WIDGET_TYPE_form_alter().  
- */  
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
 function sec_admin_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
   if ($element['#paragraph_type'] == 'subpage_card_group') {
     $element['top']['paragraph_type_title']['label']['description'] = [
       '#markup' => '<span class="usa-hint layout-builder-component-helptext">Only use this block to link to high level pages.</span>',
       '#weight' => 1,
     ];
+
   }
 
   if ($element['#paragraph_type'] == 'lead_paragraph') {
@@ -290,5 +306,4 @@ function sec_admin_inline_entity_form_table_fields_alter(&$fields, $context) {
       }
     }
   }
-
 }

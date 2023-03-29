@@ -4,6 +4,11 @@ namespace Drupal\core_event_dispatcher\Event\Theme;
 
 /**
  * Class ThemeSuggestionsAlterIdEvent.
+ *
+ * @HookEvent(
+ *   id = "theme_suggestions_alter:id",
+ *   alter = "theme_suggestions",
+ * )
  */
 class ThemeSuggestionsAlterIdEvent extends AbstractThemeSuggestionsEvent {
 

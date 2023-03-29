@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class TemplatePreprocessDefaultVariablesAlterEvent.
+ *
+ * @HookEvent(id="template_preprocess_default_variables_alter", alter="template_preprocess_default_variables")
  */
 final class TemplatePreprocessDefaultVariablesAlterEvent extends Event implements EventInterface {
 

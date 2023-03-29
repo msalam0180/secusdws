@@ -20,22 +20,23 @@
 
     {# Note: This wrapper is only used in mobile #}
     <div class="header__wrap__top">
-      {# Note: Logo should be wrapped in an <h1> on the homepage #}
-      <{{ is_front ? 'h1' : 'div'}} class="header__logo">
+      <div class="header__logo">
         {# FIXME: Integrate link href and image src/srcset #}
         <a class="header__logo__link" href="/">
+          {# Use visually-hidden text instead of alt text since it can be more easily translated #}
+          <span class="visually-hidden">SEC homepage</span>
           <img class="header__logo__img"
             src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png"
             srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-1x.png 1x,
                     /themes/custom/uswds_sec/dist/img/logos/sec-logo-2x.png 2x"
-            alt="U.S. Securities and Exchange Commission"/>
+            alt=""/>
           <img class="header__logo__img is-sticky"
             src="/themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-1x.png"
             srcset="/themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-1x.png 1x,
                     /themes/custom/uswds_sec/dist/img/logos/sec-logo-sec.gov-2x.png 2x"
-            alt="U.S. Securities and Exchange Commission"/>
+            alt=""/>
         </a>
-      </{{ is_front ? 'h1' : 'div'}}>
+      </div>
 
       {# Mobile nav toggle #}
       {# Note: Requires the “usa-menu-btn” class for the USWDS script #}
@@ -46,7 +47,7 @@
     </div>
 
     {# Primary navigation #}
-    <nav class="header__nav-primary usa-nav" role="navigation" aria-label="Primary navigation">
+    <nav class="header__nav-primary usa-nav" role="navigation" aria-label="Main">
       <div class="header__nav-primary__top is-mobile">
         {# FIXME: Integrate link href and image src/srcset #}
         <div class="header__logo">
@@ -74,12 +75,13 @@
         'button_text': 'Search',
         'action': '//secsearch.sec.gov/search',
         'hiddenFields': hiddenFields,
-        'form_id': 'global-search-form',
+        'form_id': 'global-search-form-mobile',
         'form_name': 'form_iQueryForm',
         'input_name': 'query',
-        'input_id': 'global-search-box',
+        'input_id': 'global-search-box-mobile',
         'autocomplete': 'off',
-        'placeholder': 'Search Sec.gov'
+        'placeholder': 'Search Sec.gov',
+        'is_searchgov': true
       }) }}
 
       {# see https://www.drupal.org/project/drupal/issues/953034#comment-14192130 #}
@@ -87,12 +89,8 @@
         {{ page.primary_menu }}
       {% endif %}
 
-      {# CTA button #}
-      <a class="header__cta usa-button usa-button--secondary" href="#FIXME">
-        Report a Concern
-      </a>
-
       {# Mobile secondary nav #}
+      {# TODO: Integrate secondary nav menu #}
       <ul class="header__nav-secondary is-mobile usa-nav__secondary" role="list">
         <li class="usa-nav__secondary-item">
           <a class="usa-nav-link" href="#">
@@ -156,7 +154,8 @@
         'input_name': 'query',
         'input_id': 'global-search-box',
         'autocomplete': 'off',
-        'placeholder': 'Search Sec.gov'
+        'placeholder': 'Search Sec.gov',
+        'is_searchgov': true
       }) }}
     </div>
 

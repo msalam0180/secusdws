@@ -26,4 +26,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/rules/other\r\n/rules/petitions"
+    pages: "/rules/other\r\n/rules/petitions\r\n/rules/exorders\r\n/rules/icdereg\r\n/rules/sro/*\r\n/rules-regulations/national-securities-exchanges-rulemaking"

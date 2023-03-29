@@ -65,10 +65,10 @@ components:
     title: "Side Navigation"
     desc: "Hierarchical, vertical navigation to place at the side of a page."
     external_documentation: "https://designsystem.digital.gov/components/side-navigation/"
-  # - href: /sec-styleguide/usa-step-indicator
-  #   title: "Step Indicator"
-  #   desc: "A step indicator updates users on their progress through a multi-step process."
-  #   external_documentation: "https://designsystem.digital.gov/components/step-indicator/"
+  - href: /sec-styleguide/usa-step-indicator
+    title: "Step Indicator"
+    desc: "A step indicator updates users on their progress through a multi-step process."
+    external_documentation: "https://designsystem.digital.gov/components/step-indicator/"
   # - href: /sec-styleguide/usa-summary-box
   #   title: "Summary Box"
   #   desc: "A summary box highlights key information from a longer page or displays next steps."

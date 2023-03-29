@@ -9,7 +9,7 @@ test_dependencies:
 dependencies:
   - drupal:options
 
-# Information added by Drupal.org packaging script on 2022-03-18
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2022-12-21
+version: '8.x-1.5'
 project: 'access_unpublished'
-datestamp: 1647595476
+datestamp: 1671641604

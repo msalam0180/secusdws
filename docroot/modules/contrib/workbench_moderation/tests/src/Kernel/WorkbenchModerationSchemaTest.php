@@ -21,7 +21,13 @@ class WorkbenchModerationSchemaTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['workbench_moderation', 'node', 'user', 'block_content', 'system'];
+  protected static $modules = [
+    'workbench_moderation',
+    'node',
+    'user',
+    'block_content',
+    'system',
+  ];
 
   /**
    * Tests workbench moderation default schema.
@@ -31,11 +37,11 @@ class WorkbenchModerationSchemaTest extends KernelTestBase {
     $typed_config = \Drupal::service('config.typed');
     $moderation_states = ModerationState::loadMultiple();
     foreach ($moderation_states as $moderation_state) {
-      $this->assertConfigSchema($typed_config, $moderation_state->getEntityType()->getConfigPrefix(). '.' . $moderation_state->id(), $moderation_state->toArray());
+      $this->assertConfigSchema($typed_config, $moderation_state->getEntityType()->getConfigPrefix() . '.' . $moderation_state->id(), $moderation_state->toArray());
     }
     $moderation_state_transitions = ModerationStateTransition::loadMultiple();
     foreach ($moderation_state_transitions as $moderation_state_transition) {
-      $this->assertConfigSchema($typed_config, $moderation_state_transition->getEntityType()->getConfigPrefix(). '.' . $moderation_state_transition->id(), $moderation_state_transition->toArray());
+      $this->assertConfigSchema($typed_config, $moderation_state_transition->getEntityType()->getConfigPrefix() . '.' . $moderation_state_transition->id(), $moderation_state_transition->toArray());
     }
 
   }
@@ -56,7 +62,7 @@ class WorkbenchModerationSchemaTest extends KernelTestBase {
     $node_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states', array_keys($moderation_states));
     $node_type->setThirdPartySetting('workbench_moderation', 'default_moderation_state', '');
     $node_type->save();
-    $this->assertConfigSchema($typed_config, $node_type->getEntityType()->getConfigPrefix(). '.' . $node_type->id(), $node_type->toArray());
+    $this->assertConfigSchema($typed_config, $node_type->getEntityType()->getConfigPrefix() . '.' . $node_type->id(), $node_type->toArray());
   }
 
   /**
@@ -77,7 +83,7 @@ class WorkbenchModerationSchemaTest extends KernelTestBase {
     $block_content_type->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states', array_keys($moderation_states));
     $block_content_type->setThirdPartySetting('workbench_moderation', 'default_moderation_state', '');
     $block_content_type->save();
-    $this->assertConfigSchema($typed_config, $block_content_type->getEntityType()->getConfigPrefix(). '.' . $block_content_type->id(), $block_content_type->toArray());
+    $this->assertConfigSchema($typed_config, $block_content_type->getEntityType()->getConfigPrefix() . '.' . $block_content_type->id(), $block_content_type->toArray());
   }
 
 }

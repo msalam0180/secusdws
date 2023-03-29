@@ -38,5 +38,5 @@ tips:
     plugin: text
     label: 'Processor settings'
     weight: 4
-    selector: .form-type-vertical-tabs
+    selector: .form-type--vertical-tabs
     body: 'Some processors have additional configuration available, which you are able to change here.'

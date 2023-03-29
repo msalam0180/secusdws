@@ -5,17 +5,9 @@
 //------------------------------------------------------------------------
 // Note: We want the text to align with the main column in desktop layout
 .page-title {
-  @include min-width($layout-sidebar-bp) {
-    // border-bottom: 1px solid $border-gray;
-    padding-bottom: rem(50px);
+  @include min-width($layout-rightrail-bp) {
+    margin-bottom: rem(28px);
   }
-
-  // NOTE: We need to override this for templates with a sidenav or sidebar
-  // .block-system-breadcrumb-block {
-  //   @include layout-fullwidth;
-  //   padding-right: rem(15px);
-  // }
-
 
   &__heading {
     @include page-title;
@@ -25,24 +17,41 @@
 
   &__above-title {
     display: flex;
-    margin-bottom: 24px;
+    margin-bottom: rem(21px);
     align-items: center;
+    justify-content: flex-end;
   }
 
-  &__label {
+  &___page-category {
     flex-grow: 1;
+    text-transform: uppercase;
+    font-family: $gotham-font-family;
+    font-weight: $gotham-medium;
+    color: $c-default;
 
     a {
       color: $c-default;
-      font-family: $gotham-font-family;
-      font-weight: $gotham-medium;
       text-decoration: none;
-      text-transform: uppercase;
 
       &:hover,
       &:focus,
       &:active {
         text-decoration: underline;
+      }
+    }
+  }
+
+  &__buttons {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+
+    > * {
+      margin-left: rem(10px);
+
+      @include min-width(640px) {
+        margin-left: rem(17px);
       }
     }
   }

@@ -1,14 +1,39 @@
-{{ attach_library('sec_custom_blocks/digitalgov_global_search') }}
+{#  Smart Search form - used by the header search form
+    Smart Search popup - used by the header search form AND "Edgar Search Tools block"
+
+    Development Helpers - DO NOT Commit either of these!
+    To fake the popup locally using example data, 
+		open docroot/modules/custom/sec_edgar/js/smartSearch.js
+		and change the line 
+		var hintsURL = 'https://efts.sec.gov/LATEST/search-index';
+		to
+		var hintsURL = 'https://sec.lndo.site/modules/custom/sec_edgar/templates/examples/dropdown_button.json';
+    
+    To view a static version of the popup place this line after the "popup location"
+    {% include '@sec_edgar/templates/examples/dropdown_test_example_code_v2.html.twig' %}
+ #}
+
+{% if is_searchgov %}
+  {{ attach_library('sec_edgar/smart_search') }}
+{% endif %}
 
 {% set classes = [
   'usa-search',
   modifier_classes ? modifier_classes : '',
 ]|join(' ')|trim %}
 
+{% if is_searchgov %}
+  {% set hiddenFields %}
+    <input name="utf8" type="hidden" value="?" />
+    <input class="affiliate" name="affiliate" type="hidden" value="secsearch" />
+  {% endset %}
+{% endif %}
+
+
 <form class="{{classes}}" action="{{action}}" role="search" name="{{form_name}}" id="{{ form_id }}" method="get">
   <div class="search--group">
     <label class="usa-sr-only" for="{{ form_id }}">{{ label_text }}</label>
-    <input class="usa-input" id="{{ input_id }}" type="search" name="{{ input_name }}" autocomplete="{{ autocomplete }}" placeholder="{{ placeholder }}">
+    <div class="search-input-wrapper"><input class="usa-input" id="{{ input_id }}" type="search" name="{{ input_name }}" autocomplete="{{ autocomplete }}" placeholder="{{ placeholder }}">{# popup location #}</div>
     {{ hiddenFields }}
     <button class="usa-button" type="submit">
       <span class="{% if hide_button_text %}usa-sr-only{% else %}usa-search__submit-text{% endif %}">{{ button_text}}</span>
@@ -16,3 +41,21 @@
   </div>
 </form>
 
+{# Example searchgov usage
+
+{{ pattern('search_form', {
+  'modifier_classes': 'header__search is-desktop usa-search--small',
+  'label': 'Search SEC.gov',
+  'hide_button_text': true,
+  'button_text': 'Search',
+  'action': '//secsearch.sec.gov/search',
+  'hiddenFields': hiddenFields,
+  'form_id': 'global-search-form',
+  'form_name': 'form_iQueryForm',
+  'input_name': 'query',
+  'input_id': 'global-search-box',
+  'autocomplete': 'off',
+  'placeholder': 'Search Sec.gov',
+  'is_searchgov': true
+}) }} 
+#}

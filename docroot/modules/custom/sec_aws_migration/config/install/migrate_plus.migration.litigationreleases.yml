@@ -121,7 +121,7 @@ process:
       - litigationreleasesreleases
       - litigationreleasesseealsofiles
       - opinionsordersreleases
-      - opinionsordersseealsofils
+      - opinionsordersseealsofiles
       - stopordersreleases
       - stopordersseealsofiles
       - tradingsuspensionfiles
@@ -163,7 +163,7 @@ process:
             - litigationreleasesreleases
             - litigationreleasesseealsofiles
             - opinionsordersreleases
-            - opinionsordersseealsofils
+            - opinionsordersseealsofiles
             - stopordersreleases
             - stopordersseealsofiles
             - tradingsuspensionfiles

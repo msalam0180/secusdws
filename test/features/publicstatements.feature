@@ -66,7 +66,8 @@ Scenario: Ordering Speaker List For A Statement
     And I should see "John Doe" followed by "Jack Doe"
     And I should see "Jack Doe" followed by "Jane Doe"
     And I should see "Jane Doe" followed by "Jim Doe"
-  When I visit "/news/speeches-statements"
+  When I am not logged in
+    And I visit "/news/speeches-statements"
   Then I should see the link "Behat Statement Ordering Test"
     And I should see "John Doe" followed by "Jack Doe"
     And I should see "Jack Doe" followed by "Jane Doe"

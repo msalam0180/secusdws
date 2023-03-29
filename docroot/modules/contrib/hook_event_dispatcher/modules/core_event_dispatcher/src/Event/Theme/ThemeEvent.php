@@ -5,12 +5,15 @@ namespace Drupal\core_event_dispatcher\Event\Theme;
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\core_event_dispatcher\ThemeHookEvents;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 use RuntimeException;
 
 /**
  * Class ThemeEvent.
+ *
+ * @HookEvent(id="theme", hook="theme")
  */
-final class ThemeEvent extends Event implements EventInterface {
+final class ThemeEvent extends Event implements EventInterface, HookReturnInterface {
 
   /**
    * Existing implementations.
@@ -108,6 +111,13 @@ final class ThemeEvent extends Event implements EventInterface {
     foreach ($themes as $theme => $information) {
       $this->addNewTheme($theme, $information);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getNewThemes();
   }
 
 }

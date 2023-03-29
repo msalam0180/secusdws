@@ -816,7 +816,7 @@ Scenario: Submit Request For Individual Access to Records Under the Privacy Act
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "District of Columbia" from "State/Province"
+    And I select "District of Columbia" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "United States" from "Country"
     And I fill in "Email Address of Requester" with "jastest@test.com"
@@ -841,7 +841,7 @@ Scenario: Submit Request For Individual Access to Records Under the Privacy Act 
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "District of Columbia" from "State/Province"
+    And I select "District of Columbia" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "United States" from "Country"
     And I fill in "Email Address of Requester" with "jastest@test.com"
@@ -860,6 +860,11 @@ Scenario: Submit Request For Individual Access to Records Under the Privacy Act 
     And I press the "Submit" button
   #SEC Request No. field not filled
   Then I should not see the text "New submission added to Request for Individual Access to Records under the Privacy Act."
+  #Country field not selected
+  When I fill in "SEC Request No." with "11-11011-ZyxV"
+    And I select "- Select -" from "Country"
+    And I press the "Submit" button
+  Then I should not see the text "New submission added to Request for Individual Access to Records under the Privacy Act."
 
 @api @javascript
 Scenario: SEC Request No. Field Validation For Request For Individual Access to Records Under the Privacy Act
@@ -874,7 +879,7 @@ Scenario: SEC Request No. Field Validation For Request For Individual Access to 
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "District of Columbia" from "State/Province"
+    And I select "District of Columbia" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "United States" from "Country"
     And I fill in "Email Address of Requester" with "jastest@test.com"
@@ -912,7 +917,7 @@ Scenario: Submit Consent for Disclosure of Records Protected under the Privacy A
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "District of Columbia" from "State/Province"
+    And I select "District of Columbia" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "United States" from "Country"
     And I fill in "Email Address of Recipient" with "jastest@test.com"
@@ -931,6 +936,11 @@ Scenario: Submit Consent for Disclosure of Records Protected under the Privacy A
     And I press the "Submit" button
   #SEC Request No. field not filled
   Then I should not see the text "New submission added to Consent for Disclosure of Records Protected under the Privacy Act."
+  #Country field not selected
+  When I fill in "SEC Request No." with "11-11011-ZyxV"
+    And I select "- Select -" from "Country"
+    And I press the "Submit" button
+  Then I should not see the text "New submission added to Consent for Disclosure of Records Protected under the Privacy Act."
 
 @api @javascript
 Scenario: Submit Consent for Disclosure of Records Protected under the Privacy Act
@@ -945,7 +955,7 @@ Scenario: Submit Consent for Disclosure of Records Protected under the Privacy A
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "Alaska" from "State/Province"
+    And I select "Alaska" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "Canada" from "Country"
     And I fill in "Email Address of Recipient" with "jastest@test.com"
@@ -972,7 +982,7 @@ Scenario: SEC Request No. Field Validation For Consent for Disclosure of Records
     And I fill in "Street Address 1" with "100 F Street NE"
     And I fill in "Street Address 2" with "Station Place"
     And I fill in "City/Town" with "Washington"
-    And I select "Alaska" from "State/Province"
+    And I select "Alaska" from "State"
     And I fill in "ZIP/Postal Code" with "20549"
     And I select "Canada" from "Country"
     And I fill in "Email Address of Recipient" with "jastest@test.com"
@@ -999,6 +1009,13 @@ Scenario: SEC Request No. Field Validation For Consent for Disclosure of Records
   When I check notification
     And I wait 1 seconds
   Then I should see "Webform submission from Consent for Disclosure of Records Protected under the Privacy Act" followed by "a few seconds ago"
+
+@api
+Scenario: Webforms contain Non-US Citizen option
+  When I am on "/forms/request_for_individual_access"
+  Then the "#edit-state" element should contain "Non-U.S. Citizen" 
+  When I am on "/forms/consent_for_disclosure"
+  Then the "#edit-state" element should contain "Non-U.S. Citizen" 
 
 # @api @javascript
 # Scenario: OIEA Questions and Feedback Webform Submission

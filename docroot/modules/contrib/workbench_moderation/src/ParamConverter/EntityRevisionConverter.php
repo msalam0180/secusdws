@@ -16,6 +16,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class EntityRevisionConverter extends EntityConverter {
 
   /**
+   * Moderation information.
+   *
    * @var \Drupal\workbench_moderation\ModerationInformationInterface
    */
   protected $moderationInformation;
@@ -68,7 +70,7 @@ class EntityRevisionConverter extends EntityConverter {
    *   Returns TRUE if the route is the edit form of an entity, FALSE otherwise.
    */
   protected function isEditFormPage(Route $route) {
-    if ($default = $route->getDefault('_entity_form') ) {
+    if ($default = $route->getDefault('_entity_form')) {
       // If no operation is provided, use 'default'.
       $default .= '.default';
       [$entity_type_id, $operation] = explode('.', $default);
@@ -93,7 +95,7 @@ class EntityRevisionConverter extends EntityConverter {
       // If the entity type is translatable, ensure we return the proper
       // translation object for the current context.
       if ($entity instanceof EntityInterface && $entity instanceof TranslatableInterface) {
-        $entity = $this->entityRepository->getTranslationFromContext($entity, NULL, array('operation' => 'entity_upcast'));
+        $entity = $this->entityRepository->getTranslationFromContext($entity, NULL, ['operation' => 'entity_upcast']);
       }
     }
 

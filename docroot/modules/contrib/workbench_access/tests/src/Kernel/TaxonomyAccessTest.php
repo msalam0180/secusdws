@@ -2,10 +2,11 @@
 
 namespace Drupal\Tests\workbench_access\Kernel;
 
-use Drupal;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Tests\UiHelperTrait;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\Tests\workbench_access\Traits\WorkbenchAccessTestTrait;
 use Drupal\workbench_access\Entity\AccessScheme;
@@ -18,8 +19,10 @@ use Drupal\workbench_access\WorkbenchAccessManagerInterface;
  */
 class TaxonomyAccessTest extends KernelTestBase {
 
-  use WorkbenchAccessTestTrait;
+  use ContentTypeCreationTrait;
+  use UiHelperTrait;
   use UserCreationTrait;
+  use WorkbenchAccessTestTrait;
 
   /**
    * Access vocabulary.
@@ -80,12 +83,18 @@ class TaxonomyAccessTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('taxonomy_term');
-    $this->accessControlledVocabulary = Vocabulary::create(['vid' => 'tags', 'name' => 'Tags']);
+    $this->accessControlledVocabulary = Vocabulary::create([
+      'vid' => 'tags',
+      'name' => 'Tags'
+    ]);
     $this->accessControlledVocabulary->save();
-    $this->nonAccessControlledVocabulary = Vocabulary::create(['vid' => 'categories', 'name' => 'Categories']);
+    $this->nonAccessControlledVocabulary = Vocabulary::create([
+      'vid' => 'categories',
+      'name' => 'Categories'
+    ]);
     $this->nonAccessControlledVocabulary->save();
     $this->installConfig(['filter', 'workbench_access']);
     $this->scheme = AccessScheme::create([
@@ -130,7 +139,7 @@ class TaxonomyAccessTest extends KernelTestBase {
     $term->save();
     // Create two users with equal permissions but assign one of them to the
     // section.
-    $version = Drupal::VERSION;
+    $version = \Drupal::VERSION;
     $permissions = $this->getPermissions();
 
     $allowed_editor = $this->createUser($permissions);
@@ -219,7 +228,7 @@ class TaxonomyAccessTest extends KernelTestBase {
    * Gets permissions appropriate to a Drupal version.
    */
   private function getPermissions() {
-    if (substr_count(Drupal::VERSION, '8.4') > 0) {
+    if (substr_count(\Drupal::VERSION, '8.4') > 0) {
       $permissions = [
         'administer taxonomy',
         'edit terms in tags',

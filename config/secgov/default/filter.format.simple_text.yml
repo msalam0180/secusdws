@@ -31,6 +31,13 @@ filters:
     weight: 0
     settings:
       replace_empty: '0'
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
   filter_url:
     id: filter_url
     provider: filter
@@ -44,10 +51,3 @@ filters:
     status: true
     weight: 0
     settings: {  }
-  linkit:
-    id: linkit
-    provider: linkit
-    status: true
-    weight: 0
-    settings:
-      title: true

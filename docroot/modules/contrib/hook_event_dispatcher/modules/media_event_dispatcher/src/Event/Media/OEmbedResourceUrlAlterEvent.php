@@ -9,6 +9,8 @@ use Drupal\media_event_dispatcher\MediaHookEvents;
 
 /**
  * Class OEmbedResourceUrlAlterEvent.
+ *
+ * @HookEvent(id="o_embed_resource_url_alter", alter="oembed_resource_url")
  */
 class OEmbedResourceUrlAlterEvent extends Event implements EventInterface {
 

@@ -1,0 +1,24 @@
+uuid: 8602a35d-4eb5-48d6-a809-db91e046279c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_quick_links_headline
+  module:
+    - field_config_cardinality
+third_party_settings:
+  field_config_cardinality:
+    cardinality_config: '1'
+id: block_content.hero.field_quick_links_headline
+field_name: field_quick_links_headline
+entity_type: block_content
+bundle: hero
+label: 'Quick Links Headline'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

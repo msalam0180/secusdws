@@ -15,59 +15,39 @@
 
 {% macro menu_links(items, menu_level, footer_style) %}
   {% import _self as menus %}
-  {% if items %}
 
+  {% if items %}
     {# Menu should not apply this wrapper if the macro already recursed. #}
     {% if menu_level == 0 %}
-    {% if footer_style == 'big' %}
-    <div class="grid-row grid-gap">
-    {% else %}
-    <ul class="grid-row grid-gap add-list-reset">
-    {% endif %}
+      <ul class="usa-footer__primary-list" role="list">
     {% endif %}
 
     {% for item in items %}
-
-      {% if menu_level == 0 and 'big' == footer_style %}
-      {# Turn the menu item into a header and its children the links. #}
-      <div class="mobile-lg:grid-col-12 desktop:grid-col flex-1">
-        {# Note: Add “usa-footer__primary-content--collapsible” to collapse section in mobile #}
-        <section class="usa-footer__primary-content">
+      {% if menu_level == 0 %}
+        <li class="usa-footer__primary-item">
+          {# Turn the menu item into a header and its children the links. #}
+          {# Note: Add “usa-footer__primary-content--collapsible” to collapse section in mobile #}
           {# Note: Add “usa-footer__primary-link” class to <h4> to make it a toggle in mobile #}
-          <h4 class="usa-footer__primary-heading">{{ item.title }}</h4>
-          {% if item.below %}
-          <ul class="usa-list usa-list--unstyled">
-            {{ menus.menu_links(item.below, 1, footer_style) }}
-          </ul>
+          {% if item.title and footer_style == 'big' %}
+            <h4 class="usa-footer__primary-heading">{{ item.title }}</h4>
           {% endif %}
-        </section>
-      </div>
-      {% elseif 'big' == footer_style %}
-      {# Big menu links. We've already recursed once, from above. #}
-      <li class="usa-footer__secondary-link">
-        {{ link(item.title, item.url) }}
-      </li>
-      {% elseif 'medium' == footer_style %}
-      {# Medium menu links. #}
-      <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
-        {{ link(item.title, item.url, { class: ['usa-footer__primary-link'] }) }}
-      </li>
-      {% else %}
-      {# Slim menu links. #}
-      <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-        {{ link(item.title, item.url, { class: ['usa-footer__primary-link'] }) }}
-      </li>
-      {% endif %}
 
+          {% if item.below %}
+            <ul class="usa-footer__secondary-list" role="list">
+              {{ menus.menu_links(item.below, 1, footer_style) }}
+            </ul>
+          {% endif %}
+        </li>
+      {% else %}
+        <li class="usa-footer__secondary-item">
+          {{ link(item.title, item.url, { class: ['usa-footer__secondary-link'] }) }}
+        </li>
+      {% endif %}
     {% endfor %}
 
     {# Menu should not apply this wrapper if the macro already recursed. #}
     {% if menu_level == 0 %}
-    {% if footer_style == 'big' %}
-    </div>
-    {% else %}
-    </ul>
-    {% endif %}
+      </ul>
     {% endif %}
 
   {% endif %}

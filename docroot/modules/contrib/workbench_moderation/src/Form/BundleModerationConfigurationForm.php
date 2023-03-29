@@ -2,7 +2,6 @@
 
 namespace Drupal\workbench_moderation\Form;
 
-
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
 use Drupal\Core\Entity\EntityForm;
@@ -17,19 +16,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BundleModerationConfigurationForm extends EntityForm {
 
   /**
+   * An entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static($container->get('entity_type.manager'));
@@ -73,15 +74,15 @@ class BundleModerationConfigurationForm extends EntityForm {
     }
 
     $states = $this->entityTypeManager->getStorage('moderation_state')->loadMultiple();
-    $label = function(ModerationState $state) {
+    $label = function (ModerationState $state) {
       return $state->label();
     };
 
-    $options_published = array_map($label, array_filter($states, function(ModerationState $state) {
+    $options_published = array_map($label, array_filter($states, function (ModerationState $state) {
       return $state->isPublishedState();
     }));
 
-    $options_unpublished = array_map($label, array_filter($states, function(ModerationState $state) {
+    $options_unpublished = array_map($label, array_filter($states, function (ModerationState $state) {
       return !$state->isPublishedState();
     }));
 
@@ -145,12 +146,16 @@ class BundleModerationConfigurationForm extends EntityForm {
    * It was in the form_alter version but we should see if we can just fold
    * it into the method above.
    *
-   * @param $entity_type
+   * @param string $entity_type
+   *   Entity type.
    * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $bundle
+   *   Entity bundle.
    * @param array $form
+   *   Form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
    */
-  public function formBuilderCallback($entity_type, ConfigEntityInterface $bundle, &$form, FormStateInterface $form_state) {
+  public function formBuilderCallback($entity_type, ConfigEntityInterface $bundle, array &$form, FormStateInterface $form_state) {
     // @todo write a test for this.
     $bundle->setThirdPartySetting('workbench_moderation', 'enabled', $form_state->getValue('enable_moderation_state'));
     $bundle->setThirdPartySetting('workbench_moderation', 'allowed_moderation_states', array_keys(array_filter($form_state->getValue('allowed_moderation_states_published') + $form_state->getValue('allowed_moderation_states_unpublished'))));
@@ -177,15 +182,16 @@ class BundleModerationConfigurationForm extends EntityForm {
 
     // If moderation is enabled, revisions MUST be enabled as well.
     // Otherwise we can't have forward revisions.
-    if($form_state->getValue('enable_moderation_state')) {
-      /* @var ConfigEntityTypeInterface $bundle */
+    if ($form_state->getValue('enable_moderation_state')) {
+      /* @var $bundle ConfigEntityTypeInterface */
       $bundle = $form_state->getFormObject()->getEntity();
 
       $this->entityTypeManager->getHandler($bundle->getEntityType()->getBundleOf(), 'moderation')->onBundleModerationConfigurationFormSubmit($bundle);
     }
 
-    parent::submitForm( $form, $form_state);
+    parent::submitForm($form, $form_state);
 
     $this->messenger()->addMessage($this->t('Your settings have been saved.'));
   }
+
 }

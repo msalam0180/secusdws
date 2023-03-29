@@ -1,0 +1,60 @@
+uuid: 9d73c4e8-7061-4e63-b4f8-2fba2fbd033d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_cards.field_card
+    - field.field.paragraph.contact_cards.field_cards_per_row
+    - field.field.paragraph.contact_cards.field_grid_alignment
+    - paragraphs.paragraphs_type.contact_cards
+  module:
+    - ds
+    - entity_reference_revisions
+    - options
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_contact_cards
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      cards_per_row:
+        - field_cards_per_row
+      grid_alignment:
+        - field_grid_alignment
+      cards:
+        - field_card
+id: paragraph.contact_cards.default
+targetEntityType: paragraph
+bundle: contact_cards
+mode: default
+content:
+  field_card:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: cards
+  field_cards_per_row:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: cards_per_row
+  field_grid_alignment:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: grid_alignment
+hidden:
+  search_api_excerpt: true

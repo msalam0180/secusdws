@@ -8,6 +8,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class PageBottomEvent.
+ *
+ * @HookEvent(id="page_bottom", hook="page_bottom")
  */
 class PageBottomEvent extends Event implements EventInterface {
 

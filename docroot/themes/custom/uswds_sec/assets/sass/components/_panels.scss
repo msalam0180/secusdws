@@ -11,13 +11,13 @@
   }
 }
 
-// CSS for right sidebar
+// CSS for right rail
 #drupal-off-canvas {
-  // CSS for right sidebar when adding a block
+  // CSS for right rail when adding a block
   .inline-block-list {
     a {
-      border-bottom: 1px solid $bg-gray-layout-builder;
-      padding: 15px 0 15px 21px;
+      border-bottom: rem(1px) solid $bg-gray-layout-builder;
+      padding: rem(15px 0 15px 21px);
     }
 
     li {
@@ -37,22 +37,22 @@
 
       a {
         display: block;
-        padding: 1px 1.5rem;
+        padding: rem(1px 1.5rem);
         font-size: 0.8em;
       }
     }
   
     button, .button {
       width: 100%;
-      padding: 10px 25px;
-      font-size: 14px;
+      padding: rem(10px 25px);
+      font-size: rem(14px);
       margin-bottom: 0;
 
       &[aria-expanded="true"] {
         background: $bg-gray-layout-builder;
       }
 
-      &:hover {
+      &:hover, &:focus {
         transition: all 0.5s ease;
         background: $bg-gray-dark-layout-builder;
         text-decoration: underline;
@@ -60,10 +60,10 @@
     }
   }
 
-  // CSS for right sidebar when adding a section
+  // CSS for right rail when adding a section
   .item-list {
-    margin-left: -20px;
-    margin-right: -20px;
+    margin-left: rem(-20px);
+    margin-right: rem(-20px);
 
     li {
       padding-left: 2rem;
@@ -112,6 +112,12 @@
 #layout-builder-modal {
   // CSS for the modal window
   // Note that the !important tags are needed to override uswds theme
+  .ui-menu {
+    .ui-state-focus,
+    .ui-state-active {
+      margin: 0;
+    }
+  }
 
   .layout-builder-configure-block {
     [data-drupal-messages] {
@@ -120,23 +126,6 @@
       left: 0;
     }
 
-    .field--widget-paragraphs {
-      .field-multiple-table {
-        margin-bottom: 0;
-      }
-
-      td {
-        padding: 0;
-      }
-
-      .paragraphs-add-wrapper {
-        margin-top: 0.5rem;
-      }
-
-      .paragraphs-dropbutton-wrapper {
-        padding-bottom: 10px;
-      }
-    } 
 
     .usa- {
       &form-group {
@@ -165,28 +154,28 @@
       }
     }
 
-    button {
-      border: 0;
-      border-radius: 0.25rem;
-      display: inline-block;
-      font-weight: 700;
-      margin-right: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      text-align: center;
-      text-decoration: none;
-    }
+    // button {
+    //   border: 0;
+    //   border-radius: 0.25rem;
+    //   display: inline-block;
+    //   font-weight: 700;
+    //   margin-right: 0.5rem;
+    //   padding: 0.75rem 1.25rem;
+    //   text-align: center;
+    //   text-decoration: none;
+    // }
 
     // CSS for Release Topper Modal
     .field-multiple-table {
       .field-multiple-drag {
-        min-width: 40px;
+        min-width: rem(40px);
         padding: 0;
 
         .tabledrag-handle {
           margin-left: 0;
           .handle {
-            margin-left: 6px !important;
-            margin-top: -4px;
+            margin-left: rem(6px) !important;
+            margin-top: rem(-4px);
             padding: 0.42em 0.25em;
             &:hover {
               transform: none;
@@ -195,14 +184,14 @@
         }
       }
       .tabledrag-hide {
-        width: 122px;
-        padding: 0 10px;
+        width: rem(122px);
+        padding: rem(0 10px);
       }
     }
 
     .paragraphs-tabs-wrapper {
       .paragraph-type-label, label {
-        padding-left: 10px;
+        padding-left: rem(10px);
       }
 
       .usa-checkbox {
@@ -213,68 +202,40 @@
         }
       }
       
-      input,
-      select,
-      .usa-hint {
-        margin-left: 11px;
-        width: 100%;
-      }
+      // input,
+      // select,
+      // .usa-hint {
+      //   margin-left: rem(11px);
+      //   width: 100%;
+      // }
 
       .paragraphs-dropdown-toggle {
         min-width: 2.7rem;
-        min-height: 39px;
-        margin-top: 5px;
+        min-height: rem(39px);
+        margin-top: rem(5px);
       }
     
       .draggable {
         .field-multiple-drag {
-          width: 30px;
+          width: rem(30px);
           
           .handle {
-            margin-left: 5px !important;
-            margin-top: -4px;
+            margin-left: rem(5px) !important;
+            margin-top: rem(-4px);
           }
         }
       }
 
       .delta-order {
-        padding-left: 10px;
+        padding-left: rem(10px);
 
         select {
           margin-left: 0;
         }
       }
 
-      [data-drupal-selector="edit-settings-block-form-field-text-add-more"] {
-        .dropbutton-toggle {
-          button {
-            display: block;
-          }:hover {
-            background: unset;
-          }:focus {
-            background: unset;
-            outline: 0.25rem solid $element-focus;
-            outline-offset: 0;
-          }
-        }
-
-        .dropbutton-wrapper {
-          cursor: pointer;
-          width: 18rem;
-        }
-
-        ul {
-          border-right: 1px solid $border-gray-modal;
-        }
-
-        input {
-          width: 14.6rem;
-        }
-
-        margin-top: 1.25rem;
-        margin-right: -0.75rem;
-        width: 19rem;
-      }
+      // [data-drupal-selector="edit-settings-block-form-field-text-add-more"],
+      
 
       .messages--warning {
         padding-left: 0.5rem;
@@ -284,13 +245,14 @@
       }
     }
 
+    // ellipsis dropdown actions (duplicate and remove)
     .paragraphs-dropdown-actions {
       padding: 0 1rem 0.5rem;
 
       input {
         border-radius: 0.25rem;
         background: $button-blue-dark;
-        margin-top: 10px !important;
+        margin-top: rem(10px) !important;
         margin-bottom: 0 !important;
         margin-left: 0;
         &:hover {
@@ -302,14 +264,14 @@
       }
     }
 
-    input {
-      margin-top: 0.5rem !important;
-      margin-bottom: 0.5rem !important;
-    }
+    // input {
+    //   margin-top: 0.5rem !important;
+    //   margin-bottom: 0.5rem !important;
+    // }
 
-    .form-submit {
-      margin-top: 0.75rem !important;
-    }
+    // .form-submit {
+    //   margin-top: 0.75rem !important;
+    // }
 
     .tabledrag-toggle-weight-wrapper {
       margin-bottom: 1rem;
@@ -322,8 +284,14 @@
     .layout-builder-component-helptext {
       display: block !important;
       width: max-content !important;
-      margin-top: -0.6rem;
-      margin-bottom: 0.2rem;
+      margin-top: -0.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .js-filter-wrapper {
+      width: 40rem;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
     }
   }
 

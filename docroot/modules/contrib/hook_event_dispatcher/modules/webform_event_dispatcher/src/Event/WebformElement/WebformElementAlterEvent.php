@@ -9,6 +9,8 @@ use Drupal\webform_event_dispatcher\WebformHookEvents;
 
 /**
  * Class WebformElementAlterEvent.
+ *
+ * @HookEvent(id="webform_element_alter", alter="webform_element")
  */
 class WebformElementAlterEvent extends Event implements EventInterface {
 

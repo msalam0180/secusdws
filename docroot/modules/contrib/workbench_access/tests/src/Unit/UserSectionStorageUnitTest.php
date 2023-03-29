@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\workbench_access\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryAggregateInterface;
@@ -19,6 +20,8 @@ use Drupal\workbench_access\UserSectionStorage;
  * @coversDefaultClass \Drupal\workbench_access\UserSectionStorage
  */
 class UserSectionStorageUnitTest extends UnitTestCase {
+
+  use ProphecyTrait;
 
   /**
    * Tests that ::getUserSections is statically cached.

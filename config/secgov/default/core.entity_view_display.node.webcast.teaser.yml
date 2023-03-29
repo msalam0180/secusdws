@@ -70,5 +70,6 @@ hidden:
   field_webcast_source: true
   field_webcast_src: true
   field_webcast_state: true
+  langcode: true
   links: true
   search_api_excerpt: true

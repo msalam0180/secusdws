@@ -6,6 +6,8 @@ use Drupal\path_event_dispatcher\PathHookEvents;
 
 /**
  * Class PathDeleteEvent.
+ *
+ * @HookEvent(id="path_delete", hook="path_alias_delete")
  */
 final class PathDeleteEvent extends AbstractPathEvent {
 

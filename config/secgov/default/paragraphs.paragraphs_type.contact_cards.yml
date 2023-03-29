@@ -1,0 +1,10 @@
+uuid: e4296768-4d05-40de-a0f5-0b335986f7fd
+langcode: en
+status: true
+dependencies: {  }
+id: contact_cards
+label: 'Contact Cards'
+icon_uuid: null
+icon_default: null
+description: 'Contact Card group.'
+behavior_plugins: {  }

@@ -10,7 +10,6 @@ use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\workbench_access\Entity\AccessScheme;
-use Drupal\workbench_access\RoleSectionStorageInterface;
 use Drupal\workbench_access\WorkbenchAccessManagerInterface;
 
 /**
@@ -97,6 +96,7 @@ function workbench_access_post_update_convert_user_storage_keys(array &$sandbox)
   if (!isset($sandbox['ids'])) {
     $sandbox['ids'] = $user_storage
       ->getQuery()
+      ->accessCheck(FALSE)
       ->exists(WorkbenchAccessManagerInterface::FIELD_NAME)
       ->execute();
     $sandbox['count'] = count($sandbox['ids']);
@@ -150,6 +150,7 @@ function workbench_access_post_update_section_user_association(&$sandbox) {
   if (!isset($sandbox['ids'])) {
     $sandbox['ids'] = $user_storage
       ->getQuery()
+      ->accessCheck(FALSE)
       ->exists(WorkbenchAccessManagerInterface::FIELD_NAME)
       ->execute();
     $sandbox['count'] = count($sandbox['ids']);
@@ -161,11 +162,12 @@ function workbench_access_post_update_section_user_association(&$sandbox) {
       $add_sections = [];
       foreach ($existing as $item) {
         $split = explode(':', $item);
-        if ($split[0] == $scheme_id) {
+        if ($split[0] === $scheme_id) {
           $add_sections[] = $split[1];
         }
       }
     }
+    // @phpstan-ignore-next-line
     $storage->addUser($scheme, $user, $add_sections);
   }
 
@@ -189,7 +191,7 @@ function workbench_access_post_update_workbench_access_field_delete(&$sandbox) {
  * Updates all instances of the WBA block to include context mappings.
  */
 function workbench_access_post_update_apply_context_mapping_to_blocks(&$sandbox) {
-  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'block', function(BlockInterface $block) {
+  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'block', function (BlockInterface $block) {
     if ($block->getPluginId() === 'workbench_access_block') {
       $settings = $block->get('settings');
       if (!isset($settings['context_mapping']['node'])) {

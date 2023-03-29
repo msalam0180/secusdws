@@ -1,0 +1,48 @@
+uuid: 29a5df0a-4db1-46be-91c9-1ec4484d56e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_with_icon.field_icon
+    - field.field.paragraph.text_with_icon.field_title
+    - paragraphs.paragraphs_type.text_with_icon
+  module:
+    - ds
+third_party_settings:
+  ds:
+    layout:
+      id: pattern_card_contact_detail
+      library: null
+      disable_css: false
+      entity_classes: no_classes
+      settings:
+        pattern:
+          field_templates: only_content
+    regions:
+      custom_text:
+        - field_title
+      icon:
+        - field_icon
+id: paragraph.text_with_icon.default
+targetEntityType: paragraph
+bundle: text_with_icon
+mode: default
+content:
+  field_icon:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: icon
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: custom_text
+hidden:
+  search_api_excerpt: true

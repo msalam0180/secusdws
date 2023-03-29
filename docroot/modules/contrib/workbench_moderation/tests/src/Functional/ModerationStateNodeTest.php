@@ -15,13 +15,13 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->drupalLogin($this->adminUser);
-    $this->createContentTypeFromUI('Moderated content', 'moderated_content', TRUE, [
+    $this->createContentTypeFromUi('Moderated content', 'moderated_content', TRUE, [
       'draft',
       'needs_review',
-      'published'
+      'published',
     ], 'draft');
     $this->grantUserPermissionToCreateContentOfType($this->adminUser, 'moderated_content');
   }
@@ -30,7 +30,8 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
    * Tests creating and deleting content.
    */
   public function testCreatingContent() {
-    $this->drupalPostForm('node/add/moderated_content', [
+    $this->drupalGet('node/add/moderated_content');
+    $this->submitForm([
       'title[0][value]' => 'moderated content',
     ], t('Save and Create New Draft'));
     $nodes = \Drupal::entityTypeManager()
@@ -47,20 +48,23 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
     $node = reset($nodes);
 
     $path = 'node/' . $node->id() . '/edit';
+    $this->drupalGet($path);
     // Set up needs review revision.
-    $this->drupalPostForm($path, [], t('Save and Request Review'));
+    $this->submitForm([], t('Save and Request Review'));
+    $this->drupalGet($path);
     // Set up published revision.
-    $this->drupalPostForm($path, [], t('Save and Publish'));
+    $this->submitForm([], t('Save and Publish'));
     \Drupal::entityTypeManager()->getStorage('node')->resetCache([$node->id()]);
     /* @var \Drupal\node\NodeInterface $node */
     $node = \Drupal::entityTypeManager()->getStorage('node')->load($node->id());
     $this->assertTrue($node->isPublished());
 
     // Verify that the state field is not shown.
-    $this->assertNoText('Published');
+    $this->assertSession()->pageTextNotContains('Published');
+    $this->drupalGet('node/' . $node->id() . '/delete');
 
     // Delete the node.
-    $this->drupalPostForm('node/' . $node->id() . '/delete', array(), t('Delete'));
+    $this->submitForm([], t('Delete'));
     $this->assertSession()->pageTextContains(t('The Moderated content moderated content has been deleted.'));
   }
 
@@ -68,8 +72,9 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
    * Tests edit form destinations.
    */
   public function testFormSaveDestination() {
+    $this->drupalGet('node/add/moderated_content');
     // Create new moderated content in draft.
-    $this->drupalPostForm('node/add/moderated_content', [
+    $this->submitForm([
       'title[0][value]' => 'Some moderated content',
       'body[0][value]' => 'First version of the content.',
     ], t('Save and Create New Draft'));
@@ -79,31 +84,34 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
 
     // After saving, we should be at the canonical URL and viewing the first
     // revision.
-    $this->assertUrl(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
+    $this->assertSession()->addressEquals(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
     $this->assertSession()->pageTextContains('First version of the content.');
+    $this->drupalGet($edit_path);
 
     // Update the draft to review; after saving, we should still be on the
     // canonical URL, but viewing the second revision.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Second version of the content.',
     ], t('Save and Request Review'));
-    $this->assertUrl(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
+    $this->assertSession()->addressEquals(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
     $this->assertSession()->pageTextContains('Second version of the content.');
+    $this->drupalGet($edit_path);
 
     // Make a new published revision; after saving, we should be at the
     // canonical URL.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Third version of the content.',
     ], t('Save and Publish'));
-    $this->assertUrl(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
+    $this->assertSession()->addressEquals(Url::fromRoute('entity.node.canonical', ['node' => $node->id()]));
     $this->assertSession()->pageTextContains('Third version of the content.');
+    $this->drupalGet($edit_path);
 
     // Make a new forward revision; after saving, we should be on the "Latest
     // version" tab.
-    $this->drupalPostForm($edit_path, [
+    $this->submitForm([
       'body[0][value]' => 'Fourth version of the content.',
     ], t('Save and Create New Draft'));
-    $this->assertUrl(Url::fromRoute('entity.node.latest_version', ['node' => $node->id()]));
+    $this->assertSession()->addressEquals(Url::fromRoute('entity.node.latest_version', ['node' => $node->id()]));
     $this->assertSession()->pageTextContains('Fourth version of the content.');
   }
 

@@ -1,0 +1,39 @@
+uuid: d416c0fd-009d-448c-8caf-7e94ab2ec53e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.gov_delivery_alert.field_email_list_id
+    - field.field.paragraph.gov_delivery_alert.field_heading_level
+    - field.field.paragraph.gov_delivery_alert.field_title
+    - paragraphs.paragraphs_type.gov_delivery_alert
+id: paragraph.gov_delivery_alert.default
+targetEntityType: paragraph
+bundle: gov_delivery_alert
+mode: default
+content:
+  field_email_list_id:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_heading_level:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

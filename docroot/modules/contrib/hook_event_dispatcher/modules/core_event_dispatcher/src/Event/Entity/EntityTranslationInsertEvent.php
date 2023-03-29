@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityTranslationInsertEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_translation_insert",
+ *   hook = "entity_translation_insert"
+ * )
  */
 class EntityTranslationInsertEvent extends AbstractEntityEvent {
 

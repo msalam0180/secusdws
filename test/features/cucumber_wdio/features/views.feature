@@ -135,3 +135,14 @@ Feature: Capture Views -page, feeds, and blocks
       And I hide "#page > footer"
       And I hide "body > a.back-to-top"
     Then I take full page screenshot
+
+  @petitions_page @wdio
+  Scenario: Petitions for Rulemaking Page
+    Given I set my screensize to desktop
+    When I visit "/rules/petitions"
+      And I hide "#global-navigation"
+      And I hide "#global-header"
+      And I hide "#global-search-form > fieldset > div > label"
+      And I hide "#page > footer"
+      And I hide "body > a.back-to-top"
+    Then I take full page screenshot

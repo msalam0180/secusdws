@@ -9,6 +9,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityBundleFieldInfoAlterEvent.
+ *
+ * @HookEvent(id="entity_bundle_field_info_alter", alter="entity_bundle_field_info")
  */
 class EntityBundleFieldInfoAlterEvent extends Event implements EventInterface {
 

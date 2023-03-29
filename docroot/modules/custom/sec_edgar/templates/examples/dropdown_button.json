@@ -1,0 +1,195 @@
+{
+  "took":2,
+  "timed_out":false,
+  "_shards":{
+     "total":1,
+     "successful":1,
+     "skipped":0,
+     "failed":0
+  },
+  "hits":{
+     "total":{
+        "value":682,
+        "relation":"eq"
+     },
+     "max_score":25.446941,
+     "hits":[
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"1800392",
+           "_score":25.446941,
+           "_source":{
+              "entity":"MicroAlgo Inc. (MLGO)",
+              "entity_words":"MicroAlgo Inc. (MLGO)",
+              "tickers":"MLGO",
+              "rank":38044973
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"789019",
+           "_score":25.112343,
+           "_source":{
+              "entity":"MICROSOFT CORP (MSFT)",
+              "entity_words":"MICROSOFT CORP (MSFT)",
+              "tickers":"MSFT",
+              "rank":44575129
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"65770",
+           "_score":24.791935,
+           "_source":{
+              "entity":"MICROVISION, INC. (MVIS)",
+              "entity_words":"MICROVISION, INC. (MVIS)",
+              "tickers":"MVIS",
+              "rank":26193357
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"1050446",
+           "_score":24.19022,
+           "_source":{
+              "entity":"MICROSTRATEGY Inc (MSTR)",
+              "entity_words":"MICROSTRATEGY Inc (MSTR)",
+              "tickers":"MSTR",
+              "rank":31131704
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"723125",
+           "_score":23.907356,
+           "_source":{
+              "entity":"MICRON TECHNOLOGY INC (MU)",
+              "entity_words":"MICRON TECHNOLOGY INC (MU)",
+              "tickers":"MU",
+              "rank":52441024
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"883975",
+           "_score":23.635548,
+           "_source":{
+              "entity":"Microbot Medical Inc. (MBOT)",
+              "entity_words":"Microbot Medical Inc. (MBOT)",
+              "tickers":"MBOT",
+              "rank":35415520
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"912147",
+           "_score":23.122604,
+           "_source":{
+              "entity":"ROYCE MICRO-CAP TRUST, INC. (RMT)",
+              "entity_words":"ROYCE MICRO-CAP TRUST, INC. (RMT)",
+              "tickers":"RMT",
+              "rank":21496395
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"819689",
+           "_score":23.122604,
+           "_source":{
+              "entity":"MICRON SOLUTIONS INC /DE/ (MICR)",
+              "entity_words":"MICRON SOLUTIONS INC /DE/ (MICR)",
+              "tickers":"MICR",
+              "rank":9680014
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"1309251",
+           "_score":22.880337,
+           "_source":{
+              "entity":"MICROALLIANCE GROUP INC. (MALG)",
+              "entity_words":"MICROALLIANCE GROUP INC. (MALG)",
+              "tickers":"MALG",
+              "rank":2804330
+           }
+        },
+        {
+           "_index":"edgar_entity_20230307_040309",
+           "_type":"_doc",
+           "_id":"65759",
+           "_score":22.880337,
+           "_source":{
+              "entity":"MICROPAC INDUSTRIES INC (MPAD)",
+              "entity_words":"MICROPAC INDUSTRIES INC (MPAD)",
+              "tickers":"MPAD",
+              "rank":5734587
+           }
+        }
+     ]
+  },
+  "query":{
+     "query":{
+        "bool":{
+           "should":[
+              {
+                 "match":{
+                    "entity":{
+                       "query":"micro",
+                       "operator":"and"
+                    }
+                 }
+              },
+              {
+                 "match":{
+                    "tickers":{
+                       "query":"micro",
+                       "operator":"and",
+                       "boost":100
+                    }
+                 }
+              },
+              {
+                 "exists":{
+                    "field":"tickers",
+                    "boost":10
+                 }
+              }
+           ],
+           "must":[
+              {
+                 "bool":{
+                    "should":[
+                       {
+                          "match":{
+                             "entity":{
+                                "query":"micro",
+                                "operator":"and"
+                             }
+                          }
+                       },
+                       {
+                          "match":{
+                             "_id":{
+                                "query":"micro"
+                             }
+                          }
+                       }
+                    ]
+                 }
+              }
+           ]
+        }
+     },
+     "from":0,
+     "size":10
+  }
+}

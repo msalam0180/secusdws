@@ -3,7 +3,6 @@
 namespace Drupal\Tests\workbench_moderation\Functional;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\FunctionalTests\AssertLegacyTrait;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\user\Entity\Role;
 use Drupal\workbench_moderation\Entity\ModerationState;
@@ -13,20 +12,18 @@ use Drupal\workbench_moderation\Entity\ModerationState;
  */
 abstract class ModerationStateTestBase extends BrowserTestBase {
 
-  use AssertLegacyTrait;
-
   /**
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
 
   /**
-   * Profile to use.
+   * {@inheritdoc}
    */
   protected $profile = 'testing';
 
   /**
-   * Admin user
+   * Admin user.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
@@ -57,7 +54,7 @@ abstract class ModerationStateTestBase extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'workbench_moderation',
     'block',
     'block_content',
@@ -71,7 +68,7 @@ abstract class ModerationStateTestBase extends BrowserTestBase {
   /**
    * Sets the test up.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->adminUser = $this->drupalCreateUser($this->permissions);
     $this->drupalPlaceBlock('local_tasks_block', ['id' => 'tabs_block']);
@@ -87,23 +84,23 @@ abstract class ModerationStateTestBase extends BrowserTestBase {
    * @param string $content_type_id
    *   Machine name.
    * @param bool $moderated
-   *   TRUE if should be moderated
+   *   TRUE if should be moderated.
    * @param string[] $allowed_states
-   *   Array of allowed state IDs
+   *   Array of allowed state IDs.
    * @param string $default_state
    *   Default state.
    */
-  protected function createContentTypeFromUI($content_type_name, $content_type_id, $moderated = FALSE, array $allowed_states = [], $default_state = NULL) {
+  protected function createContentTypeFromUi($content_type_name, $content_type_id, $moderated = FALSE, array $allowed_states = [], $default_state = NULL) {
     $this->drupalGet('admin/structure/types');
     $this->clickLink('Add content type');
     $edit = [
       'name' => $content_type_name,
       'type' => $content_type_id,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save content type'));
+    $this->submitForm($edit, t('Save content type'));
 
     if ($moderated) {
-      $this->enableModerationThroughUI($content_type_id, $allowed_states, $default_state);
+      $this->enableModerationThroughUi($content_type_id, $allowed_states, $default_state);
     }
   }
 
@@ -117,24 +114,23 @@ abstract class ModerationStateTestBase extends BrowserTestBase {
    * @param string $default_state
    *   Default state.
    */
-  protected function enableModerationThroughUI($content_type_id, array $allowed_states, $default_state) {
+  protected function enableModerationThroughUi($content_type_id, array $allowed_states, $default_state) {
     $this->drupalGet('admin/structure/types/manage/' . $content_type_id . '/moderation');
-    $this->assertFieldByName('enable_moderation_state');
-    $this->assertNoFieldChecked('edit-enable-moderation-state');
+    $this->assertSession()->fieldExists('enable_moderation_state');
+    $this->assertSession()->checkboxNotChecked('edit-enable-moderation-state');
 
     $edit['enable_moderation_state'] = 1;
 
-    /** @var ModerationState $state */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationState $state */
     foreach (ModerationState::loadMultiple() as $id => $state) {
       $key = $state->isPublishedState() ? 'allowed_moderation_states_published[' . $state->id() . ']' : 'allowed_moderation_states_unpublished[' . $state->id() . ']';
-      $edit[$key] = (int)in_array($id, $allowed_states);
+      $edit[$key] = (int) in_array($id, $allowed_states);
     }
 
     $edit['default_moderation_state'] = $default_state;
 
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
   }
-
 
   /**
    * Grants given user permission to create content of given type.

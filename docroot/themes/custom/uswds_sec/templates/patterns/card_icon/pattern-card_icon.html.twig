@@ -2,17 +2,17 @@
 <div class="card-icon bg-navy bg-gradient-overlay">
   <h{{ heading_level }} class="card-icon__heading">
     {{- heading -}}
-    {% if icon %}
+    {% if icon | render | length > 0%}
       {% include '@uswds_sec/includes/icon.html.twig' with {
         'name': icon,
         'classes': 'card-icon__heading__icon'
       } %}
     {% endif %}
   </h{{ heading_level }}>
-  {% if description %}
-    <p class="card-icon__text">{{ description }}</p>
+  {% if body  | render | length > 0 %}
+    <div class="card-icon__text">{{ body | raw }}</div>
   {% endif %}
-  {% if footer %}
+  {% if footer  | render | length > 0 %}
     <div class="card-icon__footer">
       {{ footer }}
     </div>

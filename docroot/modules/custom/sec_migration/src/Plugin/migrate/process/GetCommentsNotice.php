@@ -31,7 +31,7 @@ class GetCommentsNotice extends ProcessPluginBase {
       // Skip this item if there's no string value.
       throw new MigrateSkipProcessException();
     }
-    $regex = "/(?s)Comments due:? (.+?)(?=Comments received|\.|$|Submit |Note:|Effective Date:|See also|File No|Rel. No|Federal Register PDF|Federal Register version|Additional|Summary|\()/i";
+    $regex = "/(?s)Comments due:? (.+?)(?=Comments received|\.|$|Submit |Note:|Effective Date:|See also|File No|Rel. No|Release No|Federal Register PDF|Federal Register version|Additional|Summary|\()/i";
     preg_match($regex, $value, $matches);
 
     if (!empty($matches) && !empty($matches[1])){

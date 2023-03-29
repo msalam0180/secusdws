@@ -7,6 +7,8 @@ use Drupal\hook_event_dispatcher\Event\PluginDefinitionAlterEventBase;
 
 /**
  * Class ArchiverInfoAlterEvent.
+ *
+ * @HookEvent(id="archiver_info_alter", alter="archiver_info")
  */
 class ArchiverInfoAlterEvent extends PluginDefinitionAlterEventBase {
 

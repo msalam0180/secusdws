@@ -50,7 +50,7 @@ trait PluginHelperTrait {
     }
 
     // Allow filtering of available blocks by other parts of the system.
-    $definitions = $this->contextHandler()->filterPluginDefinitionsByContexts($this->getAvailableContexts($section_storage), $definitions);
+    $definitions = $this->contextHandler()->filterPluginDefinitionsByContexts($this->getPopulatedContexts($section_storage), $definitions);
     $grouped_definitions = $this->getDefinitionsByUntranslatedCategory($definitions);
     // Create a new category of block_content blocks that meet the context.
     foreach ($grouped_definitions as $category => $data) {
@@ -144,7 +144,7 @@ trait PluginHelperTrait {
   }
 
   /**
-   * Helper function to check the default block category whitelist.
+   * Helper function to check the default block category allowlist.
    *
    * @param string $category
    *   The identifier of the category.
@@ -157,9 +157,9 @@ trait PluginHelperTrait {
   public function categoryIsRestricted($category, array $allowed_block_categories) {
     if (!empty($allowed_block_categories)) {
       // There is no explicit indication whether the blocks from
-      // this category should be restricted. Check the default whitelist.
+      // this category should be restricted. Check the default allowlist.
       if (!in_array($category, $allowed_block_categories)) {
-        // This block's category has not been whitelisted.
+        // This block's category has not been allowlisted.
         return TRUE;
       }
     }
@@ -207,8 +207,12 @@ trait PluginHelperTrait {
   protected function getSortedDefinitions(array $definitions = NULL, $label_key = 'label') {
     uasort($definitions, function ($a, $b) use ($label_key) {
       if ($a['category'] != $b['category']) {
+        $a['category'] = $a['category'] ?? '';
+        $b['category'] = $b['category'] ?? '';
         return strnatcasecmp($a['category'], $b['category']);
       }
+      $a[$label_key] = $a[$label_key] ?? '';
+      $b[$label_key] = $b[$label_key] ?? '';
       return strnatcasecmp($a[$label_key], $b[$label_key]);
     });
     return $definitions;

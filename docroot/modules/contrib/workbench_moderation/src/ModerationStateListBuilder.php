@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Provides a listing of Moderation state entities.
  */
 class ModerationStateListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */

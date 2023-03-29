@@ -8,6 +8,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class CountriesAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "countries_alter",
+ *   alter = "countries"
+ * )
  */
 class CountriesAlterEvent extends Event implements EventInterface {
 

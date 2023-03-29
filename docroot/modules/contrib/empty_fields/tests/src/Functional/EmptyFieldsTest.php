@@ -58,14 +58,16 @@ class EmptyFieldsTest extends BrowserTestBase {
 
     $field_value = $this->randomMachineName();
     $edit = [$field_name . '[0][value]' => $field_value];
-    $this->drupalPostForm($this->webUser->toUrl('edit-form'), $edit, 'Save');
+    $this->drupalGet($this->webUser->toUrl('edit-form'));
+    $this->submitForm($edit, 'Save');
     // Verify that field is displayed when has value.
     $this->drupalGet($url);
     $this->assertSession()->responseContains($field_label);
     $this->assertSession()->responseContains($field_value);
 
     $edit = [$field_name . '[0][value]' => ''];
-    $this->drupalPostForm($this->webUser->toUrl('edit-form'), $edit, 'Save');
+    $this->drupalGet($this->webUser->toUrl('edit-form'));
+    $this->submitForm($edit, 'Save');
     // Make sure empty field is hidden.
     $this->drupalGet($url);
     $this->assertSession()->responseNotContains($field_label);
@@ -73,14 +75,7 @@ class EmptyFieldsTest extends BrowserTestBase {
 
     /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $repository */
     $repository = \Drupal::service('entity_display.repository');
-    // TODO Remove BC shim in https://www.drupal.org/node/3139166
-    if (method_exists($repository, 'getViewDisplay')) {
-      $display = $repository->getViewDisplay('user', 'user', 'default');
-    }
-    else {
-      // Fallback for core before 8.8.0.
-      $display = entity_get_display('user', 'user', 'default');
-    }
+    $display = $repository->getViewDisplay('user', 'user', 'default');
     $component = $display->getComponent($field_name);
 
     // Tests 'nbsp' plugin.
@@ -90,13 +85,7 @@ class EmptyFieldsTest extends BrowserTestBase {
     $this->assertSession()->responseContains($field_label);
     $elements = $this->cssSelect('.empty-fields__nbsp div');
     $this->assertCount(2, $elements);
-    if (version_compare(\Drupal::VERSION, '9.0', '<')) {
-      // See http://www.fileformat.info/info/unicode/char/00a0/index.htm
-      $this->assertSame(' ', $elements[1]->getHtml());
-    }
-    else {
-      $this->assertSame('&nbsp;', $elements[1]->getHtml());
-    }
+    $this->assertSame(' ', $elements[1]->getHtml());
 
     // Tests 'text' plugin.
     $text = 'This field is empty';

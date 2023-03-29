@@ -6,7 +6,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\workbench_moderation\Entity\ModerationState;
 
 /**
- * Class ModerationStateEntityTest
+ * Class ModerationStateEntityTest.
  *
  * @coversDefaultClass \Drupal\workbench_moderation\Entity\ModerationState
  *
@@ -17,12 +17,12 @@ class ModerationStateEntityTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['workbench_moderation'];
+  protected static $modules = ['workbench_moderation'];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('moderation_state');

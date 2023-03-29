@@ -8,6 +8,11 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class RebuildEvent.
+ *
+ * @HookEvent(
+ *   id = "rebuild",
+ *   hook = "rebuild"
+ * )
  */
 class RebuildEvent extends Event implements EventInterface {
 

@@ -7,6 +7,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityBuildDefaultsAlterEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_build_defaults_alter",
+ *   alter = "entity_build_defaults"
+ * )
  */
 class EntityBuildDefaultsAlterEvent extends AbstractEntityEvent {
 

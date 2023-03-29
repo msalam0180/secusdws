@@ -5,12 +5,22 @@ namespace Drupal\core_event_dispatcher\Event\Entity;
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\hook_event_dispatcher\Event\EventFactoryInterface;
+use Drupal\hook_event_dispatcher\Event\EventFactoryTrait;
 use Drupal\hook_event_dispatcher\Event\EventInterface;
+use Drupal\hook_event_dispatcher\Event\HookReturnInterface;
 
 /**
  * Class EntityLoadEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_operation",
+ *   hook = "entity_operation"
+ * )
  */
-class EntityOperationEvent extends Event implements EventInterface {
+final class EntityOperationEvent extends Event implements EventInterface, EventFactoryInterface, HookReturnInterface {
+
+  use EventFactoryTrait;
 
   /**
    * The operations.
@@ -83,6 +93,13 @@ class EntityOperationEvent extends Event implements EventInterface {
    */
   public function getDispatcherType(): string {
     return EntityHookEvents::ENTITY_OPERATION;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getReturnValue() {
+    return $this->getOperations();
   }
 
 }

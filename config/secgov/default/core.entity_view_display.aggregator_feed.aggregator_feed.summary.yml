@@ -28,4 +28,6 @@ hidden:
   description: true
   feed_icon: true
   image: true
+  langcode: true
   link: true
+  search_api_excerpt: true

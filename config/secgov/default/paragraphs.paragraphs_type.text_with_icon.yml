@@ -1,0 +1,10 @@
+uuid: 951450ec-7feb-4621-83a7-7d272b613891
+langcode: en
+status: true
+dependencies: {  }
+id: text_with_icon
+label: 'Custom Item'
+icon_uuid: null
+icon_default: null
+description: 'Custom text and icon for the Contact Card.'
+behavior_plugins: {  }

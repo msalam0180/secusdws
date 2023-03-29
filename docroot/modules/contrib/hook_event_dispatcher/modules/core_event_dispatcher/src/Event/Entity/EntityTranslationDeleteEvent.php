@@ -6,6 +6,11 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 
 /**
  * Class EntityTranslationDeleteEvent.
+ *
+ * @HookEvent(
+ *   id = "entity_translation_delete",
+ *   hook = "entity_translation_delete"
+ * )
  */
 class EntityTranslationDeleteEvent extends AbstractEntityEvent {
 

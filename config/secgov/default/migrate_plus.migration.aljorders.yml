@@ -22,6 +22,9 @@ source:
       name: id
       label: id
     -
+      name: filenum
+      label: 'File Number'
+    -
       name: releaseurl
       label: 'Release URL'
     -
@@ -41,7 +44,7 @@ process:
   type:
     plugin: default_value
     default_value: release
-  title: id
+  title: filenum
   body:
     -
       plugin: skip_on_contains
@@ -86,7 +89,7 @@ process:
     from_format: 'F j, Y'
     from_timezone: America/New_York
     to_format: 'Y-m-d\TH:i:s'
-  field_display_title: id
+  field_display_title: filenum
   field_primary_division_office:
     plugin: default_value
     default_value: 39
@@ -100,6 +103,7 @@ process:
     ignore_case: true
   field_release_number:
     plugin: get_other_release_nos
+    id_field: filenum
     source: respondents
   field_release_file:
     plugin: migration_lookup
@@ -130,7 +134,7 @@ process:
       - litigationreleasesreleases
       - litigationreleasesseealsofiles
       - opinionsordersreleases
-      - opinionsordersseealsofils
+      - opinionsordersseealsofiles
       - stopordersreleases
       - stopordersseealsofiles
       - tradingsuspensionfiles
@@ -147,6 +151,7 @@ process:
           plugin: migration_lookup
           source: url
           migration:
+            - aljorderseealsolinks
             - conceptreleases
             - conceptseealso
             - finalreleases
@@ -171,12 +176,11 @@ process:
             - litigationreleasesreleases
             - litigationreleasesseealsofiles
             - opinionsordersreleases
-            - opinionsordersseealsofils
+            - opinionsordersseealsofiles
             - stopordersreleases
             - stopordersseealsofiles
             - tradingsuspensionfiles
             - tradingsuspensionseealso
-            - aljorderseealsolinks
   respondents_value:
     plugin: get_respondent
     source: respondents
@@ -204,10 +208,10 @@ process:
     plugin: migration_lookup
     migration: aljordercomments
     no_stub: true
-    source: id
+    source: filenum
   field_delinquent_filings:
     plugin: is_delinquent
-    source: id
+    source: filenum
 destination:
   plugin: 'entity:node'
 migration_dependencies:

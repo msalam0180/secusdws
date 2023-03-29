@@ -9,6 +9,8 @@ use Drupal\hook_event_dispatcher\Event\EventInterface;
 
 /**
  * Class EntityBaseFieldInfoAlterEvent.
+ *
+ * @HookEvent(id="entity_base_field_info_alter", alter="entity_base_field_info")
  */
 class EntityBaseFieldInfoAlterEvent extends Event implements EventInterface {
 

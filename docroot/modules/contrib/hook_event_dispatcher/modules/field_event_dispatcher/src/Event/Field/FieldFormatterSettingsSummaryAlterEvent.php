@@ -6,6 +6,10 @@ use Drupal\field_event_dispatcher\FieldHookEvents;
 
 /**
  * Class FieldFormatterSettingsSummaryAlterEvent.
+ *
+ * @HookEvent(
+ *   id="field_formatter_settings_summary_alter"
+ * )
  */
 class FieldFormatterSettingsSummaryAlterEvent extends AbstractFieldSettingsSummaryFormEvent {
 

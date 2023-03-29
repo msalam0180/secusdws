@@ -2,18 +2,19 @@
 
 namespace Drupal\workbench_moderation\Form;
 
-
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\workbench_moderation\Entity\ModerationState;
 use Drupal\workbench_moderation\Entity\ModerationStateTransition;
 use Drupal\workbench_moderation\ModerationInformationInterface;
 use Drupal\workbench_moderation\StateTransitionValidation;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Defines a form for entity moderation.
+ */
 class EntityModerationForm extends FormBase {
 
   /**
@@ -54,7 +55,7 @@ class EntityModerationForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -65,28 +66,28 @@ class EntityModerationForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'workbench_moderation_entity_moderation_form';
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, ContentEntityInterface $entity = NULL) {
-    /** @var ModerationState $current_state */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationState $current_state */
     $current_state = $entity->moderation_state->entity;
 
     $transitions = $this->validation->getValidTransitions($entity, $this->currentUser());
 
     // Exclude self-transitions.
-    $transitions = array_filter($transitions, function(ModerationStateTransition $transition) use ($current_state) {
+    $transitions = array_filter($transitions, function (ModerationStateTransition $transition) use ($current_state) {
       return $transition->getToState() != $current_state->id();
     });
 
     $target_states = [];
-    /** @var ModerationStateTransition $transition */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationStateTransition $transition */
     foreach ($transitions as $transition) {
       $target_states[$transition->getToState()] = $transition->label();
     }
@@ -130,10 +131,10 @@ class EntityModerationForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /** @var ContentEntityInterface $entity */
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $form_state->get('entity');
 
     $new_state = $form_state->getValue('new_state');
@@ -148,7 +149,7 @@ class EntityModerationForm extends FormBase {
 
     $this->messenger()->addMessage($this->t('The moderation state has been updated.'));
 
-    /** @var ModerationState $state */
+    /** @var \Drupal\workbench_moderation\Entity\ModerationState $state */
     $state = $this->entityTypeManager->getStorage('moderation_state')->load($new_state);
 
     // The page we're on likely won't be visible if we just set the entity to
@@ -159,4 +160,5 @@ class EntityModerationForm extends FormBase {
       $form_state->setRedirectUrl($entity->toUrl('canonical'));
     }
   }
+
 }
